@@ -1,16 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillBtn : MonoBehaviour {
 
-	// Use this for initialization
+	Button btn;
+
 	void Start () {
-		
+		btn = GetComponent<Button> ();
+		btn.onClick.AddListener (EventManager.ChooseSkill);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void OnClicked(){
+		btn.interactable = false;
+	}
+
+	void Enable (){
+		btn.interactable = true;
+	}
+
+	void OnEnable(){
+		EventManager.OnClickedSkillBtn += OnClicked;
+		EventManager.OnClickedTargetBtn += Enable;
+	}
+
+	void OnDisable(){
+		EventManager.OnClickedSkillBtn -= OnClicked;
+		EventManager.OnClickedTargetBtn -= Enable;
 	}
 }
