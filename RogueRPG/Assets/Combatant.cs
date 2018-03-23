@@ -10,7 +10,7 @@ public class Combatant : MonoBehaviour {
 
 	public void Attack (Combatant c){
 		c.hp -= 1;
-		print (c.hp);
+		print (c.name + c.hp);
 	}
 
 	public void SuperAttack (Combatant c){

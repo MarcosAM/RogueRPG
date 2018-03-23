@@ -6,10 +6,18 @@ using UnityEngine.UI;
 public class SkillBtn : MonoBehaviour {
 
 	Button btn;
+	EventManager.ChoosedSkill cs;
 
 	void Start () {
 		btn = GetComponent<Button> ();
-		btn.onClick.AddListener (EventManager.ChooseSkill);
+		Combatant[] combatants = FindObjectsOfType<Combatant> ();
+		foreach(Combatant c in combatants){
+			if(c.playable){
+				cs = c.Attack;
+				break;
+			}
+		}
+		btn.onClick.AddListener (ChooseSkill);
 	}
 
 	void OnClicked(){
@@ -18,6 +26,10 @@ public class SkillBtn : MonoBehaviour {
 
 	void Enable (){
 		btn.interactable = true;
+	}
+
+	void ChooseSkill(){
+		EventManager.ChooseSkill (cs);
 	}
 
 	void OnEnable(){

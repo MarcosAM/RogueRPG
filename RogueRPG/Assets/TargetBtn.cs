@@ -11,7 +11,7 @@ public class TargetBtn : MonoBehaviour {
 	void Start () {
 		btn = GetComponent<Button> ();
 		btn.interactable = false;
-		btn.onClick.AddListener (EventManager.ChooseTarget);
+		btn.onClick.AddListener (ChooseTarget);
 	}
 
 	void OnClicked(){
@@ -20,6 +20,11 @@ public class TargetBtn : MonoBehaviour {
 
 	void Enable (){
 		btn.interactable = true;
+	}
+
+	void ChooseTarget(){
+		EventManager.target = combatant;
+		EventManager.ChooseTarget ();
 	}
 
 	void OnEnable(){
