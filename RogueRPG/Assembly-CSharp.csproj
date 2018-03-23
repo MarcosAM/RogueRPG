@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\Combatant.cs" />
      <Compile Include="Assets\EventManager.cs" />
+     <Compile Include="Assets\Skill.cs" />
      <Compile Include="Assets\SkillBtn.cs" />
      <Compile Include="Assets\TargetBtn.cs" />
  <Reference Include="UnityEngine.UI">
