@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill : MonoBehaviour {
+public abstract class Skill : MonoBehaviour {
 
-	string name;
-	enum SkillTypes {PhysicalAtk};
+	public string skillName;
+	public float value;
 
-	void Start () {
-		
+	public virtual void Effect (Combatant user, Combatant target)
+	{
 	}
-	
-	void Update () {
-		
+
+	public string getSkillName ()
+	{
+		return skillName;
 	}
 }

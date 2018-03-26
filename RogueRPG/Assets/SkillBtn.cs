@@ -8,15 +8,20 @@ public class SkillBtn : MonoBehaviour {
 	Button btn;
 	EventManager.ChoosedSkill cs;
 
+	Text text;
+	public Skill skill;
+
 	void Start () {
 		btn = GetComponent<Button> ();
-		Combatant[] combatants = FindObjectsOfType<Combatant> ();
-		foreach(Combatant c in combatants){
-			if(c.playable){
-				cs = c.Attack;
-				break;
-			}
-		}
+//		Combatant[] combatants = FindObjectsOfType<Combatant> ();
+//		foreach(Combatant c in combatants){
+//			if(c.playable){
+//				cs = c.Attack;
+//				break;
+//			}
+//		}
+		text = GetComponentInChildren<Text>();
+		text.text = skill.getSkillName();
 		btn.onClick.AddListener (ChooseSkill);
 	}
 
@@ -29,7 +34,8 @@ public class SkillBtn : MonoBehaviour {
 	}
 
 	void ChooseSkill(){
-		EventManager.ChooseSkill (cs);
+		EventManager.selectedSkill = skill;
+		EventManager.ChooseSkill();
 	}
 
 	void OnEnable(){

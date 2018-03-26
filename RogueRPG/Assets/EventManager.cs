@@ -8,20 +8,22 @@ public class EventManager : MonoBehaviour {
 	public static event Action OnClickedSkillBtn;
 	public static event Action OnClickedTargetBtn;
 
+	public static Skill selectedSkill;
+
 	public delegate void ChoosedSkill(Combatant c);
 	static ChoosedSkill choosedSkill;
 
 	public static Combatant target;
 
-	public static void ChooseSkill(ChoosedSkill d) {
+	public static void ChooseSkill() {
 		if (OnClickedSkillBtn != null)
 			OnClickedSkillBtn();
-		choosedSkill = d;
 	}
 
 	public static void ChooseTarget() {
 		if (OnClickedTargetBtn != null)
 			OnClickedTargetBtn();
-		choosedSkill (target);
+		//TODO Ajustar esse auto ataque aqui
+		selectedSkill.Effect(target,target);
 	}
 }

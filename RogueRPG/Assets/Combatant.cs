@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combatant : MonoBehaviour {
+public abstract class Combatant : MonoBehaviour {
 
-	public float hp = 10;
-	public bool playable = false;
-	
+	protected float hp = 10;
+	public Skill[] skills = new Skill[4];
 
-	public void Attack (Combatant c){
-		c.hp -= 1;
-		print (c.name + c.hp);
+	public void Attack (Combatant c, float attack){
+		c.TakeDamage(attack);
 	}
 
-	public void SuperAttack (Combatant c){
-		c.hp -= 2;
-		print (c.hp);
+	public void TakeDamage (float damage)
+	{
+		hp -= damage;
+		print (this.name+" levou "+damage+" de dano! Esta com "+hp+" restantes.");
 	}
 }
