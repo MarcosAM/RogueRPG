@@ -7,33 +7,29 @@ public class SkillBtn : MonoBehaviour {
 
 	public int number;
 	Button btn;
-	EventManager.ChoosedSkill cs;
 
 	Text text;
 	public Skill skill;
 
 	void Start () {
 		btn = GetComponent<Button> ();
-//		Combatant[] combatants = FindObjectsOfType<Combatant> ();
-//		foreach(Combatant c in combatants){
-//			if(c.playable){
-//				cs = c.Attack;
-//				break;
-//			}
-//		}
-		OnClicked();
-
+		Disable();
 		text = GetComponentInChildren<Text>();
 		text.text = skill.getSkillName();
 		btn.onClick.AddListener (ChooseSkill);
 	}
 
-	void OnClicked(){
+	void Disable(){
 		btn.interactable = false;
 	}
 
 	void Enable (){
 		btn.interactable = true;
+	}
+
+	void RefreshSelf(){
+		skill = CombatManager.initiativeList[CombatManager.activeCombatant%CombatManager.initiativeList.Length].skills[number];
+		text.text = skill.getSkillName();
 	}
 
 	void ChooseSkill(){
@@ -42,12 +38,18 @@ public class SkillBtn : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		EventManager.OnClickedSkillBtn += OnClicked;
+		EventManager.OnClickedSkillBtn += Disable;
 		EventManager.OnClickedTargetBtn += Enable;
+		CombatManager.OnTurnEnded += Enable;
+		CombatManager.OnHeroTurnBegin += Enable;
+		CombatManager.OnHeroTurnBegin += RefreshSelf;
 	}
 
 	void OnDisable(){
-		EventManager.OnClickedSkillBtn -= OnClicked;
+		EventManager.OnClickedSkillBtn -= Disable;
 		EventManager.OnClickedTargetBtn -= Enable;
+		CombatManager.OnTurnEnded -= Enable;
+		CombatManager.OnHeroTurnBegin -= Enable;
+		CombatManager.OnHeroTurnBegin -= RefreshSelf;
 	}
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Hero : Combatant {
 
 	public override void StartTurn(){
+		base.StartTurn();
+		CombatManager.StartHeroTurn();
 		EventManager.SetSkills ();
 	}
 

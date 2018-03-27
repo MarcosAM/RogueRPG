@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TargetBtn : MonoBehaviour {
 
-	Button btn;
+	[SerializeField]Button btn;
 	public Combatant combatant;
 
 	void Start () {
@@ -14,7 +14,7 @@ public class TargetBtn : MonoBehaviour {
 		btn.onClick.AddListener (ChooseTarget);
 	}
 
-	void OnClicked(){
+	void Disable(){
 		btn.interactable = false;
 	}
 
@@ -28,14 +28,16 @@ public class TargetBtn : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		EventManager.OnClickedTargetBtn += OnClicked;
+		EventManager.OnClickedTargetBtn += Disable;
 		EventManager.OnClickedSkillBtn += Enable;
 		EventManager.OnSetSkills += Enable;
+		CombatManager.OnTurnEnded += Disable;
 	}
 
 	void OnDisable(){
-		EventManager.OnClickedTargetBtn -= OnClicked;
+		EventManager.OnClickedTargetBtn -= Disable;
 		EventManager.OnClickedSkillBtn -= Enable;
 		EventManager.OnSetSkills -= Enable;
+		CombatManager.OnTurnEnded -= Disable;
 	}
 }

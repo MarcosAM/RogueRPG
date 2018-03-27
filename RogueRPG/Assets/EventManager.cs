@@ -32,5 +32,6 @@ public class EventManager : MonoBehaviour {
 			OnClickedTargetBtn();
 		//TODO Ajustar esse auto ataque aqui
 		selectedSkill.Effect(target,target);
+		CombatManager.NextTurn();
 	}
 }
