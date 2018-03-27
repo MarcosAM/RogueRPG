@@ -30,10 +30,12 @@ public class TargetBtn : MonoBehaviour {
 	void OnEnable(){
 		EventManager.OnClickedTargetBtn += OnClicked;
 		EventManager.OnClickedSkillBtn += Enable;
+		EventManager.OnSetSkills += Enable;
 	}
 
 	void OnDisable(){
 		EventManager.OnClickedTargetBtn -= OnClicked;
-		EventManager.OnClickedSkillBtn += Enable;
+		EventManager.OnClickedSkillBtn -= Enable;
+		EventManager.OnSetSkills -= Enable;
 	}
 }

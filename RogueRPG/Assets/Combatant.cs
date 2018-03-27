@@ -4,8 +4,15 @@ using UnityEngine;
 
 public abstract class Combatant : MonoBehaviour {
 
+	protected string myName;
 	protected float hp = 10;
 	public Skill[] skills = new Skill[4];
+
+	public virtual void StartTurn(){
+	}
+
+	public virtual void EndTurn(){
+	}
 
 	public void Attack (Combatant c, float attack){
 		c.TakeDamage(attack);

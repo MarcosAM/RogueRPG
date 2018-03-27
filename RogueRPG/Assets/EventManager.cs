@@ -5,6 +5,8 @@ using System;
 
 public class EventManager : MonoBehaviour {
 
+	public static event Action OnSetSkills;
+
 	public static event Action OnClickedSkillBtn;
 	public static event Action OnClickedTargetBtn;
 
@@ -14,6 +16,11 @@ public class EventManager : MonoBehaviour {
 	static ChoosedSkill choosedSkill;
 
 	public static Combatant target;
+
+	public static void SetSkills(){
+		if (OnSetSkills != null)
+			OnSetSkills ();
+	}
 
 	public static void ChooseSkill() {
 		if (OnClickedSkillBtn != null)

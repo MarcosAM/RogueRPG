@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SkillBtn : MonoBehaviour {
 
+	public int number;
 	Button btn;
 	EventManager.ChoosedSkill cs;
 
@@ -20,6 +21,8 @@ public class SkillBtn : MonoBehaviour {
 //				break;
 //			}
 //		}
+		OnClicked();
+
 		text = GetComponentInChildren<Text>();
 		text.text = skill.getSkillName();
 		btn.onClick.AddListener (ChooseSkill);
