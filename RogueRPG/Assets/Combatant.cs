@@ -23,4 +23,8 @@ public abstract class Combatant : MonoBehaviour {
 		hp -= damage;
 		print (this.name+" levou "+damage+" de dano! Esta com "+hp+" restantes.");
 	}
+
+	public Skill[] getSkills(){
+		return skills;
+	}
 }

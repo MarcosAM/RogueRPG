@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TargetBtn : MonoBehaviour {
+public class TargetBtn : CombatBtn {
 
-	[SerializeField]Button btn;
 	public Combatant combatant;
 
-	void Start () {
-		btn = GetComponent<Button> ();
-		btn.interactable = false;
-		btn.onClick.AddListener (ChooseTarget);
+	void Awake () {
+		button = GetComponent<Button> ();
+		Disappear ();
+		button.onClick.AddListener (ChooseTarget);
 	}
 
-	void Disable(){
-		btn.interactable = false;
+	override public void Disappear(){
+		button.interactable = false;
 	}
 
-	void Enable (){
-		btn.interactable = true;
+	override public void Appear (){
+		button.interactable = true;
 	}
 
 	void ChooseTarget(){
@@ -28,16 +27,14 @@ public class TargetBtn : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		EventManager.OnClickedTargetBtn += Disable;
-		EventManager.OnClickedSkillBtn += Enable;
-		EventManager.OnSetSkills += Enable;
-		CombatManager.OnTurnEnded += Disable;
+		EventManager.OnClickedTargetBtn += Disappear;
+		EventManager.OnClickedSkillBtn += Appear;
+		CombatManager.OnTurnEnded += Disappear;
 	}
 
 	void OnDisable(){
-		EventManager.OnClickedTargetBtn -= Disable;
-		EventManager.OnClickedSkillBtn -= Enable;
-		EventManager.OnSetSkills -= Enable;
-		CombatManager.OnTurnEnded -= Disable;
+		EventManager.OnClickedTargetBtn -= Disappear;
+		EventManager.OnClickedSkillBtn -= Appear;
+		CombatManager.OnTurnEnded -= Disappear;
 	}
 }

@@ -6,8 +6,7 @@ public class Hero : Combatant {
 
 	public override void StartTurn(){
 		base.StartTurn();
-		CombatManager.StartHeroTurn();
-		EventManager.SetSkills ();
+		EventManager.StartHeroTurn (this);
 	}
 
 	public override void EndTurn(){

@@ -5,8 +5,6 @@ using System;
 
 public class EventManager : MonoBehaviour {
 
-	public static event Action OnSetSkills;
-
 	public static event Action OnClickedSkillBtn;
 	public static event Action OnClickedTargetBtn;
 
@@ -17,9 +15,11 @@ public class EventManager : MonoBehaviour {
 
 	public static Combatant target;
 
-	public static void SetSkills(){
-		if (OnSetSkills != null)
-			OnSetSkills ();
+	public static event Action<Combatant> OnHeroTurnStarted;
+
+	public static void StartHeroTurn(Combatant c){
+		if (OnHeroTurnStarted != null)
+			OnHeroTurnStarted (c);
 	}
 
 	public static void ChooseSkill() {
@@ -32,6 +32,5 @@ public class EventManager : MonoBehaviour {
 			OnClickedTargetBtn();
 		//TODO Ajustar esse auto ataque aqui
 		selectedSkill.Effect(target,target);
-		CombatManager.NextTurn();
 	}
 }

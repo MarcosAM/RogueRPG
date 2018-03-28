@@ -5,8 +5,9 @@ using System;
 
 public class CombatManager : MonoBehaviour {
 
-	public static Combatant[] initiativeList;
-	public static int activeCombatant;
+	private Combatant[] initiativeList;
+	private int round;
+	private int activeCombatant;
 
 	public static event Action OnTurnEnded;
 	public static event	Action OnHeroTurnBegin;
@@ -17,14 +18,16 @@ public class CombatManager : MonoBehaviour {
 		initiativeList[activeCombatant].StartTurn ();
 	}
 
-	public static void NextTurn(){
-		if(OnTurnEnded != null)
-			OnTurnEnded();
+	void NextTurn(){
 		activeCombatant ++;
+		StartTurn ();
+	}
+
+	void StartTurn(){
 		initiativeList[activeCombatant%initiativeList.Length].StartTurn();
 	}
 
-	public static void StartHeroTurn ()
+	void StartHeroTurn ()
 	{
 		if(OnHeroTurnBegin != null)
 			OnHeroTurnBegin();

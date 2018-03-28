@@ -3,33 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillBtn : MonoBehaviour {
-
-	public int number;
-	Button btn;
+public class SkillBtn : CombatBtn {
 
 	Text text;
 	public Skill skill;
 
-	void Start () {
-		btn = GetComponent<Button> ();
-		Disable();
+	void Awake () {
+		button = GetComponent<Button> ();
 		text = GetComponentInChildren<Text>();
 		text.text = skill.getSkillName();
-		btn.onClick.AddListener (ChooseSkill);
+		Disappear();
+		button.onClick.AddListener (ChooseSkill);
 	}
 
-	void Disable(){
-		btn.interactable = false;
+	override public void Disappear(){
+		button.interactable = false;
+		text.color = new Color (text.color.r,text.color.g,text.color.b,0f);
 	}
 
-	void Enable (){
-		btn.interactable = true;
+	override public void Appear (){
+		button.interactable = true;
+		text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
 	}
 
-	void RefreshSelf(){
-		skill = CombatManager.initiativeList[CombatManager.activeCombatant%CombatManager.initiativeList.Length].skills[number];
+	void RefreshSelf(Combatant c){
+		skill = c.getSkills()[number];
 		text.text = skill.getSkillName();
+		Appear ();
 	}
 
 	void ChooseSkill(){
@@ -38,18 +38,12 @@ public class SkillBtn : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		EventManager.OnClickedSkillBtn += Disable;
-		EventManager.OnClickedTargetBtn += Enable;
-		CombatManager.OnTurnEnded += Enable;
-		CombatManager.OnHeroTurnBegin += Enable;
-		CombatManager.OnHeroTurnBegin += RefreshSelf;
+		EventManager.OnClickedSkillBtn += Disappear;
+		EventManager.OnHeroTurnStarted += RefreshSelf;
 	}
 
 	void OnDisable(){
-		EventManager.OnClickedSkillBtn -= Disable;
-		EventManager.OnClickedTargetBtn -= Enable;
-		CombatManager.OnTurnEnded -= Enable;
-		CombatManager.OnHeroTurnBegin -= Enable;
-		CombatManager.OnHeroTurnBegin -= RefreshSelf;
+		EventManager.OnClickedSkillBtn -= Disappear;
+		EventManager.OnHeroTurnStarted -= RefreshSelf;
 	}
 }

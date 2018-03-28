@@ -14,6 +14,5 @@ public class Enemy : Combatant {
 	{
 		base.EndTurn ();
 		print(this.name +" Atacou!");
-		CombatManager.NextTurn();
 	}
 }
