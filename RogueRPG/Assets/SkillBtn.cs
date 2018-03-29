@@ -16,16 +16,6 @@ public class SkillBtn : CombatBtn {
 		button.onClick.AddListener (ChooseSkill);
 	}
 
-	override public void Disappear(){
-		button.interactable = false;
-		text.color = new Color (text.color.r,text.color.g,text.color.b,0f);
-	}
-
-	override public void Appear (){
-		button.interactable = true;
-		text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
-	}
-
 	void RefreshSelf(Combatant c){
 		skill = c.getSkills()[number];
 		text.text = skill.getSkillName();
@@ -33,17 +23,26 @@ public class SkillBtn : CombatBtn {
 	}
 
 	void ChooseSkill(){
-		EventManager.selectedSkill = skill;
-		EventManager.ChooseSkill();
+		EventManager.ClickedSkillBtn(skill);
+	}
+
+	override public void Appear (){
+		button.interactable = true;
+		text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
+	}
+
+	override public void Disappear(){
+		button.interactable = false;
+		text.color = new Color (text.color.r,text.color.g,text.color.b,0f);
 	}
 
 	void OnEnable(){
+		EventManager.OnShowSkillsOf += RefreshSelf;
 		EventManager.OnClickedSkillBtn += Disappear;
-		EventManager.OnHeroTurnStarted += RefreshSelf;
 	}
 
 	void OnDisable(){
+		EventManager.OnShowSkillsOf -= RefreshSelf;
 		EventManager.OnClickedSkillBtn -= Disappear;
-		EventManager.OnHeroTurnStarted -= RefreshSelf;
 	}
 }

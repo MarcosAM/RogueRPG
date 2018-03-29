@@ -6,7 +6,8 @@ public abstract class Combatant : MonoBehaviour {
 
 	protected string myName;
 	protected float hp = 10;
-	public Skill[] skills = new Skill[4];
+	protected Skill choosedSkill;
+	protected Skill[] skills = new Skill[4];
 
 	public virtual void StartTurn(){
 	}
@@ -14,16 +15,21 @@ public abstract class Combatant : MonoBehaviour {
 	public virtual void ChooseSkill(){
 	}
 
-	public virtual void ReadySkill(){
+	public virtual void ReadySkill(Skill s){
 	}
 
 	public virtual void ChooseTarget(){
 	}
 
-	public virtual void ReadyTarget(){
+	public virtual void ReadyTarget(Combatant c){
 	}
 
-	public virtual void EndTurn(){
+	public virtual void UseSkill(Combatant u, Combatant t){
+	}
+
+	public void EndTurn(){
+		EventManager.OnSkillUsed -= EndTurn;
+		EventManager.EndedTurn ();
 	}
 
 	public void Attack (Combatant c, float attack){

@@ -13,28 +13,25 @@ public class TargetBtn : CombatBtn {
 		button.onClick.AddListener (ChooseTarget);
 	}
 
-	override public void Disappear(){
-		button.interactable = false;
+	void ChooseTarget(){
+		EventManager.ChooseTarget (combatant);
 	}
 
 	override public void Appear (){
 		button.interactable = true;
 	}
 
-	void ChooseTarget(){
-		EventManager.target = combatant;
-		EventManager.ChooseTarget ();
+	override public void Disappear(){
+		button.interactable = false;
 	}
 
 	void OnEnable(){
+		EventManager.OnShowTargetsOf += Appear;
 		EventManager.OnClickedTargetBtn += Disappear;
-		EventManager.OnClickedSkillBtn += Appear;
-		CombatManager.OnTurnEnded += Disappear;
 	}
 
 	void OnDisable(){
+		EventManager.OnShowTargetsOf -= Appear;
 		EventManager.OnClickedTargetBtn -= Disappear;
-		EventManager.OnClickedSkillBtn -= Appear;
-		CombatManager.OnTurnEnded -= Disappear;
 	}
 }

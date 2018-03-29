@@ -9,10 +9,5 @@ public class Enemy : Combatant {
 		base.StartTurn ();
 		EventManager.SkillUsed();
 	}
-
-	public override void EndTurn ()
-	{
-		base.EndTurn ();
-		print(this.name +" Atacou!");
-	}
+		
 }
