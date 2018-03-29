@@ -16,6 +16,12 @@ public class EventManager : MonoBehaviour {
 	public static Combatant target;
 
 	public static event Action<Combatant> OnHeroTurnStarted;
+	public static event Action OnSkillUsed;
+
+	public static void SkillUsed(){
+		if (OnSkillUsed != null)
+			OnSkillUsed();
+	}
 
 	public static void StartHeroTurn(Combatant c){
 		if (OnHeroTurnStarted != null)

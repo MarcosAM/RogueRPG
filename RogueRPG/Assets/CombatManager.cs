@@ -14,23 +14,34 @@ public class CombatManager : MonoBehaviour {
 
 	void Start () {
 		initiativeList = FindObjectsOfType<Combatant> ();
+		round = 0;
 		activeCombatant = 0;
 		initiativeList[activeCombatant].StartTurn ();
 	}
 
 	void NextTurn(){
-		activeCombatant ++;
+		initiativeList [activeCombatant].EndTurn ();
+		round++;
+		activeCombatant = round % initiativeList.Length;
 		StartTurn ();
 	}
 
 	void StartTurn(){
-		initiativeList[activeCombatant%initiativeList.Length].StartTurn();
+		initiativeList[activeCombatant].StartTurn();
 	}
 
 	void StartHeroTurn ()
 	{
 		if(OnHeroTurnBegin != null)
 			OnHeroTurnBegin();
+	}
+
+	void OnEnable(){
+		EventManager.OnSkillUsed += NextTurn;
+	}
+
+	void OnDisable(){
+		EventManager.OnSkillUsed -= NextTurn;
 	}
 
 }

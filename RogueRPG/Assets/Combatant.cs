@@ -11,6 +11,18 @@ public abstract class Combatant : MonoBehaviour {
 	public virtual void StartTurn(){
 	}
 
+	public virtual void ChooseSkill(){
+	}
+
+	public virtual void ReadySkill(){
+	}
+
+	public virtual void ChooseTarget(){
+	}
+
+	public virtual void ReadyTarget(){
+	}
+
 	public virtual void EndTurn(){
 	}
 

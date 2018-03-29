@@ -7,7 +7,7 @@ public class Enemy : Combatant {
 	public override void StartTurn ()
 	{
 		base.StartTurn ();
-		EndTurn();
+		EventManager.SkillUsed();
 	}
 
 	public override void EndTurn ()

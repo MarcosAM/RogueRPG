@@ -7,6 +7,7 @@ public class ATKSkill : Skill {
 	public override void Effect (Combatant user, Combatant target)
 	{
 		user.Attack(target,value);
+		EventManager.SkillUsed ();
 	}
 
 	ATKSkill (string n, float v)
