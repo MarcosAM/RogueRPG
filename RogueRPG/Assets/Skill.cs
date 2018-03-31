@@ -4,8 +4,9 @@ using UnityEngine;
 
 public abstract class Skill : MonoBehaviour {
 
-	public string skillName;
-	public float value;
+	[SerializeField]protected string skillName;
+	[SerializeField]protected float value;
+	[SerializeField]protected float energyCost;
 
 	public virtual void Effect (Combatant user, Combatant target)
 	{

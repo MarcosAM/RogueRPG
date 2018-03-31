@@ -6,7 +6,10 @@ public class ATKSkill : Skill {
 
 	public override void Effect (Combatant user, Combatant target)
 	{
-		user.Attack(target,value);
+		float damage = Random.Range(0f,3f);
+		energyCost = 1+damage;
+		user.SpendEnergy (energyCost);
+		user.Attack(target,damage);
 		EventManager.SkillUsed ();
 	}
 

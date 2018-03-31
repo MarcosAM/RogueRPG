@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public abstract class CombatBtn : MonoBehaviour {
 
 	protected Button button;
-	protected int number;
+	public int number;
 
 	public virtual void Appear(){
 	}

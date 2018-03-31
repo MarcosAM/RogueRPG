@@ -13,6 +13,9 @@ public class EventManager : MonoBehaviour {
 	public static event Action OnShowTargetsOf;
 	public static event Action OnSkillUsed;
 	public static event Action OnEndedTurn;
+	public static event Action<Combatant> OnCombatantsHpChanging;
+	public static event Action<float> OnRechargeEnergy;
+	public static event Action<Combatant> OnRechargedEnergy;
 
 	public static void ShowSkillsOf(Combatant c){
 		if (OnShowSkillsOf != null)
@@ -46,5 +49,22 @@ public class EventManager : MonoBehaviour {
 	public static void EndedTurn(){
 		if (OnEndedTurn != null)
 			OnEndedTurn ();
+	}
+
+	public static void RefresHpBarOf (Combatant c){
+		if(OnCombatantsHpChanging != null)
+			OnCombatantsHpChanging(c);
+	}
+
+	public static void RechargeEnergy (float amount){
+		if(OnRechargeEnergy != null){
+			OnRechargeEnergy(amount);
+		}
+	}
+
+	public static void RechargedEnergy (Combatant c){
+		if(OnRechargedEnergy != null){
+			OnRechargedEnergy(c);
+		}
 	}
 }

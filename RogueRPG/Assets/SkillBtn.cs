@@ -17,9 +17,8 @@ public class SkillBtn : CombatBtn {
 	}
 
 	void RefreshSelf(Combatant c){
-		skill = c.getSkills()[number];
-		text.text = skill.getSkillName();
 		Appear ();
+		skill = c.getSkills()[number];
 	}
 
 	void ChooseSkill(){
@@ -28,6 +27,7 @@ public class SkillBtn : CombatBtn {
 
 	override public void Appear (){
 		button.interactable = true;
+		text.text = skill.getSkillName();
 		text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
 	}
 

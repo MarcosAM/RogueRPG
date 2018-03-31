@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class TargetBtn : CombatBtn {
 
-	public Combatant combatant;
+	Text text;
+	Combatant combatant;
 
 	void Awake () {
 		button = GetComponent<Button> ();
+		text = GetComponentInChildren<Text>();
 		Disappear ();
 		button.onClick.AddListener (ChooseTarget);
 	}
@@ -17,12 +19,18 @@ public class TargetBtn : CombatBtn {
 		EventManager.ChooseTarget (combatant);
 	}
 
+	public void Initialize (Combatant c){
+		combatant = c;
+		text.text = c.getName();
+	}
+
 	override public void Appear (){
 		button.interactable = true;
 	}
 
 	override public void Disappear(){
 		button.interactable = false;
+		text.color = new Color (text.color.r,text.color.g,text.color.b,0f);
 	}
 
 	void OnEnable(){

@@ -27,16 +27,18 @@ public class Hero : Combatant {
 	public override void ChooseTarget ()
 	{
 		base.ChooseTarget ();
-		EventManager.OnPlayerChoosedTarget += ReadyTarget ();
+		EventManager.OnPlayerChoosedTarget += ReadyTarget;
 		EventManager.ShowTargetsOf ();
 	}
 
-	public override void ReadyTarget ( Combatant c)
+	public override void ReadyTarget (Combatant c)
 	{
-		base.ReadyTarget ();
-		EventManager.OnPlayerChoosedTarget -= ReadyTarget ();
+		base.ReadyTarget (c);
 		UseSkill (this,c);
+		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
 	}
+
+
 
 	public override void UseSkill (Combatant u, Combatant t)
 	{
