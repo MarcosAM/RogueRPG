@@ -5,10 +5,16 @@ using UnityEngine.UI;
 
 public abstract class Combatant : MonoBehaviour {
 
-	protected string myName;
+	[SerializeField]protected string myName;
 	protected float hp = 10;
 	protected float maxHp = 10;
 	protected float energy = 0;
+
+	[SerializeField]protected int atk, atkm, def, defm;
+	[SerializeField]protected float dodge = 0;
+	[SerializeField]protected float precision = 0;
+	[SerializeField]protected float critic = 0;
+
 	protected Skill choosedSkill;
 	public Skill[] skills = new Skill[4];
 	[SerializeField]protected Slider energyBar;
@@ -36,13 +42,36 @@ public abstract class Combatant : MonoBehaviour {
 		EventManager.EndedTurn ();
 	}
 
-	public void Attack (Combatant c, float attack){
-		c.TakeDamage(attack);
+	public void Attack (Combatant target, float attack, Skill skill)
+	{
+		if (skill.getCriticRate () + critic >= Random.value) {
+			target.TakeDamage ((attack + atk) * 1.2f);
+			print (myName + " critou!");
+		} else {
+			if (skill.getPrecision () + precision - target.getDodge() >= Random.value) {
+				target.TakeDamage ((attack+atk)*Random.Range(1f,1.2f)-target.getDef());
+			} else {
+				print (this.myName + " errou!");
+			}
+		}
+	}
+
+	public void AttackMagic (Combatant target, float attack, Skill skill)
+	{
+		if (skill.getPrecision () + precision - target.getDodge () >= Random.value) {
+			target.TakeDamage ((attack + atkm) * Random.Range (1f, 1.2f) - target.getDefm ());
+		} else {
+			print (this.myName + " errou!");
+		}
 	}
 
 	public void TakeDamage (float damage)
 	{
-		hp -= damage;
+		if (damage > 0) {
+			hp -= damage;
+		} else {
+			print (myName + " matou nos peito!");
+		}
 		EventManager.RefresHpBarOf(this);
 	}
 
@@ -71,6 +100,14 @@ public abstract class Combatant : MonoBehaviour {
 		energyBar.value = i;
 	}
 
+	void OnEnable (){
+		EventManager.OnRechargeEnergy += RecoverEnergy;
+	}
+
+	void OnDisable (){
+		EventManager.OnRechargeEnergy -= RecoverEnergy;
+	}
+
 	public Skill[] getSkills(){
 		return skills;
 	}
@@ -87,12 +124,24 @@ public abstract class Combatant : MonoBehaviour {
 		return myName;
 	}
 
-	void OnEnable (){
-		EventManager.OnRechargeEnergy += RecoverEnergy;
+	public int getAtk(){
+		return atk;
 	}
 
-	void OnDisable (){
-		EventManager.OnRechargeEnergy -= RecoverEnergy;
+	public int getAtkm (){
+		return atkm;
+	}
+
+	public int getDef (){
+		return def;
+	}
+
+	public int getDefm (){
+		return defm;
+	}
+
+	public float getDodge (){
+		return dodge;
 	}
 
 }

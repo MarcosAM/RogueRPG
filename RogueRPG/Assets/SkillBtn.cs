@@ -17,8 +17,8 @@ public class SkillBtn : CombatBtn {
 	}
 
 	void RefreshSelf(Combatant c){
-		Appear ();
 		skill = c.getSkills()[number];
+		Appear ();
 	}
 
 	void ChooseSkill(){

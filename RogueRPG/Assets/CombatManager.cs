@@ -54,7 +54,6 @@ public class CombatManager : MonoBehaviour {
 	void StartTurn ()
 	{
 		if (initiativeList [activeCombatant] != null) {
-			print("Array número: "+activeCombatant);
 			initiativeList [activeCombatant].StartTurn ();
 		}
 		else {

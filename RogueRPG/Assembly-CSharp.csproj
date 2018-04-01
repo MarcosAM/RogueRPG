@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ATKMSkill.cs" />
      <Compile Include="Assets\ATKSkill.cs" />
      <Compile Include="Assets\Combatant.cs" />
      <Compile Include="Assets\CombatantHUD.cs" />
