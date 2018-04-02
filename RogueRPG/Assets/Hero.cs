@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Hero : Combatant {
 
+	void Awake (){
+		isHero = true;
+	}
+
 	public override void StartTurn(){
 		base.StartTurn();
 		ChooseSkill ();
@@ -21,7 +25,11 @@ public class Hero : Combatant {
 		base.ReadySkill (s);
 		choosedSkill = s;
 		EventManager.OnPlayerChoosedSkill -= ReadySkill;
-		ChooseTarget ();
+		if (choosedSkill.getIsSingleTarget ()) {
+			ChooseTarget ();
+		} else {
+			UseSkill();
+		}
 	}
 
 	public override void ChooseTarget ()
@@ -45,6 +53,13 @@ public class Hero : Combatant {
 		base.UseSkill (u, t);
 		EventManager.OnSkillUsed += EndTurn;
 		choosedSkill.Effect (u,t);
+	}
+
+	public override void UseSkill ()
+	{
+		base.UseSkill ();
+		EventManager.OnSkillUsed += EndTurn;
+		choosedSkill.Effect (this);
 	}
 
 }

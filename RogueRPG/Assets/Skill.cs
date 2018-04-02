@@ -9,8 +9,13 @@ public abstract class Skill : MonoBehaviour {
 	[SerializeField]protected float energyCost;
 	[SerializeField]protected float precision;
 	[SerializeField]protected float criticRate;
+	protected bool isSingleTarget;
 
 	public virtual void Effect (Combatant user, Combatant target)
+	{
+	}
+
+	public virtual void Effect (Combatant user)
 	{
 	}
 
@@ -24,6 +29,10 @@ public abstract class Skill : MonoBehaviour {
 
 	public float getCriticRate (){
 		return criticRate;
+	}
+
+	public bool getIsSingleTarget (){
+		return isSingleTarget;
 	}
 
 }

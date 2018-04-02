@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class ATKMSkill : Skill {
 
+	void Awake(){
+		isSingleTarget = true;
+	}
+
 	public override void Effect (Combatant user, Combatant target)
 	{
+		base.Effect (user, target);
 		user.SpendEnergy (energyCost);
 		user.AttackMagic (target,value,this);
 		EventManager.SkillUsed ();

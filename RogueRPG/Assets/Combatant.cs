@@ -15,6 +15,8 @@ public abstract class Combatant : MonoBehaviour {
 	[SerializeField]protected float precision = 0;
 	[SerializeField]protected float critic = 0;
 
+	protected bool isHero;
+
 	protected Skill choosedSkill;
 	public Skill[] skills = new Skill[4];
 	[SerializeField]protected Slider energyBar;
@@ -35,6 +37,9 @@ public abstract class Combatant : MonoBehaviour {
 	}
 
 	public virtual void UseSkill(Combatant u, Combatant t){
+	}
+
+	public virtual void UseSkill (){
 	}
 
 	public void EndTurn(){
@@ -144,4 +149,7 @@ public abstract class Combatant : MonoBehaviour {
 		return dodge;
 	}
 
+	public bool getIsHero (){
+		return isHero;
+	}
 }
