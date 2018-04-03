@@ -16,6 +16,7 @@ public class EventManager : MonoBehaviour {
 	public static event Action<Combatant> OnCombatantsHpChanging;
 	public static event Action<float> OnRechargeEnergy;
 	public static event Action<Combatant> OnRechargedEnergy;
+	public static event Action<Combatant> OnDeathOf;
 
 	public static void ShowSkillsOf(Combatant c){
 		if (OnShowSkillsOf != null)
@@ -65,6 +66,12 @@ public class EventManager : MonoBehaviour {
 	public static void RechargedEnergy (Combatant c){
 		if(OnRechargedEnergy != null){
 			OnRechargedEnergy(c);
+		}
+	}
+
+	public static void DeathOf(Combatant c){
+		if(OnDeathOf != null){
+			OnDeathOf (c);
 		}
 	}
 }

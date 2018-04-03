@@ -20,7 +20,6 @@ public class ATKAllSkill : Skill {
 		}
 		for(int i = 0;i<targets.Length;i++){
 			user.AttackMagic (targets[i],value,this);
-			print (user.getName() + " acertou " + (i+1) + " vezes!");
 		}
 		EventManager.SkillUsed ();
 	}

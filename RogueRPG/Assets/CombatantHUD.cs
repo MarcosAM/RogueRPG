@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CombatantHUD : MonoBehaviour {
 
-	private Combatant combatant;
+	[SerializeField]private Combatant combatant;
 	private Slider hpBar;
 	[SerializeField]private Text myName;
 	[SerializeField]private Text hpNumbers;
@@ -24,7 +24,7 @@ public class CombatantHUD : MonoBehaviour {
 			Refresh(combatant);
 			myName.text = c.getName ();
 			if(targetButton != null)
-				targetButton.Initialize(c);
+				targetButton.Initialize(combatant);
 		} else {
 			gameObject.SetActive(false);
 		}

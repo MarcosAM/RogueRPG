@@ -11,6 +11,7 @@ public class Enemy : Combatant {
 	public override void StartTurn ()
 	{
 		base.StartTurn ();
+		print ("Começou o turno de "+this.name);
 		ChooseSkill();
 	}
 
@@ -35,7 +36,15 @@ public class Enemy : Combatant {
 	{
 		base.ChooseTarget ();
 		Hero[] heroes = FindObjectsOfType<Hero>();
-		ReadyTarget(heroes[Random.Range(0,heroes.Length)]);
+		bool found = false;
+		//TODO versão que se não tiver herois não trave
+		while(found == false){
+			int r = Random.Range (0, heroes.Length);
+			if(heroes[r].isAlive()){
+				ReadyTarget(heroes[r]);
+				found = true;
+			}
+		}
 	}
 
 	public override void ReadyTarget (Combatant c)

@@ -10,6 +10,7 @@ public class Hero : Combatant {
 
 	public override void StartTurn(){
 		base.StartTurn();
+		print ("Começou o turno de "+this.name);
 		ChooseSkill ();
 	}
 

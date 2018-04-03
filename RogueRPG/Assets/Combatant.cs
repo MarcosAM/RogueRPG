@@ -9,6 +9,7 @@ public abstract class Combatant : MonoBehaviour {
 	protected float hp = 10;
 	protected float maxHp = 10;
 	protected float energy = 0;
+	protected bool alive = true;
 
 	[SerializeField]protected int atk, atkm, def, defm;
 	[SerializeField]protected float dodge = 0;
@@ -51,12 +52,10 @@ public abstract class Combatant : MonoBehaviour {
 	{
 		if (skill.getCriticRate () + critic >= Random.value) {
 			target.TakeDamage ((attack + atk) * 1.2f);
-			print (myName + " critou!");
 		} else {
 			if (skill.getPrecision () + precision - target.getDodge() >= Random.value) {
 				target.TakeDamage ((attack+atk)*Random.Range(1f,1.2f)-target.getDef());
 			} else {
-				print (this.myName + " errou!");
 			}
 		}
 	}
@@ -66,7 +65,6 @@ public abstract class Combatant : MonoBehaviour {
 		if (skill.getPrecision () + precision - target.getDodge () >= Random.value) {
 			target.TakeDamage ((attack + atkm) * Random.Range (1f, 1.2f) - target.getDefm ());
 		} else {
-			print (this.myName + " errou!");
 		}
 	}
 
@@ -74,10 +72,20 @@ public abstract class Combatant : MonoBehaviour {
 	{
 		if (damage > 0) {
 			hp -= damage;
+			if(hp<=0){
+				Die ();
+			}
 		} else {
-			print (myName + " matou nos peito!");
 		}
 		EventManager.RefresHpBarOf(this);
+	}
+
+	public void Die(){
+		hp = 0;
+		energy = 0;
+		alive = false;
+		EventManager.DeathOf (this);
+		print (this.name+" morreu");
 	}
 
 	public void SpendEnergy (float amount){
@@ -86,10 +94,12 @@ public abstract class Combatant : MonoBehaviour {
 	}
 
 	public void RecoverEnergy (float amount){
-		energy += amount;
-		UpdateEnergyBar();
-		if(energy>=0){
-			EventManager.RechargedEnergy(this);
+		if(alive){
+			energy += amount;
+			UpdateEnergyBar();
+			if(energy>=0){
+				EventManager.RechargedEnergy(this);
+			}
 		}
 	}
 
@@ -151,5 +161,9 @@ public abstract class Combatant : MonoBehaviour {
 
 	public bool getIsHero (){
 		return isHero;
+	}
+
+	public bool isAlive(){
+		return alive;
 	}
 }

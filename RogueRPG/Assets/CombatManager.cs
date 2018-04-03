@@ -51,6 +51,23 @@ public class CombatManager : MonoBehaviour {
 		StartTurn();
 	}
 
+	void DeleteFromInitiative (Combatant c){
+		bool found = false;
+		for(int i = 1; i<initiativeList.Length;i++){
+			if(initiativeList[(round+i)%initiativeList.Length] == null){
+				break;
+			}
+			if(initiativeList[(round+i)%initiativeList.Length] != null && found){
+				initiativeList [((round + i) % initiativeList.Length) - 1] = initiativeList [(round + i) % initiativeList.Length];
+				initiativeList [(round + i) % initiativeList.Length] = null;
+			}
+			if(initiativeList[(round+i)%initiativeList.Length] == c && !found){
+				initiativeList [(round + i) % initiativeList.Length] = null;
+				found = true;
+			}
+		}
+	}
+
 	void StartTurn ()
 	{
 		if (initiativeList [activeCombatant] != null) {
@@ -65,11 +82,13 @@ public class CombatManager : MonoBehaviour {
 	void OnEnable(){
 		EventManager.OnEndedTurn += NextTurn;
 		EventManager.OnRechargedEnergy += AddToInitiative;
+		EventManager.OnDeathOf += DeleteFromInitiative;
 	}
 
 	void OnDisable(){
 		EventManager.OnEndedTurn -= NextTurn;
 		EventManager.OnRechargedEnergy -= AddToInitiative;
+		EventManager.OnDeathOf -= DeleteFromInitiative;
 	}
 
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TargetBtn : CombatBtn {
 
 	Text text;
-	Combatant combatant;
+	[SerializeField]Combatant combatant;
 
 	void Awake () {
 		button = GetComponent<Button> ();
@@ -25,7 +25,10 @@ public class TargetBtn : CombatBtn {
 	}
 
 	override public void Appear (){
-		button.interactable = true;
+		if(combatant.isAlive()){
+			button.interactable = true;
+			text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
+		}
 	}
 
 	override public void Disappear(){
