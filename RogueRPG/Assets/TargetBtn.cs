@@ -25,6 +25,7 @@ public class TargetBtn : CombatBtn {
 	}
 
 	override public void Appear (){
+		//TODO Só aparecer quando tiver alvo para poder aparecer
 		if(combatant.isAlive()){
 			button.interactable = true;
 			text.color = new Color (text.color.r,text.color.g,text.color.b,1f);

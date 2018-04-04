@@ -9,7 +9,7 @@ public abstract class Combatant : MonoBehaviour {
 	protected float hp = 10;
 	protected float maxHp = 10;
 	protected float energy = 0;
-	protected bool alive = true;
+	[SerializeField]protected bool alive = true;
 
 	[SerializeField]protected int atk, atkm, def, defm;
 	[SerializeField]protected float dodge = 0;
@@ -71,11 +71,22 @@ public abstract class Combatant : MonoBehaviour {
 	public void TakeDamage (float damage)
 	{
 		if (damage > 0) {
+			
 			hp -= damage;
 			if(hp<=0){
 				Die ();
 			}
 		} else {
+		}
+		EventManager.RefresHpBarOf(this);
+	}
+
+	public void Heal(float value){
+		if(value>=0 && alive){
+			hp += value;
+			if(hp>maxHp){
+				hp = maxHp;
+			}
 		}
 		EventManager.RefresHpBarOf(this);
 	}
@@ -166,4 +177,45 @@ public abstract class Combatant : MonoBehaviour {
 	public bool isAlive(){
 		return alive;
 	}
+
+	public void increasePrecision(int level){
+		float precisionBuff = 0f;
+		switch(level){
+		case 1:
+			precisionBuff = 0.1f;
+			break;
+		case 2:
+			precisionBuff = 0.3f;
+			break;
+		case 3:
+			precisionBuff = 0.5f;
+			break;
+		default:
+			break;
+		}
+		if(precision < precisionBuff){
+			precision = precisionBuff;
+		}
+	}
+
+	public void increaseDodge(int level){
+		float dodgeBuff = 0f;
+		switch(level){
+		case 1:
+			dodgeBuff = 0.1f;
+			break;
+		case 2:
+			dodgeBuff = 0.3f;
+			break;
+		case 3:
+			precision = 0.5f;
+			break;
+		default:
+			break;
+		}
+		if(dodge < dodgeBuff){
+			dodge  = dodgeBuff;
+		}
+	}
+
 }
