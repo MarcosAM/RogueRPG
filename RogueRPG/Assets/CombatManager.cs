@@ -79,16 +79,27 @@ public class CombatManager : MonoBehaviour {
 		}
 	}
 
+	void EndCombat (Party loosers)
+	{
+		if (loosers.isEnemyParty ()) {
+			print ("Heróis ganharam!");
+		} else {
+			print ("Vilões ganharam!");
+		}
+	}
+
 	void OnEnable(){
 		EventManager.OnEndedTurn += NextTurn;
 		EventManager.OnRechargedEnergy += AddToInitiative;
 		EventManager.OnDeathOf += DeleteFromInitiative;
+		EventManager.OnPartyLost += EndCombat;
 	}
 
 	void OnDisable(){
 		EventManager.OnEndedTurn -= NextTurn;
 		EventManager.OnRechargedEnergy -= AddToInitiative;
 		EventManager.OnDeathOf -= DeleteFromInitiative;
+		EventManager.OnPartyLost -= EndCombat;
 	}
 
 }

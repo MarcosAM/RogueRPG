@@ -17,6 +17,7 @@ public class EventManager : MonoBehaviour {
 	public static event Action<float> OnRechargeEnergy;
 	public static event Action<Combatant> OnRechargedEnergy;
 	public static event Action<Combatant> OnDeathOf;
+	public static event Action<Party> OnPartyLost;
 
 	public static void ShowSkillsOf(Combatant c){
 		if (OnShowSkillsOf != null)
@@ -72,6 +73,12 @@ public class EventManager : MonoBehaviour {
 	public static void DeathOf(Combatant c){
 		if(OnDeathOf != null){
 			OnDeathOf (c);
+		}
+	}
+
+	public static void PartyLost (Party p){
+		if(OnPartyLost != null){
+			OnPartyLost(p);
 		}
 	}
 }
