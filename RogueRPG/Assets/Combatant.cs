@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public abstract class Combatant : MonoBehaviour {
 
@@ -15,6 +16,8 @@ public abstract class Combatant : MonoBehaviour {
 	[SerializeField]protected float dodge = 0;
 	[SerializeField]protected float precision = 0;
 	[SerializeField]protected float critic = 0;
+
+	protected List<Buff> buffs = new List<Buff>();
 
 	protected bool isHero;
 
@@ -198,6 +201,10 @@ public abstract class Combatant : MonoBehaviour {
 		}
 	}
 
+	public void resetPrecision(){
+		precision = 0;
+	}
+
 	public void increaseDodge(int level){
 		float dodgeBuff = 0f;
 		switch(level){
@@ -216,6 +223,18 @@ public abstract class Combatant : MonoBehaviour {
 		if(dodge < dodgeBuff){
 			dodge  = dodgeBuff;
 		}
+	}
+
+	public void resetDodge(){
+		dodge = 0;
+	}
+
+	public void AddBuff(Buff b){
+		buffs.Add (b);
+	}
+
+	public void RemoveBuff(Buff b){
+		
 	}
 
 }

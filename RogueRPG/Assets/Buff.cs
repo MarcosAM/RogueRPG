@@ -15,10 +15,10 @@ public class Buff : MonoBehaviour {
 		duration = d;
 		type = t;
 		target = c;
-		Effect ();
+		target.AddBuff (this);
 	}
 
-	void Effect (){
+	public void Effect (){
 		switch(type){
 		case BuffType.Precision:
 			target.increasePrecision (level);
@@ -31,7 +31,7 @@ public class Buff : MonoBehaviour {
 		}
 	}
 
-	void Countdown(){
+	public void Countdown(){
 		duration--;
 		if(duration<=0){
 			End ();
@@ -41,4 +41,9 @@ public class Buff : MonoBehaviour {
 	void End(){
 		Destroy (gameObject);
 	}
+
+	public void Remove(){
+		Destroy (gameObject);
+	}
+
 }
