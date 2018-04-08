@@ -17,7 +17,7 @@ public abstract class Combatant : MonoBehaviour {
 	[SerializeField]protected float precision = 0;
 	[SerializeField]protected float critic = 0;
 
-	protected List<Buff> buffs = new List<Buff>();
+	[SerializeField]protected List<Buff> buffs = new List<Buff>();
 
 	protected bool isHero;
 
@@ -59,6 +59,7 @@ public abstract class Combatant : MonoBehaviour {
 			if (skill.getPrecision () + precision - target.getDodge() >= Random.value) {
 				target.TakeDamage ((attack+atk)*Random.Range(1f,1.2f)-target.getDef());
 			} else {
+				print(target.myName+" se esquivou!");
 			}
 		}
 	}
@@ -229,12 +230,44 @@ public abstract class Combatant : MonoBehaviour {
 		dodge = 0;
 	}
 
-	public void AddBuff(Buff b){
-		buffs.Add (b);
+	public void CheckNewBuff (Buff newBuff)
+	{
+		foreach (Buff currentBuff in buffs) {
+			if (currentBuff.GetType () == newBuff.GetType ()) {
+				if (newBuff.GetLevel () >= currentBuff.GetLevel ()) {
+					RemoveBuff (currentBuff);
+					AddNewBuff (newBuff);
+					return;
+				} else {
+					print("Novo buff muito fraco");
+					newBuff.Remove();
+					return;
+				}
+			}
+		}
+		AddNewBuff(newBuff);
+	}
+
+	void AddNewBuff (Buff newBuff){
+		buffs.Add(newBuff);
+		newBuff.Effect();
 	}
 
 	public void RemoveBuff(Buff b){
-		
+		buffs.Remove(b);
+		b.Remove();
 	}
 
+	protected void SpendBuffs ()
+	{
+		List<Buff> deletableBuffs = new List<Buff> ();
+		foreach (Buff buff in buffs) {
+			if (buff.Countdown ()) {
+				deletableBuffs.Add(buff);
+			}
+		}
+		foreach(Buff buff in deletableBuffs){
+			buff.End();
+		}
+	}
 }

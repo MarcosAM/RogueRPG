@@ -15,7 +15,7 @@ public class Buff : MonoBehaviour {
 		duration = d;
 		type = t;
 		target = c;
-		target.AddBuff (this);
+		target.CheckNewBuff (this);
 	}
 
 	public void Effect (){
@@ -31,19 +31,40 @@ public class Buff : MonoBehaviour {
 		}
 	}
 
-	public void Countdown(){
+	public bool Countdown ()
+	{
 		duration--;
-		if(duration<=0){
-			End ();
+		if (duration <= 0) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
-	void End(){
-		Destroy (gameObject);
+	public void End(){
+		switch(type){
+		case BuffType.Precision:
+			target.resetPrecision();
+			break;
+		case BuffType.Dodge:
+			target.resetDodge();
+			break;
+		default:
+			break;
+		}
+		target.RemoveBuff(this);
 	}
 
 	public void Remove(){
 		Destroy (gameObject);
+	}
+
+	public BuffType GetType (){
+		return type;
+	}
+
+	public int GetLevel (){
+		return level;
 	}
 
 }

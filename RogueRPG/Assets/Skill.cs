@@ -9,6 +9,7 @@ public abstract class Skill : MonoBehaviour {
 	[SerializeField]protected float energyCost;
 	[SerializeField]protected float precision;
 	[SerializeField]protected float criticRate;
+	[SerializeField]protected Buff buffPrefab;
 	protected bool isSingleTarget;
 
 	public virtual void Effect (Combatant user, Combatant target)
