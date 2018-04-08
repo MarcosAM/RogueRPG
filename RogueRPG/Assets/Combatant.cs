@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
+using System;
 
 public abstract class Combatant : MonoBehaviour {
 
@@ -23,7 +23,9 @@ public abstract class Combatant : MonoBehaviour {
 
 	protected Skill choosedSkill;
 	public Skill[] skills = new Skill[4];
-	[SerializeField]protected Slider energyBar;
+
+	public event Action OnHUDValuesChange;
+
 
 	public virtual void StartTurn(){
 	}
@@ -53,11 +55,11 @@ public abstract class Combatant : MonoBehaviour {
 
 	public void Attack (Combatant target, float attack, Skill skill)
 	{
-		if (skill.getCriticRate () + critic >= Random.value) {
+		if (skill.getCriticRate () + critic >= UnityEngine.Random.value) {
 			target.TakeDamage ((attack + atk) * 1.2f);
 		} else {
-			if (skill.getPrecision () + precision - target.getDodge() >= Random.value) {
-				target.TakeDamage ((attack+atk)*Random.Range(1f,1.2f)-target.getDef());
+			if (skill.getPrecision () + precision - target.getDodge() >= UnityEngine.Random.value) {
+				target.TakeDamage ((attack+atk)*UnityEngine.Random.Range(1f,1.2f)-target.getDef());
 			} else {
 				print(target.myName+" se esquivou!");
 			}
@@ -66,8 +68,8 @@ public abstract class Combatant : MonoBehaviour {
 
 	public void AttackMagic (Combatant target, float attack, Skill skill)
 	{
-		if (skill.getPrecision () + precision - target.getDodge () >= Random.value) {
-			target.TakeDamage ((attack + atkm) * Random.Range (1f, 1.2f) - target.getDefm ());
+		if (skill.getPrecision () + precision - target.getDodge () >= UnityEngine.Random.value) {
+			target.TakeDamage ((attack + atkm) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ());
 		} else {
 		}
 	}
@@ -82,7 +84,7 @@ public abstract class Combatant : MonoBehaviour {
 			}
 		} else {
 		}
-		EventManager.RefresHpBarOf(this);
+		RefreshHUD();
 	}
 
 	public void Heal(float value){
@@ -92,7 +94,7 @@ public abstract class Combatant : MonoBehaviour {
 				hp = maxHp;
 			}
 		}
-		EventManager.RefresHpBarOf(this);
+		RefreshHUD();
 	}
 
 	public void Die(){
@@ -105,29 +107,23 @@ public abstract class Combatant : MonoBehaviour {
 
 	public void SpendEnergy (float amount){
 		energy -= amount;
-		UpdateEnergyBar();
+		RefreshHUD();
 	}
 
 	public void RecoverEnergy (float amount){
 		if(alive){
 			energy += amount;
-			UpdateEnergyBar();
+			RefreshHUD();
 			if(energy>=0){
 				EventManager.RechargedEnergy(this);
 			}
 		}
 	}
 
-	void UpdateEnergyBar ()
-	{
-		float i = (energy + 5f) / 5f;
-		if (i >= 1) {
-			i = 1;
-			energyBar.fillRect.GetComponentInChildren<Image> ().color = Color.green;
-		} else {
-			energyBar.fillRect.GetComponentInChildren<Image>().color = Color.blue;
+	void RefreshHUD (){
+		if(OnHUDValuesChange != null){
+			OnHUDValuesChange();
 		}
-		energyBar.value = i;
 	}
 
 	void OnEnable (){
@@ -144,6 +140,10 @@ public abstract class Combatant : MonoBehaviour {
 
 	public float getHp (){
 		return hp;
+	}
+
+	public float getEnergy (){
+		return energy;
 	}
 
 	public float getMaxHp (){
@@ -233,7 +233,7 @@ public abstract class Combatant : MonoBehaviour {
 	public void CheckNewBuff (Buff newBuff)
 	{
 		foreach (Buff currentBuff in buffs) {
-			if (currentBuff.GetType () == newBuff.GetType ()) {
+			if (currentBuff.getType () == newBuff.getType ()) {
 				if (newBuff.GetLevel () >= currentBuff.GetLevel ()) {
 					RemoveBuff (currentBuff);
 					AddNewBuff (newBuff);

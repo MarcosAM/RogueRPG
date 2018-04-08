@@ -37,7 +37,7 @@ public class Hero : Combatant {
 	{
 		base.ChooseTarget ();
 		EventManager.OnPlayerChoosedTarget += ReadyTarget;
-		EventManager.ShowTargetsOf ();
+		EventManager.ShowTargetsOf (this,choosedSkill.getTargets());
 	}
 
 	public override void ReadyTarget (Combatant c)

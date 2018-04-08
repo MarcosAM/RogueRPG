@@ -24,17 +24,38 @@ public class TargetBtn : CombatBtn {
 		text.text = c.getName();
 	}
 
-	override public void Appear (){
+	public void Appear (Combatant user,Skill.Targets targets){
 		//TODO Só aparecer quando tiver alvo para poder aparecer
 		if(combatant.isAlive()){
-			button.interactable = true;
-			text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
+			switch(targets){
+				case Skill.Targets.Allies:
+				if(combatant.getIsHero()){
+					button.interactable = true;
+					text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
+				}
+				break;
+				case Skill.Targets.Enemies:
+				if(!combatant.getIsHero()){
+					button.interactable = true;
+					text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
+				}
+				break;
+				case Skill.Targets.Self:
+				if(combatant==user){
+					button.interactable = true;
+					text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
+				}
+				break;
+				default:
+				button.interactable = true;
+				text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
+				break;
+			}
 		}
 	}
 
 	override public void Disappear(){
 		button.interactable = false;
-		text.color = new Color (text.color.r,text.color.g,text.color.b,0f);
 	}
 
 	void OnEnable(){

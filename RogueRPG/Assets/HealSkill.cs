@@ -6,6 +6,7 @@ public class HealSkill : Skill {
 
 	void Awake(){
 		isSingleTarget = true;
+		targets = Targets.Allies;
 	}
 
 	public override void Effect (Combatant user, Combatant target)

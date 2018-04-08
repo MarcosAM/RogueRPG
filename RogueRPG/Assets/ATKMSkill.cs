@@ -6,6 +6,7 @@ public class ATKMSkill : Skill {
 
 	void Awake(){
 		isSingleTarget = true;
+		targets = Targets.Enemies;
 	}
 
 	public override void Effect (Combatant user, Combatant target)

@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class CombHUDManager : MonoBehaviour {
 
-	[SerializeField]private CombatantHUD[] enemiesHUD = new CombatantHUD[4];
-	[SerializeField]private CombatantHUD[] heroesHUD = new CombatantHUD[4];
-	
+	[SerializeField]CombatantHUD combatantHUDprefab;
+
+	[SerializeField] private Vector2[] heroesPositions = new Vector2[4];
+	[SerializeField] private Vector2[] enemiesPositions = new Vector2[4];
+
 	public void InitializeCombatantHUDs (Combatant[] h,Combatant[] e){
 		for(int i = 0;i<h.Length;i++){
-			heroesHUD[i].Initialize(h[i]);
+			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
+			combatantHUD.transform.SetParent(transform,false);
+			combatantHUD.GetComponent<RectTransform>().localPosition = heroesPositions[i];
+			combatantHUD.Initialize(h[i]);
 		}
 		for(int i = 0;i<e.Length;i++){
-			enemiesHUD[i].Initialize(e[i]);
+			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
+			combatantHUD.transform.SetParent(transform,false);
+			combatantHUD.GetComponent<RectTransform>().localPosition = enemiesPositions[i];
+			combatantHUD.Initialize(e[i]);
 		}
 	}
 

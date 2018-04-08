@@ -10,10 +10,9 @@ public class EventManager : MonoBehaviour {
 	public static event Action OnClickedSkillBtn;
 	public static event Action<Combatant> OnPlayerChoosedTarget;
 	public static event Action OnClickedTargetBtn;
-	public static event Action OnShowTargetsOf;
+	public static event Action<Combatant,Skill.Targets> OnShowTargetsOf;
 	public static event Action OnSkillUsed;
 	public static event Action OnEndedTurn;
-	public static event Action<Combatant> OnCombatantsHpChanging;
 	public static event Action<float> OnRechargeEnergy;
 	public static event Action<Combatant> OnRechargedEnergy;
 	public static event Action<Combatant> OnDeathOf;
@@ -31,9 +30,9 @@ public class EventManager : MonoBehaviour {
 			OnPlayerChoosedSkill (s);
 	}
 
-	public static void ShowTargetsOf(){
+	public static void ShowTargetsOf(Combatant user, Skill.Targets targets){
 		if (OnShowTargetsOf != null)
-			OnShowTargetsOf ();
+			OnShowTargetsOf (user, targets);
 	}
 
 	public static void ChooseTarget(Combatant c) {
@@ -51,11 +50,6 @@ public class EventManager : MonoBehaviour {
 	public static void EndedTurn(){
 		if (OnEndedTurn != null)
 			OnEndedTurn ();
-	}
-
-	public static void RefresHpBarOf (Combatant c){
-		if(OnCombatantsHpChanging != null)
-			OnCombatantsHpChanging(c);
 	}
 
 	public static void RechargeEnergy (float amount){

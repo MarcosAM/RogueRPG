@@ -62,7 +62,6 @@
      <Compile Include="Assets\CombHUDManager.cs" />
      <Compile Include="Assets\DodgeBuffSkill.cs" />
      <Compile Include="Assets\Enemy.cs" />
-     <Compile Include="Assets\Enums.cs" />
      <Compile Include="Assets\EventManager.cs" />
      <Compile Include="Assets\HealSkill.cs" />
      <Compile Include="Assets\Hero.cs" />

@@ -5,28 +5,20 @@ using UnityEngine.UI;
 
 public class CombatantHUD : MonoBehaviour {
 
-	[SerializeField]private Combatant combatant;
-	private Slider hpBar;
-	[SerializeField]private Text myName;
+	private Combatant combatant;
+	[SerializeField]private Slider hpBar;
+	[SerializeField]private Slider energyBar;
 	[SerializeField]private Text hpNumbers;
 	[SerializeField]private TargetBtn targetButton;
 
-	void Awake (){
-		hpBar = GetComponentInChildren<Slider>();
-		gameObject.SetActive(false);
-	}
-
 	public void Initialize (Combatant c)
 	{
-		gameObject.SetActive(true);
 		if (c != null) {
 			combatant = c;
-			Refresh(combatant);
-			myName.text = c.getName ();
+			combatant.OnHUDValuesChange += Refresh;
+			Refresh();
 			if(targetButton != null)
 				targetButton.Initialize(combatant);
-		} else {
-			gameObject.SetActive(false);
 		}
 	}
 
@@ -39,19 +31,25 @@ public class CombatantHUD : MonoBehaviour {
 		hpNumbers.text = hp +"/"+maxHp;
 	}
 
-	public void Refresh (Combatant c){
-		if(combatant == c){
-			setHpBar (c.getHp () / c.getMaxHp ());
-			setHpNumbers (c.getHp (), c.getMaxHp ());
-		}
+	public void Refresh (){
+		setHpBar (combatant.getHp () / combatant.getMaxHp ());
+		setHpNumbers (combatant.getHp (), combatant.getMaxHp ());
+		UpdateEnergyBar();
 	}
 
-	void OnEnable (){
-		EventManager.OnCombatantsHpChanging += Refresh;
+	void UpdateEnergyBar (){
+		float i = (combatant.getEnergy() + 5f) / 5f;
+		if (i >= 1) {
+			i = 1;
+			energyBar.fillRect.GetComponentInChildren<Image> ().color = Color.green;
+		} else {
+			energyBar.fillRect.GetComponentInChildren<Image>().color = Color.blue;
+		}
+		energyBar.value = i;
 	}
 
 	void OnDisable (){
-		EventManager.OnCombatantsHpChanging -= Refresh;
+		combatant.OnHUDValuesChange -= Refresh;
 	}
 
 }

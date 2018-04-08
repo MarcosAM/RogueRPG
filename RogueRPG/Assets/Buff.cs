@@ -59,7 +59,7 @@ public class Buff : MonoBehaviour {
 		Destroy (gameObject);
 	}
 
-	public BuffType GetType (){
+	public BuffType getType (){
 		return type;
 	}
 

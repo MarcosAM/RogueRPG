@@ -6,6 +6,7 @@ public class DodgeBuffSkill : Skill {
 
 	void Awake(){
 		isSingleTarget = true;
+		targets = Targets.Self;
 	}
 
 	public override void Effect (Combatant user, Combatant target)
