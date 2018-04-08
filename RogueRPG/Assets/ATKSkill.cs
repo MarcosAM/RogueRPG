@@ -9,19 +9,10 @@ public class ATKSkill : Skill {
 		targets = Targets.Enemies;
 	}
 
-	public override void Effect (Combatant user, Combatant target)
+	public override void UniqueEffect (Combatant user, Combatant target)
 	{
-		base.Effect (user, target);
-		float damage = Random.Range(0f,3f);
-		energyCost = 1+damage;
-		user.SpendEnergy (energyCost);
-		user.Attack(target,damage,this);
-		EventManager.SkillUsed ();
+		base.UniqueEffect (user, target);
+		user.Attack(target,value,this);
 	}
 
-	ATKSkill (string n, float v)
-	{
-		skillName = n;
-		value = v;
-	}
 }

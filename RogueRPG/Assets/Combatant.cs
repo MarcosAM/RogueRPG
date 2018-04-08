@@ -7,8 +7,8 @@ using System;
 public abstract class Combatant : MonoBehaviour {
 
 	[SerializeField]protected string myName;
-	protected float hp = 10;
-	protected float maxHp = 10;
+	protected int hp = 100;
+	protected int maxHp = 100;
 	protected float energy = 0;
 	[SerializeField]protected bool alive = true;
 
@@ -56,10 +56,10 @@ public abstract class Combatant : MonoBehaviour {
 	public void Attack (Combatant target, float attack, Skill skill)
 	{
 		if (skill.getCriticRate () + critic >= UnityEngine.Random.value) {
-			target.TakeDamage ((attack + atk) * 1.2f);
+			target.TakeDamage (Mathf.RoundToInt((attack + atk) * 1.2f));
 		} else {
 			if (skill.getPrecision () + precision - target.getDodge() >= UnityEngine.Random.value) {
-				target.TakeDamage ((attack+atk)*UnityEngine.Random.Range(1f,1.2f)-target.getDef());
+				target.TakeDamage (Mathf.RoundToInt((attack+atk)*UnityEngine.Random.Range(1f,1.2f)-target.getDef()));
 			} else {
 				print(target.myName+" se esquivou!");
 			}
@@ -69,12 +69,12 @@ public abstract class Combatant : MonoBehaviour {
 	public void AttackMagic (Combatant target, float attack, Skill skill)
 	{
 		if (skill.getPrecision () + precision - target.getDodge () >= UnityEngine.Random.value) {
-			target.TakeDamage ((attack + atkm) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ());
+			target.TakeDamage (Mathf.RoundToInt((attack + atkm) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ()));
 		} else {
 		}
 	}
 
-	public void TakeDamage (float damage)
+	public void TakeDamage (int damage)
 	{
 		if (damage > 0) {
 			
@@ -87,7 +87,7 @@ public abstract class Combatant : MonoBehaviour {
 		RefreshHUD();
 	}
 
-	public void Heal(float value){
+	public void Heal(int value){
 		if(value>=0 && alive){
 			hp += value;
 			if(hp>maxHp){

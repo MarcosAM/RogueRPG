@@ -9,12 +9,9 @@ public class ATKMSkill : Skill {
 		targets = Targets.Enemies;
 	}
 
-	public override void Effect (Combatant user, Combatant target)
+	public override void UniqueEffect (Combatant user, Combatant target)
 	{
-		base.Effect (user, target);
-		user.SpendEnergy (energyCost);
+		base.UniqueEffect (user, target);
 		user.AttackMagic (target,value,this);
-		EventManager.SkillUsed ();
 	}
-
 }

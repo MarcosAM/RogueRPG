@@ -9,11 +9,10 @@ public class HealSkill : Skill {
 		targets = Targets.Allies;
 	}
 
-	public override void Effect (Combatant user, Combatant target)
+	public override void UniqueEffect (Combatant user, Combatant target)
 	{
-		base.Effect (user, target);
-		user.SpendEnergy (energyCost);
+		base.UniqueEffect (user, target);
 		target.Heal (value+user.getAtkm());
-		EventManager.SkillUsed ();
 	}
+
 }

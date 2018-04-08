@@ -9,10 +9,9 @@ public class ATKAllSkill : Skill {
 		targets = Targets.Enemies;
 	}
 
-	public override void Effect (Combatant user)
+	public override void UniqueEffect (Combatant user)
 	{
-		base.Effect (user);
-		user.SpendEnergy (energyCost);
+		base.UniqueEffect (user);
 		Combatant[] targets;
 		if (user.getIsHero ()) {
 			targets = FindObjectsOfType<Enemy> ();
@@ -22,6 +21,6 @@ public class ATKAllSkill : Skill {
 		for(int i = 0;i<targets.Length;i++){
 			user.AttackMagic (targets[i],value,this);
 		}
-		EventManager.SkillUsed ();
 	}
+
 }

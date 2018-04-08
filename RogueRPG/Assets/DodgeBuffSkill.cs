@@ -9,11 +9,10 @@ public class DodgeBuffSkill : Skill {
 		targets = Targets.Self;
 	}
 
-	public override void Effect (Combatant user, Combatant target)
+	public override void UniqueEffect (Combatant user, Combatant target)
 	{
-		base.Effect (user, target);
+		base.UniqueEffect (user, target);
 		Buff buff = Instantiate(buffPrefab);
 		buff.Initialize((int)value,3,Buff.BuffType.Dodge,target);
-		EventManager.SkillUsed ();
 	}
 }
