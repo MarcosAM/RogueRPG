@@ -8,12 +8,6 @@ public class Hero : Combatant {
 		isHero = true;
 	}
 
-	public override void StartTurn(){
-		base.StartTurn();
-		SpendBuffs();	
-		ChooseSkill ();
-	}
-
 	public override void ChooseSkill ()
 	{
 		base.ChooseSkill ();

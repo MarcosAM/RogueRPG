@@ -10,11 +10,19 @@ public class CombatantHUD : MonoBehaviour {
 	[SerializeField]private Slider energyBar;
 	[SerializeField]private Text hpNumbers;
 	[SerializeField]private TargetBtn targetButton;
+	[SerializeField]private Image image;
+	private RectTransform rectTransform;
+
+	void Awake(){
+		image = GetComponentInChildren<Image> ();
+		rectTransform = GetComponent<RectTransform> ();
+	}
 
 	public void Initialize (Combatant c)
 	{
 		if (c != null) {
 			combatant = c;
+			image.sprite = combatant.getImage ().sprite;
 			combatant.OnHUDValuesChange += Refresh;
 			Refresh();
 			if(targetButton != null)
@@ -52,4 +60,7 @@ public class CombatantHUD : MonoBehaviour {
 		combatant.OnHUDValuesChange -= Refresh;
 	}
 
+	public RectTransform getRectTransform(){
+		return rectTransform;
+	}
 }

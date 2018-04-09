@@ -8,13 +8,6 @@ public class Enemy : Combatant {
 		isHero = false;
 	}
 
-	public override void StartTurn ()
-	{
-		base.StartTurn ();
-		SpendBuffs();
-		ChooseSkill();
-	}
-
 	public override void ChooseSkill ()
 	{
 		base.ChooseSkill ();

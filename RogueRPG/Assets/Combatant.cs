@@ -24,10 +24,19 @@ public abstract class Combatant : MonoBehaviour {
 	protected Skill choosedSkill;
 	public Skill[] skills = new Skill[4];
 
+	[SerializeField]protected Image image;
+	protected CombatantHUD hud;
+
 	public event Action OnHUDValuesChange;
+	public event Action OnMyTurnStarts;
+	public event Action OnMyTurnEnds;
 
-
-	public virtual void StartTurn(){
+	public void StartTurn(){
+		if(OnMyTurnStarts != null){
+			OnMyTurnStarts ();
+		}
+		SpendBuffs();
+		ChooseSkill();
 	}
 
 	public virtual void ChooseSkill(){
@@ -49,6 +58,9 @@ public abstract class Combatant : MonoBehaviour {
 	}
 
 	public void EndTurn(){
+		if(OnMyTurnEnds!=null){
+			OnMyTurnEnds ();
+		}
 		EventManager.OnSkillUsed -= EndTurn;
 		EventManager.EndedTurn ();
 	}
@@ -180,6 +192,18 @@ public abstract class Combatant : MonoBehaviour {
 
 	public bool isAlive(){
 		return alive;
+	}
+
+	public Image getImage(){
+		return image;
+	}
+
+	public void setHUD(CombatantHUD combatantHUD){
+		hud = combatantHUD;
+	}
+
+	public CombatantHUD getHUD(){
+		return hud;
 	}
 
 	public void increasePrecision(int level){

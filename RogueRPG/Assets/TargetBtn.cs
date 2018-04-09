@@ -22,6 +22,16 @@ public class TargetBtn : CombatBtn {
 	public void Initialize (Combatant c){
 		combatant = c;
 		text.text = c.getName();
+		combatant.OnMyTurnStarts += ActiveCombatantOn;
+		combatant.OnMyTurnEnds += ActiveCombatantOff;
+	}
+
+	public void ActiveCombatantOn (){
+		text.color = Color.blue;
+	}
+
+	public void ActiveCombatantOff(){
+		text.color = new Color (0.2f,0.2f,0.2f,1f);
 	}
 
 	public void Appear (Combatant user,Skill.Targets targets){
@@ -66,5 +76,9 @@ public class TargetBtn : CombatBtn {
 	void OnDisable(){
 		EventManager.OnShowTargetsOf -= Appear;
 		EventManager.OnClickedTargetBtn -= Disappear;
+		if(combatant != null){
+			combatant.OnMyTurnStarts += ActiveCombatantOn;
+			combatant.OnMyTurnEnds += ActiveCombatantOff;
+		}
 	}
 }

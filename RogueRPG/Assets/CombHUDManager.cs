@@ -13,14 +13,16 @@ public class CombHUDManager : MonoBehaviour {
 		for(int i = 0;i<h.Length;i++){
 			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
 			combatantHUD.transform.SetParent(transform,false);
-			combatantHUD.GetComponent<RectTransform>().localPosition = heroesPositions[i];
+			combatantHUD.getRectTransform().localPosition = heroesPositions[i];
 			combatantHUD.Initialize(h[i]);
+			h [i].setHUD (combatantHUD);
 		}
 		for(int i = 0;i<e.Length;i++){
 			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
 			combatantHUD.transform.SetParent(transform,false);
-			combatantHUD.GetComponent<RectTransform>().localPosition = enemiesPositions[i];
+			combatantHUD.getRectTransform().localPosition = enemiesPositions[i];
 			combatantHUD.Initialize(e[i]);
+			e [i].setHUD (combatantHUD);
 		}
 	}
 

@@ -12,10 +12,14 @@ public abstract class Skill : MonoBehaviour {
 	[SerializeField]protected float precision;
 	[SerializeField]protected float criticRate;
 	[SerializeField]protected Buff buffPrefab;
+	[SerializeField]protected SkillAnimation animationPrefab;
 	protected bool isSingleTarget;
 	protected Targets targets;
 
 	public void Effect (Combatant user, Combatant target){
+		SkillAnimation skillAnimation = Instantiate (animationPrefab);
+		skillAnimation.transform.SetParent (FindObjectOfType<Canvas>().transform,false);
+		skillAnimation.PlayAnimation (this,target);
 		user.SpendEnergy(energyCost);
 		UniqueEffect(user,target);
 		EventManager.SkillUsed ();
