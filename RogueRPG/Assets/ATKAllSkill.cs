@@ -8,19 +8,11 @@ public class ATKAllSkill : Skill {
 		isSingleTarget = false;
 		targets = Targets.Enemies;
 	}
-
-	public override void UniqueEffect (Combatant user)
+		
+	public override void UniqueEffect (Combatant user, Combatant target)
 	{
-		base.UniqueEffect (user);
-		Combatant[] targets;
-		if (user.getIsHero ()) {
-			targets = FindObjectsOfType<Enemy> ();
-		} else {
-			targets = FindObjectsOfType<Hero> ();
-		}
-		for(int i = 0;i<targets.Length;i++){
-			user.AttackMagic (targets[i],value,this);
-		}
+		base.UniqueEffect (user, target);
+		user.AttackMagic (target,value,this);
 	}
 
 }

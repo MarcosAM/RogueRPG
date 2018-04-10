@@ -2,10 +2,14 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Skill.cs">
     <Files>
-      <File FileName="Assets\SkillsAnimation\SkillAnimation.cs" Line="13" Column="1" />
-      <File FileName="Assets\Skill.cs" Line="20" Column="1" />
-      <File FileName="Assets\CombatantHUD.cs" Line="63" Column="22" />
-      <File FileName="Assets\CombHUDManager.cs" Line="23" Column="35" />
+      <File FileName="Assets\SkillsAnimation\SkillAnimation.cs" Line="23" Column="23" />
+      <File FileName="Assets\Skill.cs" Line="85" Column="37" />
+      <File FileName="Assets\Buff.cs" Line="22" Column="3" />
+      <File FileName="Assets\ATKMSkill.cs" Line="18" Column="1" />
+      <File FileName="Assets\ATKAllSkill.cs" Line="14" Column="8" />
+      <File FileName="Assets\HealSkill.cs" Line="14" Column="8" />
+      <File FileName="Assets\DodgeBuffSkill.cs" Line="14" Column="8" />
+      <File FileName="Assets\ATKSkill.cs" Line="14" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
