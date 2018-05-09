@@ -21,6 +21,7 @@ public abstract class Skill : MonoBehaviour {
 
 	public void Effect (Combatant user, Combatant target){
 		endable = true;
+		FindObjectOfType<Narration>().Appear(user.getName(), skillName);
 		EffectAnimation (target);
 		user.SpendEnergy(energyCost);
 		UniqueEffect(user,target);
@@ -28,6 +29,7 @@ public abstract class Skill : MonoBehaviour {
 
 	public void Effect (Combatant user){
 		endable = true;
+		FindObjectOfType<Narration>().Appear(user.getName(), skillName);
 		user.SpendEnergy(energyCost);
 		Combatant[] myTargets;
 		if(user.getIsHero()){
@@ -79,10 +81,12 @@ public abstract class Skill : MonoBehaviour {
 
 	public void EndSkill(){
 		if (isSingleTarget) {
+			FindObjectOfType<Narration>().Disappear();
 			EventManager.SkillUsed ();
 		} else {
 			targetsHited++;
 			if(targetsHited>=howManyTargets){
+				FindObjectOfType<Narration>().Disappear();
 				EventManager.SkillUsed ();
 			}
 		}
