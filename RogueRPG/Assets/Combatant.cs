@@ -28,6 +28,7 @@ public abstract class Combatant : MonoBehaviour {
 	protected CombatantHUD hud;
 
 	public event Action OnHUDValuesChange;
+	public event Action<int,int> OnHPValuesChange;
 	public event Action OnMyTurnStarts;
 	public event Action OnMyTurnEnds;
 
@@ -89,7 +90,9 @@ public abstract class Combatant : MonoBehaviour {
 	public void TakeDamage (int damage)
 	{
 		if (damage > 0) {
-			
+			if (OnHPValuesChange != null) {
+				OnHPValuesChange (hp,damage);
+			}
 			hp -= damage;
 			if(hp<=0){
 				Die ();
@@ -101,6 +104,9 @@ public abstract class Combatant : MonoBehaviour {
 
 	public void Heal(int value){
 		if(value>=0 && alive){
+			if (OnHPValuesChange != null) {
+				OnHPValuesChange (hp,value);
+			}
 			hp += value;
 			if(hp>maxHp){
 				hp = maxHp;

@@ -1,16 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Combatant.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\CombatantHUD.cs">
     <Files>
-      <File FileName="Assets\SkillsAnimation\SkillAnimation.cs" Line="23" Column="23" />
-      <File FileName="Assets\Skill.cs" Line="89" Column="47" />
-      <File FileName="Assets\Combatant.cs" Line="1" Column="1" />
+      <File FileName="Assets\SkillsAnimation\SkillAnimation.cs" Line="22" Column="1" />
+      <File FileName="Assets\Skill.cs" Line="1" Column="1" />
+      <File FileName="Assets\CombHUDManager.cs" Line="16" Column="67" />
       <File FileName="Assets\EventManager.cs" Line="15" Column="27" />
-      <File FileName="Assets\CombatManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Hero.cs" Line="1" Column="1" />
-      <File FileName="Assets\Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets\TargetBtn.cs" Line="1" Column="1" />
-      <File FileName="Assets\Narration.cs" Line="27" Column="9" />
+      <File FileName="Assets\Combatant.cs" Line="108" Column="31" />
+      <File FileName="Assets\DamageFB\DamageFB.cs" Line="13" Column="42" />
+      <File FileName="Assets\CombatantHUD.cs" Line="38" Column="94" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
