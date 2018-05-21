@@ -9,7 +9,7 @@ public abstract class Combatant : MonoBehaviour {
 	[SerializeField]protected string myName;
 	protected int hp = 100;
 	protected int maxHp = 100;
-	protected float energy = 0;
+	[SerializeField]protected float energy = 0;
 	[SerializeField]protected bool alive = true;
 
 	[SerializeField]protected int atk, atkm, def, defm;
@@ -131,6 +131,7 @@ public abstract class Combatant : MonoBehaviour {
 	public void RecoverEnergy (float amount){
 		if(alive){
 			energy += amount;
+			print(myName + " está recarregnado energia");
 			RefreshHUD();
 			if(energy>=0){
 				EventManager.RechargedEnergy(this);
