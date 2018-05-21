@@ -31,41 +31,45 @@ public abstract class Skill : MonoBehaviour {
 		endable = true;
 		FindObjectOfType<Narration>().Appear(user.getName(), skillName);
 		user.SpendEnergy(energyCost);
-		Combatant[] myTargets;
+		List<Combatant> myTargets = new List<Combatant>();
+		Combatant[] temporaryTargets;
 		if(user.getIsHero()){
 			switch(targets){
 			case Targets.Allies:
-				myTargets = FindObjectsOfType<Hero> ();
+				temporaryTargets = FindObjectsOfType<Hero> ();
 				break;
 			case Targets.Enemies:
-				myTargets = FindObjectsOfType<Enemy> ();
+				temporaryTargets = FindObjectsOfType<Enemy> ();
 				break;
 			case Targets.All:
-				myTargets = FindObjectsOfType<Combatant> ();
+				temporaryTargets = FindObjectsOfType<Combatant> ();
 				break;
 			default:
-				myTargets = FindObjectsOfType<Enemy> ();
-				print ("Bugou!");
+				temporaryTargets = FindObjectsOfType<Enemy> ();
 				break;
 			}
 		}else{
 			switch(targets){
 			case Targets.Allies:
-				myTargets = FindObjectsOfType<Enemy> ();
+				temporaryTargets = FindObjectsOfType<Enemy> ();
 				break;
 			case Targets.Enemies:
-				myTargets = FindObjectsOfType<Hero> ();
+				temporaryTargets = FindObjectsOfType<Hero> ();
 				break;
 			case Targets.All:
-				myTargets = FindObjectsOfType<Combatant> ();
+				temporaryTargets = FindObjectsOfType<Combatant> ();
 				break;
 			default:
-				myTargets = FindObjectsOfType<Hero> ();
-				print ("Bugou!");
+				temporaryTargets = FindObjectsOfType<Hero> ();
 				break;
 			}
 		}
-		howManyTargets = myTargets.Length;
+		for (int i = 0; i<temporaryTargets.Length; i++){
+			if(temporaryTargets[i].isAlive()){
+				myTargets.Add (temporaryTargets[i]);
+			}
+		}
+		howManyTargets = myTargets.Count;
 		targetsHited = 0;
 		foreach (Combatant target in myTargets) {
 			EffectAnimation(target);

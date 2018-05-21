@@ -11,6 +11,7 @@ public class CombatantHUD : MonoBehaviour {
 	[SerializeField]private Text hpNumbers;
 	[SerializeField]private TargetBtn targetButton;
 	[SerializeField]private Image image;
+	[SerializeField]private Text buffText;
 	[SerializeField]private DamageFB damageFbPrefab;
 	private RectTransform rectTransform;
 
@@ -26,6 +27,8 @@ public class CombatantHUD : MonoBehaviour {
 			image.sprite = combatant.getImage ().sprite;
 			combatant.OnHUDValuesChange += Refresh;
 			combatant.OnHPValuesChange += HPFeedback;
+			combatant.OnBuffsGainOrLoss += ShowBuffs;
+			ShowBuffs (0f,0f,0f);
 			Refresh();
 			if(targetButton != null)
 				targetButton.Initialize(combatant);
@@ -63,6 +66,19 @@ public class CombatantHUD : MonoBehaviour {
 			energyBar.fillRect.GetComponentInChildren<Image>().color = Color.blue;
 		}
 		energyBar.value = i;
+	}
+
+	void ShowBuffs (float dodge, float precision, float critic){
+		buffText.text = "";
+		if(dodge>0f){
+			buffText.text += "DODGE ";
+		}
+		if(precision>0f){
+			buffText.text += "PRECISION ";
+		}
+		if(critic>0f){
+			buffText.text += "CRITIC ";
+		}
 	}
 
 	void OnDisable (){

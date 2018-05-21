@@ -10,13 +10,11 @@ public class Enemy : Combatant {
 
 	public override void ChooseSkill ()
 	{
-		base.ChooseSkill ();
 		ReadySkill (skills[Random.Range(0,skills.Length)]);
 	}
 
 	public override void ReadySkill (Skill s)
 	{
-		base.ReadySkill (s);
 		choosedSkill = s;
 		if (choosedSkill.getIsSingleTarget ()) {
 			ChooseTarget ();
@@ -27,7 +25,6 @@ public class Enemy : Combatant {
 
 	public override void ChooseTarget ()
 	{
-		base.ChooseTarget ();
 		Hero[] heroes = FindObjectsOfType<Hero>();
 		bool found = false;
 		//TODO versão que se não tiver herois não trave
@@ -42,20 +39,17 @@ public class Enemy : Combatant {
 
 	public override void ReadyTarget (Combatant c)
 	{
-		base.ReadyTarget (c);
 		UseSkill(this,c);
 	}
 
 	public override void UseSkill (Combatant u, Combatant t)
 	{
-		base.UseSkill (u, t);
 		EventManager.OnSkillUsed += EndTurn;
 		choosedSkill.Effect(this,t);
 	}
 
 	public override void UseSkill ()
 	{
-		base.UseSkill ();
 		EventManager.OnSkillUsed += EndTurn;
 		choosedSkill.Effect (this);
 	}

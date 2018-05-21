@@ -5,10 +5,8 @@ using System;
 
 public class CombatManager : MonoBehaviour {
 
-//	[SerializeField]private Combatant[] initiativeList;
-	[SerializeField]private List<Combatant> initiativeOrder;
+	private List<Combatant> initiativeOrder = new List<Combatant>();
 	private int round;
-	private int activeCombatant;
 	private bool WaitingForCombatantsToRechargeEnergy = false;
 
 	private Combatant[] heroeParty;
@@ -17,49 +15,18 @@ public class CombatManager : MonoBehaviour {
 	[SerializeField]private Party heroesParty;
 	[SerializeField]private Party enemiesParty;
 
-	private CombHUDManager combatantHUDManager;
+	private ICombatDisplayer combatantHUDManager;
 
 	void Start () {
 		FillInitiativeOrderWithAllCombatants();
-//		initiativeList = FindObjectsOfType<Combatant> ();
-		round = 0;
-		activeCombatant = 0;
-
 		FillPartiesWithCombatants();
+		round = 0;
 //		TODO Será que e deveria substituir objetos da classe Party por apenas arrays de combatants
 		heroesParty.Initialize(false);
 		enemiesParty.Initialize(true);
-
 		combatantHUDManager = FindObjectOfType<CombHUDManager>();
-		combatantHUDManager.InitializeCombatantHUDs(heroesParty.getCombatants(),enemiesParty.getCombatants());
+		combatantHUDManager.ShowCombatants(heroeParty,enemieParty);
 		StartTurn ();
-	}
-
-	void NextTurn(){
-		if(initiativeOrder.Count>0){
-			initiativeOrder.RemoveAt(0);
-			round++;
-			StartTurn ();
-		}
-	}
-
-	IEnumerator RechargeEnergy (){
-		while (WaitingForCombatantsToRechargeEnergy){
-			EventManager.RechargeEnergy(0.1f);
-			yield return new WaitForSeconds(0.1f);
-		}
-	}
-
-	void AddToInitiative (Combatant combatant){
-		initiativeOrder.Add(combatant);
-		if(WaitingForCombatantsToRechargeEnergy = true){
-			WaitingForCombatantsToRechargeEnergy = false;
-			StartTurn();
-		}
-	}
-
-	void DeleteFromInitiative (Combatant combatant){
-		initiativeOrder.Remove(combatant);
 	}
 
 	void StartTurn ()
@@ -70,6 +37,33 @@ public class CombatManager : MonoBehaviour {
 			WaitingForCombatantsToRechargeEnergy = true;
 			StartCoroutine(RechargeEnergy());
 		}
+	}
+
+	IEnumerator RechargeEnergy (){
+		while (WaitingForCombatantsToRechargeEnergy){
+			EventManager.RechargeEnergy(0.1f);
+			yield return new WaitForSeconds(0.1f);
+		}
+	}
+
+	void NextTurn(){
+		if(initiativeOrder.Count>0){
+			initiativeOrder.RemoveAt(0);
+			round++;
+			StartTurn ();
+		}
+	}
+
+	void AddToInitiative (Combatant combatant){
+		initiativeOrder.Add(combatant);
+		if(WaitingForCombatantsToRechargeEnergy == true){
+			WaitingForCombatantsToRechargeEnergy = false;
+			StartTurn();
+		}
+	}
+
+	void DeleteFromInitiative (Combatant combatant){
+		initiativeOrder.Remove(combatant);
 	}
 
 	void EndCombat (Party loosers)

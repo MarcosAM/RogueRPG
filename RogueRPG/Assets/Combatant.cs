@@ -31,6 +31,7 @@ public abstract class Combatant : MonoBehaviour {
 	public event Action<int,int> OnHPValuesChange;
 	public event Action OnMyTurnStarts;
 	public event Action OnMyTurnEnds;
+	public event Action<float,float,float> OnBuffsGainOrLoss;
 
 	public void StartTurn(){
 		if(OnMyTurnStarts != null){
@@ -40,23 +41,12 @@ public abstract class Combatant : MonoBehaviour {
 		ChooseSkill();
 	}
 
-	public virtual void ChooseSkill(){
-	}
-
-	public virtual void ReadySkill(Skill s){
-	}
-
-	public virtual void ChooseTarget(){
-	}
-
-	public virtual void ReadyTarget(Combatant c){
-	}
-
-	public virtual void UseSkill(Combatant u, Combatant t){
-	}
-
-	public virtual void UseSkill (){
-	}
+	public abstract void ChooseSkill ();
+	public abstract void ReadySkill (Skill s);
+	public abstract void ChooseTarget ();
+	public abstract void ReadyTarget (Combatant c);
+	public abstract void UseSkill (Combatant u, Combatant t);
+	public abstract void UseSkill ();
 
 	public void EndTurn(){
 		if(OnMyTurnEnds!=null){
@@ -97,7 +87,6 @@ public abstract class Combatant : MonoBehaviour {
 			if(hp<=0){
 				Die ();
 			}
-		} else {
 		}
 		RefreshHUD();
 	}
@@ -131,7 +120,6 @@ public abstract class Combatant : MonoBehaviour {
 	public void RecoverEnergy (float amount){
 		if(alive){
 			energy += amount;
-			print(myName + " está recarregnado energia");
 			RefreshHUD();
 			if(energy>=0){
 				EventManager.RechargedEnergy(this);
@@ -231,10 +219,16 @@ public abstract class Combatant : MonoBehaviour {
 		if(precision < precisionBuff){
 			precision = precisionBuff;
 		}
+		if(OnBuffsGainOrLoss != null){
+			OnBuffsGainOrLoss (dodge,precision,critic);
+		}
 	}
 
 	public void resetPrecision(){
 		precision = 0;
+		if(OnBuffsGainOrLoss != null){
+			OnBuffsGainOrLoss (dodge,precision,critic);
+		}
 	}
 
 	public void increaseDodge(int level){
@@ -255,10 +249,16 @@ public abstract class Combatant : MonoBehaviour {
 		if(dodge < dodgeBuff){
 			dodge  = dodgeBuff;
 		}
+		if(OnBuffsGainOrLoss != null){
+			OnBuffsGainOrLoss (dodge,precision,critic);
+		}
 	}
 
 	public void resetDodge(){
 		dodge = 0;
+		if(OnBuffsGainOrLoss != null){
+			OnBuffsGainOrLoss (dodge,precision,critic);
+		}
 	}
 
 	public void CheckNewBuff (Buff newBuff)
