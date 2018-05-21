@@ -11,6 +11,7 @@ public class CombatantHUD : MonoBehaviour {
 	[SerializeField]private Text hpNumbers;
 	[SerializeField]private TargetBtn targetButton;
 	[SerializeField]private Image image;
+	[SerializeField]private DamageFB damageFbPrefab;
 	private RectTransform rectTransform;
 
 	void Awake(){
@@ -24,10 +25,18 @@ public class CombatantHUD : MonoBehaviour {
 			combatant = c;
 			image.sprite = combatant.getImage ().sprite;
 			combatant.OnHUDValuesChange += Refresh;
+			combatant.OnHPValuesChange += HPFeedback;
 			Refresh();
 			if(targetButton != null)
 				targetButton.Initialize(combatant);
 		}
+	}
+
+	public void HPFeedback(int pastHp, int amountChanged){
+		DamageFB damageFb = Instantiate (damageFbPrefab);
+		damageFb.transform.SetParent (transform.parent,false);
+		damageFb.getRectTransform ().localPosition = rectTransform.localPosition + Vector3.right*50;
+		damageFb.Initialize (amountChanged);
 	}
 
 	public void setHpBar (float v){

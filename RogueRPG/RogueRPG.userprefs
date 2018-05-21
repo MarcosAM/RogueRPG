@@ -1,5 +1,6 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\CombatManager.cs">
     <Files>
       <File FileName="Assets\SkillsAnimation\SkillAnimation.cs" Line="23" Column="23" />
@@ -13,6 +14,17 @@
       <File FileName="Assets\TargetBtn.cs" Line="1" Column="1" />
       <File FileName="Assets\Narration.cs" Line="1" Column="1" />
       <File FileName="Assets\CombatantHUD.cs" Line="67" Column="1" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\CombatantHUD.cs">
+    <Files>
+      <File FileName="Assets\SkillsAnimation\SkillAnimation.cs" Line="22" Column="1" />
+      <File FileName="Assets\Skill.cs" Line="1" Column="1" />
+      <File FileName="Assets\CombHUDManager.cs" Line="16" Column="67" />
+      <File FileName="Assets\EventManager.cs" Line="15" Column="27" />
+      <File FileName="Assets\Combatant.cs" Line="108" Column="31" />
+      <File FileName="Assets\DamageFB\DamageFB.cs" Line="13" Column="42" />
+      <File FileName="Assets\CombatantHUD.cs" Line="38" Column="94" />
+>>>>>>> origin/master
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
