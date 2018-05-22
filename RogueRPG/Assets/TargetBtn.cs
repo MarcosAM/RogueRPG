@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TargetBtn : CombatBtn {
 
 	Text text;
-	[SerializeField]Combatant combatant;
+	[SerializeField]Character combatant;
 
 	void Awake () {
 		button = GetComponent<Button> ();
@@ -19,7 +19,7 @@ public class TargetBtn : CombatBtn {
 		EventManager.ChooseTarget (combatant);
 	}
 
-	public void Initialize (Combatant c){
+	public void Initialize (Character c){
 		combatant = c;
 		text.text = c.getName();
 		combatant.OnMyTurnStarts += ActiveCombatantOn;
@@ -34,7 +34,7 @@ public class TargetBtn : CombatBtn {
 		text.color = new Color (0.2f,0.2f,0.2f,1f);
 	}
 
-	public void Appear (Combatant user,Skill.Targets targets){
+	public void Appear (Character user,Skill.Targets targets){
 		//TODO Só aparecer quando tiver alvo para poder aparecer
 		if(combatant.isAlive()){
 			switch(targets){

@@ -11,12 +11,12 @@ public class SkillBtn : CombatBtn {
 	void Awake () {
 		button = GetComponent<Button> ();
 		text = GetComponentInChildren<Text>();
-		text.text = skill.getSkillName();
+//		text.text = skill.getSkillName();
 		Disappear();
 		button.onClick.AddListener (ChooseSkill);
 	}
 
-	void RefreshSelf(Combatant c){
+	void RefreshSelf(Character c){
 		skill = c.getSkills()[number];
 		Appear ();
 	}

@@ -9,7 +9,7 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 	[SerializeField] private Vector2[] heroesPositions = new Vector2[4];
 	[SerializeField] private Vector2[] enemiesPositions = new Vector2[4];
 
-	public void ShowCombatants (Combatant[] heroesParty,Combatant[] enemiesParty){
+	public void ShowCombatants (Character[] heroesParty,Character[] enemiesParty){
 		for(int i = 0;i<heroesParty.Length;i++){
 			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
 			combatantHUD.transform.SetParent(transform,false);

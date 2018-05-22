@@ -5,12 +5,12 @@ using System;
 
 public class CombatManager : MonoBehaviour {
 
-	private List<Combatant> initiativeOrder = new List<Combatant>();
+	private List<Character> initiativeOrder = new List<Character>();
 	private int round;
 	private bool WaitingForCombatantsToRechargeEnergy = false;
 
-	private Combatant[] heroeParty;
-	private Combatant[] enemieParty;
+	private Character[] heroeParty;
+	private Character[] enemieParty;
 
 	[SerializeField]private Party heroesParty;
 	[SerializeField]private Party enemiesParty;
@@ -54,7 +54,7 @@ public class CombatManager : MonoBehaviour {
 		}
 	}
 
-	void AddToInitiative (Combatant combatant){
+	void AddToInitiative (Character combatant){
 		initiativeOrder.Add(combatant);
 		if(WaitingForCombatantsToRechargeEnergy == true){
 			WaitingForCombatantsToRechargeEnergy = false;
@@ -62,7 +62,7 @@ public class CombatManager : MonoBehaviour {
 		}
 	}
 
-	void DeleteFromInitiative (Combatant combatant){
+	void DeleteFromInitiative (Character combatant){
 		initiativeOrder.Remove(combatant);
 	}
 
@@ -76,12 +76,12 @@ public class CombatManager : MonoBehaviour {
 	}
 
 	void FillPartiesWithCombatants(){
-		heroeParty = FindObjectsOfType<Hero>();
-		enemieParty = FindObjectsOfType<Enemy>();
+		heroeParty = FindObjectsOfType<PlayableCharacter>();
+		enemieParty = FindObjectsOfType<NonPlayableCharacter>();
 	}
 
 	void FillInitiativeOrderWithAllCombatants (){
-		Combatant[] temporaryList = FindObjectsOfType<Combatant>();
+		Character[] temporaryList = FindObjectsOfType<Character>();
 		for(int i = 0; i<temporaryList.Length; i++){
 			initiativeOrder.Add(temporaryList[i]);
 		}

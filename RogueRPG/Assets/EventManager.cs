@@ -5,20 +5,20 @@ using System;
 
 public class EventManager : MonoBehaviour {
 
-	public static event Action<Combatant> OnShowSkillsOf;
+	public static event Action<Character> OnShowSkillsOf;
 	public static event Action<Skill> OnPlayerChoosedSkill;
 	public static event Action OnClickedSkillBtn;
-	public static event Action<Combatant> OnPlayerChoosedTarget;
+	public static event Action<Character> OnPlayerChoosedTarget;
 	public static event Action OnClickedTargetBtn;
-	public static event Action<Combatant,Skill.Targets> OnShowTargetsOf;
+	public static event Action<Character,Skill.Targets> OnShowTargetsOf;
 	public static event Action OnSkillUsed;
 	public static event Action OnEndedTurn;
 	public static event Action<float> OnRechargeEnergy;
-	public static event Action<Combatant> OnRechargedEnergy;
-	public static event Action<Combatant> OnDeathOf;
+	public static event Action<Character> OnRechargedEnergy;
+	public static event Action<Character> OnDeathOf;
 	public static event Action<Party> OnPartyLost;
 
-	public static void ShowSkillsOf(Combatant c){
+	public static void ShowSkillsOf(Character c){
 		if (OnShowSkillsOf != null)
 			OnShowSkillsOf (c);
 	}
@@ -30,12 +30,12 @@ public class EventManager : MonoBehaviour {
 			OnPlayerChoosedSkill (s);
 	}
 
-	public static void ShowTargetsOf(Combatant user, Skill.Targets targets){
+	public static void ShowTargetsOf(Character user, Skill.Targets targets){
 		if (OnShowTargetsOf != null)
 			OnShowTargetsOf (user, targets);
 	}
 
-	public static void ChooseTarget(Combatant c) {
+	public static void ChooseTarget(Character c) {
 		if (OnClickedTargetBtn != null)
 			OnClickedTargetBtn();
 		if(OnPlayerChoosedTarget != null)
@@ -58,13 +58,13 @@ public class EventManager : MonoBehaviour {
 		}
 	}
 
-	public static void RechargedEnergy (Combatant c){
+	public static void RechargedEnergy (Character c){
 		if(OnRechargedEnergy != null){
 			OnRechargedEnergy(c);
 		}
 	}
 
-	public static void DeathOf(Combatant c){
+	public static void DeathOf(Character c){
 		if(OnDeathOf != null){
 			OnDeathOf (c);
 		}

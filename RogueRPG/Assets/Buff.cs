@@ -8,9 +8,9 @@ public class Buff : MonoBehaviour {
 
 	private BuffType type;
 	private int level, duration;
-	private Combatant target;
+	private Character target;
 
-	public void Initialize(int l, int d, BuffType t, Combatant c){
+	public void Initialize(int l, int d, BuffType t, Character c){
 		level = l;
 		duration = d;
 		type = t;

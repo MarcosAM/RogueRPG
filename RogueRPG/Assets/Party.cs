@@ -5,23 +5,23 @@ using UnityEngine;
 public class Party : MonoBehaviour {
 
 	bool enemyParty;
-	Combatant[] combatants;
+	Character[] combatants;
 
 	public void Initialize (bool e)
 	{
 		enemyParty = e;
 		if (enemyParty) {
-			combatants = FindObjectsOfType<Enemy> ();
+			combatants = FindObjectsOfType<NonPlayableCharacter> ();
 		} else {
-			combatants = FindObjectsOfType<Hero>();
+			combatants = FindObjectsOfType<PlayableCharacter>();
 		}
 	}
 
-	public Combatant[] getCombatants (){
+	public Character[] getCombatants (){
 		return combatants;
 	}
 
-	void CheckIfLost (Combatant c){
+	void CheckIfLost (Character c){
 		bool found = false;
 		for(int i = 0;i<combatants.Length;i++){
 			if(combatants[i]==c){

@@ -51,27 +51,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ATKAllSkill.cs" />
-     <Compile Include="Assets\ATKMSkill.cs" />
-     <Compile Include="Assets\ATKSkill.cs" />
      <Compile Include="Assets\Buff.cs" />
-     <Compile Include="Assets\Combatant.cs" />
+     <Compile Include="Assets\Characters\Behaviors\ICombatBehavior.cs" />
+     <Compile Include="Assets\Characters\Behaviors\PlayerControlled.cs" />
+     <Compile Include="Assets\Characters\Character.cs" />
+     <Compile Include="Assets\Characters\NonPlayableCharacter.cs" />
+     <Compile Include="Assets\Characters\PlayableCharacter.cs" />
      <Compile Include="Assets\CombatantHUD.cs" />
      <Compile Include="Assets\CombatBtn.cs" />
      <Compile Include="Assets\CombatManager.cs" />
      <Compile Include="Assets\CombHUDManager.cs" />
      <Compile Include="Assets\DamageFB\DamageFB.cs" />
-     <Compile Include="Assets\DodgeBuffSkill.cs" />
-     <Compile Include="Assets\Enemy.cs" />
      <Compile Include="Assets\EventManager.cs" />
-     <Compile Include="Assets\HealSkill.cs" />
-     <Compile Include="Assets\Hero.cs" />
      <Compile Include="Assets\ICombatDisplayer.cs" />
      <Compile Include="Assets\Intefaces.cs" />
      <Compile Include="Assets\Narration.cs" />
      <Compile Include="Assets\Party.cs" />
-     <Compile Include="Assets\Skill.cs" />
      <Compile Include="Assets\SkillBtn.cs" />
+     <Compile Include="Assets\Skills\Scripts\ATKMSkill.cs" />
+     <Compile Include="Assets\Skills\Scripts\ATKSkill.cs" />
+     <Compile Include="Assets\Skills\Scripts\DodgeBuffSkill.cs" />
+     <Compile Include="Assets\Skills\Scripts\HealSkill.cs" />
+     <Compile Include="Assets\Skills\Scripts\Skill.cs" />
      <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
      <Compile Include="Assets\TargetBtn.cs" />
  <Reference Include="UnityEngine.UI">

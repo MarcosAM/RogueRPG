@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IPlaySkillAnimation{
-	void PlayAnimation (Skill skill, Combatant target);
+	void PlayAnimation (Skill skill, Character target);
 }

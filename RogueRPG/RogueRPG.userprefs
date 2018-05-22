@@ -1,13 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Combatant.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\Behaviors\PlayerControlled.cs">
     <Files>
-      <File FileName="Assets\CombatManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Combatant.cs" Line="254" Column="4" />
-      <File FileName="Assets\Buff.cs" Line="1" Column="1" />
-      <File FileName="Assets\Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets\Hero.cs" Line="1" Column="1" />
-      <File FileName="Assets\CombatantHUD.cs" Line="1" Column="1" />
+      <File FileName="Assets\Characters\NonPlayableCharacter.cs" Line="5" Column="34" />
+      <File FileName="Assets\ICombatDisplayer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Characters\PlayableCharacter.cs" Line="11" Column="1" />
+      <File FileName="Assets\Characters\Behaviors\PlayerControlled.cs" Line="11" Column="35" />
+      <File FileName="Assets\Characters\Character.cs" Line="292" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

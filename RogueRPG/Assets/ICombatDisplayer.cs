@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface ICombatDisplayer {
-	void ShowCombatants (Combatant[] heroesParty, Combatant[] enemiesParty);
+	void ShowCombatants (Character[] heroesParty, Character[] enemiesParty);
 }

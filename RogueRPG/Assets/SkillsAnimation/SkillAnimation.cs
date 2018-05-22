@@ -13,7 +13,7 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 		rectTransform = GetComponent<RectTransform> ();
 	}
 
-	public void PlayAnimation (Skill skill, Combatant target){
+	public void PlayAnimation (Skill skill, Character target){
 		rectTransform.localPosition = target.getHUD ().getRectTransform ().localPosition;
 		mySkill = skill;
 		animator.SetTrigger ("play");
