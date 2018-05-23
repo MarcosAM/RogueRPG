@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlled : MonoBehaviour, ICombatBehavior {
+public class RandomBehavior : MonoBehaviour, ICombatBehavior {
 
 	private Character character;
 	private Skill choosedSkill;
@@ -19,14 +19,12 @@ public class PlayerControlled : MonoBehaviour, ICombatBehavior {
 
 	public void ChooseSkill ()
 	{
-		EventManager.OnPlayerChoosedSkill += ReadySkill;
-		EventManager.ShowSkillsOf (character);
+		ReadySkill (character.skills[Random.Range(0,character.skills.Length)]);
 	}
 
-	public void ReadySkill (Skill skill)
+	public void ReadySkill (Skill s)
 	{
-		choosedSkill = skill;
-		EventManager.OnPlayerChoosedSkill -= ReadySkill;
+		choosedSkill = s;
 		if (choosedSkill.getIsSingleTarget ()) {
 			ChooseTarget ();
 		} else {
@@ -36,20 +34,27 @@ public class PlayerControlled : MonoBehaviour, ICombatBehavior {
 
 	public void ChooseTarget ()
 	{
-		EventManager.OnPlayerChoosedTarget += ReadyTarget;
-		EventManager.ShowTargetsOf (character,choosedSkill.getTargets());
+		PlayableCharacter[] heroes = FindObjectsOfType<PlayableCharacter>();
+		bool found = false;
+		//TODO versão que se não tiver herois não trave
+		while(found == false){
+			int r = Random.Range (0, heroes.Length);
+			if(heroes[r].isAlive()){
+				ReadyTarget(heroes[r]);
+				found = true;
+			}
+		}
 	}
 
 	public void ReadyTarget (Character c)
 	{
-		UseSkill (character,c);
-		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
+		UseSkill(character,c);
 	}
-		
+
 	public void UseSkill (Character u, Character t)
 	{
 		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect (u,t);
+		choosedSkill.Effect(character,t);
 	}
 
 	public void UseSkill ()

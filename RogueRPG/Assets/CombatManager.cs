@@ -32,7 +32,7 @@ public class CombatManager : MonoBehaviour {
 	void StartTurn ()
 	{
 		if (initiativeOrder.Count>0) {
-			initiativeOrder [0].StartTurn ();
+			initiativeOrder [0].getBehavior().Act();
 		} else {
 			WaitingForCombatantsToRechargeEnergy = true;
 			StartCoroutine(RechargeEnergy());

@@ -16,6 +16,7 @@ public abstract class Character : MonoBehaviour {
 	[SerializeField]protected float dodge = 0;
 	[SerializeField]protected float precision = 0;
 	[SerializeField]protected float critic = 0;
+	protected ICombatBehavior combatBehavior;
 
 	[SerializeField]protected List<Buff> buffs = new List<Buff>();
 
@@ -38,21 +39,21 @@ public abstract class Character : MonoBehaviour {
 			OnMyTurnStarts ();
 		}
 		SpendBuffs();
-		ChooseSkill();
+//		ChooseSkill();
 	}
 
-	public abstract void ChooseSkill ();
-	public abstract void ReadySkill (Skill s);
-	public abstract void ChooseTarget ();
-	public abstract void ReadyTarget (Character c);
-	public abstract void UseSkill (Character u, Character t);
-	public abstract void UseSkill ();
+//	public abstract void ChooseSkill ();
+//	public abstract void ReadySkill (Skill s);
+//	public abstract void ChooseTarget ();
+//	public abstract void ReadyTarget (Character c);
+//	public abstract void UseSkill (Character u, Character t);
+//	public abstract void UseSkill ();
 
 	public void EndTurn(){
 		if(OnMyTurnEnds!=null){
 			OnMyTurnEnds ();
 		}
-		EventManager.OnSkillUsed -= EndTurn;
+//		EventManager.OnSkillUsed -= EndTurn;
 		EventManager.EndedTurn ();
 	}
 
@@ -72,8 +73,9 @@ public abstract class Character : MonoBehaviour {
 	public void AttackMagic (Character target, float attack, Skill skill)
 	{
 		if (skill.getPrecision () + precision - target.getDodge () >= UnityEngine.Random.value) {
-			target.TakeDamage (Mathf.RoundToInt((attack + atkm) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ()));
-		} else {
+			int damage = Mathf.RoundToInt((attack + atkm) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ());
+			print (damage);
+			target.TakeDamage (damage);
 		}
 	}
 
@@ -199,6 +201,10 @@ public abstract class Character : MonoBehaviour {
 
 	public CombatantHUD getHUD(){
 		return hud;
+	}
+
+	public ICombatBehavior getBehavior(){
+		return combatBehavior;
 	}
 
 	public void increasePrecision(int level){

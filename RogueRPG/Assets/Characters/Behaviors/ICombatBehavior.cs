@@ -4,4 +4,5 @@ using UnityEngine;
 
 public interface ICombatBehavior {
 	void Act();
+	void Initialize (Character character);
 }

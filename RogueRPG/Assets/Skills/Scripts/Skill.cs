@@ -70,6 +70,7 @@ public abstract class Skill : ScriptableObject {
 			}
 		}
 		howManyTargets = myTargets.Count;
+		Debug.Log ("Nós vamos atacar "+myTargets.Count+" alvos!");
 		targetsHited = 0;
 		foreach (Character target in myTargets) {
 			EffectAnimation(target);
