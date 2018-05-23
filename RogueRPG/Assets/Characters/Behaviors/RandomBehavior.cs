@@ -11,6 +11,11 @@ public class RandomBehavior : MonoBehaviour, ICombatBehavior {
 		//TODO corrigir essa gambiarra!!
 		character.StartTurn();
 		ChooseSkill ();
+		if (choosedSkill.getIsSingleTarget ()) {
+			ChooseTarget ();
+		} else {
+			UseSkill();
+		}
 	}
 
 	public void Initialize(Character character){
@@ -19,17 +24,7 @@ public class RandomBehavior : MonoBehaviour, ICombatBehavior {
 
 	public void ChooseSkill ()
 	{
-		ReadySkill (character.skills[Random.Range(0,character.skills.Length)]);
-	}
-
-	public void ReadySkill (Skill s)
-	{
-		choosedSkill = s;
-		if (choosedSkill.getIsSingleTarget ()) {
-			ChooseTarget ();
-		} else {
-			UseSkill();
-		}
+		choosedSkill = character.skills[Random.Range(0,character.skills.Length)];
 	}
 
 	public void ChooseTarget ()
@@ -40,15 +35,10 @@ public class RandomBehavior : MonoBehaviour, ICombatBehavior {
 		while(found == false){
 			int r = Random.Range (0, heroes.Length);
 			if(heroes[r].isAlive()){
-				ReadyTarget(heroes[r]);
+				UseSkill(character,heroes[r]);
 				found = true;
 			}
 		}
-	}
-
-	public void ReadyTarget (Character c)
-	{
-		UseSkill(character,c);
 	}
 
 	public void UseSkill (Character u, Character t)
