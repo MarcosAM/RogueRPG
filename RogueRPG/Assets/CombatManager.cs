@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class CombatManager : MonoBehaviour {
@@ -9,11 +10,8 @@ public class CombatManager : MonoBehaviour {
 	private int round;
 	private bool WaitingForCombatantsToRechargeEnergy = false;
 
-	private Character[] heroeParty;
-	private Character[] enemieParty;
-
-	[SerializeField]private Party heroesParty;
-	[SerializeField]private Party enemiesParty;
+	private Character[] heroesParty;
+	private Character[] enemiesParty;
 
 	private ICombatDisplayer combatantHUDManager;
 
@@ -21,11 +19,8 @@ public class CombatManager : MonoBehaviour {
 		FillInitiativeOrderWithAllCombatants();
 		FillPartiesWithCombatants();
 		round = 0;
-//		TODO Será que e deveria substituir objetos da classe Party por apenas arrays de combatants
-		heroesParty.Initialize(false);
-		enemiesParty.Initialize(true);
 		combatantHUDManager = FindObjectOfType<CombHUDManager>();
-		combatantHUDManager.ShowCombatants(heroeParty,enemieParty);
+		combatantHUDManager.ShowCombatants(heroesParty,enemiesParty);
 		StartTurn ();
 	}
 
@@ -47,7 +42,9 @@ public class CombatManager : MonoBehaviour {
 	}
 
 	void NextTurn(){
-		if(initiativeOrder.Count>0){
+		if(DidOnePartyLost()){
+			EndCombat ();
+		} else if(initiativeOrder.Count>0){
 			initiativeOrder.RemoveAt(0);
 			round++;
 			StartTurn ();
@@ -66,18 +63,13 @@ public class CombatManager : MonoBehaviour {
 		initiativeOrder.Remove(combatant);
 	}
 
-	void EndCombat (Party loosers)
-	{
-		if (loosers.isEnemyParty ()) {
-			print ("Heróis ganharam!");
-		} else {
-			print ("Vilões ganharam!");
-		}
+	void EndCombat (){
+		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex+1);
 	}
 
 	void FillPartiesWithCombatants(){
-		heroeParty = FindObjectsOfType<PlayableCharacter>();
-		enemieParty = FindObjectsOfType<NonPlayableCharacter>();
+		heroesParty = FindObjectsOfType<PlayableCharacter>();
+		enemiesParty = FindObjectsOfType<NonPlayableCharacter>();
 	}
 
 	void FillInitiativeOrderWithAllCombatants (){
@@ -87,17 +79,39 @@ public class CombatManager : MonoBehaviour {
 		}
 	}
 
+	bool DidOnePartyLost(){
+		int countdown = 0;
+		for(int i = 0;i<heroesParty.Length;i++){
+			if(!heroesParty[i].isAlive()){
+				countdown++;
+			}
+		}
+		if(countdown==heroesParty.Length){
+			return true;
+		}
+		countdown = 0;
+		for(int i = 0;i<enemiesParty.Length;i++){
+			if(!enemiesParty[i].isAlive()){
+				countdown++;
+			}
+		}
+		if(countdown==enemiesParty.Length){
+			return true;
+		}
+		return false;
+	}
+
 	void OnEnable(){
 		EventManager.OnEndedTurn += NextTurn;
 		EventManager.OnRechargedEnergy += AddToInitiative;
 		EventManager.OnDeathOf += DeleteFromInitiative;
-		EventManager.OnPartyLost += EndCombat;
+//		EventManager.OnPartyLost += EndCombat;
 	}
 
 	void OnDisable(){
 		EventManager.OnEndedTurn -= NextTurn;
 		EventManager.OnRechargedEnergy -= AddToInitiative;
 		EventManager.OnDeathOf -= DeleteFromInitiative;
-		EventManager.OnPartyLost -= EndCombat;
+//		EventManager.OnPartyLost -= EndCombat;
 	}
 }

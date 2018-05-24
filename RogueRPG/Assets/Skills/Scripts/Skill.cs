@@ -11,6 +11,8 @@ public abstract class Skill : ScriptableObject {
 	[SerializeField]protected float energyCost;
 	[SerializeField]protected float precision;
 	[SerializeField]protected float criticRate;
+	[SerializeField]protected Buff.BuffType buffType;
+	[SerializeField]protected int buffDuration;
 	[SerializeField]protected Buff buffPrefab;
 	[SerializeField]protected SkillAnimation animationPrefab;
 	[SerializeField]protected bool isSingleTarget;
@@ -118,5 +120,9 @@ public abstract class Skill : ScriptableObject {
 
 	public Targets getTargets (){
 		return targets;
+	}
+
+	public Buff.BuffType getBuffType(){
+		return buffType;
 	}
 }

@@ -29,15 +29,20 @@ public class RandomBehavior : MonoBehaviour, ICombatBehavior {
 
 	public void ChooseTarget ()
 	{
-		PlayableCharacter[] heroes = FindObjectsOfType<PlayableCharacter>();
-		bool found = false;
-		//TODO versão que se não tiver herois não trave
-		while(found == false){
-			int r = Random.Range (0, heroes.Length);
-			if(heroes[r].isAlive()){
-				UseSkill(character,heroes[r]);
-				found = true;
+		if(choosedSkill.getTargets() == Skill.Targets.Enemies){
+			PlayableCharacter[] heroes = FindObjectsOfType<PlayableCharacter>();
+			bool found = false;
+			//TODO versão que se não tiver herois não trave
+			while(found == false){
+				int r = Random.Range (0, heroes.Length);
+				if(heroes[r].isAlive()){
+					UseSkill(character,heroes[r]);
+					found = true;
+				}
 			}
+		}
+		if(choosedSkill.getTargets() == Skill.Targets.Self){
+			UseSkill (character,character);
 		}
 	}
 

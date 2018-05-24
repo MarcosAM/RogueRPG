@@ -7,12 +7,13 @@ using System;
 public abstract class Character : MonoBehaviour {
 
 	[SerializeField]protected string myName;
-	protected int hp = 100;
-	protected int maxHp = 100;
-	[SerializeField]protected float energy = 0;
-	[SerializeField]protected bool alive = true;
+	protected int hp;
+	protected int maxHp;
+	protected float energy = 0;
+	protected bool alive = true;
 
-	[SerializeField]protected int atk, atkm, def, defm;
+	[SerializeField]protected StandartStats stats;
+	protected int atk, atkm, def, defm;
 	[SerializeField]protected float dodge = 0;
 	[SerializeField]protected float precision = 0;
 	[SerializeField]protected float critic = 0;
@@ -22,7 +23,6 @@ public abstract class Character : MonoBehaviour {
 
 	protected bool isHero;
 
-	protected Skill choosedSkill;
 	public Skill[] skills = new Skill[4];
 
 	[SerializeField]protected Image image;
@@ -39,21 +39,12 @@ public abstract class Character : MonoBehaviour {
 			OnMyTurnStarts ();
 		}
 		SpendBuffs();
-//		ChooseSkill();
 	}
-
-//	public abstract void ChooseSkill ();
-//	public abstract void ReadySkill (Skill s);
-//	public abstract void ChooseTarget ();
-//	public abstract void ReadyTarget (Character c);
-//	public abstract void UseSkill (Character u, Character t);
-//	public abstract void UseSkill ();
 
 	public void EndTurn(){
 		if(OnMyTurnEnds!=null){
 			OnMyTurnEnds ();
 		}
-//		EventManager.OnSkillUsed -= EndTurn;
 		EventManager.EndedTurn ();
 	}
 
@@ -133,6 +124,16 @@ public abstract class Character : MonoBehaviour {
 		if(OnHUDValuesChange != null){
 			OnHUDValuesChange();
 		}
+	}
+
+	protected void FillStats (){
+		atk = stats.getAtk ();
+		atkm = stats.getAtkm ();
+		def = stats.getDef ();
+		defm = stats.getDefm ();
+		skills = stats.getSkills ();
+		maxHp = stats.getHp ();
+		hp = maxHp;
 	}
 
 	void OnEnable (){
@@ -262,6 +263,36 @@ public abstract class Character : MonoBehaviour {
 
 	public void resetDodge(){
 		dodge = 0;
+		if(OnBuffsGainOrLoss != null){
+			OnBuffsGainOrLoss (dodge,precision,critic);
+		}
+	}
+
+	public void increaseCritic(int level){
+		float criticBuff = 0f;
+		switch(level){
+		case 1:
+			criticBuff = 0.1f;
+			break;
+		case 2:
+			criticBuff = 0.3f;
+			break;
+		case 3:
+			precision = 0.5f;
+			break;
+		default:
+			break;
+		}
+		if(critic < criticBuff){
+			critic  = criticBuff;
+		}
+		if(OnBuffsGainOrLoss != null){
+			OnBuffsGainOrLoss (dodge,precision,critic);
+		}
+	}
+
+	public void resetCritic(){
+		critic = 0;
 		if(OnBuffsGainOrLoss != null){
 			OnBuffsGainOrLoss (dodge,precision,critic);
 		}

@@ -56,6 +56,7 @@
      <Compile Include="Assets\Characters\Behaviors\PlayerControlled.cs" />
      <Compile Include="Assets\Characters\Behaviors\RandomBehavior.cs" />
      <Compile Include="Assets\Characters\Character.cs" />
+     <Compile Include="Assets\Characters\CStats\StandartStats.cs" />
      <Compile Include="Assets\Characters\NonPlayableCharacter.cs" />
      <Compile Include="Assets\Characters\PlayableCharacter.cs" />
      <Compile Include="Assets\CombatantHUD.cs" />
@@ -71,7 +72,7 @@
      <Compile Include="Assets\SkillBtn.cs" />
      <Compile Include="Assets\Skills\Scripts\ATKMSkill.cs" />
      <Compile Include="Assets\Skills\Scripts\ATKSkill.cs" />
-     <Compile Include="Assets\Skills\Scripts\DodgeBuffSkill.cs" />
+     <Compile Include="Assets\Skills\Scripts\BuffSkill.cs" />
      <Compile Include="Assets\Skills\Scripts\HealSkill.cs" />
      <Compile Include="Assets\Skills\Scripts\Skill.cs" />
      <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
