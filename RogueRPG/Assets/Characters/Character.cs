@@ -51,7 +51,7 @@ public abstract class Character : MonoBehaviour {
 	public void Attack (Character target, float attack, Skill skill)
 	{
 		if (skill.getCriticRate () + critic >= UnityEngine.Random.value) {
-			target.TakeDamage (Mathf.RoundToInt((attack + atk) * 1.2f));
+			target.TakeDamage (Mathf.RoundToInt((attack + atk) * 1.5f));
 		} else {
 			if (skill.getPrecision () + precision - target.getDodge() >= UnityEngine.Random.value) {
 				target.TakeDamage (Mathf.RoundToInt((attack+atk)*UnityEngine.Random.Range(1f,1.2f)-target.getDef()));
@@ -102,7 +102,7 @@ public abstract class Character : MonoBehaviour {
 		energy = 0;
 		alive = false;
 		EventManager.DeathOf (this);
-		print (this.name+" morreu");
+		RemoveAllBuffs ();
 	}
 
 	public void SpendEnergy (float amount){
@@ -134,6 +134,11 @@ public abstract class Character : MonoBehaviour {
 		skills = stats.getSkills ();
 		maxHp = stats.getHp ();
 		hp = maxHp;
+	}
+		
+	public void PrepareForNextCombat (){
+		RemoveAllBuffs ();
+		energy = 0;
 	}
 
 	void OnEnable (){
@@ -337,5 +342,12 @@ public abstract class Character : MonoBehaviour {
 		foreach(Buff buff in deletableBuffs){
 			buff.End();
 		}
+	}
+
+	void RemoveAllBuffs(){
+		buffs.Clear ();
+		resetCritic ();
+		resetDodge ();
+		resetPrecision ();
 	}
 }

@@ -17,6 +17,9 @@ public class CombatManager : MonoBehaviour {
 
 	void Start () {
 		FillInitiativeOrderWithAllCombatants();
+		foreach(Character character in initiativeOrder){
+			character.PrepareForNextCombat ();
+		}
 		FillPartiesWithCombatants();
 		round = 0;
 		combatantHUDManager = FindObjectOfType<CombHUDManager>();

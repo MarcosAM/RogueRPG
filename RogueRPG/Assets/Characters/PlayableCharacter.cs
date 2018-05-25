@@ -11,6 +11,7 @@ public class PlayableCharacter : Character {
 		combatBehavior = GetComponent<ICombatBehavior> ();
 		combatBehavior.Initialize (this);
 		isHero = true;
+		DontDestroyOnLoad (transform.parent.gameObject);
 	}
 
 }

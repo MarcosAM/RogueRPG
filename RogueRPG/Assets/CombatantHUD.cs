@@ -82,7 +82,9 @@ public class CombatantHUD : MonoBehaviour {
 	}
 
 	void OnDisable (){
-		combatant.OnHUDValuesChange -= Refresh;
+		if(combatant!=null){
+			combatant.OnHUDValuesChange -= Refresh;
+		}
 	}
 
 	public RectTransform getRectTransform(){

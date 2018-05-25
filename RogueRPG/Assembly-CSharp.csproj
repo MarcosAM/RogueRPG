@@ -64,6 +64,7 @@
      <Compile Include="Assets\CombatManager.cs" />
      <Compile Include="Assets\CombHUDManager.cs" />
      <Compile Include="Assets\DamageFB\DamageFB.cs" />
+     <Compile Include="Assets\DudeDontDie.cs" />
      <Compile Include="Assets\EventManager.cs" />
      <Compile Include="Assets\ICombatDisplayer.cs" />
      <Compile Include="Assets\Intefaces.cs" />
