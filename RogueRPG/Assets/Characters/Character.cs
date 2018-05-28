@@ -18,6 +18,7 @@ public abstract class Character : MonoBehaviour {
 	[SerializeField]protected float precision = 0;
 	[SerializeField]protected float critic = 0;
 	protected ICombatBehavior combatBehavior;
+	protected IMovable movement;
 
 	[SerializeField]protected List<Buff> buffs = new List<Buff>();
 
@@ -211,6 +212,10 @@ public abstract class Character : MonoBehaviour {
 
 	public ICombatBehavior getBehavior(){
 		return combatBehavior;
+	}
+
+	public IMovable getMovement(){
+		return movement;
 	}
 
 	public void increasePrecision(int level){

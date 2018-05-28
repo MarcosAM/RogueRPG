@@ -14,16 +14,24 @@ public class CombatManager : MonoBehaviour {
 	private Character[] enemiesParty;
 
 	private ICombatDisplayer combatantHUDManager;
+	private Battleground battleground;
 
 	void Start () {
+		battleground = GetComponent<Battleground> ();
 		FillInitiativeOrderWithAllCombatants();
 		foreach(Character character in initiativeOrder){
 			character.PrepareForNextCombat ();
 		}
 		FillPartiesWithCombatants();
+		foreach(Character hero in heroesParty){
+			battleground.AddToHeroSide (hero);
+		}
+		foreach (Character enemy in enemiesParty) {
+			battleground.AddToEnemySide (enemy);
+		}
 		round = 0;
 		combatantHUDManager = FindObjectOfType<CombHUDManager>();
-		combatantHUDManager.ShowCombatants(heroesParty,enemiesParty);
+//		combatantHUDManager.ShowCombatants(heroesParty,enemiesParty);
 		StartTurn ();
 	}
 
@@ -108,13 +116,11 @@ public class CombatManager : MonoBehaviour {
 		EventManager.OnEndedTurn += NextTurn;
 		EventManager.OnRechargedEnergy += AddToInitiative;
 		EventManager.OnDeathOf += DeleteFromInitiative;
-//		EventManager.OnPartyLost += EndCombat;
 	}
 
 	void OnDisable(){
 		EventManager.OnEndedTurn -= NextTurn;
 		EventManager.OnRechargedEnergy -= AddToInitiative;
 		EventManager.OnDeathOf -= DeleteFromInitiative;
-//		EventManager.OnPartyLost -= EndCombat;
 	}
 }

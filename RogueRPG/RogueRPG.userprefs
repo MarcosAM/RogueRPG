@@ -1,11 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\Behaviors\PlayerControlled.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Battleground.cs">
     <Files>
-      <File FileName="Assets\UndoBtn.cs" Line="16" Column="33" />
-      <File FileName="Assets\TargetBtn.cs" Line="80" Column="34" />
-      <File FileName="Assets\Characters\Behaviors\PlayerControlled.cs" Line="31" Column="37" />
-      <File FileName="Assets\EventManager.cs" Line="36" Column="24" />
+      <File FileName="Assets\Characters\Character.cs" Line="218" Column="19" />
+      <File FileName="Assets\Characters\CharacterMovement.cs" Line="14" Column="43" />
+      <File FileName="Assets\Battleground.cs" Line="32" Column="38" />
+      <File FileName="Assets\CombatManager.cs" Line="30" Column="4" />
+      <File FileName="Assets\Characters\NonPlayableCharacter.cs" Line="12" Column="40" />
+      <File FileName="Assets\Characters\PlayableCharacter.cs" Line="12" Column="40" />
+      <File FileName="Assets\Characters\IMovable.cs" Line="7" Column="37" />
+      <File FileName="Assets\CombHUDManager.cs" Line="45" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

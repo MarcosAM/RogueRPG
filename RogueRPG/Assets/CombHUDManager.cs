@@ -34,15 +34,20 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 		}
 	}
 
+	public void ShowCharacterAt(Character character, int position){
+		if (character.getIsHero ()) {
+			heroesCombatantHUD [position].gameObject.SetActive (true);
+			heroesCombatantHUD [position].Initialize (character);
+			character.setHUD (heroesCombatantHUD [position]);
+		} else {
+			enemiesCombatantHUD [position].gameObject.SetActive (true);
+			enemiesCombatantHUD [position].Initialize (character);
+			character.setHUD (enemiesCombatantHUD [position]);
+		}
+	}
 	public void ShowCombatants (Character[] heroesParty,Character[] enemiesParty){
 
-		foreach (CombatantHUD combatantHUD in heroesCombatantHUD) {
-			combatantHUD.gameObject.SetActive (false);
-		}
-
-		foreach (CombatantHUD combatantHUD in enemiesCombatantHUD) {
-			combatantHUD.gameObject.SetActive (false);
-		}
+		ClearCombatantsHUDs ();
 
 		for(int i = 0;i<heroesParty.Length;i++){
 			heroesCombatantHUD [i].gameObject.SetActive (true);
@@ -56,4 +61,13 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 		}
 	}
 
+	public void ClearCombatantsHUDs(){
+		foreach (CombatantHUD combatantHUD in heroesCombatantHUD) {
+			combatantHUD.gameObject.SetActive (false);
+		}
+
+		foreach (CombatantHUD combatantHUD in enemiesCombatantHUD) {
+			combatantHUD.gameObject.SetActive (false);
+		}
+	}
 }

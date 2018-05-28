@@ -9,6 +9,7 @@ public class NonPlayableCharacter : Character {
 			FillStats ();
 		}
 		combatBehavior = GetComponent<ICombatBehavior> ();
+		movement = GetComponent<IMovable> ();
 		combatBehavior.Initialize (this);
 		isHero = false;
 	}
