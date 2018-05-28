@@ -28,10 +28,16 @@ public class PlayerControlled : MonoBehaviour, ICombatBehavior {
 		choosedSkill = skill;
 		EventManager.OnPlayerChoosedSkill -= ReadySkill;
 		if (choosedSkill.getIsSingleTarget ()) {
+			EventManager.OnUnchoosedSkill += UnchooseSkill;
 			ChooseTarget ();
 		} else {
 			UseSkill();
 		}
+	}
+
+	public void UnchooseSkill(){
+		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
+		ChooseSkill ();
 	}
 
 	public void ChooseTarget ()
@@ -44,6 +50,7 @@ public class PlayerControlled : MonoBehaviour, ICombatBehavior {
 	{
 		UseSkill (character,c);
 		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
+		EventManager.OnUnchoosedSkill -= UnchooseSkill;
 	}
 		
 	public void UseSkill (Character u, Character t)

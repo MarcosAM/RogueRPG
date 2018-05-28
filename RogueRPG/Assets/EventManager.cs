@@ -11,6 +11,7 @@ public class EventManager : MonoBehaviour {
 	public static event Action<Character> OnPlayerChoosedTarget;
 	public static event Action OnClickedTargetBtn;
 	public static event Action<Character,Skill.Targets> OnShowTargetsOf;
+	public static event Action OnUnchoosedSkill;
 	public static event Action OnSkillUsed;
 	public static event Action OnEndedTurn;
 	public static event Action<float> OnRechargeEnergy;
@@ -28,6 +29,12 @@ public class EventManager : MonoBehaviour {
 			OnClickedSkillBtn();
 		if(OnPlayerChoosedSkill != null)
 			OnPlayerChoosedSkill (s);
+	}
+
+	public static void UnchooseSkill(){
+		if(OnUnchoosedSkill != null){
+			OnUnchoosedSkill ();
+		}
 	}
 
 	public static void ShowTargetsOf(Character user, Skill.Targets targets){
