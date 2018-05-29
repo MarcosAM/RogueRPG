@@ -18,6 +18,7 @@ public class EventManager : MonoBehaviour {
 	public static event Action<Character> OnRechargedEnergy;
 	public static event Action<Character> OnDeathOf;
 	public static event Action<Party> OnPartyLost;
+	public static event Action<int> OnPlayerChoosedLocation;
 
 	public static void ShowSkillsOf(Character c){
 		if (OnShowSkillsOf != null)
@@ -47,6 +48,13 @@ public class EventManager : MonoBehaviour {
 			OnClickedTargetBtn();
 		if(OnPlayerChoosedTarget != null)
 			OnPlayerChoosedTarget(c);
+	}
+
+	public static void ChooseLocation(int position){
+		if (OnClickedTargetBtn != null)
+			OnClickedTargetBtn();
+		if (OnPlayerChoosedLocation != null)
+			OnPlayerChoosedLocation (position);
 	}
 
 	public static void SkillUsed(){

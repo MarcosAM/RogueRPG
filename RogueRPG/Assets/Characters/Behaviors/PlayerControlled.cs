@@ -40,10 +40,20 @@ public class PlayerControlled : MonoBehaviour, ICombatBehavior {
 		ChooseSkill ();
 	}
 
-	public void ChooseTarget ()
-	{
-		EventManager.OnPlayerChoosedTarget += ReadyTarget;
+	public void ChooseTarget (){
+		if (choosedSkill.getTargets () != Skill.Targets.Location)
+			EventManager.OnPlayerChoosedTarget += ReadyTarget;
+		else
+			EventManager.OnPlayerChoosedLocation += MoveTo;
 		EventManager.ShowTargetsOf (character,choosedSkill.getTargets());
+	}
+
+	public void MoveTo(int position){
+		EventManager.OnPlayerChoosedLocation -= MoveTo;
+		character.SpendEnergy (1);
+		print (character.getName()+" vá para a posição "+position);
+		character.getMovement ().MoveTo (position);
+		EndTurn ();
 	}
 
 	public void ReadyTarget (Character c)

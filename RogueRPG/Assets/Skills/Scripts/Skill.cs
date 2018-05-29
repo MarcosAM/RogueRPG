@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Skill : ScriptableObject {
 
-	public enum Targets{Self, Allies, Enemies, All};
+	public enum Targets{Self, Allies, Enemies, All, Location};
 	
 	[SerializeField]protected string skillName;
 	[SerializeField]protected int value;

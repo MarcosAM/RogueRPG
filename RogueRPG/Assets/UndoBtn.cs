@@ -14,6 +14,7 @@ public class UndoBtn : MonoBehaviour {
 
 	public void UnchooseSkill(){
 		EventManager.UnchooseSkill ();
+		Disappear ();
 	}
 
 	void Appear(Character character, Skill.Targets targets){

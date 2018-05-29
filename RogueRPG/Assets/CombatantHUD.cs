@@ -28,10 +28,19 @@ public class CombatantHUD : MonoBehaviour {
 			combatant.OnHUDValuesChange += Refresh;
 			combatant.OnHPValuesChange += HPFeedback;
 			combatant.OnBuffsGainOrLoss += ShowBuffs;
+			//TODO Checar se isso aqui não vai cagar tudo com os buffs dos personagens quando eles se moverem
 			ShowBuffs (0f,0f,0f);
 			Refresh();
 			if(targetButton != null)
 				targetButton.Initialize(combatant);
+		}
+	}
+
+	public void Deinitialize(){
+		if(combatant != null){
+			combatant.OnHUDValuesChange -= Refresh;
+			combatant.OnHPValuesChange -= HPFeedback;
+			combatant.OnBuffsGainOrLoss -= ShowBuffs;
 		}
 	}
 

@@ -23,8 +23,19 @@ public class CombatManager : MonoBehaviour {
 			character.PrepareForNextCombat ();
 		}
 		FillPartiesWithCombatants();
-		foreach(Character hero in heroesParty){
-			battleground.AddToHeroSide (hero);
+		for(int i = 0; i<4; i++){
+			if (i < heroesParty.Length) {
+				battleground.AddToHeroSide (heroesParty [i]);
+			} else {
+				battleground.AddToHeroSide (null);
+			}
+		}
+		for(int i = 0; i<4; i++){
+			if (i < enemiesParty.Length) {
+				battleground.AddToEnemySide (enemiesParty [i]);
+			} else {
+				battleground.AddToEnemySide (null);
+			}
 		}
 		foreach (Character enemy in enemiesParty) {
 			battleground.AddToEnemySide (enemy);

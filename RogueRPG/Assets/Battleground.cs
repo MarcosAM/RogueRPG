@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Battleground : MonoBehaviour {
 
-	List<Character> heroSide = new List<Character> ();
-	List<Character> enemySide = new List<Character> ();
+	[SerializeField]List<Character> heroSide = new List<Character> ();
+	[SerializeField]List<Character> enemySide = new List<Character> ();
 	CombHUDManager cHUDManager;
 
 	void Awake(){
@@ -36,11 +36,26 @@ public class Battleground : MonoBehaviour {
 
 	public void MoveCharacterTo(Character character, int position){
 		if (character.getIsHero ()) {
-			heroSide.Remove (character);
-			AddToHeroSide (character);
+			if (heroSide [position] != null) {
+				heroSide.Remove (character);
+				heroSide.Insert (position, character);
+			} else {
+				int oldPosition = heroSide.IndexOf (character);
+				heroSide[position] = character;
+				heroSide [oldPosition] = null;
+			}
+			character.getMovement ().setPosition(heroSide.IndexOf(character));
 		} else {
-			enemySide.Remove (character);
-			AddToEnemySide (character);
+			if (enemySide [position] != null) {
+				enemySide.Remove (character);
+				enemySide.Insert (position, character);
+			} else {
+				int oldPosition = heroSide.IndexOf (character);
+				enemySide[position] = character;
+				enemySide[oldPosition] = null;
+			}
+			character.getMovement ().setPosition(enemySide.IndexOf(character));
 		}
+		cHUDManager.ShowCombatants(heroSide,enemySide);
 	}
 }

@@ -71,6 +71,7 @@
      <Compile Include="Assets\EventManager.cs" />
      <Compile Include="Assets\ICombatDisplayer.cs" />
      <Compile Include="Assets\Intefaces.cs" />
+     <Compile Include="Assets\LocationBtn.cs" />
      <Compile Include="Assets\Narration.cs" />
      <Compile Include="Assets\Party.cs" />
      <Compile Include="Assets\SkillBtn.cs" />

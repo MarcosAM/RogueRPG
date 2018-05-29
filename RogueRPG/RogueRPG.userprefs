@@ -1,15 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Battleground.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\CombatManager.cs">
     <Files>
-      <File FileName="Assets\Characters\Character.cs" Line="218" Column="19" />
-      <File FileName="Assets\Characters\CharacterMovement.cs" Line="14" Column="43" />
-      <File FileName="Assets\Battleground.cs" Line="32" Column="38" />
-      <File FileName="Assets\CombatManager.cs" Line="30" Column="4" />
-      <File FileName="Assets\Characters\NonPlayableCharacter.cs" Line="12" Column="40" />
-      <File FileName="Assets\Characters\PlayableCharacter.cs" Line="12" Column="40" />
-      <File FileName="Assets\Characters\IMovable.cs" Line="7" Column="37" />
-      <File FileName="Assets\CombHUDManager.cs" Line="45" Column="41" />
+      <File FileName="Assets\Battleground.cs" Line="55" Column="35" />
+      <File FileName="Assets\CombatManager.cs" Line="32" Column="4" />
+      <File FileName="Assets\CombHUDManager.cs" Line="94" Column="31" />
+      <File FileName="Assets\LocationBtn.cs" Line="9" Column="17" />
+      <File FileName="Assets\Characters\CharacterMovement.cs" Line="16" Column="56" />
+      <File FileName="Assets\Characters\Behaviors\PlayerControlled.cs" Line="59" Column="39" />
+      <File FileName="Assets\Skills\Scripts\Skill.cs" Line="1" Column="1" />
+      <File FileName="Assets\CombatantHUD.cs" Line="44" Column="4" />
+      <File FileName="Assets\TargetBtn.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

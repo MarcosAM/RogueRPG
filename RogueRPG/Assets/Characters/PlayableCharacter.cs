@@ -10,6 +10,7 @@ public class PlayableCharacter : Character {
 		}
 		combatBehavior = GetComponent<ICombatBehavior> ();
 		movement = GetComponent<IMovable> ();
+		movement.Initialize (this);
 		combatBehavior.Initialize (this);
 		isHero = true;
 		DontDestroyOnLoad (transform.parent.gameObject);

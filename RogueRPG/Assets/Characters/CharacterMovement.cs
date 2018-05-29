@@ -13,6 +13,7 @@ public class CharacterMovement : MonoBehaviour, IMovable {
 			battleground = FindObjectOfType<Battleground> ();
 			battleground.MoveCharacterTo (character,destination);
 		}
+		battleground.MoveCharacterTo (character,destination);
 	}
 
 	public void Initialize(Character character){

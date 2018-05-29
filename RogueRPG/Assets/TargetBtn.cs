@@ -56,6 +56,8 @@ public class TargetBtn : CombatBtn {
 					text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
 				}
 				break;
+				case Skill.Targets.Location:
+				break;
 				default:
 				button.interactable = true;
 				text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
