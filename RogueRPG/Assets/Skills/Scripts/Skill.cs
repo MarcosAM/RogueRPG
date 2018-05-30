@@ -5,12 +5,16 @@ using UnityEngine;
 public abstract class Skill : ScriptableObject {
 
 	public enum Targets{Self, Allies, Enemies, All, Location};
+	public enum Types{Melee, Ranged};
 	
 	[SerializeField]protected string skillName;
 	[SerializeField]protected int value;
 	[SerializeField]protected float energyCost;
 	[SerializeField]protected float precision;
 	[SerializeField]protected float criticRate;
+	[SerializeField]protected Types type;
+	[Range(0,3)]
+	[SerializeField]protected int range;
 	[SerializeField]protected Buff.BuffType buffType;
 	[SerializeField]protected int buffDuration;
 	[SerializeField]protected Buff buffPrefab;
@@ -124,5 +128,13 @@ public abstract class Skill : ScriptableObject {
 
 	public Buff.BuffType getBuffType(){
 		return buffType;
+	}
+
+	public Types getSkillType(){
+		return type;
+	}
+
+	public int getRange(){
+		return range;
 	}
 }

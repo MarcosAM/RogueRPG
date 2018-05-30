@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour, IMovable {
 
-	Character character;
-	int position = 0;
-	Battleground battleground;
+	[SerializeField]Character character;
+	[SerializeField]Battleground battleground;
 
 	public void MoveTo(int destination){
 		if(battleground == null){
@@ -20,7 +19,10 @@ public class CharacterMovement : MonoBehaviour, IMovable {
 		this.character = character;
 	}
 
-	public void setPosition(int destination){
-		this.position = destination;
+	public int getPosition(){
+		if(battleground == null){
+			battleground = FindObjectOfType<Battleground> ();
+		}
+		return battleground.getPositionOf (character);
 	}
 }

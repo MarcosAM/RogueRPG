@@ -18,7 +18,7 @@ public abstract class Character : MonoBehaviour {
 	[SerializeField]protected float precision = 0;
 	[SerializeField]protected float critic = 0;
 	protected ICombatBehavior combatBehavior;
-	protected IMovable movement;
+	[SerializeField]protected IMovable movement;
 
 	[SerializeField]protected List<Buff> buffs = new List<Buff>();
 
@@ -49,12 +49,16 @@ public abstract class Character : MonoBehaviour {
 		EventManager.EndedTurn ();
 	}
 
-	public void Attack (Character target, float attack, Skill skill)
-	{
+	public void Attack (Character target, float attack, Skill skill){
+		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
+		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
+			distanceInfluenceOnPrecision = -1f;
+		}
+		print (this.myName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
 		if (skill.getCriticRate () + critic >= UnityEngine.Random.value) {
 			target.TakeDamage (Mathf.RoundToInt((attack + atk) * 1.5f));
 		} else {
-			if (skill.getPrecision () + precision - target.getDodge() >= UnityEngine.Random.value) {
+			if (skill.getPrecision () + precision + distanceInfluenceOnPrecision - target.getDodge() >= UnityEngine.Random.value) {
 				target.TakeDamage (Mathf.RoundToInt((attack+atk)*UnityEngine.Random.Range(1f,1.2f)-target.getDef()));
 			} else {
 				print(target.myName+" se esquivou!");
@@ -64,7 +68,12 @@ public abstract class Character : MonoBehaviour {
 
 	public void AttackMagic (Character target, float attack, Skill skill)
 	{
-		if (skill.getPrecision () + precision - target.getDodge () >= UnityEngine.Random.value) {
+		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
+		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
+			distanceInfluenceOnPrecision = -1f;
+		}
+		print (this.myName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
+		if (skill.getPrecision () + precision + distanceInfluenceOnPrecision - target.getDodge () >= UnityEngine.Random.value) {
 			int damage = Mathf.RoundToInt((attack + atkm) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ());
 			print (damage);
 			target.TakeDamage (damage);
@@ -216,6 +225,10 @@ public abstract class Character : MonoBehaviour {
 
 	public IMovable getMovement(){
 		return movement;
+	}
+
+	public int getPosition(){
+		return movement.getPosition ();
 	}
 
 	public void increasePrecision(int level){

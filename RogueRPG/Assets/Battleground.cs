@@ -18,7 +18,6 @@ public class Battleground : MonoBehaviour {
 		if(heroSide.Count<4){
 			heroSide.Add (character);
 			if(character != null){
-				character.getMovement().setPosition(heroSide.IndexOf(character));
 				cHUDManager.ShowCharacterAt (character,heroSide.IndexOf(character));
 			}
 		}
@@ -28,7 +27,6 @@ public class Battleground : MonoBehaviour {
 		if(enemySide.Count<4){
 			enemySide.Add (character);
 			if(character != null){
-				character.getMovement ().setPosition(enemySide.IndexOf(character));
 				cHUDManager.ShowCharacterAt (character,enemySide.IndexOf(character));
 			}
 		}
@@ -44,7 +42,6 @@ public class Battleground : MonoBehaviour {
 				heroSide[position] = character;
 				heroSide [oldPosition] = null;
 			}
-			character.getMovement ().setPosition(heroSide.IndexOf(character));
 		} else {
 			if (enemySide [position] != null) {
 				enemySide.Remove (character);
@@ -54,8 +51,15 @@ public class Battleground : MonoBehaviour {
 				enemySide[position] = character;
 				enemySide[oldPosition] = null;
 			}
-			character.getMovement ().setPosition(enemySide.IndexOf(character));
 		}
 		cHUDManager.ShowCombatants(heroSide,enemySide);
+	}
+
+	public int getPositionOf (Character character){
+		if (character.getIsHero ()) {
+			return heroSide.IndexOf (character);
+		} else {
+			return enemySide.IndexOf (character);
+		}
 	}
 }
