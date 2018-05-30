@@ -34,10 +34,10 @@ public class TargetBtn : CombatBtn {
 		text.color = new Color (0.2f,0.2f,0.2f,1f);
 	}
 
-	public void Appear (Character user,Skill.Targets targets){
+	public void Appear (Character user,Skill skill){
 		//TODO Só aparecer quando tiver alvo para poder aparecer
 		if(combatant.isAlive()){
-			switch(targets){
+			switch(skill.getTargets()){
 				case Skill.Targets.Allies:
 				if(combatant.getIsHero()){
 					button.interactable = true;
@@ -45,7 +45,9 @@ public class TargetBtn : CombatBtn {
 				}
 				break;
 				case Skill.Targets.Enemies:
-				if(!combatant.getIsHero()){
+				if(!combatant.getIsHero() && Mathf.Abs(combatant.getPosition()-user.getPosition())<=skill.getRange()){
+					print (skill.getRange());
+					print (user.getName()+" está tentando acertar "+combatant.getName()+" que está a "+Mathf.Abs(combatant.getPosition()-user.getPosition())+" de distância");
 					button.interactable = true;
 					text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
 				}

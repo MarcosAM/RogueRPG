@@ -17,7 +17,7 @@ public class UndoBtn : MonoBehaviour {
 		Disappear ();
 	}
 
-	void Appear(Character character, Skill.Targets targets){
+	void Appear(Character character, Skill skill){
 		icon.enabled = true;
 	}
 

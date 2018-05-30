@@ -28,8 +28,8 @@ public class LocationBtn : MonoBehaviour {
 		button.interactable = false;
 	}
 
-	void Appear(Character user,Skill.Targets targets){
-		if(targets == Skill.Targets.Location){
+	void Appear(Character user,Skill skill){
+		if(skill.getTargets() == Skill.Targets.Location){
 			button.interactable = true;
 		}
 	}

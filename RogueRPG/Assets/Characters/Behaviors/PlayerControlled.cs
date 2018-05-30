@@ -45,7 +45,7 @@ public class PlayerControlled : MonoBehaviour, ICombatBehavior {
 			EventManager.OnPlayerChoosedTarget += ReadyTarget;
 		else
 			EventManager.OnPlayerChoosedLocation += MoveTo;
-		EventManager.ShowTargetsOf (character,choosedSkill.getTargets());
+		EventManager.ShowTargetsOf (character,choosedSkill);
 	}
 
 	public void MoveTo(int position){
