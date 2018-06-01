@@ -39,7 +39,7 @@ public class TargetBtn : CombatBtn {
 		if(combatant.isAlive()){
 			switch(skill.getTargets()){
 				case Skill.Targets.Allies:
-				if(combatant.getIsHero()){
+				if(combatant.getIsHero() && Mathf.Abs(combatant.getPosition()-user.getPosition())<=skill.getRange()){
 					button.interactable = true;
 					text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
 				}

@@ -10,10 +10,9 @@ public class CombatManager : MonoBehaviour {
 	private int round;
 	private bool WaitingForCombatantsToRechargeEnergy = false;
 
-	private Character[] heroesParty;
-	private Character[] enemiesParty;
+//	private Character[] heroesParty;
+//	private Character[] enemiesParty;
 
-	private ICombatDisplayer combatantHUDManager;
 	private Battleground battleground;
 
 	void Start () {
@@ -22,27 +21,26 @@ public class CombatManager : MonoBehaviour {
 		foreach(Character character in initiativeOrder){
 			character.PrepareForNextCombat ();
 		}
-		FillPartiesWithCombatants();
-		for(int i = 0; i<4; i++){
-			if (i < heroesParty.Length) {
-				battleground.AddToHeroSide (heroesParty [i]);
-			} else {
-				battleground.AddToHeroSide (null);
-			}
-		}
-		for(int i = 0; i<4; i++){
-			if (i < enemiesParty.Length) {
-				battleground.AddToEnemySide (enemiesParty [i]);
-			} else {
-				battleground.AddToEnemySide (null);
-			}
-		}
-		foreach (Character enemy in enemiesParty) {
-			battleground.AddToEnemySide (enemy);
-		}
+//		FillPartiesWithCombatants();
+		battleground.PutCharactersInBattleground ();
+//		for(int i = 0; i<4; i++){
+//			if (i < heroesParty.Length) {
+//				battleground.AddToHeroSide (heroesParty [i]);
+//			} else {
+//				battleground.AddToHeroSide (null);
+//			}
+//		}
+//		for(int i = 0; i<4; i++){
+//			if (i < enemiesParty.Length) {
+//				battleground.AddToEnemySide (enemiesParty [i]);
+//			} else {
+//				battleground.AddToEnemySide (null);
+//			}
+//		}
+//		foreach (Character enemy in enemiesParty) {
+//			battleground.AddToEnemySide (enemy);
+//		}
 		round = 0;
-		combatantHUDManager = FindObjectOfType<CombHUDManager>();
-//		combatantHUDManager.ShowCombatants(heroesParty,enemiesParty);
 		StartTurn ();
 	}
 
@@ -89,11 +87,6 @@ public class CombatManager : MonoBehaviour {
 		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex+1);
 	}
 
-	void FillPartiesWithCombatants(){
-		heroesParty = FindObjectsOfType<PlayableCharacter>();
-		enemiesParty = FindObjectsOfType<NonPlayableCharacter>();
-	}
-
 	void FillInitiativeOrderWithAllCombatants (){
 		Character[] temporaryList = FindObjectsOfType<Character>();
 		for(int i = 0; i<temporaryList.Length; i++){
@@ -103,21 +96,25 @@ public class CombatManager : MonoBehaviour {
 
 	bool DidOnePartyLost(){
 		int countdown = 0;
-		for(int i = 0;i<heroesParty.Length;i++){
-			if(!heroesParty[i].isAlive()){
-				countdown++;
+		for(int i = 0;i<battleground.getHeroSide().Count;i++){
+			if(battleground.getHeroSide()[i] != null){
+				if(!battleground.getHeroSide()[i].isAlive()){
+					countdown++;
+				}
 			}
 		}
-		if(countdown==heroesParty.Length){
+		if(countdown==battleground.HowManyHeroes()){
 			return true;
 		}
 		countdown = 0;
-		for(int i = 0;i<enemiesParty.Length;i++){
-			if(!enemiesParty[i].isAlive()){
-				countdown++;
+		for(int i = 0;i<battleground.getEnemySide().Count;i++){
+			if(battleground.getEnemySide()[i] != null){
+				if(!battleground.getEnemySide()[i].isAlive()){
+					countdown++;
+				}
 			}
 		}
-		if(countdown==enemiesParty.Length){
+		if(countdown==battleground.HowManyEnemies()){
 			return true;
 		}
 		return false;

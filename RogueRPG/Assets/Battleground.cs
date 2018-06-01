@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Battleground : MonoBehaviour {
 
-	[SerializeField]List<Character> heroSide = new List<Character> ();
-	[SerializeField]List<Character> enemySide = new List<Character> ();
+	List<Character> heroSide = new List<Character> ();
+	List<Character> enemySide = new List<Character> ();
 	CombHUDManager cHUDManager;
 
 	void Awake(){
@@ -17,18 +17,14 @@ public class Battleground : MonoBehaviour {
 	public void AddToHeroSide(Character character){
 		if(heroSide.Count<4){
 			heroSide.Add (character);
-			if(character != null){
-				cHUDManager.ShowCharacterAt (character,heroSide.IndexOf(character));
-			}
+			cHUDManager.ShowCombatants(heroSide,enemySide);
 		}
 	}
 
 	public void AddToEnemySide(Character character){
 		if(enemySide.Count<4){
 			enemySide.Add (character);
-			if(character != null){
-				cHUDManager.ShowCharacterAt (character,enemySide.IndexOf(character));
-			}
+			cHUDManager.ShowCombatants(heroSide,enemySide);
 		}
 	}
 
@@ -52,6 +48,29 @@ public class Battleground : MonoBehaviour {
 				enemySide[oldPosition] = null;
 			}
 		}
+		ShowCharactersToThePlayer ();
+	}
+
+	public void PutCharactersInBattleground(){
+		Character[] playableCharacters = FindObjectsOfType<PlayableCharacter> ();
+		Character[] nonPlayableCharacters = FindObjectsOfType<NonPlayableCharacter> ();
+
+		for(int i = 0; i<4; i++){
+			if (i < playableCharacters.Length) {
+				AddToHeroSide (playableCharacters [i]);
+			} else {
+				AddToHeroSide (null);
+			}
+			if (i < nonPlayableCharacters.Length) {
+				AddToEnemySide (nonPlayableCharacters [i]);
+			} else {
+				AddToEnemySide (null);
+			}
+		}
+		ShowCharactersToThePlayer ();
+	}
+
+	void ShowCharactersToThePlayer(){
 		cHUDManager.ShowCombatants(heroSide,enemySide);
 	}
 
@@ -61,5 +80,33 @@ public class Battleground : MonoBehaviour {
 		} else {
 			return enemySide.IndexOf (character);
 		}
+	}
+
+	public int HowManyHeroes(){
+		int heroesCountdown=0;
+		for(int i = 0;i<heroSide.Count;i++){
+			if(heroSide[i] != null){
+				heroesCountdown++;
+			}
+		}
+		return heroesCountdown;
+	}
+
+	public int HowManyEnemies(){
+		int enemiesCountdown=0;
+		for(int i = 0;i<enemySide.Count;i++){
+			if(enemySide[i] != null){
+				enemiesCountdown++;
+			}
+		}
+		return enemiesCountdown;
+	}
+
+	public List<Character> getHeroSide(){
+		return heroSide;
+	}
+
+	public List<Character> getEnemySide(){
+		return enemySide;
 	}
 }
