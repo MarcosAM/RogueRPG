@@ -33,6 +33,32 @@ public abstract class Skill : ScriptableObject {
 		UniqueEffect(user,target);
 	}
 
+//	public void Effect (Character user, int targetIndex){
+//		endable = true;
+//		FindObjectOfType<Narration> ().Appear (user.getName(), skillName);
+//		user.SpendEnergy (energyCost);
+//		Character target;
+//		switch(targets){
+//		case Targets.Allies:
+//			if (user.getIsHero) {
+//				target = FindObjectOfType<Battleground> ().getHeroSide () [targetIndex];
+//			} else {
+//				target = FindObjectOfType<Battleground> ().getEnemySide () [targetIndex];
+//			}
+//			break;
+//		case Targets.Enemies:
+//			if (user.getIsHero) {
+//				target = FindObjectOfType<Battleground> ().getEnemySide () [targetIndex];
+//			} else {
+//				target = FindObjectOfType<Battleground> ().getHeroSide () [targetIndex];
+//			}
+//			break;
+//		case 
+//		}
+//
+//		UniqueEffect ();
+//	}
+
 	public void Effect (Character user){
 		endable = true;
 		FindObjectOfType<Narration>().Appear(user.getName(), skillName);
@@ -76,7 +102,6 @@ public abstract class Skill : ScriptableObject {
 			}
 		}
 		howManyTargets = myTargets.Count;
-		Debug.Log ("Nós vamos atacar "+myTargets.Count+" alvos!");
 		targetsHited = 0;
 		foreach (Character target in myTargets) {
 			EffectAnimation(target);
