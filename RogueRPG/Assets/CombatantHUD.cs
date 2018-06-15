@@ -24,7 +24,7 @@ public class CombatantHUD : MonoBehaviour {
 	{
 		if (c != null) {
 			combatant = c;
-			image.sprite = combatant.getImage ().sprite;
+			image.sprite = combatant.getPortrait ().sprite;
 			combatant.OnHUDValuesChange += Refresh;
 			combatant.OnHPValuesChange += HPFeedback;
 			combatant.OnBuffsGainOrLoss += ShowBuffs;

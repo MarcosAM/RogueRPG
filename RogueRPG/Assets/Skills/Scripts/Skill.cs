@@ -7,18 +7,15 @@ public abstract class Skill : ScriptableObject {
 	public enum Targets{Self, Allies, Enemies, All, Location};
 	public enum Types{Melee, Ranged};
 	
-	[SerializeField]protected string skillName;
-	[SerializeField]protected int value;
-	[SerializeField]protected float energyCost;
-	[SerializeField]protected float precision;
-	[SerializeField]protected float criticRate;
-	[SerializeField]protected Types type;
+	[SerializeField]protected string sName;
+	[SerializeField]protected int sValue;
+	[SerializeField]protected float sDelay;
+	[SerializeField]protected float sPrecision;
+	[SerializeField]protected float sCriticRate;
+	[SerializeField]protected Types sType;
 	[Range(0,3)]
-	[SerializeField]protected int range;
-	[SerializeField]protected Buff.BuffType buffType;
-	[SerializeField]protected int buffDuration;
-	[SerializeField]protected Buff buffPrefab;
-	[SerializeField]protected SkillAnimation animationPrefab;
+	[SerializeField]protected int sRange;
+	[SerializeField]protected SkillAnimation sAnimationPrefab;
 	[SerializeField]protected bool isSingleTarget;
 	[SerializeField]protected Targets targets;
 	protected int howManyTargets;
@@ -27,9 +24,9 @@ public abstract class Skill : ScriptableObject {
 
 	public void Effect (Character user, Character target){
 		endable = true;
-		FindObjectOfType<Narration>().Appear(user.getName(), skillName);
+		FindObjectOfType<Narration>().Appear(user.getName(), sName);
 		EffectAnimation (target);
-		user.SpendEnergy(energyCost);
+		user.SpendEnergy(sDelay);
 		UniqueEffect(user,target);
 	}
 
@@ -61,11 +58,11 @@ public abstract class Skill : ScriptableObject {
 
 	public void Effect (Character user){
 		endable = true;
-		FindObjectOfType<Narration>().Appear(user.getName(), skillName);
-		user.SpendEnergy(energyCost);
+		FindObjectOfType<Narration>().Appear(user.getName(), sName);
+		user.SpendEnergy(sDelay);
 		List<Character> myTargets = new List<Character>();
 		Character[] temporaryTargets;
-		if(user.getIsHero()){
+		if(user.isPlayable()){
 			switch(targets){
 			case Targets.Allies:
 				temporaryTargets = FindObjectsOfType<PlayableCharacter> ();
@@ -110,7 +107,7 @@ public abstract class Skill : ScriptableObject {
 	}
 
 	public void EffectAnimation(Character target){
-		SkillAnimation skillAnimation = Instantiate (animationPrefab);
+		SkillAnimation skillAnimation = Instantiate (sAnimationPrefab);
 		skillAnimation.transform.SetParent (FindObjectOfType<Canvas>().transform,false);
 		skillAnimation.PlayAnimation (this,target);
 	}
@@ -132,15 +129,15 @@ public abstract class Skill : ScriptableObject {
 	}
 
 	public string getSkillName (){
-		return skillName;
+		return sName;
 	}
 
 	public float getPrecision (){
-		return precision;
+		return sPrecision;
 	}
 
 	public float getCriticRate (){
-		return criticRate;
+		return sCriticRate;
 	}
 
 	public bool getIsSingleTarget (){
@@ -151,15 +148,11 @@ public abstract class Skill : ScriptableObject {
 		return targets;
 	}
 
-	public Buff.BuffType getBuffType(){
-		return buffType;
-	}
-
 	public Types getSkillType(){
-		return type;
+		return sType;
 	}
 
 	public int getRange(){
-		return range;
+		return sRange;
 	}
 }

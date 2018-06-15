@@ -40,7 +40,7 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 	}
 
 	public void ShowCharacterAt(Character character, int position){
-		if (character.getIsHero ()) {
+		if (character.isPlayable ()) {
 			heroesCombatantHUD [position].gameObject.SetActive (true);
 			heroesCombatantHUD [position].Initialize (character);
 			character.setHUD (heroesCombatantHUD [position]);

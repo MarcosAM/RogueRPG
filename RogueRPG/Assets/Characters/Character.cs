@@ -6,28 +6,29 @@ using System;
 
 public abstract class Character : MonoBehaviour {
 
-	[SerializeField]protected string myName;
-	protected int hp;
-	protected int maxHp;
-	protected float energy = 0;
-	protected bool alive = true;
+	[SerializeField]protected string cName;
+	protected int cHp;
+	protected int cMaxHp;
+	protected float cDelayCountdown = 0;
+	protected bool cAlive = true;
 
-	[SerializeField]protected StandartStats stats;
-	protected int atk, atkm, def, defm;
-	[SerializeField]protected float dodge = 0;
-	[SerializeField]protected float precision = 0;
-	[SerializeField]protected float critic = 0;
-	protected ICombatBehavior combatBehavior;
-	[SerializeField]protected IMovable movement;
+	//TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
+	[SerializeField]protected StandartStats cStats;
+	protected int cAtk, cAtkm, cDef, cDefm;
+	[SerializeField]protected float cDodge = 0;
+	[SerializeField]protected float cPrecision = 0;
+	[SerializeField]protected float cCritic = 0;
+	protected ICombatBehavior cCombatBehavior;
+	[SerializeField]protected IMovable cMovement;
 
 	[SerializeField]protected List<Buff> buffs = new List<Buff>();
 
-	protected bool isHero;
+	protected bool cPlayable;
 
-	public Skill[] skills = new Skill[4];
+	public Skill[] cSkills = new Skill[4];
 
-	[SerializeField]protected Image image;
-	protected CombatantHUD hud;
+	[SerializeField]protected Image cPortrait;
+	protected CombatantHUD cHud;
 
 	public event Action OnHUDValuesChange;
 	public event Action<int,int> OnHPValuesChange;
@@ -54,14 +55,14 @@ public abstract class Character : MonoBehaviour {
 		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
 			distanceInfluenceOnPrecision = -1f;
 		}
-		print (this.myName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
-		if (skill.getCriticRate () + critic >= UnityEngine.Random.value) {
-			target.TakeDamage (Mathf.RoundToInt((attack + atk) * 1.5f));
+		print (this.cName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
+		if (skill.getCriticRate () + cCritic >= UnityEngine.Random.value) {
+			target.TakeDamage (Mathf.RoundToInt((attack + cAtk) * 1.5f));
 		} else {
-			if (skill.getPrecision () + precision + distanceInfluenceOnPrecision - target.getDodge() >= UnityEngine.Random.value) {
-				target.TakeDamage (Mathf.RoundToInt((attack+atk)*UnityEngine.Random.Range(1f,1.2f)-target.getDef()));
+			if (skill.getPrecision () + cPrecision + distanceInfluenceOnPrecision - target.getDodge() >= UnityEngine.Random.value) {
+				target.TakeDamage (Mathf.RoundToInt((attack+cAtk)*UnityEngine.Random.Range(1f,1.2f)-target.getDef()));
 			} else {
-				print(target.myName+" se esquivou!");
+				print(target.cName+" se esquivou!");
 			}
 		}
 	}
@@ -72,9 +73,9 @@ public abstract class Character : MonoBehaviour {
 		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
 			distanceInfluenceOnPrecision = -1f;
 		}
-		print (this.myName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
-		if (skill.getPrecision () + precision + distanceInfluenceOnPrecision - target.getDodge () >= UnityEngine.Random.value) {
-			int damage = Mathf.RoundToInt((attack + atkm) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ());
+		print (this.cName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
+		if (skill.getPrecision () + cPrecision + distanceInfluenceOnPrecision - target.getDodge () >= UnityEngine.Random.value) {
+			int damage = Mathf.RoundToInt((attack + cAtkm) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ());
 			print (damage);
 			target.TakeDamage (damage);
 		}
@@ -84,10 +85,10 @@ public abstract class Character : MonoBehaviour {
 	{
 		if (damage > 0) {
 			if (OnHPValuesChange != null) {
-				OnHPValuesChange (hp,damage);
+				OnHPValuesChange (cHp,damage);
 			}
-			hp -= damage;
-			if(hp<=0){
+			cHp -= damage;
+			if(cHp<=0){
 				Die ();
 			}
 		}
@@ -95,36 +96,36 @@ public abstract class Character : MonoBehaviour {
 	}
 
 	public void Heal(int value){
-		if(value>=0 && alive){
+		if(value>=0 && cAlive){
 			if (OnHPValuesChange != null) {
-				OnHPValuesChange (hp,value);
+				OnHPValuesChange (cHp,value);
 			}
-			hp += value;
-			if(hp>maxHp){
-				hp = maxHp;
+			cHp += value;
+			if(cHp>cMaxHp){
+				cHp = cMaxHp;
 			}
 		}
 		RefreshHUD();
 	}
 
 	public void Die(){
-		hp = 0;
-		energy = 0;
-		alive = false;
+		cHp = 0;
+		cDelayCountdown = 0;
+		cAlive = false;
 		EventManager.DeathOf (this);
 		RemoveAllBuffs ();
 	}
 
 	public void SpendEnergy (float amount){
-		energy -= amount;
+		cDelayCountdown -= amount;
 		RefreshHUD();
 	}
 
 	public void RecoverEnergy (float amount){
-		if(alive){
-			energy += amount;
+		if(cAlive){
+			cDelayCountdown += amount;
 			RefreshHUD();
-			if(energy>=0){
+			if(cDelayCountdown>=0){
 				EventManager.RechargedEnergy(this);
 			}
 		}
@@ -137,18 +138,18 @@ public abstract class Character : MonoBehaviour {
 	}
 
 	protected void FillStats (){
-		atk = stats.getAtk ();
-		atkm = stats.getAtkm ();
-		def = stats.getDef ();
-		defm = stats.getDefm ();
-		skills = stats.getSkills ();
-		maxHp = stats.getHp ();
-		hp = maxHp;
+		cAtk = cStats.getAtk ();
+		cAtkm = cStats.getAtkm ();
+		cDef = cStats.getDef ();
+		cDefm = cStats.getDefm ();
+		cSkills = cStats.getSkills ();
+		cMaxHp = cStats.getHp ();
+		cHp = cMaxHp;
 	}
 		
 	public void PrepareForNextCombat (){
 		RemoveAllBuffs ();
-		energy = 0;
+		cDelayCountdown = 0;
 	}
 
 	void OnEnable (){
@@ -157,78 +158,6 @@ public abstract class Character : MonoBehaviour {
 
 	void OnDisable (){
 		EventManager.OnRechargeEnergy -= RecoverEnergy;
-	}
-
-	public Skill[] getSkills(){
-		return skills;
-	}
-
-	public float getHp (){
-		return hp;
-	}
-
-	public float getEnergy (){
-		return energy;
-	}
-
-	public float getMaxHp (){
-		return maxHp;
-	}
-
-	public string getName (){
-		return myName;
-	}
-
-	public int getAtk(){
-		return atk;
-	}
-
-	public int getAtkm (){
-		return atkm;
-	}
-
-	public int getDef (){
-		return def;
-	}
-
-	public int getDefm (){
-		return defm;
-	}
-
-	public float getDodge (){
-		return dodge;
-	}
-
-	public bool getIsHero (){
-		return isHero;
-	}
-
-	public bool isAlive(){
-		return alive;
-	}
-
-	public Image getImage(){
-		return image;
-	}
-
-	public void setHUD(CombatantHUD combatantHUD){
-		hud = combatantHUD;
-	}
-
-	public CombatantHUD getHUD(){
-		return hud;
-	}
-
-	public ICombatBehavior getBehavior(){
-		return combatBehavior;
-	}
-
-	public IMovable getMovement(){
-		return movement;
-	}
-
-	public int getPosition(){
-		return movement.getPosition ();
 	}
 
 	public void increasePrecision(int level){
@@ -246,18 +175,18 @@ public abstract class Character : MonoBehaviour {
 		default:
 			break;
 		}
-		if(precision < precisionBuff){
-			precision = precisionBuff;
+		if(cPrecision < precisionBuff){
+			cPrecision = precisionBuff;
 		}
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (dodge,precision,critic);
+			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
 		}
 	}
 
 	public void resetPrecision(){
-		precision = 0;
+		cPrecision = 0;
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (dodge,precision,critic);
+			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
 		}
 	}
 
@@ -271,23 +200,23 @@ public abstract class Character : MonoBehaviour {
 			dodgeBuff = 0.3f;
 			break;
 		case 3:
-			precision = 0.5f;
+			cPrecision = 0.5f;
 			break;
 		default:
 			break;
 		}
-		if(dodge < dodgeBuff){
-			dodge  = dodgeBuff;
+		if(cDodge < dodgeBuff){
+			cDodge  = dodgeBuff;
 		}
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (dodge,precision,critic);
+			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
 		}
 	}
 
 	public void resetDodge(){
-		dodge = 0;
+		cDodge = 0;
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (dodge,precision,critic);
+			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
 		}
 	}
 
@@ -301,23 +230,23 @@ public abstract class Character : MonoBehaviour {
 			criticBuff = 0.3f;
 			break;
 		case 3:
-			precision = 0.5f;
+			cPrecision = 0.5f;
 			break;
 		default:
 			break;
 		}
-		if(critic < criticBuff){
-			critic  = criticBuff;
+		if(cCritic < criticBuff){
+			cCritic  = criticBuff;
 		}
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (dodge,precision,critic);
+			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
 		}
 	}
 
 	public void resetCritic(){
-		critic = 0;
+		cCritic = 0;
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (dodge,precision,critic);
+			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
 		}
 	}
 
@@ -368,4 +297,28 @@ public abstract class Character : MonoBehaviour {
 		resetDodge ();
 		resetPrecision ();
 	}
+
+//	public void getCriticRate(){
+//		fore
+//	}
+
+	public Skill[] getSkills() {return cSkills;}
+	public float getHp() {return cHp;}
+	public float getEnergy() {return cDelayCountdown;}
+	public float getMaxHp() {return cMaxHp;}
+	public string getName() {return cName;}
+	public int getAtk() {return cAtk;}
+	public int getAtkm() {return cAtkm;}
+	public int getDef() {return cDef;}
+	public int getDefm() {return cDefm;}
+	public float getDodge() {return cDodge;}
+	public bool isPlayable() {return cPlayable;}
+	public bool isAlive() {return cAlive;}
+	public Image getPortrait() {return cPortrait;}
+
+	public void setHUD(CombatantHUD combatantHUD) {cHud = combatantHUD;}
+	public CombatantHUD getHUD() {return cHud;}
+	public ICombatBehavior getBehavior() {return cCombatBehavior;}
+	public IMovable getMovement() {return cMovement;}
+	public int getPosition() {return cMovement.getPosition ();}
 }

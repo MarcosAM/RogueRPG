@@ -5,14 +5,14 @@ using UnityEngine;
 public class PlayableCharacter : Character {
 
 	void Awake (){
-		if(stats != null){
+		if(cStats != null){
 			FillStats ();
 		}
-		combatBehavior = GetComponent<ICombatBehavior> ();
-		movement = GetComponent<IMovable> ();
-		movement.Initialize (this);
-		combatBehavior.Initialize (this);
-		isHero = true;
+		cCombatBehavior = GetComponent<ICombatBehavior> ();
+		cMovement = GetComponent<IMovable> ();
+		cMovement.Initialize (this);
+		cCombatBehavior.Initialize (this);
+		cPlayable = true;
 		DontDestroyOnLoad (transform.parent.gameObject);
 	}
 

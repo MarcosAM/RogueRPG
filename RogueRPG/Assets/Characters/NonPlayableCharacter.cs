@@ -5,13 +5,13 @@ using UnityEngine;
 public class NonPlayableCharacter : Character {
 
 	void Awake (){
-		if(stats != null){
+		if(cStats != null){
 			FillStats ();
 		}
-		combatBehavior = GetComponent<ICombatBehavior> ();
-		movement = GetComponent<IMovable> ();
-		movement.Initialize (this);
-		combatBehavior.Initialize (this);
-		isHero = false;
+		cCombatBehavior = GetComponent<ICombatBehavior> ();
+		cMovement = GetComponent<IMovable> ();
+		cMovement.Initialize (this);
+		cCombatBehavior.Initialize (this);
+		cPlayable = false;
 	}
 }

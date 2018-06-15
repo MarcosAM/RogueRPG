@@ -8,6 +8,6 @@ public class ATKMSkill : Skill {
 	public override void UniqueEffect (Character user, Character target)
 	{
 		base.UniqueEffect (user, target);
-		user.AttackMagic (target,value,this);
+		user.AttackMagic (target,sValue,this);
 	}
 }

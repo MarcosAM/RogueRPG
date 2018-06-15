@@ -6,20 +6,20 @@ public class Buff : MonoBehaviour {
 
 	public enum BuffType {Precision, Dodge, Critic};
 
-	private BuffType type;
+	private BuffType bType;
 	private int level, duration;
 	private Character target;
 
 	public void Initialize(int level, int duration, BuffType type, Character target){
 		this.level = level;
 		this.duration = duration;
-		this.type = type;
+		this.bType = type;
 		this.target = target;
 		this.target.CheckNewBuff (this);
 	}
 
 	public void Effect (){
-		switch(type){
+		switch(bType){
 		case BuffType.Precision:
 			target.increasePrecision (level);
 			break;
@@ -45,7 +45,7 @@ public class Buff : MonoBehaviour {
 	}
 
 	public void End(){
-		switch(type){
+		switch(bType){
 		case BuffType.Precision:
 			target.resetPrecision();
 			break;
@@ -66,7 +66,7 @@ public class Buff : MonoBehaviour {
 	}
 
 	public BuffType getType (){
-		return type;
+		return bType;
 	}
 
 	public int GetLevel (){

@@ -8,7 +8,7 @@ public class HealSkill : Skill {
 	public override void UniqueEffect (Character user, Character target)
 	{
 		base.UniqueEffect (user, target);
-		target.Heal (value+user.getAtkm());
+		target.Heal (sValue+user.getAtkm());
 	}
 
 }

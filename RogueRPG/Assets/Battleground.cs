@@ -29,7 +29,7 @@ public class Battleground : MonoBehaviour {
 	}
 
 	public void MoveCharacterTo(Character character, int position){
-		if (character.getIsHero ()) {
+		if (character.isPlayable ()) {
 			if (heroSide [position] != null) {
 				heroSide.Remove (character);
 				heroSide.Insert (position, character);
@@ -75,7 +75,7 @@ public class Battleground : MonoBehaviour {
 	}
 
 	public int getPositionOf (Character character){
-		if (character.getIsHero ()) {
+		if (character.isPlayable ()) {
 			return heroSide.IndexOf (character);
 		} else {
 			return enemySide.IndexOf (character);

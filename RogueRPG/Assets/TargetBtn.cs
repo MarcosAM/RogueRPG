@@ -39,13 +39,13 @@ public class TargetBtn : CombatBtn {
 		if(combatant.isAlive()){
 			switch(skill.getTargets()){
 				case Skill.Targets.Allies:
-				if(combatant.getIsHero() && Mathf.Abs(combatant.getPosition()-user.getPosition())<=skill.getRange()){
+				if(combatant.isPlayable() && Mathf.Abs(combatant.getPosition()-user.getPosition())<=skill.getRange()){
 					button.interactable = true;
 					text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
 				}
 				break;
 				case Skill.Targets.Enemies:
-				if(!combatant.getIsHero() && Mathf.Abs(combatant.getPosition()-user.getPosition())<=skill.getRange()){
+				if(!combatant.isPlayable() && Mathf.Abs(combatant.getPosition()-user.getPosition())<=skill.getRange()){
 					print (skill.getRange());
 					print (user.getName()+" está tentando acertar "+combatant.getName()+" que está a "+Mathf.Abs(combatant.getPosition()-user.getPosition())+" de distância");
 					button.interactable = true;
