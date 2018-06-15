@@ -14,10 +14,18 @@ public abstract class Character : MonoBehaviour {
 
 	//TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
 	[SerializeField]protected StandartStats cStats;
-	protected int cAtk, cAtkm, cDef, cDefm;
-	[SerializeField]protected float cDodge = 0;
-	[SerializeField]protected float cPrecision = 0;
-	[SerializeField]protected float cCritic = 0;
+	protected int cAtkBase, cAtkmBase, cDefBase, cDefmBase;
+	protected List<int> cAtkBonus = new List<int>();
+	protected List<int> cDefBonus = new List<int>();
+	protected List<int> cAtkmBonus = new List<int>();
+	protected List<int> cDefmBonus = new List<int>();
+	protected List<float> cDodgeBonus = new List<float>();
+	protected List<float> cPrecisionBonus = new List<float>();
+	protected List<float> cCriticBonus = new List<float>();
+
+	[SerializeField]protected float cDodgeBase = 0;
+	[SerializeField]protected float cPrecisionBase = 0;
+	[SerializeField]protected float cCriticBase = 0;
 	protected ICombatBehavior cCombatBehavior;
 	[SerializeField]protected IMovable cMovement;
 
@@ -56,11 +64,11 @@ public abstract class Character : MonoBehaviour {
 			distanceInfluenceOnPrecision = -1f;
 		}
 		print (this.cName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
-		if (skill.getCriticRate () + cCritic >= UnityEngine.Random.value) {
-			target.TakeDamage (Mathf.RoundToInt((attack + cAtk) * 1.5f));
+		if (skill.getCriticRate () + cCriticBase >= UnityEngine.Random.value) {
+			target.TakeDamage (Mathf.RoundToInt((attack + cAtkBase) * 1.5f));
 		} else {
-			if (skill.getPrecision () + cPrecision + distanceInfluenceOnPrecision - target.getDodge() >= UnityEngine.Random.value) {
-				target.TakeDamage (Mathf.RoundToInt((attack+cAtk)*UnityEngine.Random.Range(1f,1.2f)-target.getDef()));
+			if (skill.getPrecision () + cPrecisionBase + distanceInfluenceOnPrecision - target.getDodge() >= UnityEngine.Random.value) {
+				target.TakeDamage (Mathf.RoundToInt((attack+cAtkBase)*UnityEngine.Random.Range(1f,1.2f)-target.getDef()));
 			} else {
 				print(target.cName+" se esquivou!");
 			}
@@ -74,8 +82,8 @@ public abstract class Character : MonoBehaviour {
 			distanceInfluenceOnPrecision = -1f;
 		}
 		print (this.cName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
-		if (skill.getPrecision () + cPrecision + distanceInfluenceOnPrecision - target.getDodge () >= UnityEngine.Random.value) {
-			int damage = Mathf.RoundToInt((attack + cAtkm) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ());
+		if (skill.getPrecision () + cPrecisionBase + distanceInfluenceOnPrecision - target.getDodge () >= UnityEngine.Random.value) {
+			int damage = Mathf.RoundToInt((attack + cAtkmBase) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ());
 			print (damage);
 			target.TakeDamage (damage);
 		}
@@ -138,10 +146,10 @@ public abstract class Character : MonoBehaviour {
 	}
 
 	protected void FillStats (){
-		cAtk = cStats.getAtk ();
-		cAtkm = cStats.getAtkm ();
-		cDef = cStats.getDef ();
-		cDefm = cStats.getDefm ();
+		cAtkBase = cStats.getAtk ();
+		cAtkmBase = cStats.getAtkm ();
+		cDefBase = cStats.getDef ();
+		cDefmBase = cStats.getDefm ();
 		cSkills = cStats.getSkills ();
 		cMaxHp = cStats.getHp ();
 		cHp = cMaxHp;
@@ -175,18 +183,18 @@ public abstract class Character : MonoBehaviour {
 		default:
 			break;
 		}
-		if(cPrecision < precisionBuff){
-			cPrecision = precisionBuff;
+		if(cPrecisionBase < precisionBuff){
+			cPrecisionBase = precisionBuff;
 		}
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
+			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
 		}
 	}
 
 	public void resetPrecision(){
-		cPrecision = 0;
+		cPrecisionBase = 0;
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
+			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
 		}
 	}
 
@@ -200,23 +208,23 @@ public abstract class Character : MonoBehaviour {
 			dodgeBuff = 0.3f;
 			break;
 		case 3:
-			cPrecision = 0.5f;
+			cPrecisionBase = 0.5f;
 			break;
 		default:
 			break;
 		}
-		if(cDodge < dodgeBuff){
-			cDodge  = dodgeBuff;
+		if(cDodgeBase < dodgeBuff){
+			cDodgeBase  = dodgeBuff;
 		}
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
+			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
 		}
 	}
 
 	public void resetDodge(){
-		cDodge = 0;
+		cDodgeBase = 0;
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
+			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
 		}
 	}
 
@@ -230,23 +238,23 @@ public abstract class Character : MonoBehaviour {
 			criticBuff = 0.3f;
 			break;
 		case 3:
-			cPrecision = 0.5f;
+			cPrecisionBase = 0.5f;
 			break;
 		default:
 			break;
 		}
-		if(cCritic < criticBuff){
-			cCritic  = criticBuff;
+		if(cCriticBase < criticBuff){
+			cCriticBase  = criticBuff;
 		}
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
+			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
 		}
 	}
 
 	public void resetCritic(){
-		cCritic = 0;
+		cCriticBase = 0;
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodge,cPrecision,cCritic);
+			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
 		}
 	}
 
@@ -298,20 +306,22 @@ public abstract class Character : MonoBehaviour {
 		resetPrecision ();
 	}
 
-//	public void getCriticRate(){
-//		fore
-//	}
+	public void getCriticRate(){
+		for(int i = 0;buffs.Count;i++){
+			
+		}
+	}
 
 	public Skill[] getSkills() {return cSkills;}
 	public float getHp() {return cHp;}
 	public float getEnergy() {return cDelayCountdown;}
 	public float getMaxHp() {return cMaxHp;}
 	public string getName() {return cName;}
-	public int getAtk() {return cAtk;}
-	public int getAtkm() {return cAtkm;}
-	public int getDef() {return cDef;}
-	public int getDefm() {return cDefm;}
-	public float getDodge() {return cDodge;}
+	public int getAtk() {return cAtkBase;}
+	public int getAtkm() {return cAtkmBase;}
+	public int getDef() {return cDefBase;}
+	public int getDefm() {return cDefmBase;}
+	public float getDodge() {return cDodgeBase;}
 	public bool isPlayable() {return cPlayable;}
 	public bool isAlive() {return cAlive;}
 	public Image getPortrait() {return cPortrait;}
