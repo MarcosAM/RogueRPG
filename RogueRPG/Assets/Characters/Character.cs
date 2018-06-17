@@ -49,7 +49,7 @@ public abstract class Character : MonoBehaviour {
 		if(OnMyTurnStarts != null){
 			OnMyTurnStarts ();
 		}
-//		SpendBuffs();
+		SpendBuffs();
 	}
 
 	public void EndTurn(){
@@ -122,7 +122,7 @@ public abstract class Character : MonoBehaviour {
 		cDelayCountdown = 0;
 		cAlive = false;
 		EventManager.DeathOf (this);
-//		RemoveAllBuffs ();
+		RemoveAllBuffs ();
 	}
 
 	public void SpendEnergy (float amount){
@@ -157,7 +157,7 @@ public abstract class Character : MonoBehaviour {
 	}
 		
 	public void PrepareForNextCombat (){
-//		RemoveAllBuffs ();
+		RemoveAllBuffs ();
 		cDelayCountdown = 0;
 	}
 
@@ -169,137 +169,17 @@ public abstract class Character : MonoBehaviour {
 		EventManager.OnRechargeEnergy -= RecoverEnergy;
 	}
 
-//	public void increasePrecision(int level){
-//		float precisionBuff = 0f;
-//		switch(level){
-//		case 1:
-//			precisionBuff = 0.1f;
-//			break;
-//		case 2:
-//			precisionBuff = 0.3f;
-//			break;
-//		case 3:
-//			precisionBuff = 0.5f;
-//			break;
-//		default:
-//			break;
-//		}
-//		if(cPrecisionBase < precisionBuff){
-//			cPrecisionBase = precisionBuff;
-//		}
-//		if(OnBuffsGainOrLoss != null){
-//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-//		}
-//	}
-//
-//	public void resetPrecision(){
-//		cPrecisionBase = 0;
-//		if(OnBuffsGainOrLoss != null){
-//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-//		}
-//	}
-//
-//	public void increaseDodge(int level){
-//		float dodgeBuff = 0f;
-//		switch(level){
-//		case 1:
-//			dodgeBuff = 0.1f;
-//			break;
-//		case 2:
-//			dodgeBuff = 0.3f;
-//			break;
-//		case 3:
-//			cPrecisionBase = 0.5f;
-//			break;
-//		default:
-//			break;
-//		}
-//		if(cDodgeBase < dodgeBuff){
-//			cDodgeBase  = dodgeBuff;
-//		}
-//		if(OnBuffsGainOrLoss != null){
-//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-//		}
-//	}
-//
-//	public void resetDodge(){
-//		cDodgeBase = 0;
-//		if(OnBuffsGainOrLoss != null){
-//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-//		}
-//	}
-//
-//	public void increaseCritic(int level){
-//		float criticBuff = 0f;
-//		switch(level){
-//		case 1:
-//			criticBuff = 0.1f;
-//			break;
-//		case 2:
-//			criticBuff = 0.3f;
-//			break;
-//		case 3:
-//			cPrecisionBase = 0.5f;
-//			break;
-//		default:
-//			break;
-//		}
-//		if(cCriticBase < criticBuff){
-//			cCriticBase  = criticBuff;
-//		}
-//		if(OnBuffsGainOrLoss != null){
-//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-//		}
-//	}
-//
-//	public void resetCritic(){
-//		cCriticBase = 0;
-//		if(OnBuffsGainOrLoss != null){
-//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-//		}
-//	}
-//
-//	public void CheckNewBuff (Buff newBuff)
-//	{
-//		foreach (Buff currentBuff in buffs) {
-//			if (currentBuff.getType () == newBuff.getType ()) {
-//				if (newBuff.GetLevel () >= currentBuff.GetLevel ()) {
-//					RemoveBuff (currentBuff);
-//					AddNewBuff (newBuff);
-//					return;
-//				} else {
-//					print("Novo buff muito fraco");
-//					newBuff.Remove();
-//					return;
-//				}
-//			}
-//		}
-//		AddNewBuff(newBuff);
-//	}
-//
-//	void AddNewBuff (Buff newBuff){
-//		buffs.Add(newBuff);
-//		newBuff.Effect();
-//	}
-//
-//	public void RemoveBuff(Buff b){
-//		buffs.Remove(b);
-//		b.Remove();
-//	}
-//
-//	public void SpendBuffs ()
-//	{
-//		List<Buff> deletableBuffs = new List<Buff> ();
-//		foreach (Buff buff in buffs) {
-//			if (buff.Countdown ()) {
-//				deletableBuffs.Add(buff);
-//			}
-//		}
-//		foreach(Buff buff in deletableBuffs){
-//			buff.End();
-//		}
-//	}
-//
+	public void SpendBuffs (){
+		atk.SpendAndCheckIfEnded();
+		atkm.SpendAndCheckIfEnded();
+		def.SpendAndCheckIfEnded();
+		defm.SpendAndCheckIfEnded();
+		critic.SpendAndCheckIfEnded();
+		dodge.SpendAndCheckIfEnded();
+		precision.SpendAndCheckIfEnded();
+		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+	}
+
 	void RemoveAllBuffs(){
 		atk.ResetBuff();
 		atkm.ResetBuff();
@@ -308,7 +188,9 @@ public abstract class Character : MonoBehaviour {
 		dodge.ResetBuff();
 		precision.ResetBuff();
 		critic.ResetBuff();
-		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+		if(OnBuffsGainOrLoss != null){
+			OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+		}
 	}
 
 	public void CriticBuff (float buffValue, int buffDuration){

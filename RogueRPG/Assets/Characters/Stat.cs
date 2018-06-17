@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Stat {
 
-	float statBase;
-	float buffValue;
-	int buffDuration;
+	float statBase = 0;
+	float buffValue = 0;
+	int buffDuration = 0;
 	List<float> bonus = new List<float>();
 
 	public float getValue (){
@@ -37,15 +37,20 @@ public class Stat {
 		buffValue = 0;
 		buffDuration = 0;
 	}
-	public bool SpendAndCheckIfEnded (){
+	public void SpendAndCheckIfEnded (){
 		if(buffValue!=0){
 			buffDuration--;
 			if(buffDuration<=0){
-				return true;
+				buffValue = 0;
 			}
 		}
-		return false;
 	}
+
+//	public Stat (){
+//		this.buffDuration = 0;
+//		this.buffValue = 0;
+//		this.statBase = 0;
+//	}
 
 	public const float CRITIC_BUFF_1 = 0.1f;
 	public const float CRITIC_BUFF_2 = 0.3f;

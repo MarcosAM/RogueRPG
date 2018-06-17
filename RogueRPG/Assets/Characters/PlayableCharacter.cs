@@ -5,6 +5,14 @@ using UnityEngine;
 public class PlayableCharacter : Character {
 
 	void Awake (){
+		atk = new Stat();
+		atkm = new Stat();
+		def = new Stat();
+		defm = new Stat();
+		critic = new Stat();
+		precision = new Stat();
+		dodge = new Stat();
+
 		if(cStats != null){
 			FillStats ();
 		}
