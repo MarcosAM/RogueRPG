@@ -78,7 +78,7 @@
      <Compile Include="Assets\SkillBtn.cs" />
      <Compile Include="Assets\Skills\Scripts\ATKMSkill.cs" />
      <Compile Include="Assets\Skills\Scripts\ATKSkill.cs" />
-     <Compile Include="Assets\Skills\Scripts\BuffSkill.cs" />
+     <Compile Include="Assets\Skills\Scripts\CriticBuffSkill.cs" />
      <Compile Include="Assets\Skills\Scripts\HealSkill.cs" />
      <Compile Include="Assets\Skills\Scripts\Skill.cs" />
      <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />

@@ -14,18 +14,19 @@ public abstract class Character : MonoBehaviour {
 
 	//TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
 	[SerializeField]protected StandartStats cStats;
-	protected int cAtkBase, cAtkmBase, cDefBase, cDefmBase;
-	protected List<int> cAtkBonus = new List<int>();
-	protected List<int> cDefBonus = new List<int>();
-	protected List<int> cAtkmBonus = new List<int>();
-	protected List<int> cDefmBonus = new List<int>();
-	protected List<float> cDodgeBonus = new List<float>();
-	protected List<float> cPrecisionBonus = new List<float>();
-	protected List<float> cCriticBonus = new List<float>();
-
-	[SerializeField]protected float cDodgeBase = 0;
-	[SerializeField]protected float cPrecisionBase = 0;
-	[SerializeField]protected float cCriticBase = 0;
+	protected Stat atk, atkm, def, defm, precision, dodge, critic;
+//	protected int cAtkBase, cAtkmBase, cDefBase, cDefmBase;
+//	protected List<int> cAtkBonus = new List<int>();
+//	protected List<int> cDefBonus = new List<int>();
+//	protected List<int> cAtkmBonus = new List<int>();
+//	protected List<int> cDefmBonus = new List<int>();
+//	protected List<float> cDodgeBonus = new List<float>();
+//	protected List<float> cPrecisionBonus = new List<float>();
+//	protected List<float> cCriticBonus = new List<float>();
+//
+//	[SerializeField]protected float cDodgeBase = 0;
+//	[SerializeField]protected float cPrecisionBase = 0;
+//	[SerializeField]protected float cCriticBase = 0;
 	protected ICombatBehavior cCombatBehavior;
 	[SerializeField]protected IMovable cMovement;
 
@@ -48,7 +49,7 @@ public abstract class Character : MonoBehaviour {
 		if(OnMyTurnStarts != null){
 			OnMyTurnStarts ();
 		}
-		SpendBuffs();
+//		SpendBuffs();
 	}
 
 	public void EndTurn(){
@@ -64,11 +65,11 @@ public abstract class Character : MonoBehaviour {
 			distanceInfluenceOnPrecision = -1f;
 		}
 		print (this.cName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
-		if (skill.getCriticRate () + cCriticBase >= UnityEngine.Random.value) {
-			target.TakeDamage (Mathf.RoundToInt((attack + cAtkBase) * 1.5f));
+		if (skill.getCriticRate () + critic.getValue() >= UnityEngine.Random.value) {
+			target.TakeDamage (Mathf.RoundToInt((attack + atk.getValue()) * 1.5f));
 		} else {
-			if (skill.getPrecision () + cPrecisionBase + distanceInfluenceOnPrecision - target.getDodge() >= UnityEngine.Random.value) {
-				target.TakeDamage (Mathf.RoundToInt((attack+cAtkBase)*UnityEngine.Random.Range(1f,1.2f)-target.getDef()));
+			if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue() >= UnityEngine.Random.value) {
+				target.TakeDamage (Mathf.RoundToInt((attack+atk.getValue())*UnityEngine.Random.Range(1f,1.2f)-target.getDefValue()));
 			} else {
 				print(target.cName+" se esquivou!");
 			}
@@ -82,8 +83,8 @@ public abstract class Character : MonoBehaviour {
 			distanceInfluenceOnPrecision = -1f;
 		}
 		print (this.cName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
-		if (skill.getPrecision () + cPrecisionBase + distanceInfluenceOnPrecision - target.getDodge () >= UnityEngine.Random.value) {
-			int damage = Mathf.RoundToInt((attack + cAtkmBase) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefm ());
+		if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue () >= UnityEngine.Random.value) {
+			int damage = Mathf.RoundToInt((attack + atkm.getValue()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefmValue ());
 			print (damage);
 			target.TakeDamage (damage);
 		}
@@ -121,7 +122,7 @@ public abstract class Character : MonoBehaviour {
 		cDelayCountdown = 0;
 		cAlive = false;
 		EventManager.DeathOf (this);
-		RemoveAllBuffs ();
+//		RemoveAllBuffs ();
 	}
 
 	public void SpendEnergy (float amount){
@@ -146,17 +147,17 @@ public abstract class Character : MonoBehaviour {
 	}
 
 	protected void FillStats (){
-		cAtkBase = cStats.getAtk ();
-		cAtkmBase = cStats.getAtkm ();
-		cDefBase = cStats.getDef ();
-		cDefmBase = cStats.getDefm ();
+		atk.setStatBase (cStats.getAtk ());
+		atkm.setStatBase (cStats.getAtkm ());
+		def.setStatBase (cStats.getDef ());
+		defm.setStatBase (cStats.getDefm ());
 		cSkills = cStats.getSkills ();
 		cMaxHp = cStats.getHp ();
 		cHp = cMaxHp;
 	}
 		
 	public void PrepareForNextCombat (){
-		RemoveAllBuffs ();
+//		RemoveAllBuffs ();
 		cDelayCountdown = 0;
 	}
 
@@ -168,160 +169,181 @@ public abstract class Character : MonoBehaviour {
 		EventManager.OnRechargeEnergy -= RecoverEnergy;
 	}
 
-	public void increasePrecision(int level){
-		float precisionBuff = 0f;
-		switch(level){
-		case 1:
-			precisionBuff = 0.1f;
-			break;
-		case 2:
-			precisionBuff = 0.3f;
-			break;
-		case 3:
-			precisionBuff = 0.5f;
-			break;
-		default:
-			break;
-		}
-		if(cPrecisionBase < precisionBuff){
-			cPrecisionBase = precisionBuff;
-		}
-		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-		}
-	}
-
-	public void resetPrecision(){
-		cPrecisionBase = 0;
-		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-		}
-	}
-
-	public void increaseDodge(int level){
-		float dodgeBuff = 0f;
-		switch(level){
-		case 1:
-			dodgeBuff = 0.1f;
-			break;
-		case 2:
-			dodgeBuff = 0.3f;
-			break;
-		case 3:
-			cPrecisionBase = 0.5f;
-			break;
-		default:
-			break;
-		}
-		if(cDodgeBase < dodgeBuff){
-			cDodgeBase  = dodgeBuff;
-		}
-		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-		}
-	}
-
-	public void resetDodge(){
-		cDodgeBase = 0;
-		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-		}
-	}
-
-	public void increaseCritic(int level){
-		float criticBuff = 0f;
-		switch(level){
-		case 1:
-			criticBuff = 0.1f;
-			break;
-		case 2:
-			criticBuff = 0.3f;
-			break;
-		case 3:
-			cPrecisionBase = 0.5f;
-			break;
-		default:
-			break;
-		}
-		if(cCriticBase < criticBuff){
-			cCriticBase  = criticBuff;
-		}
-		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-		}
-	}
-
-	public void resetCritic(){
-		cCriticBase = 0;
-		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
-		}
-	}
-
-	public void CheckNewBuff (Buff newBuff)
-	{
-		foreach (Buff currentBuff in buffs) {
-			if (currentBuff.getType () == newBuff.getType ()) {
-				if (newBuff.GetLevel () >= currentBuff.GetLevel ()) {
-					RemoveBuff (currentBuff);
-					AddNewBuff (newBuff);
-					return;
-				} else {
-					print("Novo buff muito fraco");
-					newBuff.Remove();
-					return;
-				}
-			}
-		}
-		AddNewBuff(newBuff);
-	}
-
-	void AddNewBuff (Buff newBuff){
-		buffs.Add(newBuff);
-		newBuff.Effect();
-	}
-
-	public void RemoveBuff(Buff b){
-		buffs.Remove(b);
-		b.Remove();
-	}
-
-	public void SpendBuffs ()
-	{
-		List<Buff> deletableBuffs = new List<Buff> ();
-		foreach (Buff buff in buffs) {
-			if (buff.Countdown ()) {
-				deletableBuffs.Add(buff);
-			}
-		}
-		foreach(Buff buff in deletableBuffs){
-			buff.End();
-		}
-	}
-
-	void RemoveAllBuffs(){
-		buffs.Clear ();
-		resetCritic ();
-		resetDodge ();
-		resetPrecision ();
-	}
-
-//	public void getCriticRate(){
-//		for(int i = 0;buffs.Count;i++){
-//			
+//	public void increasePrecision(int level){
+//		float precisionBuff = 0f;
+//		switch(level){
+//		case 1:
+//			precisionBuff = 0.1f;
+//			break;
+//		case 2:
+//			precisionBuff = 0.3f;
+//			break;
+//		case 3:
+//			precisionBuff = 0.5f;
+//			break;
+//		default:
+//			break;
+//		}
+//		if(cPrecisionBase < precisionBuff){
+//			cPrecisionBase = precisionBuff;
+//		}
+//		if(OnBuffsGainOrLoss != null){
+//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
 //		}
 //	}
+//
+//	public void resetPrecision(){
+//		cPrecisionBase = 0;
+//		if(OnBuffsGainOrLoss != null){
+//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
+//		}
+//	}
+//
+//	public void increaseDodge(int level){
+//		float dodgeBuff = 0f;
+//		switch(level){
+//		case 1:
+//			dodgeBuff = 0.1f;
+//			break;
+//		case 2:
+//			dodgeBuff = 0.3f;
+//			break;
+//		case 3:
+//			cPrecisionBase = 0.5f;
+//			break;
+//		default:
+//			break;
+//		}
+//		if(cDodgeBase < dodgeBuff){
+//			cDodgeBase  = dodgeBuff;
+//		}
+//		if(OnBuffsGainOrLoss != null){
+//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
+//		}
+//	}
+//
+//	public void resetDodge(){
+//		cDodgeBase = 0;
+//		if(OnBuffsGainOrLoss != null){
+//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
+//		}
+//	}
+//
+//	public void increaseCritic(int level){
+//		float criticBuff = 0f;
+//		switch(level){
+//		case 1:
+//			criticBuff = 0.1f;
+//			break;
+//		case 2:
+//			criticBuff = 0.3f;
+//			break;
+//		case 3:
+//			cPrecisionBase = 0.5f;
+//			break;
+//		default:
+//			break;
+//		}
+//		if(cCriticBase < criticBuff){
+//			cCriticBase  = criticBuff;
+//		}
+//		if(OnBuffsGainOrLoss != null){
+//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
+//		}
+//	}
+//
+//	public void resetCritic(){
+//		cCriticBase = 0;
+//		if(OnBuffsGainOrLoss != null){
+//			OnBuffsGainOrLoss (cDodgeBase,cPrecisionBase,cCriticBase);
+//		}
+//	}
+//
+//	public void CheckNewBuff (Buff newBuff)
+//	{
+//		foreach (Buff currentBuff in buffs) {
+//			if (currentBuff.getType () == newBuff.getType ()) {
+//				if (newBuff.GetLevel () >= currentBuff.GetLevel ()) {
+//					RemoveBuff (currentBuff);
+//					AddNewBuff (newBuff);
+//					return;
+//				} else {
+//					print("Novo buff muito fraco");
+//					newBuff.Remove();
+//					return;
+//				}
+//			}
+//		}
+//		AddNewBuff(newBuff);
+//	}
+//
+//	void AddNewBuff (Buff newBuff){
+//		buffs.Add(newBuff);
+//		newBuff.Effect();
+//	}
+//
+//	public void RemoveBuff(Buff b){
+//		buffs.Remove(b);
+//		b.Remove();
+//	}
+//
+//	public void SpendBuffs ()
+//	{
+//		List<Buff> deletableBuffs = new List<Buff> ();
+//		foreach (Buff buff in buffs) {
+//			if (buff.Countdown ()) {
+//				deletableBuffs.Add(buff);
+//			}
+//		}
+//		foreach(Buff buff in deletableBuffs){
+//			buff.End();
+//		}
+//	}
+//
+	void RemoveAllBuffs(){
+		atk.ResetBuff();
+		atkm.ResetBuff();
+		def.ResetBuff();
+		defm.ResetBuff();
+		dodge.ResetBuff();
+		precision.ResetBuff();
+		critic.ResetBuff();
+		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+	}
+
+	public void CriticBuff (float buffValue, int buffDuration){
+		critic.BuffIt(buffValue,buffDuration);
+		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+	}
+	public void DodgeBuff (float buffValue, int buffDuration){
+		dodge.BuffIt(buffValue, buffDuration);
+		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+	}
+	public void PrecisionBuff (float buffValue, int buffDuration){
+		precision.BuffIt(buffValue,buffDuration);
+		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+	}
 
 	public Skill[] getSkills() {return cSkills;}
 	public float getHp() {return cHp;}
 	public float getEnergy() {return cDelayCountdown;}
 	public float getMaxHp() {return cMaxHp;}
 	public string getName() {return cName;}
-	public int getAtk() {return cAtkBase;}
-	public int getAtkm() {return cAtkmBase;}
-	public int getDef() {return cDefBase;}
-	public int getDefm() {return cDefmBase;}
-	public float getDodge() {return cDodgeBase;}
+
+	public float getAtkValue() {return atk.getValue();}
+	public float getAtkmValue() {return atkm.getValue();}
+	public float getDefValue() {return def.getValue();}
+	public float getDefmValue() {return defm.getValue();}
+	public float getDodgeValue() {return dodge.getValue();}
+
+	public Stat getAtk (){return atk;}
+	public Stat getDef (){return def;}
+	public Stat getDefm (){return defm;}
+	public Stat getAtkm (){return atkm;}
+	public Stat getCritic (){return critic;}
+	public Stat getPrecision (){return precision;}
+	public Stat getDodge (){return dodge;}
+
 	public bool isPlayable() {return cPlayable;}
 	public bool isAlive() {return cAlive;}
 	public Image getPortrait() {return cPortrait;}
