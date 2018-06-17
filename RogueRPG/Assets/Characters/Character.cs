@@ -306,11 +306,11 @@ public abstract class Character : MonoBehaviour {
 		resetPrecision ();
 	}
 
-	public void getCriticRate(){
-		for(int i = 0;buffs.Count;i++){
-			
-		}
-	}
+//	public void getCriticRate(){
+//		for(int i = 0;buffs.Count;i++){
+//			
+//		}
+//	}
 
 	public Skill[] getSkills() {return cSkills;}
 	public float getHp() {return cHp;}
