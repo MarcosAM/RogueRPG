@@ -15,22 +15,8 @@ public abstract class Character : MonoBehaviour {
 	//TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
 	[SerializeField]protected StandartStats cStats;
 	protected Stat atk, atkm, def, defm, precision, dodge, critic;
-//	protected int cAtkBase, cAtkmBase, cDefBase, cDefmBase;
-//	protected List<int> cAtkBonus = new List<int>();
-//	protected List<int> cDefBonus = new List<int>();
-//	protected List<int> cAtkmBonus = new List<int>();
-//	protected List<int> cDefmBonus = new List<int>();
-//	protected List<float> cDodgeBonus = new List<float>();
-//	protected List<float> cPrecisionBonus = new List<float>();
-//	protected List<float> cCriticBonus = new List<float>();
-//
-//	[SerializeField]protected float cDodgeBase = 0;
-//	[SerializeField]protected float cPrecisionBase = 0;
-//	[SerializeField]protected float cCriticBase = 0;
 	protected ICombatBehavior cCombatBehavior;
 	[SerializeField]protected IMovable cMovement;
-
-	[SerializeField]protected List<Buff> buffs = new List<Buff>();
 
 	protected bool cPlayable;
 
@@ -125,7 +111,7 @@ public abstract class Character : MonoBehaviour {
 		RemoveAllBuffs ();
 	}
 
-	public void SpendEnergy (float amount){
+	public void DelayBy (float amount){
 		cDelayCountdown -= amount;
 		RefreshHUD();
 	}
@@ -204,6 +190,11 @@ public abstract class Character : MonoBehaviour {
 	public void PrecisionBuff (float buffValue, int buffDuration){
 		precision.BuffIt(buffValue,buffDuration);
 		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+	}
+
+	public void setStats(StandartStats standartStats){
+		this.cStats = standartStats;
+		FillStats ();
 	}
 
 	public Skill[] getSkills() {return cSkills;}

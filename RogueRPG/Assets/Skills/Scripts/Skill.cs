@@ -16,8 +16,8 @@ public abstract class Skill : ScriptableObject {
 	[Range(0,3)]
 	[SerializeField]protected int sRange;
 	[SerializeField]protected SkillAnimation sAnimationPrefab;
-	[SerializeField]protected bool isSingleTarget;
-	[SerializeField]protected Targets targets;
+	[SerializeField]protected bool sSingleTarget;
+	[SerializeField]protected Targets sTargets;
 	protected int howManyTargets;
 	protected int targetsHited;
 	protected bool endable;
@@ -26,7 +26,7 @@ public abstract class Skill : ScriptableObject {
 		endable = true;
 		FindObjectOfType<Narration>().Appear(user.getName(), sName);
 		EffectAnimation (target);
-		user.SpendEnergy(sDelay);
+		user.DelayBy(sDelay);
 		UniqueEffect(user,target);
 	}
 
@@ -59,11 +59,11 @@ public abstract class Skill : ScriptableObject {
 	public void Effect (Character user){
 		endable = true;
 		FindObjectOfType<Narration>().Appear(user.getName(), sName);
-		user.SpendEnergy(sDelay);
+		user.DelayBy(sDelay);
 		List<Character> myTargets = new List<Character>();
 		Character[] temporaryTargets;
 		if(user.isPlayable()){
-			switch(targets){
+			switch(sTargets){
 			case Targets.Allies:
 				temporaryTargets = FindObjectsOfType<PlayableCharacter> ();
 				break;
@@ -78,7 +78,7 @@ public abstract class Skill : ScriptableObject {
 				break;
 			}
 		}else{
-			switch(targets){
+			switch(sTargets){
 			case Targets.Allies:
 				temporaryTargets = FindObjectsOfType<NonPlayableCharacter> ();
 				break;
@@ -113,7 +113,7 @@ public abstract class Skill : ScriptableObject {
 	}
 
 	public void EndSkill(){
-		if (isSingleTarget) {
+		if (sSingleTarget) {
 			FindObjectOfType<Narration>().Disappear();
 			EventManager.SkillUsed ();
 		} else {
@@ -141,11 +141,11 @@ public abstract class Skill : ScriptableObject {
 	}
 
 	public bool getIsSingleTarget (){
-		return isSingleTarget;
+		return sSingleTarget;
 	}
 
 	public Targets getTargets (){
-		return targets;
+		return sTargets;
 	}
 
 	public Types getSkillType(){

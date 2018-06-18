@@ -46,12 +46,6 @@ public class Stat {
 		}
 	}
 
-//	public Stat (){
-//		this.buffDuration = 0;
-//		this.buffValue = 0;
-//		this.statBase = 0;
-//	}
-
 	public const float CRITIC_BUFF_1 = 0.1f;
 	public const float CRITIC_BUFF_2 = 0.3f;
 	public const float CRITIC_BUFF_3 = 0.5f;

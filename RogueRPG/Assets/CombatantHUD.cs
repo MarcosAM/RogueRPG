@@ -98,5 +98,5 @@ public class CombatantHUD : MonoBehaviour {
 
 	public RectTransform getRectTransform(){
 		return rectTransform;
-	}
+	}	
 }
