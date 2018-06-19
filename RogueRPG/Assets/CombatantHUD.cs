@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CombatantHUD : MonoBehaviour {
 
-	private Character combatant;
+	[SerializeField]private Character combatant;
 	[SerializeField]private Slider hpBar;
 	[SerializeField]private Slider energyBar;
 	[SerializeField]private Text hpNumbers;

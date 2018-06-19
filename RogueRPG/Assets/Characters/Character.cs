@@ -10,7 +10,7 @@ public abstract class Character : MonoBehaviour {
 	protected int cHp;
 	protected int cMaxHp;
 	protected float cDelayCountdown = 0;
-	protected bool cAlive = true;
+	[SerializeField]protected bool cAlive = true;
 
 	//TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
 	[SerializeField]protected StandartStats cStats;
@@ -163,7 +163,9 @@ public abstract class Character : MonoBehaviour {
 		critic.SpendAndCheckIfEnded();
 		dodge.SpendAndCheckIfEnded();
 		precision.SpendAndCheckIfEnded();
-		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+		if(OnBuffsGainOrLoss!=null){
+			OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+		}
 	}
 
 	void RemoveAllBuffs(){

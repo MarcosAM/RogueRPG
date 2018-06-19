@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Battleground : MonoBehaviour {
 
-	List<Character> heroSide = new List<Character> ();
-	List<Character> enemySide = new List<Character> ();
+	[SerializeField]List<Character> heroSide = new List<Character> ();
+	[SerializeField]List<Character> enemySide = new List<Character> ();
 	CombHUDManager cHUDManager;
 
 	void Awake(){
@@ -52,9 +52,19 @@ public class Battleground : MonoBehaviour {
 	}
 
 	public void PutCharactersInBattleground(){
+		enemySide.Clear ();
 		Character[] playableCharacters = FindObjectsOfType<PlayableCharacter> ();
-		Character[] nonPlayableCharacters = FindObjectsOfType<NonPlayableCharacter> ();
-
+		Character[] nonPlayableCharactersTemp = FindObjectsOfType<NonPlayableCharacter> ();
+		print ("Achamos essa quantidade de inimigos: "+nonPlayableCharactersTemp.Length);
+		Character[] nonPlayableCharacters = new Character[4];
+		int count = 0;
+		for(int i = 0;i<nonPlayableCharactersTemp.Length;i++){
+			if(nonPlayableCharactersTemp[i].isAlive()){
+				print ("Achou um vivo");
+				nonPlayableCharacters [count] = nonPlayableCharactersTemp [i];
+				count++;
+			}
+		}
 		for(int i = 0; i<4; i++){
 			if (i < playableCharacters.Length) {
 				AddToHeroSide (playableCharacters [i]);

@@ -9,6 +9,7 @@ public class CombatManager : MonoBehaviour {
 	private List<Character> initiativeOrder = new List<Character>();
 	private int round;
 	private bool WaitingForCombatantsToRechargeEnergy = false;
+	int dungeonFloor;
 
 	private Battleground battleground;
 
@@ -19,6 +20,7 @@ public class CombatManager : MonoBehaviour {
 			initiativeOrder.Add (character);
 		}
 		gameManager.getSelectedQuest ().getCurrentDungeon ().getBattleGroups () [0].InitializeEnemies ();
+		dungeonFloor = 0;
 		foreach (Character character in gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups()[0].getEnemies()) {
 			initiativeOrder.Add (character);
 		}
@@ -71,7 +73,26 @@ public class CombatManager : MonoBehaviour {
 	}
 
 	void EndCombat (){
-		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex+1);
+		dungeonFloor++;
+		if (dungeonFloor > GameManager.getInstance ().getSelectedQuest ().getCurrentDungeon ().getBattleGroups ().Count) {
+			print ("Passou!");
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
+		} else {
+			GameManager gameManager = GameManager.getInstance ();
+			gameManager.getSelectedQuest ().getCurrentDungeon ().getBattleGroups () [dungeonFloor].InitializeEnemies ();
+			foreach (Character character in gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups()[dungeonFloor].getEnemies()) {
+				initiativeOrder.Add (character);
+			}
+			foreach(Character character in initiativeOrder){
+				character.PrepareForNextCombat ();
+			}
+			battleground.PutCharactersInBattleground ();
+			if(initiativeOrder.Count>0){
+//				initiativeOrder.RemoveAt(0);
+				round++;
+				StartTurn ();
+			}
+		}
 	}
 
 	void FillInitiativeOrderWithAllCombatants (){
