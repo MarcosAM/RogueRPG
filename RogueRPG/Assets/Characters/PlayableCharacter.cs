@@ -21,7 +21,8 @@ public class PlayableCharacter : Character {
 		cMovement.Initialize (this);
 		cCombatBehavior.Initialize (this);
 		cPlayable = true;
-		DontDestroyOnLoad (transform.parent.gameObject);
+//		DontDestroyOnLoad (transform.parent.gameObject);
+		DontDestroyOnLoad (gameObject);
 	}
 
 }

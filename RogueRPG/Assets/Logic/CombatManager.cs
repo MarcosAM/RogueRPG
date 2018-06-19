@@ -14,7 +14,15 @@ public class CombatManager : MonoBehaviour {
 
 	void Start () {
 		battleground = GetComponent<Battleground> ();
-		FillInitiativeOrderWithAllCombatants();
+		GameManager gameManager = GameManager.getInstance ();
+		foreach (Character character in gameManager.getPlayerCharacters()){
+			initiativeOrder.Add (character);
+		}
+		gameManager.getSelectedQuest ().getCurrentDungeon ().getBattleGroups () [0].InitializeEnemies ();
+		foreach (Character character in gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups()[0].getEnemies()) {
+			initiativeOrder.Add (character);
+		}
+//		FillInitiativeOrderWithAllCombatants();
 		foreach(Character character in initiativeOrder){
 			character.PrepareForNextCombat ();
 		}

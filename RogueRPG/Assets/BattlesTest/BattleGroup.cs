@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName="BattleGroup")]
+[CreateAssetMenu(menuName="Quests/BattleGroup")]
 public class BattleGroup : ScriptableObject {
 
 	[SerializeField]List<StandartStats> enemiesStats;
 	List<Character> enemies = new List<Character>();
-	Character enemyPrefab;
+	[SerializeField]Character enemyPrefab;
 
 	public void InitializeEnemies(){
 		enemies.Clear ();
@@ -16,4 +16,6 @@ public class BattleGroup : ScriptableObject {
 			enemies [i].setStats (enemiesStats[i]);
 		}
 	}
+
+	public List<Character> getEnemies(){return enemies;}
 }

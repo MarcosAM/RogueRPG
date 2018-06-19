@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Quest : MonoBehaviour {
+[CreateAssetMenu(menuName="Quests/Quest")]
+public class Quest : ScriptableObject {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	[SerializeField]Dungeon currentDungeon;
+
+	public Dungeon getCurrentDungeon(){return currentDungeon;}
 }
