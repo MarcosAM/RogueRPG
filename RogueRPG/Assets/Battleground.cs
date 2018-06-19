@@ -55,12 +55,10 @@ public class Battleground : MonoBehaviour {
 		enemySide.Clear ();
 		Character[] playableCharacters = FindObjectsOfType<PlayableCharacter> ();
 		Character[] nonPlayableCharactersTemp = FindObjectsOfType<NonPlayableCharacter> ();
-		print ("Achamos essa quantidade de inimigos: "+nonPlayableCharactersTemp.Length);
 		Character[] nonPlayableCharacters = new Character[4];
 		int count = 0;
 		for(int i = 0;i<nonPlayableCharactersTemp.Length;i++){
 			if(nonPlayableCharactersTemp[i].isAlive()){
-				print ("Achou um vivo");
 				nonPlayableCharacters [count] = nonPlayableCharactersTemp [i];
 				count++;
 			}
@@ -80,7 +78,7 @@ public class Battleground : MonoBehaviour {
 		ShowCharactersToThePlayer ();
 	}
 
-	void ShowCharactersToThePlayer(){
+	public void ShowCharactersToThePlayer(){
 		cHUDManager.ShowCombatants(heroSide,enemySide);
 	}
 
@@ -115,8 +113,13 @@ public class Battleground : MonoBehaviour {
 	public List<Character> getHeroSide(){
 		return heroSide;
 	}
-
 	public List<Character> getEnemySide(){
 		return enemySide;
+	}
+	public void setHeroSide (List<Character> heroes){
+		this.heroSide = heroes;
+		for(int i = 0;i<=4-heroes.Count;i++){
+			this.heroSide.Add(null);
+		}
 	}
 }

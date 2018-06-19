@@ -142,7 +142,7 @@ public abstract class Character : MonoBehaviour {
 		cHp = cMaxHp;
 	}
 		
-	public void PrepareForNextCombat (){
+	public void PrepareForFirstBattle (){
 		RemoveAllBuffs ();
 		cDelayCountdown = 0;
 	}
