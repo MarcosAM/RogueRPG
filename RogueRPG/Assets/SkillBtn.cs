@@ -11,7 +11,6 @@ public class SkillBtn : CombatBtn {
 	void Awake () {
 		button = GetComponent<Button> ();
 		text = GetComponentInChildren<Text>();
-//		text.text = skill.getSkillName();
 		Disappear();
 		button.onClick.AddListener (ChooseSkill);
 	}

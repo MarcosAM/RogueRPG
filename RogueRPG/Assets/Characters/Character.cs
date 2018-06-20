@@ -113,16 +113,6 @@ public abstract class Character : MonoBehaviour {
 		RefreshHUD();
 	}
 
-	public void RecoverEnergy (float amount){
-		if(cAlive){
-			cDelayCountdown += amount;
-			RefreshHUD();
-			if(cDelayCountdown>=0){
-				EventManager.RechargedEnergy(this);
-			}
-		}
-	}
-
 	public void RecoverFromDelayBy (float amount){
 		if(cAlive){
 			cDelayCountdown += amount;
@@ -156,14 +146,6 @@ public abstract class Character : MonoBehaviour {
 	public void PrepareForFirstBattle (){
 		RemoveAllBuffs ();
 		cDelayCountdown = 0;
-	}
-
-	void OnEnable (){
-		EventManager.OnRechargeEnergy += RecoverEnergy;
-	}
-
-	void OnDisable (){
-		EventManager.OnRechargeEnergy -= RecoverEnergy;
 	}
 
 	public void SpendBuffs (){
@@ -240,3 +222,20 @@ public abstract class Character : MonoBehaviour {
 	public IMovable getMovement() {return cMovement;}
 	public int getPosition() {return cMovement.getPosition ();}
 }
+
+//	public void RecoverEnergy (float amount){
+//		if(cAlive){
+//			cDelayCountdown += amount;
+//			RefreshHUD();
+//			if(cDelayCountdown>=0){
+//				EventManager.RechargedEnergy(this);
+//			}
+//		}
+//	}
+//	void OnEnable (){
+//		EventManager.OnRechargeEnergy += RecoverEnergy;
+//	}
+//
+//	void OnDisable (){
+//		EventManager.OnRechargeEnergy -= RecoverEnergy;
+//	}
