@@ -8,7 +8,6 @@ public class CombatManager : MonoBehaviour {
 
 	private List<Character> initiativeOrder = new List<Character>();
 	private int round;
-	private bool WaitingForCombatantsToRechargeEnergy = false;
 	int dungeonFloor=0;
 	[SerializeField]Character enemyPrefab;
 	private Battleground battleground;
@@ -31,21 +30,43 @@ public class CombatManager : MonoBehaviour {
 		}
 		battleground.ShowCharactersToThePlayer ();
 		round = 0;
-		StartTurn ();
+		TryToStartTurn ();
 	}
 
-	void StartTurn (){
+	void TryToStartTurn (){
 		if (initiativeOrder.Count>0) {
 			initiativeOrder [0].getBehavior().Act();
 		} else {
-			WaitingForCombatantsToRechargeEnergy = true;
-			StartCoroutine(RechargeEnergy());
+			StartCoroutine(WaitForNonDelayedCharacter());
 		}
 	}
 
-	IEnumerator RechargeEnergy (){
-		while (WaitingForCombatantsToRechargeEnergy){
-			EventManager.RechargeEnergy(0.1f);
+	//TODO Definir uma variável de quanto em quanto eu recupero o delay
+	IEnumerator WaitForNonDelayedCharacter(){
+		bool WaitingForNonDelayedCharacter = true;
+		while(WaitingForNonDelayedCharacter){
+
+			for(int i=0;i<battleground.getHeroSide().Count;i++){
+				if(battleground.getHeroSide()[i]!=null){
+					battleground.getHeroSide () [i].RecoverFromDelayBy (0.1f);
+					if (!battleground.getHeroSide () [i].IsDelayed ()) {
+						ResumeBattleAfterDelayWith (battleground.getHeroSide()[i]);
+						WaitingForNonDelayedCharacter = false;
+						yield break;
+					}
+				}
+			}
+
+			for(int i=0;i<battleground.getEnemySide().Count;i++){
+				if(battleground.getEnemySide()[i]!=null){
+					battleground.getEnemySide () [i].RecoverFromDelayBy (0.1f);
+					if (!battleground.getEnemySide () [i].IsDelayed ()) {
+						ResumeBattleAfterDelayWith (battleground.getEnemySide ()[i]);
+						WaitingForNonDelayedCharacter = false;
+						yield break;
+					}
+				}
+			}
 			yield return new WaitForSeconds(0.1f);
 		}
 	}
@@ -56,16 +77,13 @@ public class CombatManager : MonoBehaviour {
 		} else if(initiativeOrder.Count>0){
 			initiativeOrder.RemoveAt(0);
 			round++;
-			StartTurn ();
+			TryToStartTurn ();
 		}
 	}
 
-	void AddToInitiative (Character combatant){
+	void ResumeBattleAfterDelayWith (Character combatant){
 		initiativeOrder.Add(combatant);
-		if(WaitingForCombatantsToRechargeEnergy == true){
-			WaitingForCombatantsToRechargeEnergy = false;
-			StartTurn();
-		}
+		TryToStartTurn();
 	}
 
 	void DeleteFromInitiative (Character combatant){
@@ -80,7 +98,7 @@ public class CombatManager : MonoBehaviour {
 			battleground.ShowCharactersToThePlayer ();
 			initiativeOrder.RemoveAt(0);
 			round ++;
-			StartTurn ();
+			TryToStartTurn ();
 		} else {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 		}
@@ -114,13 +132,19 @@ public class CombatManager : MonoBehaviour {
 
 	void OnEnable(){
 		EventManager.OnEndedTurn += NextTurn;
-		EventManager.OnRechargedEnergy += AddToInitiative;
 		EventManager.OnDeathOf += DeleteFromInitiative;
 	}
-
 	void OnDisable(){
 		EventManager.OnEndedTurn -= NextTurn;
-		EventManager.OnRechargedEnergy -= AddToInitiative;
 		EventManager.OnDeathOf -= DeleteFromInitiative;
 	}
 }
+
+//	IEnumerator RechargeEnergy (){
+//		while (WaitingForNonDelayedCharacter){
+//			EventManager.RechargeEnergy(0.1f);
+//			yield return new WaitForSeconds(0.1f);
+//		}
+//	}
+//		EventManager.OnRechargedEnergy += AddToInitiative;
+//		EventManager.OnRechargedEnergy -= AddToInitiative;

@@ -2,9 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Logic\CombatManager.cs">
     <Files>
-      <File FileName="Assets\Logic\CombatManager.cs" Line="87" Column="3" />
-      <File FileName="Assets\Battleground.cs" Line="141" Column="26" />
-      <File FileName="Assets\CombHUDManager.cs" Line="91" Column="4" />
+      <File FileName="Assets\Logic\CombatManager.cs" Line="84" Column="33" />
+      <File FileName="Assets\Battleground.cs" Line="1" Column="1" />
+      <File FileName="Assets\CombHUDManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Characters\Character.cs" Line="132" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -123,6 +123,20 @@ public abstract class Character : MonoBehaviour {
 		}
 	}
 
+	public void RecoverFromDelayBy (float amount){
+		if(cAlive){
+			cDelayCountdown += amount;
+			RefreshHUD ();
+		}
+	}
+	public bool IsDelayed(){
+		if (cDelayCountdown >= 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	void RefreshHUD (){
 		if(OnHUDValuesChange != null){
 			OnHUDValuesChange();
