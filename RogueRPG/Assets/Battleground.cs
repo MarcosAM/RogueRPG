@@ -116,10 +116,32 @@ public class Battleground : MonoBehaviour {
 	public List<Character> getEnemySide(){
 		return enemySide;
 	}
-	public void setHeroSide (List<Character> heroes){
-		this.heroSide = heroes;
-		for(int i = 0;i<=4-heroes.Count;i++){
-			this.heroSide.Add(null);
+//	public void setHeroSide (List<Character> heroes){
+//		this.heroSide = heroes;
+//		for(int i = 0;i<=4-heroes.Count;i++){
+//			this.heroSide.Add(null);
+//		}
+//	}
+	public void ClearAndSetASide(List<Character> side){
+		bool sideIsPlayers = false;
+		int sideSize = side.Count;
+		for(int i=0;i<side.Count;i++){
+			if(side[i]!=null){
+				sideIsPlayers = side[i].isPlayable();
+			}
+		}
+		if (sideIsPlayers) {
+			heroSide.Clear ();
+			this.heroSide = side;
+			for (int i = 0; i < 4 - sideSize; i++) {
+				this.heroSide.Add (null);
+			}
+		} else {
+			enemySide.Clear ();
+			this.enemySide = side;
+			for (int i = 0; i < 4 - sideSize; i++) {
+				this.enemySide.Add (null);
+			}
 		}
 	}
 }

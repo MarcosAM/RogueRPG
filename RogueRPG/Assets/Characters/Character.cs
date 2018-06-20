@@ -50,7 +50,6 @@ public abstract class Character : MonoBehaviour {
 		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
 			distanceInfluenceOnPrecision = -1f;
 		}
-		print (this.cName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
 		if (skill.getCriticRate () + critic.getValue() >= UnityEngine.Random.value) {
 			target.TakeDamage (Mathf.RoundToInt((attack + atk.getValue()) * 1.5f));
 		} else {
@@ -68,10 +67,8 @@ public abstract class Character : MonoBehaviour {
 		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
 			distanceInfluenceOnPrecision = -1f;
 		}
-		print (this.cName+" atacou com "+distanceInfluenceOnPrecision+" essa influência graças a distância. Coisa de louco. SO EXCITED!!");
 		if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue () >= UnityEngine.Random.value) {
 			int damage = Mathf.RoundToInt((attack + atkm.getValue()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefmValue ());
-			print (damage);
 			target.TakeDamage (damage);
 		}
 	}

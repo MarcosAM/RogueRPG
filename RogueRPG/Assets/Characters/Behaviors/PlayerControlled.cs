@@ -51,7 +51,6 @@ public class PlayerControlled : MonoBehaviour, ICombatBehavior {
 	public void MoveTo(int position){
 		EventManager.OnPlayerChoosedLocation -= MoveTo;
 		character.DelayBy (1);
-		print (character.getName()+" vá para a posição "+position);
 		character.getMovement ().MoveTo (position);
 		EndTurn ();
 	}

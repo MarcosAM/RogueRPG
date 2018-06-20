@@ -11,18 +11,13 @@ public class CombatManager : MonoBehaviour {
 	private bool WaitingForCombatantsToRechargeEnergy = false;
 	int dungeonFloor=0;
 	[SerializeField]Character enemyPrefab;
-
 	private Battleground battleground;
 
 	void Start (){
 		battleground = GetComponent<Battleground> ();
 		GameManager gameManager = GameManager.getInstance ();
-		battleground.setHeroSide (gameManager.getPlayerCharacters ());
-		battleground.getEnemySide ().Clear ();
-		foreach (StandartStats enemiesStats in gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups()[dungeonFloor].getEnemiesStats()) {
-			Character enemy = Instantiate (enemyPrefab);
-			battleground.getEnemySide ().Add (enemy);
-		}
+		battleground.ClearAndSetASide (gameManager.getPlayerCharacters ());
+		battleground.ClearAndSetASide (gameManager.getEnemiesAtFloor(dungeonFloor));
 		foreach (Character hero in battleground.getHeroSide()) {
 			if(hero!=null)
 				initiativeOrder.Add(hero);
@@ -31,13 +26,6 @@ public class CombatManager : MonoBehaviour {
 			if(enemy!=null)
 				initiativeOrder.Add(enemy);
 		}
-//		foreach (Character character in gameManager.getPlayerCharacters()){
-//			initiativeOrder.Add (character);
-//		}
-//		foreach(StandartStats enemiesStats in gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups()[dungeonFloor].getEnemiesStats()){
-//			Character enemy = Instantiate(enemyPrefab);
-//			initiativeOrder.Add(enemy);
-//		}
 		foreach(Character character in initiativeOrder){
 			character.PrepareForFirstBattle ();
 		}
@@ -64,7 +52,7 @@ public class CombatManager : MonoBehaviour {
 
 	void NextTurn(){
 		if(DidOnePartyLost()){
-			EndBattle ();
+			EndBattleAndCheckIfDungeonEnded ();
 		} else if(initiativeOrder.Count>0){
 			initiativeOrder.RemoveAt(0);
 			round++;
@@ -84,42 +72,17 @@ public class CombatManager : MonoBehaviour {
 		initiativeOrder.Remove(combatant);
 	}
 
-	void EndBattle (){
+	void EndBattleAndCheckIfDungeonEnded (){
 		dungeonFloor++;
 		GameManager gameManager = GameManager.getInstance ();
-		if (dungeonFloor > gameManager.getSelectedQuest ().getCurrentDungeon ().getBattleGroups ().Count) {
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
-		} else {
-			battleground.getEnemySide ().Clear ();
-			foreach (StandartStats enemiesStats in gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups()[dungeonFloor].getEnemiesStats()) {
-				Character enemy = Instantiate (enemyPrefab);
-				battleground.getEnemySide ().Add (enemy);
-			}
+		if (dungeonFloor < gameManager.getSelectedQuest ().getCurrentDungeon ().getBattleGroups ().Count) {
+			battleground.ClearAndSetASide (gameManager.getEnemiesAtFloor(dungeonFloor));
 			battleground.ShowCharactersToThePlayer ();
 			initiativeOrder.RemoveAt(0);
 			round ++;
 			StartTurn ();
-//			GameManager gameManager = GameManager.getInstance ();
-//			gameManager.getSelectedQuest ().getCurrentDungeon ().getBattleGroups () [dungeonFloor].InitializeEnemies ();
-//			foreach (Character character in gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups()[dungeonFloor].getEnemies()) {
-//				initiativeOrder.Add (character);
-//			}
-//			foreach(Character character in initiativeOrder){
-//				character.PrepareForFirstBattle ();
-//			}
-//			battleground.PutCharactersInBattleground ();
-//			if(initiativeOrder.Count>0){
-////				initiativeOrder.RemoveAt(0);
-//				round++;
-//				StartTurn ();
-//			}
-		}
-	}
-
-	void FillInitiativeOrderWithAllCombatants (){
-		Character[] temporaryList = FindObjectsOfType<Character>();
-		for(int i = 0; i<temporaryList.Length; i++){
-			initiativeOrder.Add(temporaryList[i]);
+		} else {
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 		}
 	}
 

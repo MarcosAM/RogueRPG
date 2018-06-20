@@ -1,33 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Battleground.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Logic\CombatManager.cs">
     <Files>
-      <File FileName="Assets\Logic\CombatManager.cs" Line="32" Column="5" />
-      <File FileName="Assets\Battleground.cs" Line="121" Column="20" />
+      <File FileName="Assets\Logic\CombatManager.cs" Line="87" Column="3" />
+      <File FileName="Assets\Battleground.cs" Line="141" Column="26" />
       <File FileName="Assets\CombHUDManager.cs" Line="91" Column="4" />
-      <File FileName="Assets\BattlesTest\BattleGroup.cs" Line="10" Column="68" />
-      <File FileName="Assets\Characters\Character.cs" Line="145" Column="35" />
-      <File FileName="Assets\BattlesTest\GameManager.cs" Line="21" Column="48" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="RogueRPG" expanded="True">
-            <Node name="Assembly-CSharp" expanded="True">
-              <Node name="BattlesTest" expanded="True" />
-              <Node name="Characters" expanded="True" />
-              <Node name="Logic" expanded="True" />
-              <Node name="Battleground.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State name="__root__">
-          <Node name="RogueRPG" expanded="True" selected="True" />
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

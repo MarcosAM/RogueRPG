@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour {
 		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex+1);
 	}
 
+	public List<Character> getEnemiesAtFloor(int floor){return selectedQuest.getCurrentDungeon ().getBattleGroups () [floor].getEnemies ();}
 	public Quest getSelectedQuest(){return selectedQuest;}
 	public static GameManager getInstance(){return instance;}
 	public List<Character> getPlayerCharacters(){return playerCharacters;}

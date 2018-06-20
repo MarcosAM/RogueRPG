@@ -46,8 +46,6 @@ public class TargetBtn : CombatBtn {
 				break;
 				case Skill.Targets.Enemies:
 				if(!combatant.isPlayable() && Mathf.Abs(combatant.getPosition()-user.getPosition())<=skill.getRange()){
-					print (skill.getRange());
-					print (user.getName()+" está tentando acertar "+combatant.getName()+" que está a "+Mathf.Abs(combatant.getPosition()-user.getPosition())+" de distância");
 					button.interactable = true;
 					text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
 				}
