@@ -14,8 +14,6 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 	[SerializeField] private Vector2[] heroesPositions = new Vector2[4];
 	[SerializeField] private Vector2[] enemiesPositions = new Vector2[4];
 
-	SkillBtn[] skillBtns = new SkillBtn[4];
-
 	public void Awake(){
 		DontDestroyOnLoad (this.gameObject);
 		CreateCombatantHUDs ();
@@ -98,10 +96,4 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 			combatantHUD.gameObject.SetActive (false);
 		}
 	}
-
-//	public void ShowSkillsOf(Character c){
-//		for(int i=0;i<skillBtns.Length;i++){
-////			skillBtns[i]
-//		}
-//	}
 }
