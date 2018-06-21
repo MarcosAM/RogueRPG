@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomBehavior : MonoBehaviour, ICombatBehavior {
+public class RandomBehavior : CombatBehavior {
 
-	private Character character;
-	private Skill choosedSkill;
-
-	public void Act(){
-		//TODO corrigir essa gambiarra!!
+	public override void StartTurn ()
+	{
+		base.StartTurn ();
 		character.StartTurn();
 		ChooseSkill ();
 		if (choosedSkill.getIsSingleTarget ()) {
@@ -16,10 +14,6 @@ public class RandomBehavior : MonoBehaviour, ICombatBehavior {
 		} else {
 			UseSkill();
 		}
-	}
-
-	public void Initialize(Character character){
-		this.character = character;
 	}
 
 	public void ChooseSkill ()

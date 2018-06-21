@@ -35,7 +35,7 @@ public class CombatManager : MonoBehaviour {
 
 	void TryToStartTurn (){
 		if (initiativeOrder.Count>0) {
-			initiativeOrder [0].getBehavior().Act();
+			initiativeOrder [0].getBehavior().StartTurn();
 		} else {
 			StartCoroutine(WaitForNonDelayedCharacter());
 		}

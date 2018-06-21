@@ -2,19 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlled : MonoBehaviour, ICombatBehavior {
+public class PlayerControlled : CombatBehavior {
 
-	private Character character;
-	private Skill choosedSkill;
-
-	public void Act(){
-		//TODO corrigir essa gambiarra!!
+	public override void StartTurn ()
+	{
+		base.StartTurn ();
 		character.StartTurn();
 		ChooseSkill ();
-	}
-
-	public void Initialize(Character character){
-		this.character = character;
 	}
 
 	public void ChooseSkill ()

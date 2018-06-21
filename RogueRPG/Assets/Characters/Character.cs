@@ -6,7 +6,7 @@ using System;
 
 public abstract class Character : MonoBehaviour {
 
-	[SerializeField]protected string name;
+	[SerializeField]protected string characterName;
 	protected int hp;
 	protected int maxHp;
 	protected float delayCountdown = 0;
@@ -15,7 +15,7 @@ public abstract class Character : MonoBehaviour {
 	//TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
 	[SerializeField]protected StandartStats stats;
 	protected Stat atk, atkm, def, defm, precision, dodge, critic;
-	protected ICombatBehavior combatBehavior;
+	protected CombatBehavior combatBehavior;
 	[SerializeField]protected IMovable movement;
 
 	protected bool playable;
@@ -56,7 +56,7 @@ public abstract class Character : MonoBehaviour {
 			if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue() >= UnityEngine.Random.value) {
 				target.TakeDamage (Mathf.RoundToInt((attack+atk.getValue())*UnityEngine.Random.Range(1f,1.2f)-target.getDefValue()));
 			} else {
-				print(target.name+" se esquivou!");
+				print(target.characterName+" se esquivou!");
 			}
 		}
 	}
@@ -196,7 +196,7 @@ public abstract class Character : MonoBehaviour {
 	public float getHp() {return hp;}
 	public float getEnergy() {return delayCountdown;}
 	public float getMaxHp() {return maxHp;}
-	public string getName() {return name;}
+	public string getName() {return characterName;}
 
 	public float getAtkValue() {return atk.getValue();}
 	public float getAtkmValue() {return atkm.getValue();}
@@ -218,24 +218,7 @@ public abstract class Character : MonoBehaviour {
 
 	public void setHUD(CombatantHUD combatantHUD) {hud = combatantHUD;}
 	public CombatantHUD getHUD() {return hud;}
-	public ICombatBehavior getBehavior() {return combatBehavior;}
+	public CombatBehavior getBehavior() {return combatBehavior;}
 	public IMovable getMovement() {return movement;}
 	public int getPosition() {return movement.getPosition ();}
 }
-
-//	public void RecoverEnergy (float amount){
-//		if(cAlive){
-//			cDelayCountdown += amount;
-//			RefreshHUD();
-//			if(cDelayCountdown>=0){
-//				EventManager.RechargedEnergy(this);
-//			}
-//		}
-//	}
-//	void OnEnable (){
-//		EventManager.OnRechargeEnergy += RecoverEnergy;
-//	}
-//
-//	void OnDisable (){
-//		EventManager.OnRechargeEnergy -= RecoverEnergy;
-//	}

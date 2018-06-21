@@ -15,10 +15,10 @@ public class NonPlayableCharacter : Character {
 		if(stats != null){
 			FillStats ();
 		}
-		combatBehavior = GetComponent<ICombatBehavior> ();
+		combatBehavior = GetComponent<CombatBehavior> ();
 		movement = GetComponent<IMovable> ();
 		movement.Initialize (this);
-		combatBehavior.Initialize (this);
+		combatBehavior.setCharacter (this);
 		playable = false;
 	}
 }

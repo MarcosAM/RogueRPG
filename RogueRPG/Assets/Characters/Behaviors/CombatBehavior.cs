@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class CombatBehavior : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	protected Character character;
+	protected Skill choosedSkill;
+
+	public virtual void StartTurn(){}
+
+	public void setCharacter(Character character) {this.character = character;}
 }
