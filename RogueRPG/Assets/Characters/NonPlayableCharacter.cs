@@ -12,13 +12,13 @@ public class NonPlayableCharacter : Character {
 		critic = new Stat();
 		precision = new Stat();
 		dodge = new Stat();
-		if(cStats != null){
+		if(stats != null){
 			FillStats ();
 		}
-		cCombatBehavior = GetComponent<ICombatBehavior> ();
-		cMovement = GetComponent<IMovable> ();
-		cMovement.Initialize (this);
-		cCombatBehavior.Initialize (this);
-		cPlayable = false;
+		combatBehavior = GetComponent<ICombatBehavior> ();
+		movement = GetComponent<IMovable> ();
+		movement.Initialize (this);
+		combatBehavior.Initialize (this);
+		playable = false;
 	}
 }

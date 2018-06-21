@@ -24,7 +24,7 @@ public class RandomBehavior : MonoBehaviour, ICombatBehavior {
 
 	public void ChooseSkill ()
 	{
-		choosedSkill = character.cSkills[Random.Range(0,character.cSkills.Length)];
+		choosedSkill = character.skills[Random.Range(0,character.skills.Length)];
 	}
 
 	public void ChooseTarget ()

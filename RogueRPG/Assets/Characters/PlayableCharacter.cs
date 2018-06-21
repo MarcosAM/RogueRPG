@@ -13,14 +13,14 @@ public class PlayableCharacter : Character {
 		precision = new Stat();
 		dodge = new Stat();
 
-		if(cStats != null){
+		if(stats != null){
 			FillStats ();
 		}
-		cCombatBehavior = GetComponent<ICombatBehavior> ();
-		cMovement = GetComponent<IMovable> ();
-		cMovement.Initialize (this);
-		cCombatBehavior.Initialize (this);
-		cPlayable = true;
+		combatBehavior = GetComponent<ICombatBehavior> ();
+		movement = GetComponent<IMovable> ();
+		movement.Initialize (this);
+		combatBehavior.Initialize (this);
+		playable = true;
 //		DontDestroyOnLoad (transform.parent.gameObject);
 		DontDestroyOnLoad (gameObject);
 	}

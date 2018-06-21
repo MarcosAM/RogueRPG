@@ -56,6 +56,7 @@
      <Compile Include="Assets\BattlesTest\Dungeon.cs" />
      <Compile Include="Assets\BattlesTest\GameManager.cs" />
      <Compile Include="Assets\BattlesTest\Quest.cs" />
+     <Compile Include="Assets\Characters\Behaviors\CombatBehavior.cs" />
      <Compile Include="Assets\Characters\Behaviors\ICombatBehavior.cs" />
      <Compile Include="Assets\Characters\Behaviors\PlayerControlled.cs" />
      <Compile Include="Assets\Characters\Behaviors\RandomBehavior.cs" />

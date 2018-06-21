@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 44
+  controlID: 106
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -314,7 +314,7 @@ MonoBehaviour:
     width: 1051
     height: 250
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter: sta
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -325,18 +325,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/BattlesTest
   m_ViewMode: 1
   m_StartGridSize: 58
   m_LastFolders:
-  - Assets
+  - Assets/BattlesTest
   m_LastFoldersGridSize: 58
   m_LastProjectPath: C:\Users\ADVANCE\Documents\_Marcos\Unity\Repos\RogueRPG\RogueRPG
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 11}
-    m_SelectedIDs: 70260000
-    m_LastClickedID: 9840
+    m_SelectedIDs: 
+    m_LastClickedID: 0
     m_ExpandedIDs: 0000000070260000ac26000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: cc26000048280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -481,9 +481,9 @@ MonoBehaviour:
     height: 383
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
+    m_SelectedIDs: 26270000
     m_LastClickedID: 0
-    m_ExpandedIDs: 1afcffff00000000
+    m_ExpandedIDs: 64cdffff1afcffff000000006c270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

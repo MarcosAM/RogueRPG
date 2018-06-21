@@ -6,24 +6,24 @@ using System;
 
 public abstract class Character : MonoBehaviour {
 
-	[SerializeField]protected string cName;
-	protected int cHp;
-	protected int cMaxHp;
-	protected float cDelayCountdown = 0;
-	[SerializeField]protected bool cAlive = true;
+	[SerializeField]protected string name;
+	protected int hp;
+	protected int maxHp;
+	protected float delayCountdown = 0;
+	protected bool alive = true;
 
 	//TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
-	[SerializeField]protected StandartStats cStats;
+	[SerializeField]protected StandartStats stats;
 	protected Stat atk, atkm, def, defm, precision, dodge, critic;
-	protected ICombatBehavior cCombatBehavior;
-	[SerializeField]protected IMovable cMovement;
+	protected ICombatBehavior combatBehavior;
+	[SerializeField]protected IMovable movement;
 
-	protected bool cPlayable;
+	protected bool playable;
 
-	public Skill[] cSkills = new Skill[4];
+	public Skill[] skills = new Skill[4];
 
-	[SerializeField]protected Image cPortrait;
-	protected CombatantHUD cHud;
+	[SerializeField]protected Image portrait;
+	protected CombatantHUD hud;
 
 	public event Action OnHUDValuesChange;
 	public event Action<int,int> OnHPValuesChange;
@@ -56,7 +56,7 @@ public abstract class Character : MonoBehaviour {
 			if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue() >= UnityEngine.Random.value) {
 				target.TakeDamage (Mathf.RoundToInt((attack+atk.getValue())*UnityEngine.Random.Range(1f,1.2f)-target.getDefValue()));
 			} else {
-				print(target.cName+" se esquivou!");
+				print(target.name+" se esquivou!");
 			}
 		}
 	}
@@ -77,10 +77,10 @@ public abstract class Character : MonoBehaviour {
 	{
 		if (damage > 0) {
 			if (OnHPValuesChange != null) {
-				OnHPValuesChange (cHp,damage);
+				OnHPValuesChange (hp,damage);
 			}
-			cHp -= damage;
-			if(cHp<=0){
+			hp -= damage;
+			if(hp<=0){
 				Die ();
 			}
 		}
@@ -88,39 +88,39 @@ public abstract class Character : MonoBehaviour {
 	}
 
 	public void Heal(int value){
-		if(value>=0 && cAlive){
+		if(value>=0 && alive){
 			if (OnHPValuesChange != null) {
-				OnHPValuesChange (cHp,value);
+				OnHPValuesChange (hp,value);
 			}
-			cHp += value;
-			if(cHp>cMaxHp){
-				cHp = cMaxHp;
+			hp += value;
+			if(hp>maxHp){
+				hp = maxHp;
 			}
 		}
 		RefreshHUD();
 	}
 
 	public void Die(){
-		cHp = 0;
-		cDelayCountdown = 0;
-		cAlive = false;
+		hp = 0;
+		delayCountdown = 0;
+		alive = false;
 		EventManager.DeathOf (this);
 		RemoveAllBuffs ();
 	}
 
 	public void DelayBy (float amount){
-		cDelayCountdown -= amount;
+		delayCountdown -= amount;
 		RefreshHUD();
 	}
 
 	public void RecoverFromDelayBy (float amount){
-		if(cAlive){
-			cDelayCountdown += amount;
+		if(alive){
+			delayCountdown += amount;
 			RefreshHUD ();
 		}
 	}
 	public bool IsDelayed(){
-		if (cDelayCountdown >= 0) {
+		if (delayCountdown >= 0) {
 			return false;
 		} else {
 			return true;
@@ -134,18 +134,18 @@ public abstract class Character : MonoBehaviour {
 	}
 
 	protected void FillStats (){
-		atk.setStatBase (cStats.getAtk ());
-		atkm.setStatBase (cStats.getAtkm ());
-		def.setStatBase (cStats.getDef ());
-		defm.setStatBase (cStats.getDefm ());
-		cSkills = cStats.getSkills ();
-		cMaxHp = cStats.getHp ();
-		cHp = cMaxHp;
+		atk.setStatBase (stats.getAtk ());
+		atkm.setStatBase (stats.getAtkm ());
+		def.setStatBase (stats.getDef ());
+		defm.setStatBase (stats.getDefm ());
+		skills = stats.getSkills ();
+		maxHp = stats.getHp ();
+		hp = maxHp;
 	}
 		
 	public void PrepareForFirstBattle (){
 		RemoveAllBuffs ();
-		cDelayCountdown = 0;
+		delayCountdown = 0;
 	}
 
 	public void SpendBuffs (){
@@ -188,15 +188,15 @@ public abstract class Character : MonoBehaviour {
 	}
 
 	public void setStats(StandartStats standartStats){
-		this.cStats = standartStats;
+		this.stats = standartStats;
 		FillStats ();
 	}
 
-	public Skill[] getSkills() {return cSkills;}
-	public float getHp() {return cHp;}
-	public float getEnergy() {return cDelayCountdown;}
-	public float getMaxHp() {return cMaxHp;}
-	public string getName() {return cName;}
+	public Skill[] getSkills() {return skills;}
+	public float getHp() {return hp;}
+	public float getEnergy() {return delayCountdown;}
+	public float getMaxHp() {return maxHp;}
+	public string getName() {return name;}
 
 	public float getAtkValue() {return atk.getValue();}
 	public float getAtkmValue() {return atkm.getValue();}
@@ -212,15 +212,15 @@ public abstract class Character : MonoBehaviour {
 	public Stat getPrecision (){return precision;}
 	public Stat getDodge (){return dodge;}
 
-	public bool isPlayable() {return cPlayable;}
-	public bool isAlive() {return cAlive;}
-	public Image getPortrait() {return cPortrait;}
+	public bool isPlayable() {return playable;}
+	public bool isAlive() {return alive;}
+	public Image getPortrait() {return portrait;}
 
-	public void setHUD(CombatantHUD combatantHUD) {cHud = combatantHUD;}
-	public CombatantHUD getHUD() {return cHud;}
-	public ICombatBehavior getBehavior() {return cCombatBehavior;}
-	public IMovable getMovement() {return cMovement;}
-	public int getPosition() {return cMovement.getPosition ();}
+	public void setHUD(CombatantHUD combatantHUD) {hud = combatantHUD;}
+	public CombatantHUD getHUD() {return hud;}
+	public ICombatBehavior getBehavior() {return combatBehavior;}
+	public IMovable getMovement() {return movement;}
+	public int getPosition() {return movement.getPosition ();}
 }
 
 //	public void RecoverEnergy (float amount){
