@@ -6,12 +6,14 @@ using System;
 
 public class DungeonManager : MonoBehaviour {
 
+	static DungeonManager instance = null;
 	List<Character> initiativeOrder = new List<Character>();
 	int round;
 	int dungeonFloor=0;
 	Battleground battleground;
 
 	void Start (){
+		MakeItASingleton();
 		battleground = GetComponent<Battleground> ();
 		GameManager gameManager = GameManager.getInstance ();
 		battleground.ClearAndSetASide (gameManager.getPlayerCharacters ());
@@ -128,6 +130,15 @@ public class DungeonManager : MonoBehaviour {
 		}
 		return false;
 	}
+
+	void MakeItASingleton(){
+		if (instance == null) {
+			instance = this;
+		} else {
+			Destroy (gameObject);
+		}
+	}
+	public static DungeonManager getInstance (){return instance;}
 
 	void OnEnable(){
 		EventManager.OnEndedTurn += NextTurn;

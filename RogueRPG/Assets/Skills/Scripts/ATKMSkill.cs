@@ -10,4 +10,14 @@ public class ATKMSkill : Skill {
 		base.UniqueEffect (user, target);
 		user.AttackMagic (target,sValue,this);
 	}
+
+//	public override void UniqueEffect (int targetIndex){
+//		base.UniqueEffect (targetIndex);
+//		DungeonManager dungeonManager = DungeonManager.getInstance();
+//		Character target;
+//		if(user.isPlayable()){
+//			target
+//		}
+//		user.AttackMagic ();
+//	}
 }

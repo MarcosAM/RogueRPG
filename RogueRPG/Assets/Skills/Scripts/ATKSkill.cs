@@ -11,4 +11,6 @@ public class ATKSkill : Skill {
 		user.Attack(target,sValue,this);
 	}
 
+//	public override
+
 }

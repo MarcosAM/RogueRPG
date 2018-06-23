@@ -6,7 +6,8 @@ public abstract class Skill : ScriptableObject {
 
 	public enum Targets{Self, Allies, Enemies, All, Location};
 	public enum Types{Melee, Ranged};
-	
+
+	protected Character user;
 	[SerializeField]protected string sName;
 	[SerializeField]protected int sValue;
 	[SerializeField]protected float sDelay;
@@ -128,6 +129,9 @@ public abstract class Skill : ScriptableObject {
 	public virtual void UniqueEffect (Character user, Character target){
 	}
 
+	public virtual void UniqueEffect (int targetIndex){
+	}
+
 	public string getSkillName (){
 		return sName;
 	}
@@ -154,5 +158,9 @@ public abstract class Skill : ScriptableObject {
 
 	public int getRange(){
 		return sRange;
+	}
+
+	public void setUser(Character user){
+		this.user = user;
 	}
 }
