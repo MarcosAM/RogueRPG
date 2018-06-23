@@ -1,14 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\Character.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BattlesTest\BGDatabase.cs">
     <Files>
-      <File FileName="Assets\Characters\Character.cs" Line="13" Column="30" />
-      <File FileName="Assets\Characters\Behaviors\CombatBehavior.cs" Line="12" Column="26" />
-      <File FileName="Assets\Characters\Behaviors\PlayerControlled.cs" Line="12" Column="3" />
-      <File FileName="Assets\Characters\Behaviors\RandomBehavior.cs" Line="17" Column="3" />
-      <File FileName="Assets\Characters\PlayableCharacter.cs" Line="19" Column="47" />
-      <File FileName="Assets\Characters\NonPlayableCharacter.cs" Line="11" Column="21" />
-      <File FileName="Assets\Logic\CombatManager.cs" Line="38" Column="47" />
+      <File FileName="Assets\Logic\DungeonManager.cs" Line="96" Column="71" />
+      <File FileName="Assets\BattlesTest\GameManager.cs" Line="31" Column="1" />
+      <File FileName="Assets\BattlesTest\BattleGroup.cs" Line="34" Column="1" />
+      <File FileName="Assets\Battleground.cs" Line="5" Column="14" />
+      <File FileName="Assets\BattlesTest\BGDatabase.cs" Line="21" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -12,11 +12,9 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]StandartStats pcStandartStats;
 
 	void Awake(){
-		if (instance == null) {
-			instance = this;
-		} else {
-			Destroy (gameObject);
-		}
+		MakeItASingleton();
+
+//		TODO Fill with players. Depois pensar em como fazer isso de maneira mais eficiente.
 		playerCharacters.Add (Instantiate(pcPrefab));
 		playerCharacters.Add (Instantiate(pcPrefab));
 		foreach (Character pc in playerCharacters) {
@@ -25,13 +23,24 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad (this);
 	}
 
-	//TODO colocar outra coisa para se responsabilizar por mudar de cenas?
-	public void CallNextScene(){
-		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex+1);
+	//TODO colocar outra coisa para se responsabilizar por mudar de cenas
+	public void LoadDungeonScene(){
+		SceneManager.LoadScene(BATTLE_SCENE_INDEX);
+	}
+
+	void MakeItASingleton(){
+		if (instance == null) {
+			instance = this;
+		} else {
+			Destroy (gameObject);
+		}
 	}
 
 	public List<Character> getEnemiesAtFloor(int floor){return selectedQuest.getCurrentDungeon ().getBattleGroups () [floor].getEnemies ();}
+	public List<Character> getEnemiesDelayedAtFloor (int floor){return selectedQuest.getCurrentDungeon().getBattleGroups()[floor].getEnemiesDelayed();}
 	public Quest getSelectedQuest(){return selectedQuest;}
 	public static GameManager getInstance(){return instance;}
 	public List<Character> getPlayerCharacters(){return playerCharacters;}
+
+	public const int BATTLE_SCENE_INDEX = 1;
 }

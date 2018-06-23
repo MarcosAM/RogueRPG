@@ -6,8 +6,8 @@ using UnityEngine;
 public class BattleGroup : ScriptableObject {
 
 	[SerializeField]List<StandartStats> enemiesStats;
+	[SerializeField]List<float> enemiesDelay;
 	[SerializeField]Character enemyPrefab;
-//	List<Character> enemies;
 
 	public List<Character> getEnemies(){
 		List<Character> enemies = new List<Character> ();
@@ -21,5 +21,14 @@ public class BattleGroup : ScriptableObject {
 		}
 		return enemies;
 	}
-//	public List<StandartStats> getEnemiesStats (){return enemiesStats;}
+
+	public List<Character> getEnemiesDelayed (){
+		List<Character> enemies = getEnemies();
+		for(int i=0;i<enemies.Count;i++){
+			if(enemies[i]!=null){
+				enemies[i].DelayBy(enemiesDelay[i]);
+			}
+		}
+		return enemies;
+	}
 }
