@@ -8,7 +8,11 @@ public class ATKSkill : Skill {
 	public override void UniqueEffect (Character user, Character target)
 	{
 		base.UniqueEffect (user, target);
-		user.Attack(target,sValue,this);
+		if (target.isPlayable () != user.isPlayable ()) {
+			user.Attack(target,sValue,this);
+		} else {
+			user.getMovement().MoveTo(target.getPosition());
+		}
 	}
 
 //	public override
