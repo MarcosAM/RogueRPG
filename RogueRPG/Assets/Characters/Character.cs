@@ -133,15 +133,17 @@ public abstract class Character : MonoBehaviour {
 		}
 	}
 
-	protected void FillStats (){
-		atk.setStatBase (stats.getAtk ());
-		atkm.setStatBase (stats.getAtkm ());
-		def.setStatBase (stats.getDef ());
-		defm.setStatBase (stats.getDefm ());
-		skills = stats.getSkills ();
-		maxHp = stats.getHp ();
-		hp = maxHp;
-	}
+//	protected void FillStats (){
+//		atk.setStatBase (stats.getAtk ());
+//		atkm.setStatBase (stats.getAtkm ());
+//		def.setStatBase (stats.getDef ());
+//		defm.setStatBase (stats.getDefm ());
+//		skills = stats.getSkills ();
+//		maxHp = stats.getHp ();
+//		hp = maxHp;
+//	}
+
+	protected virtual void FillStats (){}
 		
 	public void PrepareForFirstBattle (){
 		RemoveAllBuffs ();

@@ -21,4 +21,17 @@ public class NonPlayableCharacter : Character {
 		combatBehavior.setCharacter (this);
 		playable = false;
 	}
+
+	protected override void FillStats (){
+		base.FillStats ();
+		atk.setStatBase (stats.getAtk ());
+		atkm.setStatBase (stats.getAtkm ());
+		def.setStatBase (stats.getDef ());
+		defm.setStatBase (stats.getDefm ());
+		skills = stats.getSkills ();
+		maxHp = stats.getHp ();
+		hp = maxHp;
+		characterName = stats.getName();
+		portrait = stats.getPortrait();
+	}
 }
