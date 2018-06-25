@@ -14,7 +14,12 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 	[SerializeField] private Vector2[] heroesPositions = new Vector2[4];
 	[SerializeField] private Vector2[] enemiesPositions = new Vector2[4];
 
+	//TESTE
+	[SerializeField]SkillBtn[] skillsBtn = new SkillBtn[4];
+	static CombHUDManager instance = null;
+
 	public void Awake(){
+		MakeItASingleton ();
 		DontDestroyOnLoad (this.gameObject);
 		CreateCombatantHUDs ();
 	}
@@ -96,4 +101,21 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 			combatantHUD.gameObject.SetActive (false);
 		}
 	}
+
+	//TESTE
+	public void ShowSkillsBtnOf(Character character){
+		for(int i=0;i<skillsBtn.Length;i++){
+			skillsBtn [i].RefreshSelf (character);
+		}
+	}
+
+	void MakeItASingleton(){
+		if (instance == null) {
+			instance = this;
+		} else {
+			Destroy (gameObject);
+		}
+	}
+
+	public static CombHUDManager getInstance(){return instance;}
 }

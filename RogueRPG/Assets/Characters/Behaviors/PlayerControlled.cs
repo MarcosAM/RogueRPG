@@ -14,7 +14,8 @@ public class PlayerControlled : CombatBehavior {
 	public void ChooseSkill ()
 	{
 		EventManager.OnPlayerChoosedSkill += ReadySkill;
-		EventManager.ShowSkillsOf (character);
+//		EventManager.ShowSkillsOf (character);
+		CombHUDManager.getInstance().ShowSkillsBtnOf(character);
 	}
 
 	public void ReadySkill (Skill skill)

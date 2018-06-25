@@ -15,7 +15,7 @@ public class SkillBtn : CombatBtn {
 		button.onClick.AddListener (ChooseSkill);
 	}
 
-	void RefreshSelf(Character c){
+	public void RefreshSelf(Character c){
 		skill = c.getSkills()[number];
 		Appear ();
 	}
@@ -36,12 +36,12 @@ public class SkillBtn : CombatBtn {
 	}
 
 	void OnEnable(){
-		EventManager.OnShowSkillsOf += RefreshSelf;
+//		EventManager.OnShowSkillsOf += RefreshSelf;
 		EventManager.OnClickedSkillBtn += Disappear;
 	}
 
 	void OnDisable(){
-		EventManager.OnShowSkillsOf -= RefreshSelf;
+//		EventManager.OnShowSkillsOf -= RefreshSelf;
 		EventManager.OnClickedSkillBtn -= Disappear;
 	}
 }
