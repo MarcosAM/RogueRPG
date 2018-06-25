@@ -163,4 +163,6 @@ public abstract class Skill : ScriptableObject {
 	public void setUser(Character user){
 		this.user = user;
 	}
+
+	public Character getUser(){return user;}
 }

@@ -90,6 +90,10 @@ public class CombatantHUD : MonoBehaviour {
 		}
 	}
 
+	public void ShowTargetBtn(Skill skill){
+		targetButton.Appear (skill.getUser(),skill);
+	}
+
 	void OnDisable (){
 		if(combatant!=null){
 			combatant.OnHUDValuesChange -= Refresh;

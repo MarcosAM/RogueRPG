@@ -81,13 +81,13 @@ public class TargetBtn : CombatBtn {
 	}
 
 	void OnEnable(){
-		EventManager.OnShowTargetsOf += Appear;
+//		EventManager.OnShowTargetsOf += Appear;
 		EventManager.OnClickedTargetBtn += Disappear;
 		EventManager.OnUnchoosedSkill += Disappear;
 	}
 
 	void OnDisable(){
-		EventManager.OnShowTargetsOf -= Appear;
+//		EventManager.OnShowTargetsOf -= Appear;
 		EventManager.OnClickedTargetBtn -= Disappear;
 		EventManager.OnUnchoosedSkill -= Disappear;
 		if(combatant != null){
