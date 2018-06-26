@@ -32,6 +32,7 @@ public class PlayerControlled : CombatBehavior {
 
 	public void UnchooseSkill(){
 		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
+		print ("Tentei desescolher");
 		ChooseSkill ();
 	}
 
