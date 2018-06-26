@@ -1,0 +1,10 @@
+diff a/RogueRPG/Assets/Characters/Behaviors/PlayerControlled.cs b/RogueRPG/Assets/Characters/Behaviors/PlayerControlled.cs	(rejected hunks)
+@@ -15,7 +15,7 @@
+ 	{
+ 		EventManager.OnPlayerChoosedSkill += ReadySkill;
+ //		EventManager.ShowSkillsOf (character);
+-		CombHUDManager.getInstance().ShowSkillsBtnOf(character);
++		CombHUDManager.getInstance().ShowSkillBtnsOf(character);
+ 	}
+ 
+ 	public void ReadySkill (Skill skill)

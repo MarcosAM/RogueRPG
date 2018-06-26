@@ -15,7 +15,7 @@ public class PlayerControlled : CombatBehavior {
 	{
 		EventManager.OnPlayerChoosedSkill += ReadySkill;
 //		EventManager.ShowSkillsOf (character);
-		CombHUDManager.getInstance().ShowSkillsBtnOf(character);
+		CombHUDManager.getInstance().ShowSkillBtnsOf(character);
 	}
 
 	public void ReadySkill (Skill skill)
@@ -41,7 +41,8 @@ public class PlayerControlled : CombatBehavior {
 			EventManager.OnPlayerChoosedTarget += ReadyTarget;
 		else
 			EventManager.OnPlayerChoosedLocation += MoveTo;
-		EventManager.ShowTargetsOf (character,choosedSkill);
+//		EventManager.ShowTargetsOf (character,choosedSkill);
+		CombHUDManager.getInstance().ShowTargetsOf(choosedSkill);
 	}
 
 	public void MoveTo(int position){

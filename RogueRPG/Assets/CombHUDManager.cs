@@ -14,7 +14,6 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 	[SerializeField] private Vector2[] heroesPositions = new Vector2[4];
 	[SerializeField] private Vector2[] enemiesPositions = new Vector2[4];
 
-	//TESTE
 	[SerializeField]SkillBtn[] skillsBtn = new SkillBtn[4];
 	static CombHUDManager instance = null;
 
@@ -102,10 +101,18 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 		}
 	}
 
-	//TESTE
-	public void ShowSkillsBtnOf(Character character){
+	public void ShowSkillBtnsOf(Character character){
 		for(int i=0;i<skillsBtn.Length;i++){
 			skillsBtn [i].RefreshSelf (character);
+		}
+	}
+
+	public void ShowTargetsOf(Skill skill){
+		for(int i=0;i<heroesCombatantHUD.Length;i++){
+			heroesCombatantHUD [i].ShowTargetBtn (skill);
+		}
+		for(int i=0;i<enemiesCombatantHUD.Length;i++){
+			enemiesCombatantHUD [i].ShowTargetBtn (skill);
 		}
 	}
 
