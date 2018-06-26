@@ -85,6 +85,12 @@
      <Compile Include="Assets\Skills\Scripts\CriticBuffSkill.cs" />
      <Compile Include="Assets\Skills\Scripts\HealSkill.cs" />
      <Compile Include="Assets\Skills\Scripts\Skill.cs" />
+     <Compile Include="Assets\Skills\Skill Effects\SEAtk.cs" />
+     <Compile Include="Assets\Skills\Skill Effects\SEAtkm.cs" />
+     <Compile Include="Assets\Skills\Skill Effects\SECriticUp.cs" />
+     <Compile Include="Assets\Skills\Skill Effects\SEHeal.cs" />
+     <Compile Include="Assets\Skills\Skill Effects\SEMove.cs" />
+     <Compile Include="Assets\Skills\Skill Effects\SkillEffect.cs" />
      <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
      <Compile Include="Assets\TargetBtn.cs" />
      <Compile Include="Assets\UndoBtn.cs" />

@@ -1,16 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TargetBtn.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\Character.cs">
     <Files>
-      <File FileName="Assets\CombHUDManager.cs" Line="91" Column="4" />
-      <File FileName="Assets\SkillBtn.cs" Line="1" Column="1" />
-      <File FileName="Assets\Characters\Behaviors\PlayerControlled.cs" Line="45" Column="42" />
-      <File FileName="Assets\BattlesTest\BGDatabase.cs" Line="1" Column="1" />
-      <File FileName="Assets\CombatantHUD.cs" Line="43" Column="32" />
-      <File FileName="Assets\Battleground.cs" Line="87" Column="50" />
-      <File FileName="Assets\TargetBtn.cs" Line="104" Column="29" />
-      <File FileName="Assets\Skills\Scripts\Skill.cs" Line="167" Column="41" />
-      <File FileName="Assets\Logic\EventManager.cs" Line="14" Column="34" />
+      <File FileName="Assets\Skills\Scripts\Skill.cs" Line="31" Column="25" />
+      <File FileName="Assets\Characters\Character.cs" Line="112" Column="53" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

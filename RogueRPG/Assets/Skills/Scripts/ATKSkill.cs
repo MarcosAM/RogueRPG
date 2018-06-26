@@ -14,7 +14,4 @@ public class ATKSkill : Skill {
 			user.getMovement().MoveTo(target.getPosition());
 		}
 	}
-
-//	public override
-
 }

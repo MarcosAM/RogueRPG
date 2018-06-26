@@ -14,14 +14,4 @@ public class ATKMSkill : Skill {
 			user.getMovement().MoveTo(target.getPosition());
 		}
 	}
-
-//	public override void UniqueEffect (int targetIndex){
-//		base.UniqueEffect (targetIndex);
-//		DungeonManager dungeonManager = DungeonManager.getInstance();
-//		Character target;
-//		if(user.isPlayable()){
-//			target
-//		}
-//		user.AttackMagic ();
-//	}
 }

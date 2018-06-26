@@ -169,9 +169,8 @@ public class Battleground : MonoBehaviour {
 		public Tile(int position){
 			this.position = position;
 		}
-		public void setOccupant(Character occupant){
-			this.occupant = occupant;
-		}
+		public void setOccupant(Character occupant) {this.occupant = occupant;}
 		public Character getOccupant() {return occupant;}
+		public int getPosition(){return position;}
 	}
 }

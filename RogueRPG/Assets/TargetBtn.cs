@@ -17,7 +17,7 @@ public class TargetBtn : CombatBtn {
 	}
 
 	void ChooseTarget(){
-		EventManager.ChooseTarget (combatant);
+		EventManager.ChooseTarget (tile);
 	}
 
 	public void Initialize (Character c){
