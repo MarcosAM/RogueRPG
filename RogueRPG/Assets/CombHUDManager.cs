@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
+public class CombHUDManager : MonoBehaviour {
 
 	[SerializeField]CombatantHUD combatantHUDprefab;
 	[SerializeField]LocationBtn locationBtnPrefab;
@@ -56,21 +56,6 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 			character.setHUD (enemiesCombatantHUD [position]);
 		}
 	}
-	public void ShowCombatants (Character[] heroesParty,Character[] enemiesParty){
-
-		ClearCombatantsHUDs ();
-
-		for(int i = 0;i<heroesParty.Length;i++){
-			heroesCombatantHUD [i].gameObject.SetActive (true);
-			heroesCombatantHUD [i].Initialize(heroesParty[i]);
-			heroesParty [i].setHUD (heroesCombatantHUD[i]);
-		}
-		for(int i = 0;i<enemiesParty.Length;i++){
-			enemiesCombatantHUD [i].gameObject.SetActive (true);
-			enemiesCombatantHUD [i].Initialize(enemiesParty[i]);
-			enemiesParty [i].setHUD (enemiesCombatantHUD[i]);
-		}
-	}
 
 	public void ShowCombatants (List<Character> heroesParty, List<Character> enemiesParty){
 		ClearCombatantsHUDs ();
@@ -87,6 +72,22 @@ public class CombHUDManager : MonoBehaviour, ICombatDisplayer {
 				enemiesCombatantHUD [i].Initialize(enemiesParty[i]);
 				enemiesParty [i].setHUD (enemiesCombatantHUD[i]);
 			}
+		}
+	}
+
+	public void ShowCombatants (Battleground.Tile[] heroesTiles, Battleground.Tile[] enemiesTiles){
+		ClearCombatantsHUDs ();
+		for(int i = 0;i<heroesTiles.Length;i++){
+			heroesCombatantHUD [i].gameObject.SetActive (true);
+			heroesCombatantHUD [i].Initialize(heroesTiles[i]);
+			if(heroesTiles[i].getOccupant()!=null)
+				heroesTiles[i].getOccupant().setHUD (heroesCombatantHUD[i]);
+		}
+		for(int i = 0;i<enemiesTiles.Length;i++){
+			enemiesCombatantHUD [i].gameObject.SetActive (true);
+			enemiesCombatantHUD [i].Initialize(enemiesTiles[i]);
+			if(enemiesTiles[i].getOccupant()!=null)
+				enemiesTiles[i].getOccupant().setHUD (enemiesCombatantHUD[i]);
 		}
 	}
 

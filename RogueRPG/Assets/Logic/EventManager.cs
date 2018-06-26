@@ -11,6 +11,7 @@ public class EventManager : MonoBehaviour {
 	public static event Action<Character> OnPlayerChoosedTarget;
 	public static event Action OnClickedTargetBtn;
 	public static event Action<Character,Skill> OnShowTargetsOf;
+	public static event Action<Skill> OnShowTargetsOf2;
 	public static event Action OnUnchoosedSkill;
 	public static event Action OnSkillUsed;
 	public static event Action OnEndedTurn;
@@ -41,6 +42,11 @@ public class EventManager : MonoBehaviour {
 	public static void ShowTargetsOf(Character user, Skill skill){
 		if (OnShowTargetsOf != null)
 			OnShowTargetsOf (user, skill);
+	}
+
+	public static void ShowTargetsOf(Skill skill){
+		if (OnShowTargetsOf2 != null)
+			OnShowTargetsOf2 (skill);
 	}
 
 	public static void ChooseTarget(Character c) {

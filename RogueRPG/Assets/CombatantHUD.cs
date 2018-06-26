@@ -36,6 +36,13 @@ public class CombatantHUD : MonoBehaviour {
 		}
 	}
 
+	public void Initialize(Battleground.Tile tile){
+		if(tile.getOccupant()!=null){
+			Initialize (tile.getOccupant());
+		}
+		targetButton.Initialize (tile);
+	}
+
 	public void Deinitialize(){
 		if(combatant != null){
 			combatant.OnHUDValuesChange -= Refresh;

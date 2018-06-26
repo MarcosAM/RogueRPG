@@ -6,11 +6,14 @@ public class Battleground : MonoBehaviour {
 
 	[SerializeField]List<Character> heroSide = new List<Character> ();
 	[SerializeField]List<Character> enemySide = new List<Character> ();
+	Tile[] heroTiles = new Tile[4];
+	Tile[] enemyTiles = new Tile[4];
 	CombHUDManager cHUDManager;
 
 	void Awake(){
 		heroSide.Capacity = 4;
 		enemySide.Capacity = 4;
+		CreateTiles ();
 		cHUDManager = FindObjectOfType<CombHUDManager> ();
 	}
 
@@ -79,7 +82,9 @@ public class Battleground : MonoBehaviour {
 	}
 
 	public void ShowCharactersToThePlayer(){
-		cHUDManager.ShowCombatants(heroSide,enemySide);
+		setOccupantsOfAllTiles (heroSide,enemySide);
+//		cHUDManager.ShowCombatants(heroSide,enemySide);
+		cHUDManager.ShowCombatants(heroTiles,enemyTiles);
 	}
 
 	public int getPositionOf (Character character){
@@ -116,12 +121,6 @@ public class Battleground : MonoBehaviour {
 	public List<Character> getEnemySide(){
 		return enemySide;
 	}
-//	public void setHeroSide (List<Character> heroes){
-//		this.heroSide = heroes;
-//		for(int i = 0;i<=4-heroes.Count;i++){
-//			this.heroSide.Add(null);
-//		}
-//	}
 	public void ClearAndSetASide(List<Character> side){
 		bool sideIsPlayers = false;
 		int sideSize = side.Count;
@@ -143,5 +142,36 @@ public class Battleground : MonoBehaviour {
 				this.enemySide.Add (null);
 			}
 		}
+	}
+
+	void CreateTiles(){
+		for(int i =0;i<heroTiles.Length;i++){
+			heroTiles [i] = new Tile (i);
+		}
+		for(int i =0;i<enemyTiles.Length;i++){
+			enemyTiles [i] = new Tile (i);
+		}
+	}
+
+	void setOccupantsOfAllTiles(List<Character> heroSide, List<Character> enemySide){
+		for(int i=0;i<heroSide.Count;i++){
+			heroTiles [i].setOccupant (heroSide[i]);
+		}
+		for(int i=0;i<enemySide.Count;i++){
+			enemyTiles [i].setOccupant (enemySide[i]);
+		}
+	}
+
+	public class Tile{
+		Character occupant;
+		int position;
+
+		public Tile(int position){
+			this.position = position;
+		}
+		public void setOccupant(Character occupant){
+			this.occupant = occupant;
+		}
+		public Character getOccupant() {return occupant;}
 	}
 }
