@@ -13,13 +13,14 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 		rectTransform = GetComponent<RectTransform> ();
 	}
 
-	public void PlayAnimation (Skill skill, Character target){
-		rectTransform.localPosition = target.getHUD ().getRectTransform ().localPosition;
+	public void PlayAnimation (Skill skill, Battleground.Tile tile){
+		rectTransform.localPosition = tile.getLocalPosition ();
 		mySkill = skill;
 		animator.SetTrigger ("play");
 	}
 
 	public void End (){
+		print ("Termine essa skill please");
 		mySkill.EndSkill ();
 		Destroy (gameObject);
 	}

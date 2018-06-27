@@ -31,7 +31,7 @@ public abstract class Skill : ScriptableObject {
 		user.DelayBy (sDelay);
 		if (sSingleTarget) {
 			FindObjectOfType<Narration> ().Appear (user.getName (), sName);
-			EffectAnimation (tile.getOccupant ());
+			EffectAnimation (tile);
 			primaryEffect.Effect (user, this, tile);
 		} else {
 			FindObjectOfType<Narration>().Appear(user.getName(), sName);
@@ -76,7 +76,7 @@ public abstract class Skill : ScriptableObject {
 			howManyTargets = myTargets.Count;
 			targetsHited = 0;
 			foreach (Character target in myTargets) {
-				EffectAnimation(target);
+				EffectAnimation(tile);
 				primaryEffect.Effect(user, this,tile);
 			}
 		}
@@ -85,7 +85,7 @@ public abstract class Skill : ScriptableObject {
 	public void Effect (Character user, Character target){
 		endable = true;
 		FindObjectOfType<Narration>().Appear(user.getName(), sName);
-		EffectAnimation (target);
+//		EffectAnimation (target);
 		user.DelayBy(sDelay);
 		UniqueEffect(user,target);
 	}
@@ -161,15 +161,15 @@ public abstract class Skill : ScriptableObject {
 		howManyTargets = myTargets.Count;
 		targetsHited = 0;
 		foreach (Character target in myTargets) {
-			EffectAnimation(target);
+//			EffectAnimation(target);
 			UniqueEffect (user, target);
 		}
 	}
 
-	public void EffectAnimation(Character target){
+	public void EffectAnimation(Battleground.Tile tile){
 		SkillAnimation skillAnimation = Instantiate (sAnimationPrefab);
 		skillAnimation.transform.SetParent (FindObjectOfType<Canvas>().transform,false);
-		skillAnimation.PlayAnimation (this,target);
+		skillAnimation.PlayAnimation (this,tile);
 	}
 
 	public void EndSkill(){
@@ -223,5 +223,7 @@ public abstract class Skill : ScriptableObject {
 		this.user = user;
 	}
 
-	public Character getUser(){return user;}
+	public Character getUser() {return user;}
+
+	public int getValue() {return sValue;}
 }

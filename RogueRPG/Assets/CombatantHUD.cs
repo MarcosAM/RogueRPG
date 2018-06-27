@@ -25,20 +25,33 @@ public class CombatantHUD : MonoBehaviour {
 		if (c != null) {
 			combatant = c;
 			image.sprite = combatant.getPortrait ().sprite;
+			hpBar.gameObject.SetActive(true);
+			energyBar.gameObject.SetActive(true);
+			hpNumbers.gameObject.SetActive(true);
+			buffText.gameObject.SetActive (true);
 			combatant.OnHUDValuesChange += Refresh;
 			combatant.OnHPValuesChange += HPFeedback;
 			combatant.OnBuffsGainOrLoss += ShowBuffs;
 			//TODO Checar se isso aqui não vai cagar tudo com os buffs dos personagens quando eles se moverem
-			ShowBuffs (0f,0f,0f);
-			Refresh();
-			if(targetButton != null)
-				targetButton.Initialize(combatant);
-		}
+			ShowBuffs (0f, 0f, 0f);
+			Refresh ();
+			if (targetButton != null)
+				targetButton.Initialize (combatant);
+		} 
 	}
 
 	public void Initialize(Battleground.Tile tile){
 		if(tile.getOccupant()!=null){
 			Initialize (tile.getOccupant());
+		} else {
+			this.combatant = null;
+			image.sprite = null;
+			hpBar.gameObject.SetActive(false);
+			energyBar.gameObject.SetActive(false);
+			hpNumbers.gameObject.SetActive(false);
+			buffText.gameObject.SetActive (false);
+			if (targetButton != null)
+				targetButton.Disappear ();
 		}
 		targetButton.Initialize (tile);
 	}

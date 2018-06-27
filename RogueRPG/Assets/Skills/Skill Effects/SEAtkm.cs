@@ -9,6 +9,6 @@ public class SEAtkm : SkillEffect {
 	{
 		base.Effect (user, skill, tile);
 		if(tile.getOccupant() != null)
-			user.AttackMagic (tile.getOccupant(),value,skill);
+			user.AttackMagic (tile.getOccupant(),skill.getValue(),skill);
 	}
 }

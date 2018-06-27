@@ -9,7 +9,7 @@ public class SEHeal : SkillEffect {
 	{
 		base.Effect (user, skill, tile);
 		if(tile.getOccupant() != null){
-			tile.getOccupant ().Heal (value+(int)user.getAtkmValue());
+			tile.getOccupant ().Heal (skill.getValue()+(int)user.getAtkmValue());
 		}
 	}
 }

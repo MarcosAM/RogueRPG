@@ -131,6 +131,7 @@ public class TargetBtn : CombatBtn {
 
 	override public void Disappear(){
 		button.interactable = false;
+		text.text = "";
 	}
 
 	void OnEnable(){

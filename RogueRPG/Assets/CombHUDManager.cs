@@ -119,4 +119,6 @@ public class CombHUDManager : MonoBehaviour {
 	}
 
 	public static CombHUDManager getInstance(){return instance;}
+	public Vector2[] getHeroesPositions() {return heroesPositions;}
+	public Vector2[] getEnemiesPositions() {return enemiesPositions;}
 }

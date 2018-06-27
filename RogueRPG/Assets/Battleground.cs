@@ -11,10 +11,10 @@ public class Battleground : MonoBehaviour {
 	CombHUDManager cHUDManager;
 
 	void Awake(){
+		cHUDManager = FindObjectOfType<CombHUDManager> ();
 		heroSide.Capacity = 4;
 		enemySide.Capacity = 4;
 		CreateTiles ();
-		cHUDManager = FindObjectOfType<CombHUDManager> ();
 	}
 
 	public void AddToHeroSide(Character character){
@@ -146,10 +146,10 @@ public class Battleground : MonoBehaviour {
 
 	void CreateTiles(){
 		for(int i =0;i<heroTiles.Length;i++){
-			heroTiles [i] = new Tile (i);
+			heroTiles [i] = new Tile (i,cHUDManager.getHeroesPositions()[i]);
 		}
 		for(int i =0;i<enemyTiles.Length;i++){
-			enemyTiles [i] = new Tile (i);
+			enemyTiles [i] = new Tile (i,cHUDManager.getEnemiesPositions()[i]);
 		}
 	}
 
@@ -164,13 +164,19 @@ public class Battleground : MonoBehaviour {
 
 	public class Tile{
 		[SerializeField]Character occupant;
-		int position;
+		int index;
+		Vector2 localPosition;
 
-		public Tile(int position){
-			this.position = position;
+		public Tile(int index){
+			this.index = index;
+		}
+		public Tile(int index, Vector2 localPosition){
+			this.index = index;
+			this.localPosition = localPosition;
 		}
 		public void setOccupant(Character occupant) {this.occupant = occupant;}
 		public Character getOccupant() {return occupant;}
-		public int getPosition(){return position;}
+		public int getIndex(){return index;}
+		public Vector2 getLocalPosition(){return localPosition;}
 	}
 }

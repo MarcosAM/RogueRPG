@@ -11,7 +11,7 @@ public class SECriticUp : SkillEffect {
 	{
 		base.Effect (user, skill, tile);
 		if(tile.getOccupant() != null){
-			switch(value){
+			switch(skill.getValue()){
 			case 1:
 				tile.getOccupant().CriticBuff (Stat.CRITIC_BUFF_1,duration);
 				break;
