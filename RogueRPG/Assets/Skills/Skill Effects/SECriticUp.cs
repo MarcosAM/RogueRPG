@@ -7,9 +7,9 @@ public class SECriticUp : SkillEffect {
 
 	[SerializeField]int duration;
 
-	public override void Effect (Skill skill, Battleground.Tile tile)
+	public override void Effect (Character user, Skill skill, Battleground.Tile tile)
 	{
-		base.Effect (skill, tile);
+		base.Effect (user, skill, tile);
 		if(tile.getOccupant() != null){
 			switch(value){
 			case 1:

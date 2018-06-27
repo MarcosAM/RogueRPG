@@ -6,8 +6,8 @@ public class Battleground : MonoBehaviour {
 
 	[SerializeField]List<Character> heroSide = new List<Character> ();
 	[SerializeField]List<Character> enemySide = new List<Character> ();
-	Tile[] heroTiles = new Tile[4];
-	Tile[] enemyTiles = new Tile[4];
+	[SerializeField]Tile[] heroTiles = new Tile[4];
+	[SerializeField]Tile[] enemyTiles = new Tile[4];
 	CombHUDManager cHUDManager;
 
 	void Awake(){
@@ -163,7 +163,7 @@ public class Battleground : MonoBehaviour {
 	}
 
 	public class Tile{
-		Character occupant;
+		[SerializeField]Character occupant;
 		int position;
 
 		public Tile(int position){

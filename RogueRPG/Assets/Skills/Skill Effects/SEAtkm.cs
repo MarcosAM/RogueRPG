@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Skill Effects/Attack Magic")]
 public class SEAtkm : SkillEffect {
 
-	public override void Effect (Skill skill, Battleground.Tile tile)
+	public override void Effect (Character user, Skill skill, Battleground.Tile tile)
 	{
-		base.Effect (skill, tile);
+		base.Effect (user, skill, tile);
 		if(tile.getOccupant() != null)
-			skill.getUser ().AttackMagic (tile.getOccupant(),value,skill);
+			user.AttackMagic (tile.getOccupant(),value,skill);
 	}
 }

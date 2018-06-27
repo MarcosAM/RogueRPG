@@ -26,13 +26,13 @@ public abstract class Skill : ScriptableObject {
 	protected int targetsHited;
 	protected bool endable;
 
-	public void Effect (Battleground.Tile tile){
+	public void Effect (Character user,Battleground.Tile tile){
 		endable = true;
 		user.DelayBy (sDelay);
 		if (sSingleTarget) {
 			FindObjectOfType<Narration> ().Appear (user.getName (), sName);
 			EffectAnimation (tile.getOccupant ());
-			primaryEffect.Effect (this, tile);
+			primaryEffect.Effect (user, this, tile);
 		} else {
 			FindObjectOfType<Narration>().Appear(user.getName(), sName);
 			List<Character> myTargets = new List<Character>();
@@ -77,7 +77,7 @@ public abstract class Skill : ScriptableObject {
 			targetsHited = 0;
 			foreach (Character target in myTargets) {
 				EffectAnimation(target);
-				primaryEffect.Effect(this,tile);
+				primaryEffect.Effect(user, this,tile);
 			}
 		}
 	}

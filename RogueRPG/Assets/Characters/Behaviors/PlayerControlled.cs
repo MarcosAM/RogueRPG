@@ -32,7 +32,6 @@ public class PlayerControlled : CombatBehavior {
 
 	public void UnchooseSkill(){
 		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
-		print ("Tentei desescolher");
 		ChooseSkill ();
 	}
 
@@ -60,7 +59,7 @@ public class PlayerControlled : CombatBehavior {
 	}
 	public void ReadyTarget (Battleground.Tile tile){
 		UseSkill (tile);
-		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
+		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
 		EventManager.OnUnchoosedSkill -= UnchooseSkill;
 	}
 		
@@ -72,7 +71,8 @@ public class PlayerControlled : CombatBehavior {
 
 	public void UseSkill (Battleground.Tile tile){
 		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect (tile);
+		choosedSkill.Effect (character,tile);
+		Debug.Log (character.getName()+" foi requisitado a usar skill!");
 	}
 
 	public void UseSkill ()

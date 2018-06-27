@@ -6,5 +6,5 @@ public abstract class SkillEffect : ScriptableObject {
 
 	[SerializeField]protected int value;
 
-	public virtual void Effect (Skill skill, Battleground.Tile tile){}
+	public virtual void Effect (Character user, Skill skill, Battleground.Tile tile){}
 }

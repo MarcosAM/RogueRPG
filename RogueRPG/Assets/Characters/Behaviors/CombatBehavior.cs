@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CombatBehavior : MonoBehaviour {
 
-	protected Character character;
+	[SerializeField]protected Character character;
 	protected Skill choosedSkill;
 
 	public virtual void StartTurn(){}

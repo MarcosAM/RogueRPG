@@ -109,7 +109,6 @@ public abstract class Character : MonoBehaviour {
 	}
 
 	public void DelayBy (float amount){
-		print (characterName + " foi atrasado por "+amount);
 		delayCountdown -= amount;
 		RefreshHUD();
 	}

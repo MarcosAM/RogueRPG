@@ -5,11 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Skill Effects/Heal")]
 public class SEHeal : SkillEffect {
 
-	public override void Effect (Skill skill, Battleground.Tile tile)
+	public override void Effect (Character user, Skill skill, Battleground.Tile tile)
 	{
-		base.Effect (skill, tile);
+		base.Effect (user, skill, tile);
 		if(tile.getOccupant() != null){
-			tile.getOccupant ().Heal (value+(int)skill.getUser().getAtkmValue());
+			tile.getOccupant ().Heal (value+(int)user.getAtkmValue());
 		}
 	}
 }

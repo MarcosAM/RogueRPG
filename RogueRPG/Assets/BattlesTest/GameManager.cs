@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
 		MakeItASingleton();
 
 //		TODO Fill with players. Depois pensar em como fazer isso de maneira mais eficiente.
+//		Character pc1 = Instantiate(pcPrefab);
+//		pc1.setStats
 		playerCharacters.Add (Instantiate(pcPrefab));
 		playerCharacters.Add (Instantiate(pcPrefab));
 		foreach (Character pc in playerCharacters) {
