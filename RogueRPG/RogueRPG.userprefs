@@ -1,13 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TargetBtn.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\Behaviors\RandomBehavior.cs">
     <Files>
-      <File FileName="Assets\Skills\Skill Effects\SEMove.cs" Line="11" Column="48" />
-      <File FileName="Assets\Characters\CharacterMovement.cs" Line="10" Column="14" />
-      <File FileName="Assets\Battleground.cs" Line="84" Column="32" />
-      <File FileName="Assets\CombHUDManager.cs" Line="82" Column="54" />
-      <File FileName="Assets\CombatantHUD.cs" Line="54" Column="31" />
-      <File FileName="Assets\TargetBtn.cs" Line="134" Column="18" />
+      <File FileName="Assets\Characters\Behaviors\RandomBehavior.cs" Line="39" Column="6" />
+      <File FileName="Assets\Logic\DungeonManager.cs" Line="141" Column="2" />
+      <File FileName="Assets\Battleground.cs" Line="125" Column="52" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

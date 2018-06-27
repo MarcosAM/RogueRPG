@@ -9,11 +9,11 @@ public class RandomBehavior : CombatBehavior {
 		base.StartTurn ();
 		character.StartTurn();
 		ChooseSkill ();
-		if (choosedSkill.getIsSingleTarget ()) {
-			ChooseTarget ();
-		} else {
-			UseSkill();
-		}
+//		if (choosedSkill.getIsSingleTarget ()) {
+		ChooseTarget ();
+//		} else {
+//			UseSkill();
+//		}
 	}
 
 	public void ChooseSkill ()
@@ -24,20 +24,35 @@ public class RandomBehavior : CombatBehavior {
 	public void ChooseTarget ()
 	{
 		if(choosedSkill.getTargets() == Skill.Targets.Enemies){
-			PlayableCharacter[] heroes = FindObjectsOfType<PlayableCharacter>();
-			bool found = false;
-			//TODO versão que se não tiver herois não trave
-			while(found == false){
-				int r = Random.Range (0, heroes.Length);
-				if(heroes[r].isAlive()){
-					UseSkill(character,heroes[r]);
-					found = true;
+			Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
+			int heroesAlive = 0;
+			for(int i =0;i<tempHeroesTiles.Length;i++){
+				if(tempHeroesTiles[i].getOccupant()!=null)
+					if (tempHeroesTiles [i].getOccupant ().isAlive ())
+						heroesAlive++;
+			}
+			if (heroesAlive > 0) {
+				Battleground.Tile[] heroesTile = new Battleground.Tile[heroesAlive];
+				for (int i = 0; i < tempHeroesTiles.Length; i++) {
+					if(tempHeroesTiles[i].getOccupant()!=null)
+						if (tempHeroesTiles [i].getOccupant ().isAlive ())
+							heroesTile [i] = tempHeroesTiles [i];
 				}
+				int r = Random.Range(0,heroesTile.Length);
+				UseSkill (heroesTile[r]);
+			} else {
+				//TODO terminar a batalha ou encontro ou dungeon wtv
+				print("Termina essa batalha");
 			}
 		}
 		if(choosedSkill.getTargets() == Skill.Targets.Self){
-			UseSkill (character,character);
+			UseSkill (DungeonManager.getInstance().getBattleground().getEnemiesTiles()[character.getPosition()]);
 		}
+	}
+
+	public void UseSkill (Battleground.Tile tile){
+		EventManager.OnSkillUsed += EndTurn;
+		choosedSkill.Effect (character,tile);
 	}
 
 	public void UseSkill (Character u, Character t)

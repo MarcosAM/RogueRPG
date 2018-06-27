@@ -138,7 +138,9 @@ public class DungeonManager : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
-	public static DungeonManager getInstance (){return instance;}
+
+	public static DungeonManager getInstance () {return instance;}
+	public Battleground getBattleground () {return battleground;}
 
 	void OnEnable(){
 		EventManager.OnEndedTurn += NextTurn;
