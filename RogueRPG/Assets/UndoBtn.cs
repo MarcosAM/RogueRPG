@@ -21,17 +21,21 @@ public class UndoBtn : MonoBehaviour {
 		icon.enabled = true;
 	}
 
+	void Appear(Skill skill){
+		icon.enabled = true;
+	}
+
 	void Disappear(){
 		icon.enabled = false;
 	}
 
 	void OnEnable(){
-		EventManager.OnShowTargetsOf += Appear;
+		EventManager.OnShowTargetsOf2 += Appear;
 		EventManager.OnClickedTargetBtn += Disappear;
 	}
 
 	void OnDisable(){
-		EventManager.OnShowTargetsOf -= Appear;
+		EventManager.OnShowTargetsOf2 -= Appear;
 		EventManager.OnClickedTargetBtn -= Disappear;
 	}
 }

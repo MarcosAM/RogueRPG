@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public abstract class Character : MonoBehaviour {
+public abstract class Character : MonoBehaviour, IComparable {
 
 	[SerializeField]protected string characterName;
 	protected int hp;
@@ -189,6 +189,15 @@ public abstract class Character : MonoBehaviour {
 		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
 	}
 
+	public int CompareTo(Character other)
+	{
+		if(other==null){
+			return 1;
+		}
+
+		return other.getDelayCountdown() - delayCountdown;
+	}
+
 	public void setStats(StandartStats standartStats){
 		this.stats = standartStats;
 		FillStats ();
@@ -217,6 +226,8 @@ public abstract class Character : MonoBehaviour {
 	public bool isPlayable() {return playable;}
 	public bool isAlive() {return alive;}
 	public Image getPortrait() {return portrait;}
+
+	public float getDelayCountdown(){return delayCountdown;}
 
 	public void setHUD(CombatantHUD combatantHUD) {hud = combatantHUD;}
 	public CombatantHUD getHUD() {return hud;}
