@@ -31,7 +31,7 @@ public class DungeonManager : MonoBehaviour {
 			character.PrepareForFirstBattle ();
 		}
 		for(int i=0;i<initiativeOrder.Count;i++){
-			initiativeOrder [i].RecoverFromDelayBy ((float)(initiativeOrder.Count-i)/10);
+			initiativeOrder [i].RecoverFromDelayBy ((float)(initiativeOrder.Count-i)/100);
 		}
 		battleground.ShowCharactersToThePlayer ();
 		round = 0;

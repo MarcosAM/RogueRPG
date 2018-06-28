@@ -148,10 +148,10 @@ public class Battleground : MonoBehaviour {
 
 	void CreateTiles(){
 		for(int i =0;i<heroTiles.Length;i++){
-			heroTiles [i] = new Tile (i,cHUDManager.getHeroesPositions()[i]);
+			heroTiles [i] = new Tile (i,cHUDManager.getHeroesPositions()[i],true);
 		}
 		for(int i =0;i<enemyTiles.Length;i++){
-			enemyTiles [i] = new Tile (i,cHUDManager.getEnemiesPositions()[i]);
+			enemyTiles [i] = new Tile (i,cHUDManager.getEnemiesPositions()[i],false);
 		}
 	}
 
@@ -168,6 +168,7 @@ public class Battleground : MonoBehaviour {
 		[SerializeField]Character occupant;
 		int index;
 		Vector2 localPosition;
+		bool fromHero;
 
 		public Tile(int index){
 			this.index = index;
@@ -176,9 +177,15 @@ public class Battleground : MonoBehaviour {
 			this.index = index;
 			this.localPosition = localPosition;
 		}
+		public Tile(int index, Vector2 localPosition, bool fromHero){
+			this.index = index;
+			this.localPosition = localPosition;
+			this.fromHero = fromHero;
+		}
 		public void setOccupant(Character occupant) {this.occupant = occupant;}
 		public Character getOccupant() {return occupant;}
 		public int getIndex(){return index;}
 		public Vector2 getLocalPosition(){return localPosition;}
+		public bool isFromHero(){return fromHero;}
 	}
 }

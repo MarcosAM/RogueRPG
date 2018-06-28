@@ -21,7 +21,7 @@ public abstract class Skill : ScriptableObject {
 	[SerializeField]protected Targets sTargets;
 	[SerializeField]protected SkillEffect primaryEffect;
 	[SerializeField]protected SkillEffect secondaryEffect;
-	[SerializeField]protected SkillEffect tertiartEffect;
+	[SerializeField]protected SkillEffect tertiaryEffect;
 	protected int howManyTargets;
 	protected int targetsHited;
 	protected bool endable;
@@ -32,7 +32,32 @@ public abstract class Skill : ScriptableObject {
 		if (sSingleTarget) {
 			FindObjectOfType<Narration> ().Appear (user.getName (), sName);
 			EffectAnimation (tile);
-			primaryEffect.Effect (user, this, tile);
+			//TODO a habilidade paia que é utilizada quando não tem o que soltar
+			if (!tile.isFromHero ()) {
+				if (user.isPlayable () != tile.getOccupant ().isPlayable () && primaryEffect != null) {
+					primaryEffect.Effect (user, this, tile);
+					return;
+				}
+			} else {
+				if (tile.getOccupant () != null) {
+					if (user == tile.getOccupant ()) {
+						if (secondaryEffect != null) {
+							secondaryEffect.Effect (user, this, tile);
+							return;
+						}
+					} else {
+						if (tertiaryEffect != null) {
+							tertiaryEffect.Effect (user, this, tile);
+							return;
+						}
+					}
+				} else {
+					if (tertiaryEffect != null) {
+						tertiaryEffect.Effect (user, this, tile);
+						return;
+					}
+				}
+			}
 		} else {
 			FindObjectOfType<Narration>().Appear(user.getName(), sName);
 			List<Character> myTargets = new List<Character>();
