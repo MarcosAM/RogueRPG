@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using System.Linq;
 
 public class DungeonManager : MonoBehaviour {
 
@@ -29,20 +30,20 @@ public class DungeonManager : MonoBehaviour {
 		foreach(Character character in initiativeOrder){
 			character.PrepareForFirstBattle ();
 		}
-//		for(int i=0;i<initiativeOrder.Count;i++){
-//			initiativeOrder [i].RecoverFromDelayBy ((float)(initiativeOrder.Count-i)/10);
-//		}
+		for(int i=0;i<initiativeOrder.Count;i++){
+			initiativeOrder [i].RecoverFromDelayBy ((float)(initiativeOrder.Count-i)/10);
+		}
 		battleground.ShowCharactersToThePlayer ();
 		round = 0;
 		TryToStartTurn ();
 	}
 
 	void TryToStartTurn (){
-//		string initiative="";
-//		for(int i=0;i<initiativeOrder.Count;i++){
-//			initiative += initiativeOrder [i].getDelayCountdown () + ",";
-//		}
-//		print (initiative);
+		string initiative="";
+		for(int i=0;i<initiativeOrder.Count;i++){
+			initiative += initiativeOrder [i].getDelayCountdown () + ",";
+		}
+		print (initiative);
 		if (initiativeOrder.Count>0) {
 			initiativeOrder [0].getBehavior().StartTurn();
 		} else {
@@ -84,12 +85,13 @@ public class DungeonManager : MonoBehaviour {
 		if(DidOnePartyLost()){
 			EndBattleAndCheckIfDungeonEnded ();
 		} else if(initiativeOrder.Count>0){
-			initiativeOrder.RemoveAt(0);
-			round++;
-			for(int i=1;i<initiativeOrder.Count;i++){
-				initiativeOrder [i].RecoverFromDelayBy (1);
-			}
-//			initiativeOrder.Sort();
+//			initiativeOrder.RemoveAt(0);
+//			round++;
+//			for(int i=1;i<initiativeOrder.Count;i++){
+//				initiativeOrder [i].RecoverFromDelayBy (1);
+//			}
+			initiativeOrder.Sort();
+			initiativeOrder.Reverse ();
 			round++;
 			TryToStartTurn ();
 		}
@@ -110,11 +112,11 @@ public class DungeonManager : MonoBehaviour {
 		if (dungeonFloor < gameManager.getSelectedQuest ().getCurrentDungeon ().getBattleGroups ().Count) {
 			battleground.ClearAndSetASide (gameManager.getEnemiesDelayedAtFloor(dungeonFloor));
 			battleground.ShowCharactersToThePlayer ();
-//			foreach(Character character in battleground.getEnemySide()){
-//				if(character != null)
-//					initiativeOrder.Add (character);
-//			}
-			initiativeOrder.RemoveAt(0);
+			foreach(Character character in battleground.getEnemySide()){
+				if(character != null)
+					initiativeOrder.Add (character);
+			}
+//			initiativeOrder.RemoveAt(0);
 			round ++;
 			TryToStartTurn ();
 		} else {
