@@ -20,7 +20,6 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 	}
 
 	public void End (){
-		print ("Termine essa skill please");
 		mySkill.EndSkill ();
 		Destroy (gameObject);
 	}

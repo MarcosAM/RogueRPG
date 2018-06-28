@@ -35,6 +35,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 		if(OnMyTurnStarts != null){
 			OnMyTurnStarts ();
 		}
+		RecoverFromDelayBy (Mathf.Abs(delayCountdown));
 		SpendBuffs();
 	}
 
@@ -189,13 +190,15 @@ public abstract class Character : MonoBehaviour, IComparable {
 		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
 	}
 
-	public int CompareTo(Character other)
+	public int CompareTo(object obj)
 	{
-		if(other==null){
+		if(obj == null){
 			return 1;
 		}
 
-		return other.getDelayCountdown() - delayCountdown;
+		Character other = obj as Character;
+
+		return (int)(delayCountdown - other.getDelayCountdown());
 	}
 
 	public void setStats(StandartStats standartStats){

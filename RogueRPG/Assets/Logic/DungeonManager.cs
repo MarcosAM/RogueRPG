@@ -7,7 +7,7 @@ using System;
 public class DungeonManager : MonoBehaviour {
 
 	static DungeonManager instance = null;
-	List<Character> initiativeOrder = new List<Character>();
+	[SerializeField]List<Character> initiativeOrder = new List<Character>();
 	int round;
 	int dungeonFloor=0;
 	Battleground battleground;
@@ -29,12 +29,20 @@ public class DungeonManager : MonoBehaviour {
 		foreach(Character character in initiativeOrder){
 			character.PrepareForFirstBattle ();
 		}
+//		for(int i=0;i<initiativeOrder.Count;i++){
+//			initiativeOrder [i].RecoverFromDelayBy ((float)(initiativeOrder.Count-i)/10);
+//		}
 		battleground.ShowCharactersToThePlayer ();
 		round = 0;
 		TryToStartTurn ();
 	}
 
 	void TryToStartTurn (){
+//		string initiative="";
+//		for(int i=0;i<initiativeOrder.Count;i++){
+//			initiative += initiativeOrder [i].getDelayCountdown () + ",";
+//		}
+//		print (initiative);
 		if (initiativeOrder.Count>0) {
 			initiativeOrder [0].getBehavior().StartTurn();
 		} else {
@@ -78,6 +86,11 @@ public class DungeonManager : MonoBehaviour {
 		} else if(initiativeOrder.Count>0){
 			initiativeOrder.RemoveAt(0);
 			round++;
+			for(int i=1;i<initiativeOrder.Count;i++){
+				initiativeOrder [i].RecoverFromDelayBy (1);
+			}
+//			initiativeOrder.Sort();
+			round++;
 			TryToStartTurn ();
 		}
 	}
@@ -97,6 +110,10 @@ public class DungeonManager : MonoBehaviour {
 		if (dungeonFloor < gameManager.getSelectedQuest ().getCurrentDungeon ().getBattleGroups ().Count) {
 			battleground.ClearAndSetASide (gameManager.getEnemiesDelayedAtFloor(dungeonFloor));
 			battleground.ShowCharactersToThePlayer ();
+//			foreach(Character character in battleground.getEnemySide()){
+//				if(character != null)
+//					initiativeOrder.Add (character);
+//			}
 			initiativeOrder.RemoveAt(0);
 			round ++;
 			TryToStartTurn ();

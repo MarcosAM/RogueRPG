@@ -72,7 +72,6 @@ public class PlayerControlled : CombatBehavior {
 	public void UseSkill (Battleground.Tile tile){
 		EventManager.OnSkillUsed += EndTurn;
 		choosedSkill.Effect (character,tile);
-		Debug.Log (character.getName()+" foi requisitado a usar skill!");
 	}
 
 	public void UseSkill ()
