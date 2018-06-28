@@ -41,7 +41,9 @@ public class PlayerControlled : CombatBehavior {
 //		else
 //			EventManager.OnPlayerChoosedLocation += MoveTo;
 //		EventManager.ShowTargetsOf (character,choosedSkill);
-		EventManager.ShowTargetsOf(choosedSkill);
+
+		//TODO ALTERAR ISSO AQUI LOLOLOLOLO
+		EventManager.ShowTargetsOf(character,choosedSkill);
 	}
 
 	public void MoveTo(int position){

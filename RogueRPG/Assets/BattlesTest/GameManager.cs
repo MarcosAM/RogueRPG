@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour {
 		foreach (Character pc in playerCharacters) {
 			pc.setStats (pcStandartStats);
 		}
+		playerCharacters [0].setName ("Dante");
+		playerCharacters [1].setName ("Roxas");
 		DontDestroyOnLoad (this);
 	}
 

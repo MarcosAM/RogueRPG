@@ -237,6 +237,9 @@ public abstract class Character : MonoBehaviour, IComparable {
 
 	public float getDelayCountdown(){return delayCountdown;}
 
+	public void setName(string name){
+		this.characterName = name;
+	}
 	public void setHUD(CombatantHUD combatantHUD) {hud = combatantHUD;}
 	public CombatantHUD getHUD() {return hud;}
 	public CombatBehavior getBehavior() {return combatBehavior;}

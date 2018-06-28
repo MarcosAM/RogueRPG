@@ -30,12 +30,12 @@ public class UndoBtn : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		EventManager.OnShowTargetsOf2 += Appear;
+		EventManager.OnShowTargetsOf += Appear;
 		EventManager.OnClickedTargetBtn += Disappear;
 	}
 
 	void OnDisable(){
-		EventManager.OnShowTargetsOf2 -= Appear;
+		EventManager.OnShowTargetsOf -= Appear;
 		EventManager.OnClickedTargetBtn -= Disappear;
 	}
 }
