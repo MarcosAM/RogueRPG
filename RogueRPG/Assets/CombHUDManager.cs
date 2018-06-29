@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class CombHUDManager : MonoBehaviour {
 
 	[SerializeField]CombatantHUD combatantHUDprefab;
-	[SerializeField]LocationBtn locationBtnPrefab;
 
 	CombatantHUD[] heroesCombatantHUD = new CombatantHUD[4];
 	CombatantHUD[] enemiesCombatantHUD = new CombatantHUD[4];
@@ -31,10 +30,6 @@ public class CombHUDManager : MonoBehaviour {
 			combatantHUD.getRectTransform().localPosition = heroesPositions[i];
 			heroesCombatantHUD [i] = combatantHUD;
 			heroesCombatantHUD [i].gameObject.SetActive(false);
-			LocationBtn locationBtn = Instantiate (locationBtnPrefab);
-			locationBtn.transform.SetParent (transform,false);
-			locationBtn.getRectTransform().localPosition = heroesPositions[i];
-			locationBtn.Initialize (i);
 		}
 		for(int i = 0; i<4;i++){
 			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);

@@ -75,7 +75,6 @@
      <Compile Include="Assets\DudeDontDie.cs" />
      <Compile Include="Assets\ICombatDisplayer.cs" />
      <Compile Include="Assets\Intefaces.cs" />
-     <Compile Include="Assets\LocationBtn.cs" />
      <Compile Include="Assets\Logic\DungeonManager.cs" />
      <Compile Include="Assets\Logic\EventManager.cs" />
      <Compile Include="Assets\Narration.cs" />

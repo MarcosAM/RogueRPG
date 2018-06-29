@@ -162,6 +162,25 @@ public class Battleground : MonoBehaviour {
 		for(int i=0;i<enemySide.Count;i++){
 			enemyTiles [i].setOccupant (enemySide[i]);
 		}
+
+		string side = "";
+		foreach(Tile tile in heroTiles){
+			if (tile.getOccupant() != null) {
+				side += tile.getOccupant ().getName () + " - ";
+			} else {
+				side += "null - ";
+			}
+		}
+		print (side);
+		side = "";
+		foreach(Tile tile in enemyTiles){
+			if (tile.getOccupant() != null) {
+				side += tile.getOccupant ().getName () + " - ";
+			} else {
+				side += "null - ";
+			}
+		}
+		print (side);
 	}
 
 	public class Tile{

@@ -39,13 +39,13 @@ public class DungeonManager : MonoBehaviour {
 	}
 
 	void TryToStartTurn (){
-		string initiative="";
-		for(int i=0;i<initiativeOrder.Count;i++){
-			if (i == 0)
-				initiative += "Rodada " + round+": ";
-			initiative += initiativeOrder[i].getName()+": "+initiativeOrder [i].getDelayCountdown () + ",";
-		}
-		print (initiative);
+//		string initiative="";
+//		for(int i=0;i<initiativeOrder.Count;i++){
+//			if (i == 0)
+//				initiative += "Rodada " + round+": ";
+//			initiative += initiativeOrder[i].getName()+": "+initiativeOrder [i].getDelayCountdown () + ",";
+//		}
+//		print (initiative);
 		if (initiativeOrder.Count>0) {
 			initiativeOrder [0].getBehavior().StartTurn();
 		} else {
