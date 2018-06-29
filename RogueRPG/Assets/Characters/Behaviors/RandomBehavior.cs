@@ -33,10 +33,13 @@ public class RandomBehavior : CombatBehavior {
 			}
 			if (heroesAlive > 0) {
 				Battleground.Tile[] heroesTile = new Battleground.Tile[heroesAlive];
+				int c = 0;
 				for (int i = 0; i < tempHeroesTiles.Length; i++) {
-					if(tempHeroesTiles[i].getOccupant()!=null)
-						if (tempHeroesTiles [i].getOccupant ().isAlive ())
-							heroesTile [i] = tempHeroesTiles [i];
+					if (tempHeroesTiles [i].getOccupant () != null)
+					if (tempHeroesTiles [i].getOccupant ().isAlive ()) {
+						heroesTile [c] = tempHeroesTiles [i];
+						c++;
+					}
 				}
 				int r = Random.Range(0,heroesTile.Length);
 				UseSkill (heroesTile[r]);

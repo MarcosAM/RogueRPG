@@ -33,7 +33,7 @@ public abstract class Skill : ScriptableObject {
 			FindObjectOfType<Narration> ().Appear (user.getName (), sName);
 			EffectAnimation (tile);
 			//TODO a habilidade paia que é utilizada quando não tem o que soltar
-			if (!tile.isFromHero ()) {
+			if (user.isPlayable() != tile.isFromHero ()) {
 				if (user.isPlayable () != tile.getOccupant ().isPlayable () && primaryEffect != null) {
 					primaryEffect.Effect (user, this, tile);
 					return;
