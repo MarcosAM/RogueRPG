@@ -89,46 +89,77 @@ public class TargetBtn : CombatBtn {
 	public void Appear (Character user, Skill skill)
 	{
 		//TODO Só aparecer quando tiver alvo para poder aparecer
-		if(tile.getOccupant() != null){
-			if (tile.getOccupant().isAlive ()) {
-				switch(skill.getTargets()){
-				case Skill.Targets.Allies:
-					if (tile.getOccupant ().isPlayable () && Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition()) <= skill.getRange ()) {
+//		if(tile.getOccupant() != null){
+//			if (tile.getOccupant().isAlive ()) {
+//				switch(skill.getTargets()){
+//				case Skill.Targets.Allies:
+//					if (tile.getOccupant ().isPlayable () && Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition()) <= skill.getRange ()) {
+//						button.interactable = true;
+//						text.color = new Color (text.color.r, text.color.g, text.color.b, 1f);
+//					}
+//					break;
+//				case Skill.Targets.Enemies:
+//					if (!tile.getOccupant ().isPlayable () && Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getRange ()) {
+//						button.interactable = true;
+//						text.color = new Color (text.color.r, text.color.g, text.color.b, 1f);
+//					}
+//					if (tile.getOccupant().isPlayable()) {
+//						if (tile.getOccupant() == user) {
+//							button.interactable = true;
+//							text.text = "Defender";
+//						} else {
+//							button.interactable = true;
+//							text.text = "Mover-se";
+//						}
+//					}
+//					break;
+//				case Skill.Targets.Self:
+//					if (tile.getOccupant () == user) {
+//						button.interactable = true;
+//						text.color = new Color (text.color.r, text.color.g, text.color.b, 1f);
+//					}
+//					break;
+//				default:
+//					button.interactable = true;
+//					text.color = new Color (text.color.r, text.color.g, text.color.b, 1f);
+//					break;
+//				}
+//			}
+//		}
+//		else {
+//			button.interactable = true;
+//			text.text = "Habilidade Secundária";
+//		}
+		if (tile.getOccupant () != null) {
+			if (user.isPlayable () == tile.isFromHero ()) {
+				if (user == tile.getOccupant ()) {
+					if (skill.getSecondaryEffect () != null) {
 						button.interactable = true;
-						text.color = new Color (text.color.r, text.color.g, text.color.b, 1f);
+						text.text = skill.getSecondaryEffect ().getEffectName ();
 					}
-					break;
-				case Skill.Targets.Enemies:
-					if (!tile.getOccupant ().isPlayable () && Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getRange ()) {
+				} else {
+					if(skill.getTertiaryEffect() != null){
 						button.interactable = true;
-						text.color = new Color (text.color.r, text.color.g, text.color.b, 1f);
+						text.text = skill.getTertiaryEffect ().getEffectName ();
 					}
-					if (tile.getOccupant().isPlayable()) {
-						if (tile.getOccupant() == user) {
-							button.interactable = true;
-							text.text = "Defender";
-						} else {
-							button.interactable = true;
-							text.text = "Mover-se";
-						}
-					}
-					break;
-				case Skill.Targets.Self:
-					if (tile.getOccupant () == user) {
+				}
+			} else {
+				if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getRange () && tile.getOccupant().isAlive()) {
+					if(skill.getPrimaryEffect() != null){
 						button.interactable = true;
-						text.color = new Color (text.color.r, text.color.g, text.color.b, 1f);
+						text.text = skill.getPrimaryEffect ().getEffectName ();
 					}
-					break;
-				default:
-					button.interactable = true;
-					text.color = new Color (text.color.r, text.color.g, text.color.b, 1f);
-					break;
 				}
 			}
-		}
-		else {
-			button.interactable = true;
-			text.text = "Habilidade Secundária";
+		} else {
+			if(user.isPlayable() == tile.isFromHero()){
+				if(skill.getTertiaryEffect() != null){
+					button.interactable = true;
+					text.text = skill.getTertiaryEffect ().getEffectName ();
+				}
+			}else{
+				//NÃO APAREÇA
+			}
 		}
 	}
 
@@ -179,7 +210,16 @@ public class TargetBtn : CombatBtn {
 
 	override public void Disappear(){
 		button.interactable = false;
-		text.text = "";
+		text.color = Color.black;
+		if (tile != null) {
+			if (tile.getOccupant () != null) {
+				text.text = tile.getOccupant ().getName ();
+			} else {
+				text.text = "";
+			}
+		} else {
+			text.text = "";
+		}
 	}
 
 	void OnEnable(){

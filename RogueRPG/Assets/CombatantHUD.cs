@@ -61,6 +61,7 @@ public class CombatantHUD : MonoBehaviour {
 			combatant.OnHUDValuesChange -= Refresh;
 			combatant.OnHPValuesChange -= HPFeedback;
 			combatant.OnBuffsGainOrLoss -= ShowBuffs;
+			combatant = null;
 		}
 	}
 

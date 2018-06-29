@@ -251,4 +251,8 @@ public abstract class Skill : ScriptableObject {
 	public Character getUser() {return user;}
 
 	public int getValue() {return sValue;}
+
+	public SkillEffect getPrimaryEffect() {return primaryEffect;}
+	public SkillEffect getSecondaryEffect() {return secondaryEffect;}
+	public SkillEffect getTertiaryEffect() {return tertiaryEffect;}
 }
