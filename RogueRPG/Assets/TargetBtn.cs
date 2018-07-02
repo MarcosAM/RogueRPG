@@ -210,10 +210,12 @@ public class TargetBtn : CombatBtn {
 
 	override public void Disappear(){
 		button.interactable = false;
-		text.color = Color.black;
+		text.color = new Color (0.2f,0.2f,0.2f,1f);
 		if (tile != null) {
 			if (tile.getOccupant () != null) {
 				text.text = tile.getOccupant ().getName ();
+				if(DungeonManager.getInstance().getInitiativeOrder()[0] == tile.getOccupant())
+					text.color = Color.blue;
 			} else {
 				text.text = "";
 			}

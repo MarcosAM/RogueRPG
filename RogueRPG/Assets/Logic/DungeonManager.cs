@@ -162,6 +162,7 @@ public class DungeonManager : MonoBehaviour {
 
 	public static DungeonManager getInstance () {return instance;}
 	public Battleground getBattleground () {return battleground;}
+	public List<Character> getInitiativeOrder (){return initiativeOrder;}
 
 	void OnEnable(){
 		EventManager.OnEndedTurn += NextTurn;
