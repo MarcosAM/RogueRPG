@@ -29,7 +29,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 	public event Action<int,int> OnHPValuesChange;
 	public event Action OnMyTurnStarts;
 	public event Action OnMyTurnEnds;
-	public event Action<float,float,float> OnBuffsGainOrLoss;
+	public event Action OnBuffsGainOrLoss;
 
 	public void StartTurn(){
 		if(OnMyTurnStarts != null){
@@ -160,7 +160,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 		dodge.SpendAndCheckIfEnded();
 		precision.SpendAndCheckIfEnded();
 		if(OnBuffsGainOrLoss!=null){
-			OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+			OnBuffsGainOrLoss ();
 		}
 	}
 
@@ -173,21 +173,21 @@ public abstract class Character : MonoBehaviour, IComparable {
 		precision.ResetBuff();
 		critic.ResetBuff();
 		if(OnBuffsGainOrLoss != null){
-			OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+			OnBuffsGainOrLoss ();
 		}
 	}
 
 	public void CriticBuff (float buffValue, int buffDuration){
 		critic.BuffIt(buffValue,buffDuration);
-		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+		OnBuffsGainOrLoss ();
 	}
 	public void DodgeBuff (float buffValue, int buffDuration){
 		dodge.BuffIt(buffValue, buffDuration);
-		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+		OnBuffsGainOrLoss ();
 	}
 	public void PrecisionBuff (float buffValue, int buffDuration){
 		precision.BuffIt(buffValue,buffDuration);
-		OnBuffsGainOrLoss (dodge.getBuffValue(),precision.getBuffValue(),critic.getBuffValue());
+		OnBuffsGainOrLoss ();
 	}
 
 	public int CompareTo(object obj){

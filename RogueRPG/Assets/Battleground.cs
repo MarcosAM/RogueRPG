@@ -17,19 +17,19 @@ public class Battleground : MonoBehaviour {
 		CreateTiles ();
 	}
 
-	public void AddToHeroSide(Character character){
-		if(heroSide.Count<4){
-			heroSide.Add (character);
-			cHUDManager.ShowCombatants(heroSide,enemySide);
-		}
-	}
+//	public void AddToHeroSide(Character character){
+//		if(heroSide.Count<4){
+//			heroSide.Add (character);
+//			cHUDManager.ShowCombatants(heroSide,enemySide);
+//		}
+//	}
 
-	public void AddToEnemySide(Character character){
-		if(enemySide.Count<4){
-			enemySide.Add (character);
-			cHUDManager.ShowCombatants(heroSide,enemySide);
-		}
-	}
+//	public void AddToEnemySide(Character character){
+//		if(enemySide.Count<4){
+//			enemySide.Add (character);
+//			cHUDManager.ShowCombatants(heroSide,enemySide);
+//		}
+//	}
 
 	public void MoveCharacterTo(Character character, int position){
 		if (character.isPlayable ()) {
@@ -54,32 +54,32 @@ public class Battleground : MonoBehaviour {
 		ShowCharactersToThePlayer ();
 	}
 
-	public void PutCharactersInBattleground(){
-		enemySide.Clear ();
-		Character[] playableCharacters = FindObjectsOfType<PlayableCharacter> ();
-		Character[] nonPlayableCharactersTemp = FindObjectsOfType<NonPlayableCharacter> ();
-		Character[] nonPlayableCharacters = new Character[4];
-		int count = 0;
-		for(int i = 0;i<nonPlayableCharactersTemp.Length;i++){
-			if(nonPlayableCharactersTemp[i].isAlive()){
-				nonPlayableCharacters [count] = nonPlayableCharactersTemp [i];
-				count++;
-			}
-		}
-		for(int i = 0; i<4; i++){
-			if (i < playableCharacters.Length) {
-				AddToHeroSide (playableCharacters [i]);
-			} else {
-				AddToHeroSide (null);
-			}
-			if (i < nonPlayableCharacters.Length) {
-				AddToEnemySide (nonPlayableCharacters [i]);
-			} else {
-				AddToEnemySide (null);
-			}
-		}
-		ShowCharactersToThePlayer ();
-	}
+//	public void PutCharactersInBattleground(){
+//		enemySide.Clear ();
+//		Character[] playableCharacters = FindObjectsOfType<PlayableCharacter> ();
+//		Character[] nonPlayableCharactersTemp = FindObjectsOfType<NonPlayableCharacter> ();
+//		Character[] nonPlayableCharacters = new Character[4];
+//		int count = 0;
+//		for(int i = 0;i<nonPlayableCharactersTemp.Length;i++){
+//			if(nonPlayableCharactersTemp[i].isAlive()){
+//				nonPlayableCharacters [count] = nonPlayableCharactersTemp [i];
+//				count++;
+//			}
+//		}
+//		for(int i = 0; i<4; i++){
+//			if (i < playableCharacters.Length) {
+//				AddToHeroSide (playableCharacters [i]);
+//			} else {
+//				AddToHeroSide (null);
+//			}
+//			if (i < nonPlayableCharacters.Length) {
+//				AddToEnemySide (nonPlayableCharacters [i]);
+//			} else {
+//				AddToEnemySide (null);
+//			}
+//		}
+//		ShowCharactersToThePlayer ();
+//	}
 
 	public void ShowCharactersToThePlayer(){
 		setOccupantsOfAllTiles (heroSide,enemySide);

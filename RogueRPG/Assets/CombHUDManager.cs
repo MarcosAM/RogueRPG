@@ -40,35 +40,35 @@ public class CombHUDManager : MonoBehaviour {
 		}
 	}
 
-	public void ShowCharacterAt(Character character, int position){
-		if (character.isPlayable ()) {
-			heroesCombatantHUD [position].gameObject.SetActive (true);
-			heroesCombatantHUD [position].Initialize (character);
-			character.setHUD (heroesCombatantHUD [position]);
-		} else {
-			enemiesCombatantHUD [position].gameObject.SetActive (true);
-			enemiesCombatantHUD [position].Initialize (character);
-			character.setHUD (enemiesCombatantHUD [position]);
-		}
-	}
+//	public void ShowCharacterAt(Character character, int position){
+//		if (character.isPlayable ()) {
+//			heroesCombatantHUD [position].gameObject.SetActive (true);
+//			heroesCombatantHUD [position].Initialize (character);
+//			character.setHUD (heroesCombatantHUD [position]);
+//		} else {
+//			enemiesCombatantHUD [position].gameObject.SetActive (true);
+//			enemiesCombatantHUD [position].Initialize (character);
+//			character.setHUD (enemiesCombatantHUD [position]);
+//		}
+//	}
 
-	public void ShowCombatants (List<Character> heroesParty, List<Character> enemiesParty){
-		ClearCombatantsHUDs ();
-		for(int i = 0;i<heroesParty.Count;i++){
-			if(heroesParty[i]!=null){
-				heroesCombatantHUD [i].gameObject.SetActive (true);
-				heroesCombatantHUD [i].Initialize(heroesParty[i]);
-				heroesParty [i].setHUD (heroesCombatantHUD[i]);
-			}
-		}
-		for(int i = 0;i<enemiesParty.Count;i++){
-			if(enemiesParty[i]!=null){
-				enemiesCombatantHUD [i].gameObject.SetActive (true);
-				enemiesCombatantHUD [i].Initialize(enemiesParty[i]);
-				enemiesParty [i].setHUD (enemiesCombatantHUD[i]);
-			}
-		}
-	}
+//	public void ShowCombatants (List<Character> heroesParty, List<Character> enemiesParty){
+//		ClearCombatantsHUDs ();
+//		for(int i = 0;i<heroesParty.Count;i++){
+//			if(heroesParty[i]!=null){
+//				heroesCombatantHUD [i].gameObject.SetActive (true);
+//				heroesCombatantHUD [i].Initialize(heroesParty[i]);
+//				heroesParty [i].setHUD (heroesCombatantHUD[i]);
+//			}
+//		}
+//		for(int i = 0;i<enemiesParty.Count;i++){
+//			if(enemiesParty[i]!=null){
+//				enemiesCombatantHUD [i].gameObject.SetActive (true);
+//				enemiesCombatantHUD [i].Initialize(enemiesParty[i]);
+//				enemiesParty [i].setHUD (enemiesCombatantHUD[i]);
+//			}
+//		}
+//	}
 
 	public void ShowCombatants (Battleground.Tile[] heroesTiles, Battleground.Tile[] enemiesTiles){
 		ClearCombatantsHUDs ();

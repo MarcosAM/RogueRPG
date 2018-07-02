@@ -20,10 +20,29 @@ public class CombatantHUD : MonoBehaviour {
 		rectTransform = GetComponent<RectTransform> ();
 	}
 
-	public void Initialize (Character c)
-	{
-		if (c != null) {
-			combatant = c;
+//	public void Initialize (Character c)
+//	{
+//		if (c != null) {
+//			combatant = c;
+//			image.sprite = combatant.getPortrait ().sprite;
+//			hpBar.gameObject.SetActive(true);
+//			energyBar.gameObject.SetActive(true);
+//			hpNumbers.gameObject.SetActive(true);
+//			buffText.gameObject.SetActive (true);
+//			combatant.OnHUDValuesChange += Refresh;
+//			combatant.OnHPValuesChange += HPFeedback;
+//			combatant.OnBuffsGainOrLoss += ShowBuffs;
+//			//TODO Checar se isso aqui não vai cagar tudo com os buffs dos personagens quando eles se moverem
+//			ShowBuffs ();
+//			Refresh ();
+//			if (targetButton != null)
+//				targetButton.Initialize (combatant);
+//		} 
+//	}
+
+	public void Initialize(Battleground.Tile tile){
+		if(tile.getOccupant() != null){
+			combatant = tile.getOccupant();
 			image.sprite = combatant.getPortrait ().sprite;
 			hpBar.gameObject.SetActive(true);
 			energyBar.gameObject.SetActive(true);
@@ -33,16 +52,8 @@ public class CombatantHUD : MonoBehaviour {
 			combatant.OnHPValuesChange += HPFeedback;
 			combatant.OnBuffsGainOrLoss += ShowBuffs;
 			//TODO Checar se isso aqui não vai cagar tudo com os buffs dos personagens quando eles se moverem
-			ShowBuffs (0f, 0f, 0f);
+			ShowBuffs ();
 			Refresh ();
-			if (targetButton != null)
-				targetButton.Initialize (combatant);
-		} 
-	}
-
-	public void Initialize(Battleground.Tile tile){
-		if(tile.getOccupant()!=null){
-			Initialize (tile.getOccupant());
 		} else {
 			this.combatant = null;
 			image.sprite = null;
@@ -98,16 +109,29 @@ public class CombatantHUD : MonoBehaviour {
 		energyBar.value = i;
 	}
 
-	void ShowBuffs (float dodge, float precision, float critic){
+	void ShowBuffs (){
+		//TODO Fazer isso de forma automatica criando uma variável para o nome do stat
 		buffText.text = "";
-		if(dodge>0f){
-			buffText.text += "DODGE ";
+		if(combatant.getAtk().getBuffValue() > 0){
+			buffText.text += "ATK " + combatant.getAtk().getBuffValue() + " ";
 		}
-		if(precision>0f){
-			buffText.text += "PRECISION ";
+		if(combatant.getAtkm().getBuffValue() > 0){
+			buffText.text += "ATKM " + combatant.getAtkm().getBuffValue() + " ";
 		}
-		if(critic>0f){
-			buffText.text += "CRITIC ";
+		if(combatant.getDef().getBuffValue() > 0){
+			buffText.text += "DEF " + combatant.getDef().getBuffValue() + " ";
+		}
+		if(combatant.getDefm().getBuffValue() > 0){
+			buffText.text += "DEFM " + combatant.getDefm ().getBuffValue () + " ";
+		}
+		if (combatant.getPrecision ().getBuffValue () > 0) {
+			buffText.text += "PRECISION " + combatant.getPrecision ().getBuffValue () + " ";
+		}
+		if (combatant.getCritic ().getBuffValue () > 0) {
+			buffText.text += "CRITIC " + combatant.getCritic ().getBuffValue () + " ";
+		}
+		if(combatant.getDodge().getBuffValue() > 0){
+			buffText.text += "DODGE " + combatant.getDodge ().getBuffValue () + " ";
 		}
 	}
 
