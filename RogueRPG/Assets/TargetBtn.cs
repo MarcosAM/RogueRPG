@@ -28,28 +28,26 @@ public class TargetBtn : CombatBtn {
 //	}
 
 	public void Initialize (Battleground.Tile tile){
-		if(this.tile != null){
-			if(this.tile.getOccupant() != null){
-				tile.getOccupant().OnMyTurnStarts -= ActiveCombatantOn;
-				tile.getOccupant().OnMyTurnEnds -= ActiveCombatantOff;
-			}
-		}
+//		if(this.tile.getOccupant() != null){
+//				tile.getOccupant().OnMyTurnStarts -= ActiveCombatantOn;
+//				tile.getOccupant().OnMyTurnEnds -= ActiveCombatantOff;
+//		}
 		this.tile = tile;
 		text.color = new Color (0.2f,0.2f,0.2f,1f);
 		if(tile.getOccupant() != null){
 			text.text = tile.getOccupant ().getName ();
-			tile.getOccupant().OnMyTurnStarts += ActiveCombatantOn;
-			tile.getOccupant().OnMyTurnEnds += ActiveCombatantOff;
+//			tile.getOccupant().OnMyTurnStarts += ActiveCombatantOn;
+//			tile.getOccupant().OnMyTurnEnds += ActiveCombatantOff;
 		}
 	}
 
-	public void ActiveCombatantOn (){
-		text.color = Color.blue;
-	}
-
-	public void ActiveCombatantOff(){
-		text.color = new Color (0.2f,0.2f,0.2f,1f);
-	}
+//	public void ActiveCombatantOn (){
+//		text.color = Color.blue;
+//	}
+//
+//	public void ActiveCombatantOff(){
+//		text.color = new Color (0.2f,0.2f,0.2f,1f);
+//	}
 
 //	public void Appear (Character user, Skill skill)
 //	{
@@ -235,6 +233,14 @@ public class TargetBtn : CombatBtn {
 		}
 	}
 
+	public void ShowItsActivePlayer (){
+		text.color = Color.blue;
+	}
+
+	public void TurnBackToBlack(){
+		text.color = new Color (0.2f,0.2f,0.2f,1f);
+	}
+
 	void OnEnable(){
 		EventManager.OnShowTargetsOf += Appear;
 //		EventManager.OnShowTargetsOf2 += Appear;
@@ -249,8 +255,8 @@ public class TargetBtn : CombatBtn {
 		EventManager.OnUnchoosedSkill -= Disappear;
 		if (tile != null) {
 			if(tile.getOccupant() != null){
-				tile.getOccupant().OnMyTurnStarts += ActiveCombatantOn;
-				tile.getOccupant().OnMyTurnEnds += ActiveCombatantOff;
+//				tile.getOccupant().OnMyTurnStarts += ActiveCombatantOn;
+//				tile.getOccupant().OnMyTurnEnds += ActiveCombatantOff;
 			}
 		}
 	}

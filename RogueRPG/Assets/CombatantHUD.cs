@@ -74,6 +74,7 @@ public class CombatantHUD : MonoBehaviour {
 			combatant.OnBuffsGainOrLoss -= ShowBuffs;
 			combatant = null;
 		}
+//		targetButton.Initialize (null);
 	}
 
 	public void HPFeedback(int pastHp, int amountChanged){
@@ -133,6 +134,14 @@ public class CombatantHUD : MonoBehaviour {
 		if(combatant.getDodge().getBuffValue() > 0){
 			buffText.text += "DODGE " + combatant.getDodge ().getBuffValue () + " ";
 		}
+	}
+
+	public void ShowItsActivePlayer(){
+		targetButton.ShowItsActivePlayer ();
+	}
+
+	public void TurnNameBackToBlack(){
+		targetButton.TurnBackToBlack ();
 	}
 
 	void OnDisable (){

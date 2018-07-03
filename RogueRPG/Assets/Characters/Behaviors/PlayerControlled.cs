@@ -31,7 +31,7 @@ public class PlayerControlled : CombatBehavior {
 	}
 
 	public void UnchooseSkill(){
-		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
+		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
 		ChooseSkill ();
 	}
 
@@ -46,41 +46,43 @@ public class PlayerControlled : CombatBehavior {
 		EventManager.ShowTargetsOf(character,choosedSkill);
 	}
 
-	public void MoveTo(int position){
-		EventManager.OnPlayerChoosedLocation -= MoveTo;
-		character.DelayBy (1);
-		character.getMovement ().MoveTo (position);
-		EndTurn ();
-	}
+//	public void MoveTo(int position){
+//		EventManager.OnPlayerChoosedLocation -= MoveTo;
+//		character.DelayBy (1);
+//		character.getMovement ().MoveTo (position);
+//		EndTurn ();
+//	}
 
-	public void ReadyTarget (Character c)
-	{
-		UseSkill (character,c);
-		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
-		EventManager.OnUnchoosedSkill -= UnchooseSkill;
-	}
+//	public void ReadyTarget (Character c)
+//	{
+//		UseSkill (character,c);
+//		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
+//		EventManager.OnUnchoosedSkill -= UnchooseSkill;
+//	}
+
 	public void ReadyTarget (Battleground.Tile tile){
 		UseSkill (tile);
 		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
 		EventManager.OnUnchoosedSkill -= UnchooseSkill;
 	}
 		
-	public void UseSkill (Character u, Character t)
-	{
-		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect (u,t);
-	}
+//	public void UseSkill (Character u, Character t)
+//	{
+//		EventManager.OnSkillUsed += EndTurn;
+//		choosedSkill.Effect (u,t);
+//	}
 
 	public void UseSkill (Battleground.Tile tile){
 		EventManager.OnSkillUsed += EndTurn;
 		choosedSkill.Effect (character,tile);
+		print ("Usou skill!");
 	}
 
-	public void UseSkill ()
-	{
-		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect (character);
-	}
+//	public void UseSkill ()
+//	{
+//		EventManager.OnSkillUsed += EndTurn;
+//		choosedSkill.Effect (character);
+//	}
 
 	void EndTurn(){
 		EventManager.OnSkillUsed -= EndTurn;

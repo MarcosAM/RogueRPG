@@ -37,12 +37,14 @@ public abstract class Character : MonoBehaviour, IComparable {
 		}
 //		RecoverFromDelayBy (Mathf.Abs(delayCountdown));
 		SpendBuffs();
+		hud.ShowItsActivePlayer ();
 	}
 
 	public void EndTurn(){
 		if(OnMyTurnEnds!=null){
 			OnMyTurnEnds ();
 		}
+		hud.TurnNameBackToBlack ();
 		EventManager.EndedTurn ();
 	}
 
