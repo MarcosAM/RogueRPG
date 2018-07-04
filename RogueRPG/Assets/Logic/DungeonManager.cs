@@ -92,8 +92,27 @@ public class DungeonManager : MonoBehaviour {
 //			for(int i=1;i<initiativeOrder.Count;i++){
 //				initiativeOrder [i].RecoverFromDelayBy (1);
 //			}
-			initiativeOrder.Sort();
-			initiativeOrder.Reverse ();
+
+			for(int i=1; i<initiativeOrder.Count; i++){
+				if(initiativeOrder[0].CompareTo(initiativeOrder[i]) > 0){
+					initiativeOrder.Insert (i-1,initiativeOrder[0]);
+					initiativeOrder.RemoveAt (0);
+					break;
+				}
+				if (initiativeOrder [0].CompareTo (initiativeOrder [i]) <= 0 && i == (initiativeOrder.Count - 1)) {
+					initiativeOrder.Add (initiativeOrder[0]);
+					initiativeOrder.RemoveAt (0);
+					break;
+				}
+			}
+
+			string initiative = "";
+			foreach(Character character in initiativeOrder){
+				initiative += character.getName () + " ";
+			}
+			print (initiative);
+//			initiativeOrder.Sort();
+//			initiativeOrder.Reverse ();
 			round++;
 			TryToStartTurn ();
 		}
@@ -163,6 +182,7 @@ public class DungeonManager : MonoBehaviour {
 	public static DungeonManager getInstance () {return instance;}
 	public Battleground getBattleground () {return battleground;}
 	public List<Character> getInitiativeOrder (){return initiativeOrder;}
+	public int getRound(){return round;}
 
 	void OnEnable(){
 		EventManager.OnEndedTurn += NextTurn;

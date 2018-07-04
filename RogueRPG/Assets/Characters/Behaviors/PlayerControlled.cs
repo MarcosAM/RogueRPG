@@ -61,9 +61,9 @@ public class PlayerControlled : CombatBehavior {
 //	}
 
 	public void ReadyTarget (Battleground.Tile tile){
-		UseSkill (tile);
 		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
 		EventManager.OnUnchoosedSkill -= UnchooseSkill;
+		UseSkill (tile);
 	}
 		
 //	public void UseSkill (Character u, Character t)
@@ -75,7 +75,7 @@ public class PlayerControlled : CombatBehavior {
 	public void UseSkill (Battleground.Tile tile){
 		EventManager.OnSkillUsed += EndTurn;
 		choosedSkill.Effect (character,tile);
-		print ("Usou skill!");
+//		Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + character.getName()+" usou skill!");
 	}
 
 //	public void UseSkill ()

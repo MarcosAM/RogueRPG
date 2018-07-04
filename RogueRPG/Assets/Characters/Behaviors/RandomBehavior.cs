@@ -56,6 +56,7 @@ public class RandomBehavior : CombatBehavior {
 	public void UseSkill (Battleground.Tile tile){
 		EventManager.OnSkillUsed += EndTurn;
 		choosedSkill.Effect (character,tile);
+//		Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + character.getName()+" usou skill!");
 	}
 
 	public void UseSkill (Character u, Character t)

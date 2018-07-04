@@ -9,7 +9,6 @@ public class CriticBuffSkill : Skill {
 	
 	public override void UniqueEffect (Character user, Character target){
 		base.UniqueEffect (user, target);
-		Debug.Log ("HEAVY MACHINE GUN!");
 		switch(sValue){
 		case 1:
 			target.CriticBuff (Stat.CRITIC_BUFF_1,bDuration);

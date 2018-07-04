@@ -253,11 +253,11 @@ public class TargetBtn : CombatBtn {
 //		EventManager.OnShowTargetsOf2 -= Appear;
 		EventManager.OnClickedTargetBtn -= Disappear;
 		EventManager.OnUnchoosedSkill -= Disappear;
-		if (tile != null) {
-			if(tile.getOccupant() != null){
-//				tile.getOccupant().OnMyTurnStarts += ActiveCombatantOn;
-//				tile.getOccupant().OnMyTurnEnds += ActiveCombatantOff;
-			}
-		}
+//		if (tile != null) {
+//			if(tile.getOccupant() != null){
+////				tile.getOccupant().OnMyTurnStarts += ActiveCombatantOn;
+////				tile.getOccupant().OnMyTurnEnds += ActiveCombatantOff;
+//			}
+//		}
 	}
 }

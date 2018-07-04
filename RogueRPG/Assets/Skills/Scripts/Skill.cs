@@ -36,6 +36,7 @@ public abstract class Skill : ScriptableObject {
 			if (user.isPlayable() != tile.isFromHero ()) {
 				if (user.isPlayable () != tile.getOccupant ().isPlayable () && primaryEffect != null) {
 					primaryEffect.Effect (user, this, tile);
+//					Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito primário!");
 					return;
 				}
 			} else {
@@ -43,17 +44,20 @@ public abstract class Skill : ScriptableObject {
 					if (user == tile.getOccupant ()) {
 						if (secondaryEffect != null) {
 							secondaryEffect.Effect (user, this, tile);
+//							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito secundário!");
 							return;
 						}
 					} else {
 						if (tertiaryEffect != null) {
 							tertiaryEffect.Effect (user, this, tile);
+//							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
 							return;
 						}
 					}
 				} else {
 					if (tertiaryEffect != null) {
 						tertiaryEffect.Effect (user, this, tile);
+//						Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
 						return;
 					}
 				}

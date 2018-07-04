@@ -59,7 +59,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 			if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue() >= UnityEngine.Random.value) {
 				target.TakeDamage (Mathf.RoundToInt((attack+atk.getValue())*UnityEngine.Random.Range(1f,1.2f)-target.getDefValue()));
 			} else {
-				print(target.characterName+" se esquivou!");
+//				print(target.characterName+" se esquivou!");
 			}
 		}
 	}
