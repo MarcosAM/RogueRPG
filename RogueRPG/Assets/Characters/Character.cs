@@ -35,7 +35,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 		if(OnMyTurnStarts != null){
 			OnMyTurnStarts ();
 		}
-//		RecoverFromDelayBy (Mathf.Abs(delayCountdown));
+		RecoverFromDelayBy (delayCountdown*-1);
 		SpendBuffs();
 		hud.ShowItsActivePlayer ();
 	}

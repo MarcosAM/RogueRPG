@@ -30,9 +30,9 @@ public class DungeonManager : MonoBehaviour {
 		foreach(Character character in initiativeOrder){
 			character.PrepareForFirstBattle ();
 		}
-		for(int i=0;i<initiativeOrder.Count;i++){
-			initiativeOrder [i].RecoverFromDelayBy ((float)(initiativeOrder.Count-i)/100);
-		}
+//		for(int i=0;i<initiativeOrder.Count;i++){
+//			initiativeOrder [i].RecoverFromDelayBy ((float)(initiativeOrder.Count-i)/100);
+//		}
 		battleground.ShowCharactersToThePlayer ();
 		round = 0;
 		TryToStartTurn ();
@@ -93,6 +93,10 @@ public class DungeonManager : MonoBehaviour {
 //				initiativeOrder [i].RecoverFromDelayBy (1);
 //			}
 
+			for(int i=1;i<initiativeOrder.Count;i++){
+				initiativeOrder [i].RecoverFromDelayBy (1);
+			}
+
 			for(int i=1; i<initiativeOrder.Count; i++){
 				if(initiativeOrder[0].CompareTo(initiativeOrder[i]) > 0){
 					initiativeOrder.Insert (i-1,initiativeOrder[0]);
@@ -105,12 +109,6 @@ public class DungeonManager : MonoBehaviour {
 					break;
 				}
 			}
-
-			string initiative = "";
-			foreach(Character character in initiativeOrder){
-				initiative += character.getName () + " ";
-			}
-			print (initiative);
 //			initiativeOrder.Sort();
 //			initiativeOrder.Reverse ();
 			round++;
