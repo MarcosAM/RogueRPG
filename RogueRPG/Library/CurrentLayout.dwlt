@@ -42,10 +42,10 @@ MonoBehaviour:
     y: 30
     width: 1366
     height: 675
-  m_MinSize: {x: 581, y: 342}
-  m_MaxSize: {x: 12006, y: 8042}
+  m_MinSize: {x: 583, y: 342}
+  m_MaxSize: {x: 12008, y: 8042}
   vertical: 0
-  controlID: 30
+  controlID: 54
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -64,8 +64,8 @@ MonoBehaviour:
     y: 0
     width: 277
     height: 675
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 71}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_MinSize: {x: 306, y: 342}
   m_MaxSize: {x: 8006, y: 8042}
   vertical: 1
-  controlID: 31
+  controlID: 55
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_MinSize: {x: 306, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 11
+  controlID: 56
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -262,7 +262,7 @@ MonoBehaviour:
   - {fileID: 14}
   - {fileID: 13}
   m_Selected: 3
-  m_LastSelected: 3
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -293,7 +293,7 @@ MonoBehaviour:
     m_KeySerializationHelper:
     - {fileID: 1107511302782042216, guid: b49d5712531fa17498f7789d5ea53dbe, type: 2}
     m_ValueSerializationHelper:
-    - {x: 672.2, y: 143}
+    - {x: 648.4, y: 125}
   m_PreviewAnimator: {fileID: 0}
   m_AnimatorController: {fileID: 0}
   m_BreadCrumbs: []
@@ -388,7 +388,7 @@ MonoBehaviour:
     width: 1087
     height: 250
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter: com
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -399,19 +399,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Characters/Animation
+    - Assets/Characters
   m_ViewMode: 1
   m_StartGridSize: 58
   m_LastFolders:
-  - Assets/Characters/Animation
+  - Assets/Characters
   m_LastFoldersGridSize: 58
   m_LastProjectPath: C:\Users\ADVANCE\Documents\_Marcos\Unity\Repos\RogueRPG\RogueRPG
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 7}
-    m_SelectedIDs: 602c0000
-    m_LastClickedID: 11360
-    m_ExpandedIDs: 000000008026000084260000bc26000000ca9a3bffffff7f
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 000000008026000084260000c026000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -439,7 +439,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000008026000084260000bc260000
+    m_ExpandedIDs: 000000008026000084260000c0260000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -464,8 +464,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: e28fffff
-    m_LastClickedInstanceID: -28702
+    m_SelectedInstanceIDs: fc8ffeff
+    m_LastClickedInstanceID: -94212
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: cc26000048280000
     m_RenameOverlay:
@@ -555,9 +555,9 @@ MonoBehaviour:
     height: 383
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a09affff
+    m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 1afcffff0000000094270000
+    m_ExpandedIDs: 1afcffff000000009c270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

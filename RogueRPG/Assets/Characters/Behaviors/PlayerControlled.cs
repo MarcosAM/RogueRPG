@@ -60,11 +60,12 @@ public class PlayerControlled : CombatBehavior {
 //		EventManager.OnUnchoosedSkill -= UnchooseSkill;
 //	}
 
-	public void ReadyTarget (Battleground.Tile tile){
-		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
-		EventManager.OnUnchoosedSkill -= UnchooseSkill;
-		UseSkill (tile);
-	}
+//	public void ReadyTarget (Battleground.Tile tile){
+//		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
+//		EventManager.OnUnchoosedSkill -= UnchooseSkill;
+//
+//		UseSkill (tile);
+//	}
 		
 //	public void UseSkill (Character u, Character t)
 //	{
@@ -72,10 +73,25 @@ public class PlayerControlled : CombatBehavior {
 //		choosedSkill.Effect (u,t);
 //	}
 
-	public void UseSkill (Battleground.Tile tile){
+//	public void UseSkill (Battleground.Tile tile){
+//		EventManager.OnSkillUsed += EndTurn;
+//		choosedSkill.Effect (character,tile);
+////		Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + character.getName()+" usou skill!");
+//	}
+
+	public void ReadyTarget (Battleground.Tile tile){
+		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
+		EventManager.OnUnchoosedSkill -= UnchooseSkill;
+		this.targetTile = tile;
+//		UseSkill (tile);
+		character.getHUD().UseSkillAnimation();
+	}
+
+	public override void UseSkill ()
+	{
+		base.UseSkill ();
 		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect (character,tile);
-//		Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + character.getName()+" usou skill!");
+		choosedSkill.Effect (character,targetTile);
 	}
 
 //	public void UseSkill ()

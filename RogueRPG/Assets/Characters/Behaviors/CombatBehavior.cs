@@ -6,8 +6,10 @@ public class CombatBehavior : MonoBehaviour {
 
 	[SerializeField]protected Character character;
 	protected Skill choosedSkill;
+	protected Battleground.Tile targetTile;
 
 	public virtual void StartTurn(){}
+	public virtual void UseSkill(){}
 
 	public void setCharacter(Character character) {this.character = character;}
 }

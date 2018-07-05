@@ -14,10 +14,12 @@ public class CombatantHUD : MonoBehaviour {
 	[SerializeField]private Text buffText;
 	[SerializeField]private DamageFB damageFbPrefab;
 	private RectTransform rectTransform;
+	Animator animator;
 
 	void Awake(){
 		image = GetComponentInChildren<Image> ();
 		rectTransform = GetComponent<RectTransform> ();
+		animator = GetComponent<Animator> ();
 	}
 
 //	public void Initialize (Character c)
@@ -136,6 +138,14 @@ public class CombatantHUD : MonoBehaviour {
 		}
 	}
 
+	public void UseSkillAnimation(){
+		animator.SetTrigger ("UseSkill");
+	}
+
+	public void UseSkillFromCharacterBehavior(){
+		combatant.getBehavior ().UseSkill ();
+	}
+
 	public void ShowItsActivePlayer(){
 		targetButton.ShowItsActivePlayer ();
 	}
@@ -153,4 +163,7 @@ public class CombatantHUD : MonoBehaviour {
 	public RectTransform getRectTransform(){
 		return rectTransform;
 	}	
+	public Animator getAnimator(){
+		return animator;
+	}
 }

@@ -42,34 +42,45 @@ public class RandomBehavior : CombatBehavior {
 					}
 				}
 				int r = Random.Range(0,heroesTile.Length);
-				UseSkill (heroesTile[r]);
+				targetTile = heroesTile [r];
+				character.getHUD ().UseSkillAnimation ();
+//				UseSkill (heroesTile[r]);
 			} else {
 				//TODO terminar a batalha ou encontro ou dungeon wtv
 				print("Termina essa batalha");
 			}
 		}
 		if(choosedSkill.getTargets() == Skill.Targets.Self){
-			UseSkill (DungeonManager.getInstance().getBattleground().getEnemiesTiles()[character.getPosition()]);
+			targetTile = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles () [character.getPosition ()];
+			character.getHUD ().UseSkillAnimation ();
+//			UseSkill (DungeonManager.getInstance().getBattleground().getEnemiesTiles()[character.getPosition()]);
 		}
 	}
 
-	public void UseSkill (Battleground.Tile tile){
+//	public void UseSkill (Battleground.Tile tile){
+//		EventManager.OnSkillUsed += EndTurn;
+//		choosedSkill.Effect (character,tile);
+////		Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + character.getName()+" usou skill!");
+//	}
+
+	public override void UseSkill ()
+	{
+		base.UseSkill ();
 		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect (character,tile);
-//		Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + character.getName()+" usou skill!");
+		choosedSkill.Effect (character,targetTile);
 	}
 
-	public void UseSkill (Character u, Character t)
-	{
-		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect(character,t);
-	}
-
-	public void UseSkill ()
-	{
-		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect (character);
-	}
+//	public void UseSkill (Character u, Character t)
+//	{
+//		EventManager.OnSkillUsed += EndTurn;
+//		choosedSkill.Effect(character,t);
+//	}
+//
+//	public void UseSkill ()
+//	{
+//		EventManager.OnSkillUsed += EndTurn;
+//		choosedSkill.Effect (character);
+//	}
 
 	void EndTurn(){
 		EventManager.OnSkillUsed -= EndTurn;
