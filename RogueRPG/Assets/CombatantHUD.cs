@@ -14,6 +14,7 @@ public class CombatantHUD : MonoBehaviour {
 	[SerializeField]private Text buffText;
 	[SerializeField]private DamageFB damageFbPrefab;
 	private RectTransform rectTransform;
+	[SerializeField]RectTransform portraitHandler;
 	Animator animator;
 
 	void Awake(){
@@ -43,6 +44,12 @@ public class CombatantHUD : MonoBehaviour {
 //	}
 
 	public void Initialize(Battleground.Tile tile){
+		if (tile.isFromHero ()) {
+//			portraitHandler.rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
+		} else {
+			portraitHandler.rotation = Quaternion.Euler (new Vector3 (0, 0, 180));
+			image.rectTransform.localScale = new Vector3 (1,-1,1);
+		}
 		if(tile.getOccupant() != null){
 			combatant = tile.getOccupant();
 			image.sprite = combatant.getPortrait ().sprite;
