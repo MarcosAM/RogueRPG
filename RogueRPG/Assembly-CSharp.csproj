@@ -61,6 +61,7 @@
      <Compile Include="Assets\Characters\Behaviors\ICombatBehavior.cs" />
      <Compile Include="Assets\Characters\Behaviors\PlayerControlled.cs" />
      <Compile Include="Assets\Characters\Behaviors\RandomBehavior.cs" />
+     <Compile Include="Assets\Characters\Behaviors\ZombieBehavior.cs" />
      <Compile Include="Assets\Characters\Character.cs" />
      <Compile Include="Assets\Characters\CharacterMovement.cs" />
      <Compile Include="Assets\Characters\CStats\StandartStats.cs" />
