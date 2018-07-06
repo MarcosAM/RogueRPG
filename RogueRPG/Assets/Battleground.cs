@@ -46,7 +46,7 @@ public class Battleground : MonoBehaviour {
 				enemySide.Remove (character);
 				enemySide.Insert (position, character);
 			} else {
-				int oldPosition = heroSide.IndexOf (character);
+				int oldPosition = enemySide.IndexOf (character);
 				enemySide[position] = character;
 				enemySide[oldPosition] = null;
 			}
