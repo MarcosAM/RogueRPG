@@ -26,7 +26,7 @@ public class ZombieBehavior : CombatBehavior {
 		int maxIndex = character.getPosition() + choosedSkill.getRange();
 		if (maxIndex >= tempHeroesTiles.Length)
 			maxIndex = tempHeroesTiles.Length - 1;
-		int minIndex = character.getPosition () + choosedSkill.getRange ();
+		int minIndex = character.getPosition () - choosedSkill.getRange ();
 		if (minIndex < 0)
 			minIndex = 0;
 
@@ -83,6 +83,8 @@ public class ZombieBehavior : CombatBehavior {
 			} else {
 				hpFromLeft = 0;
 			}
+
+			print (hpFromLeft + " - " + hpFromRight);
 
 			if(hpFromLeft > 0 || hpFromRight > 0){
 				if (hpFromLeft > hpFromRight) {

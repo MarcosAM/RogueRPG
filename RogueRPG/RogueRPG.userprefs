@@ -1,14 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Battleground.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\Behaviors\ZombieBehavior.cs">
     <Files>
       <File FileName="Assets\CombatantHUD.cs" Line="1" Column="1" />
       <File FileName="Assets\CombHUDManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Characters\Behaviors\ZombieBehavior.cs" Line="22" Column="31" />
+      <File FileName="Assets\Characters\Behaviors\ZombieBehavior.cs" Line="29" Column="44" />
       <File FileName="Assets\TargetBtn.cs" Line="1" Column="1" />
       <File FileName="Assets\Characters\NonPlayableCharacter.cs" Line="1" Column="1" />
-      <File FileName="Assets\Characters\CharacterMovement.cs" Line="15" Column="56" />
-      <File FileName="Assets\Battleground.cs" Line="50" Column="37" />
+      <File FileName="Assets\Characters\CharacterMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Battleground.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
