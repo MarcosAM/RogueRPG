@@ -113,6 +113,15 @@ public class CombHUDManager : MonoBehaviour {
 		}
 	}
 
+	public void RefreshInitiativeHUD (){
+		foreach(CombatantHUD hud in heroesCombatantHUD){
+			hud.RefreshInitiative();
+		}
+		foreach(CombatantHUD hud in enemiesCombatantHUD){
+			hud.RefreshInitiative();
+		}
+	}
+
 	public static CombHUDManager getInstance(){return instance;}
 	public Vector2[] getHeroesPositions() {return heroesPositions;}
 	public Vector2[] getEnemiesPositions() {return enemiesPositions;}

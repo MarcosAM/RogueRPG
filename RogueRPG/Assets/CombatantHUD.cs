@@ -7,12 +7,13 @@ public class CombatantHUD : MonoBehaviour {
 
 	[SerializeField]private Character combatant;
 	[SerializeField]private Slider hpBar;
-	[SerializeField]private Slider energyBar;
+//	[SerializeField]private Slider energyBar;
 	[SerializeField]private Text hpNumbers;
 	[SerializeField]private TargetBtn targetButton;
 	[SerializeField]private Image image;
 	[SerializeField]private Text buffText;
 	[SerializeField]private DamageFB damageFbPrefab;
+	[SerializeField]private Text initiative;
 	private RectTransform rectTransform;
 	[SerializeField]RectTransform portraitHandler;
 	Animator animator;
@@ -54,7 +55,7 @@ public class CombatantHUD : MonoBehaviour {
 			combatant = tile.getOccupant();
 			image.sprite = combatant.getPortrait ().sprite;
 			hpBar.gameObject.SetActive(true);
-			energyBar.gameObject.SetActive(true);
+//			energyBar.gameObject.SetActive(true);
 			hpNumbers.gameObject.SetActive(true);
 			buffText.gameObject.SetActive (true);
 			combatant.OnHUDValuesChange += Refresh;
@@ -67,7 +68,7 @@ public class CombatantHUD : MonoBehaviour {
 			this.combatant = null;
 			image.sprite = null;
 			hpBar.gameObject.SetActive(false);
-			energyBar.gameObject.SetActive(false);
+//			energyBar.gameObject.SetActive(false);
 			hpNumbers.gameObject.SetActive(false);
 			buffText.gameObject.SetActive (false);
 			if (targetButton != null)
@@ -105,19 +106,19 @@ public class CombatantHUD : MonoBehaviour {
 	public void Refresh (){
 		setHpBar (combatant.getHp () / combatant.getMaxHp ());
 		setHpNumbers (combatant.getHp (), combatant.getMaxHp ());
-		UpdateEnergyBar();
+//		UpdateEnergyBar();
 	}
 
-	void UpdateEnergyBar (){
-		float i = (combatant.getEnergy() + 5f) / 5f;
-		if (i >= 1) {
-			i = 1;
-			energyBar.fillRect.GetComponentInChildren<Image> ().color = Color.green;
-		} else {
-			energyBar.fillRect.GetComponentInChildren<Image>().color = Color.blue;
-		}
-		energyBar.value = i;
-	}
+//	void UpdateEnergyBar (){
+//		float i = (combatant.getEnergy() + 5f) / 5f;
+//		if (i >= 1) {
+//			i = 1;
+////			energyBar.fillRect.GetComponentInChildren<Image> ().color = Color.green;
+//		} else {
+////			energyBar.fillRect.GetComponentInChildren<Image>().color = Color.blue;
+//		}
+////		energyBar.value = i;
+//	}
 
 	void ShowBuffs (){
 		//TODO Fazer isso de forma automatica criando uma variável para o nome do stat
@@ -161,9 +162,14 @@ public class CombatantHUD : MonoBehaviour {
 		targetButton.TurnBackToBlack ();
 	}
 
-	void OnDisable (){
-		if(combatant!=null){
-			combatant.OnHUDValuesChange -= Refresh;
+	public void RefreshInitiative ()
+	{
+		DungeonManager dungeonManager = DungeonManager.getInstance ();
+		if (combatant != null) {
+			initiative.gameObject.SetActive(true);
+			initiative.text = (dungeonManager.getInitiativeOrder ().IndexOf (combatant) + 1).ToString ();
+		} else {
+			initiative.gameObject.SetActive(false);
 		}
 	}
 
@@ -172,5 +178,26 @@ public class CombatantHUD : MonoBehaviour {
 	}	
 	public Animator getAnimator(){
 		return animator;
+	}
+
+	public void ShowPossibleInitiative (Character activeCharacter, Skill skill)
+	{
+		DungeonManager dungeonManager = DungeonManager.getInstance();
+
+	}
+
+//	void OnEnable(){
+//		EventManager.OnShowTargetsOf += ShowPossibleInitiative;
+//		EventManager.OnClickedTargetBtn += RefreshInitiative;
+//		EventManager.OnUnchoosedSkill += RefreshInitiative;
+//	}
+
+	void OnDisable(){
+//		EventManager.OnShowTargetsOf -= ShowPossibleInitiative;
+//		EventManager.OnClickedTargetBtn -= RefreshInitiative;
+//		EventManager.OnUnchoosedSkill -= RefreshInitiative;
+		if(combatant!=null){
+			combatant.OnHUDValuesChange -= Refresh;
+		}
 	}
 }

@@ -34,6 +34,7 @@ public class DungeonManager : MonoBehaviour {
 //			initiativeOrder [i].RecoverFromDelayBy ((float)(initiativeOrder.Count-i)/100);
 //		}
 		battleground.ShowCharactersToThePlayer ();
+		CombHUDManager.getInstance().RefreshInitiativeHUD();
 		round = 0;
 		TryToStartTurn ();
 	}
@@ -93,27 +94,49 @@ public class DungeonManager : MonoBehaviour {
 //				initiativeOrder [i].RecoverFromDelayBy (1);
 //			}
 
-			for(int i=1;i<initiativeOrder.Count;i++){
-				initiativeOrder [i].RecoverFromDelayBy (1);
-			}
-
-			for(int i=1; i<initiativeOrder.Count; i++){
-				if(initiativeOrder[0].CompareTo(initiativeOrder[i]) > 0){
-					initiativeOrder.Insert (i-1,initiativeOrder[0]);
-					initiativeOrder.RemoveAt (0);
-					break;
-				}
-				if (initiativeOrder [0].CompareTo (initiativeOrder [i]) <= 0 && i == (initiativeOrder.Count - 1)) {
-					initiativeOrder.Add (initiativeOrder[0]);
-					initiativeOrder.RemoveAt (0);
-					break;
-				}
-			}
+//			for(int i=1;i<initiativeOrder.Count;i++){
+//				initiativeOrder [i].RecoverFromDelayBy (1);
+//			}
+//
+//			for(int i=1; i<initiativeOrder.Count; i++){
+//				if(initiativeOrder[0].CompareTo(initiativeOrder[i]) > 0){
+//					initiativeOrder.Insert (i-1,initiativeOrder[0]);
+//					initiativeOrder.RemoveAt (0);
+//					break;
+//				}
+//				if (initiativeOrder [0].CompareTo (initiativeOrder [i]) <= 0 && i == (initiativeOrder.Count - 1)) {
+//					initiativeOrder.Add (initiativeOrder[0]);
+//					initiativeOrder.RemoveAt (0);
+//					break;
+//				}
+//			}
 //			initiativeOrder.Sort();
 //			initiativeOrder.Reverse ();
+			AdvanceInitiative(initiativeOrder);
+			CombHUDManager.getInstance().RefreshInitiativeHUD();
 			round++;
 			TryToStartTurn ();
 		}
+	}
+
+	public void AdvanceInitiative (List<Character> initiative)
+	{
+		for(int i=1;i<initiative.Count;i++){
+			initiative [i].RecoverFromDelayBy (1);
+			}
+
+		for(int i=1; i<initiative.Count; i++){
+			if(initiative[0].CompareTo(initiative[i]) > 0){
+				initiative.Insert (i-1,initiative[0]);
+				initiative.RemoveAt (0);
+					break;
+				}
+			if (initiative [0].CompareTo (initiative [i]) <= 0 && i == (initiative.Count - 1)) {
+				initiative.Add (initiative[0]);
+				initiative.RemoveAt (0);
+					break;
+				}
+			}
 	}
 
 	void ResumeBattleAfterDelayWith (Character combatant){
@@ -129,13 +152,16 @@ public class DungeonManager : MonoBehaviour {
 		dungeonFloor++;
 		GameManager gameManager = GameManager.getInstance ();
 		if (dungeonFloor < gameManager.getSelectedQuest ().getCurrentDungeon ().getBattleGroups ().Count) {
-			battleground.ClearAndSetASide (gameManager.getEnemiesDelayedAtFloor(dungeonFloor));
+//			battleground.ClearAndSetASide (gameManager.getEnemiesDelayedAtFloor(dungeonFloor));
+			battleground.ClearAndSetASide (gameManager.getEnemiesAtFloor(dungeonFloor));
 			battleground.ShowCharactersToThePlayer ();
 			foreach(Character character in battleground.getEnemySide()){
 				if(character != null)
 					initiativeOrder.Add (character);
 			}
 //			initiativeOrder.RemoveAt(0);
+			AdvanceInitiative(initiativeOrder);
+			CombHUDManager.getInstance().RefreshInitiativeHUD();
 			round ++;
 			TryToStartTurn ();
 		} else {
