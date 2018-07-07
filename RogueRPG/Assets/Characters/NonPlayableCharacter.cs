@@ -15,10 +15,10 @@ public class NonPlayableCharacter : Character {
 		if(stats != null){
 			FillStats ();
 		}
-		combatBehavior = GetComponent<CombatBehavior> ();
+//		combatBehavior = GetComponent<CombatBehavior> ();
 		movement = GetComponent<IMovable> ();
 		movement.Initialize (this);
-		combatBehavior.setCharacter (this);
+//		combatBehavior.setCharacter (this);
 		playable = false;
 	}
 
@@ -36,5 +36,7 @@ public class NonPlayableCharacter : Character {
 		foreach(Skill skill in skills){
 			skill.setUser(this);
 		}
+		combatBehavior = stats.getCombatBehavior();
+		combatBehavior.setCharacter (this);
 	}
 }

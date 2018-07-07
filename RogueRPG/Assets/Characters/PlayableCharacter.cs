@@ -16,10 +16,10 @@ public class PlayableCharacter : Character {
 		if(stats != null){
 			FillStats ();
 		}
-		combatBehavior = GetComponent<CombatBehavior> ();
+//		combatBehavior = GetComponent<CombatBehavior> ();
 		movement = GetComponent<IMovable> ();
 		movement.Initialize (this);
-		combatBehavior.setCharacter (this);
+//		combatBehavior.setCharacter (this);
 		playable = true;
 //		DontDestroyOnLoad (transform.parent.gameObject);
 		DontDestroyOnLoad (gameObject);
@@ -38,5 +38,7 @@ public class PlayableCharacter : Character {
 		foreach(Skill skill in skills){
 			skill.setUser(this);
 		}
+		combatBehavior = stats.getCombatBehavior();
+		combatBehavior.setCharacter (this);
 	}
 }

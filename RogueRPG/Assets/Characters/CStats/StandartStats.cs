@@ -9,6 +9,7 @@ public class StandartStats : ScriptableObject {
 	[SerializeField]private int atk, atkm, def, defm, hp;
 	[SerializeField]private Skill[] skills;
 	[SerializeField]private Image portrait;
+	[SerializeField]private CombatBehavior behaviorPrefab;
 
 	public string getName() {return name;}
 	public int getAtk() {return atk;}
@@ -18,4 +19,8 @@ public class StandartStats : ScriptableObject {
 	public int getHp() {return hp;}
 	public Skill[] getSkills() {return skills;}
 	public Image getPortrait () {return portrait;}
+	public CombatBehavior getCombatBehavior (){
+		CombatBehavior behavior = Instantiate(behaviorPrefab);
+		return behavior;
+	}
 }
