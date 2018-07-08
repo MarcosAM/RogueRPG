@@ -28,6 +28,7 @@ public abstract class Skill : ScriptableObject {
 	protected bool endable;
 
 	public void Effect (Character user,Battleground.Tile tile){
+//		TODO Check if already there before adding
 		charactersThatCantUseMe.Add(user);
 		endable = true;
 		user.DelayBy (sDelay);

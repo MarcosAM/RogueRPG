@@ -19,7 +19,6 @@ public class ZombieBehavior : CombatBehavior {
 
 	public void ChooseTarget ()
 	{
-		print ("Zombie being zombie!");
 		Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
 		Battleground.Tile[] tempEnemiesTiles = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles ();
 
@@ -83,9 +82,6 @@ public class ZombieBehavior : CombatBehavior {
 			} else {
 				hpFromLeft = 0;
 			}
-
-			print (hpFromLeft + " - " + hpFromRight);
-
 			if(hpFromLeft > 0 || hpFromRight > 0){
 				if (hpFromLeft > hpFromRight) {
 					if (character.getPosition () - i >= minIndex) {

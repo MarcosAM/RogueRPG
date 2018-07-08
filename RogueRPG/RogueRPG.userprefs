@@ -1,11 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\Character.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\Behaviors\ArcherBehavior.cs">
     <Files>
-      <File FileName="Assets\Skills\Scripts\Skill.cs" Line="260" Column="55" />
-      <File FileName="Assets\CombHUDManager.cs" Line="105" Column="4" />
-      <File FileName="Assets\SkillBtn.cs" Line="22" Column="31" />
-      <File FileName="Assets\Characters\Character.cs" Line="41" Column="36" />
+      <File FileName="Assets\Characters\Behaviors\ZombieBehavior.cs" Line="125" Column="3" />
+      <File FileName="Assets\Characters\Behaviors\ArcherBehavior.cs" Line="25" Column="40" />
+      <File FileName="Assets\Characters\Behaviors\RandomBehavior.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
