@@ -121,22 +121,24 @@ public class DungeonManager : MonoBehaviour {
 
 	public void AdvanceInitiative (List<Character> initiative)
 	{
-		for(int i=1;i<initiative.Count;i++){
-			initiative [i].RecoverFromDelayBy (1);
-			}
-
-		for(int i=1; i<initiative.Count; i++){
-			if(initiative[0].CompareTo(initiative[i]) > 0){
-				initiative.Insert (i-1,initiative[0]);
-				initiative.RemoveAt (0);
-					break;
-				}
-			if (initiative [0].CompareTo (initiative [i]) <= 0 && i == (initiative.Count - 1)) {
-				initiative.Add (initiative[0]);
-				initiative.RemoveAt (0);
-					break;
-				}
-			}
+//		for(int i=1;i<initiative.Count;i++){
+//			initiative [i].RecoverFromDelayBy (1);
+//			}
+//
+//		for(int i=1; i<initiative.Count; i++){
+//			if(initiative[0].CompareTo(initiative[i]) > 0){
+//				initiative.Insert (i-1,initiative[0]);
+//				initiative.RemoveAt (0);
+//					break;
+//				}
+//			if (initiative [0].CompareTo (initiative [i]) <= 0 && i == (initiative.Count - 1)) {
+//				initiative.Add (initiative[0]);
+//				initiative.RemoveAt (0);
+//					break;
+//				}
+//			}
+	initiative.Add(initiative[0]);
+	initiative.RemoveAt(0);
 	}
 
 	void ResumeBattleAfterDelayWith (Character combatant){

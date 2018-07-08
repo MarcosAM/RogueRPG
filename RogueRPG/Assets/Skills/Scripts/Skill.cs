@@ -7,7 +7,8 @@ public abstract class Skill : ScriptableObject {
 	public enum Targets{Self, Allies, Enemies, All, Location};
 	public enum Types{Melee, Ranged};
 
-	protected Character user;
+//	protected Character user;
+	protected List<Character> charactersThatCantUseMe = new List<Character>();
 	[SerializeField]protected string sName;
 	[SerializeField]protected int sValue;
 	[SerializeField]protected float sDelay;
@@ -27,6 +28,7 @@ public abstract class Skill : ScriptableObject {
 	protected bool endable;
 
 	public void Effect (Character user,Battleground.Tile tile){
+		charactersThatCantUseMe.Add(user);
 		endable = true;
 		user.DelayBy (sDelay);
 		if (sSingleTarget) {
@@ -248,13 +250,14 @@ public abstract class Skill : ScriptableObject {
 		return sRange;
 	}
 
-	public void setUser(Character user){
-		this.user = user;
-	}
-
-	public Character getUser() {return user;}
+//	public void setUser(Character user){
+//		this.user = user;
+//	}
+//
+//	public Character getUser() {return user;}
 
 	public int getValue() {return sValue;}
+	public List<Character> getCharactersThatCantUseMe () {return charactersThatCantUseMe;}
 
 	public SkillEffect getPrimaryEffect() {return primaryEffect;}
 	public SkillEffect getSecondaryEffect() {return secondaryEffect;}

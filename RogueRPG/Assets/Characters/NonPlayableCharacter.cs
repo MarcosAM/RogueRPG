@@ -33,9 +33,9 @@ public class NonPlayableCharacter : Character {
 		hp = maxHp;
 		characterName = stats.getName();
 		portrait = stats.getPortrait();
-		foreach(Skill skill in skills){
-			skill.setUser(this);
-		}
+//		foreach(Skill skill in skills){
+//			skill.setUser(this);
+//		}
 		combatBehavior = stats.getCombatBehavior();
 		combatBehavior.setCharacter (this);
 	}

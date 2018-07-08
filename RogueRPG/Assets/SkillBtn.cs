@@ -15,9 +15,16 @@ public class SkillBtn : CombatBtn {
 		button.onClick.AddListener (ChooseSkill);
 	}
 
-	public void RefreshSelf(Character c){
-		skill = c.getSkills()[number];
-		Appear ();
+	public void RefreshSelf (Character c)
+	{
+		skill = c.getSkills () [number];
+		if (skill.getCharactersThatCantUseMe ().Contains (c)) {
+			button.interactable = false;
+			text.text = skill.getSkillName();
+			text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
+		} else {
+			Appear ();
+		}
 	}
 
 	void ChooseSkill(){

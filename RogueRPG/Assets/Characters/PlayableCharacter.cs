@@ -35,9 +35,9 @@ public class PlayableCharacter : Character {
 		skills = stats.getSkills ();
 		maxHp = stats.getHp ();
 		hp = maxHp;
-		foreach(Skill skill in skills){
-			skill.setUser(this);
-		}
+//		foreach(Skill skill in skills){
+//			skill.setUser(this);
+//		}
 		combatBehavior = stats.getCombatBehavior();
 		combatBehavior.setCharacter (this);
 	}

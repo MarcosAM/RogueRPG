@@ -35,9 +35,10 @@ public abstract class Character : MonoBehaviour, IComparable {
 		if(OnMyTurnStarts != null){
 			OnMyTurnStarts ();
 		}
-		RecoverFromDelayBy (delayCountdown*-1);
+//		RecoverFromDelayBy (delayCountdown*-1);
 		SpendBuffs();
 		hud.ShowItsActivePlayer ();
+		CheckIfSkillsShouldBeRefreshed();
 	}
 
 	public void EndTurn(){
@@ -176,6 +177,18 @@ public abstract class Character : MonoBehaviour, IComparable {
 		critic.ResetBuff();
 		if(OnBuffsGainOrLoss != null){
 			OnBuffsGainOrLoss ();
+		}
+	}
+
+	void CheckIfSkillsShouldBeRefreshed ()
+	{
+		for(int i=0; i<skills.Length; i++){
+			if(!skills[i].getCharactersThatCantUseMe().Contains(this)){
+				return;
+			}
+		}
+		for(int i=0; i<skills.Length; i++){
+			skills[i].getCharactersThatCantUseMe().Remove(this);
 		}
 	}
 
