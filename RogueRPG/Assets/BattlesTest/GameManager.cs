@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]Quest selectedQuest;
 	List<Character> playerCharacters = new List<Character>();
 	[SerializeField]Character pcPrefab;
-	[SerializeField]StandartStats pcStandartStats;
+	[SerializeField]StandartStats pcGuerreiroStats;
+	[SerializeField]StandartStats pcMagoStats;
 
 	void Awake(){
 		MakeItASingleton();
@@ -19,9 +20,11 @@ public class GameManager : MonoBehaviour {
 //		pc1.setStats
 		playerCharacters.Add (Instantiate(pcPrefab));
 		playerCharacters.Add (Instantiate(pcPrefab));
-		foreach (Character pc in playerCharacters) {
-			pc.setStats (pcStandartStats);
-		}
+//		foreach (Character pc in playerCharacters) {
+//			pc.setStats (pcGuerreiroStats);
+//		}
+		playerCharacters[0].setStats(pcGuerreiroStats);
+		playerCharacters [1].setStats (pcMagoStats);
 		playerCharacters [0].setName ("Dante");
 		playerCharacters [1].setName ("Roxas");
 		DontDestroyOnLoad (this);

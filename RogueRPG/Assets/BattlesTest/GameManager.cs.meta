@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 71feaa0517e59eb44a086f5865a8f84e
-timeCreated: 1529354622
+timeCreated: 1531153785
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - selectedQuest: {instanceID: 0}
+  - pcPrefab: {instanceID: 0}
+  - pcGuerreiroStats: {instanceID: 0}
+  - pcMagoStats: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
