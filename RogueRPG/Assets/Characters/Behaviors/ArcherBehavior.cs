@@ -22,7 +22,7 @@ public class ArcherBehavior : CombatBehavior {
 		Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
 		Battleground.Tile[] tempEnemiesTiles = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles ();
 
-		targetTile = null;
+		targetTile = tempEnemiesTiles[character.getPosition()];
 		if (tempHeroesTiles [character.getPosition ()].getOccupant () == null) {
 			for (int i = 0; i < tempHeroesTiles.Length; i++) {
 				if (targetTile != null) {

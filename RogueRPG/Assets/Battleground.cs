@@ -121,8 +121,24 @@ public class Battleground : MonoBehaviour {
 	public List<Character> getEnemySide(){
 		return enemySide;
 	}
+
 	public Tile[] getHeroesTiles(){return heroTiles;}
 	public Tile[] getEnemiesTiles(){return enemyTiles;}
+
+	public Tile[] getMySideTiles(bool side){
+		if (side)
+			return heroTiles;
+		else
+			return enemyTiles;
+	}
+
+	public Tile[] getMyEnemiesTiles(bool side){
+		if (side)
+			return enemyTiles;
+		else
+			return heroTiles;
+	}
+
 	public void ClearAndSetASide(List<Character> side){
 		bool sideIsPlayers = false;
 		int sideSize = side.Count;

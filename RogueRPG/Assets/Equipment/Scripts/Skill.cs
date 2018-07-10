@@ -67,49 +67,27 @@ public abstract class Skill : ScriptableObject {
 			}
 		} else {
 			FindObjectOfType<Narration>().Appear(user.getName(), sName);
-			List<Character> myTargets = new List<Character>();
-			Character[] temporaryTargets;
-			if(user.isPlayable()){
-				switch(sTargets){
-				case Targets.Allies:
-					temporaryTargets = FindObjectsOfType<PlayableCharacter> ();
-					break;
-				case Targets.Enemies:
-					temporaryTargets = FindObjectsOfType<NonPlayableCharacter> ();
-					break;
-				case Targets.All:
-					temporaryTargets = FindObjectsOfType<Character> ();
-					break;
-				default:
-					temporaryTargets = FindObjectsOfType<NonPlayableCharacter> ();
-					break;
-				}
-			}else{
-				switch(sTargets){
-				case Targets.Allies:
-					temporaryTargets = FindObjectsOfType<NonPlayableCharacter> ();
-					break;
-				case Targets.Enemies:
-					temporaryTargets = FindObjectsOfType<PlayableCharacter> ();
-					break;
-				case Targets.All:
-					temporaryTargets = FindObjectsOfType<Character> ();
-					break;
-				default:
-					temporaryTargets = FindObjectsOfType<PlayableCharacter> ();
-					break;
-				}
+			Battleground.Tile[] targets;
+			if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
+				targets = DungeonManager.getInstance ().getBattleground ().getMySideTiles (user.isPlayable ());
+			} else {
+				targets = DungeonManager.getInstance ().getBattleground ().getMyEnemiesTiles (user.isPlayable ());
 			}
-			for (int i = 0; i<temporaryTargets.Length; i++){
-				if(temporaryTargets[i].isAlive()){
-					myTargets.Add (temporaryTargets[i]);
-				}
-			}
-			howManyTargets = myTargets.Count;
+
+			howManyTargets = targets.Length;
 			targetsHited = 0;
-			foreach (Character target in myTargets) {
-				EffectAnimation(tile);
-				primaryEffect.Effect(user, this,tile);
+			foreach(Battleground.Tile t in targets){
+				EffectAnimation(t);
+				if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
+					if (tile.getOccupant () == user) {
+						secondaryEffect.Effect (user, this, t);
+					} else {
+						tertiaryEffect.Effect (user,this,t);
+					}
+				} else {
+					Debug.Log ("Ataca geral!");
+					primaryEffect.Effect (user,this,t);
+				}
 			}
 		}
 	}
@@ -264,3 +242,49 @@ public abstract class Skill : ScriptableObject {
 	public SkillEffect getSecondaryEffect() {return secondaryEffect;}
 	public SkillEffect getTertiaryEffect() {return tertiaryEffect;}
 }
+
+//			List<Character> myTargets = new List<Character>();
+//			Character[] temporaryTargets;
+//			if(user.isPlayable()){
+//				switch(sTargets){
+//				case Targets.Allies:
+//					temporaryTargets = FindObjectsOfType<PlayableCharacter> ();
+//					break;
+//				case Targets.Enemies:
+//					temporaryTargets = FindObjectsOfType<NonPlayableCharacter> ();
+//					break;
+//				case Targets.All:
+//					temporaryTargets = FindObjectsOfType<Character> ();
+//					break;
+//				default:
+//					temporaryTargets = FindObjectsOfType<NonPlayableCharacter> ();
+//					break;
+//				}
+//			}else{
+//				switch(sTargets){
+//				case Targets.Allies:
+//					temporaryTargets = FindObjectsOfType<NonPlayableCharacter> ();
+//					break;
+//				case Targets.Enemies:
+//					temporaryTargets = FindObjectsOfType<PlayableCharacter> ();
+//					break;
+//				case Targets.All:
+//					temporaryTargets = FindObjectsOfType<Character> ();
+//					break;
+//				default:
+//					temporaryTargets = FindObjectsOfType<PlayableCharacter> ();
+//					break;
+//				}
+//			}
+//			for (int i = 0; i<temporaryTargets.Length; i++){
+//				if(temporaryTargets[i].isAlive()){
+//					myTargets.Add (temporaryTargets[i]);
+//				}
+//			}
+
+//			howManyTargets = myTargets.Count;
+//			targetsHited = 0;
+//			foreach (Character target in myTargets) {
+//				EffectAnimation(tile);
+//				primaryEffect.Effect(user, this,tile);
+//			}

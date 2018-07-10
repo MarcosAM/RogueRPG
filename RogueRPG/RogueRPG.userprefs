@@ -1,16 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\Behaviors\ArcherBehavior.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Equipment\Scripts\Skill.cs">
     <Files>
-      <File FileName="Assets\Skills\Skill Effects\SEAtk.cs" Line="12" Column="41" />
-      <File FileName="Assets\Skills\Skill Effects\SEAtkm.cs" Line="12" Column="46" />
-      <File FileName="Assets\Skills\Skill Effects\SECriticUp.cs" Line="14" Column="16" />
-      <File FileName="Assets\Skills\Skill Effects\SEHeal.cs" Line="12" Column="35" />
-      <File FileName="Assets\Skills\Skill Effects\SEMove.cs" Line="1" Column="1" />
-      <File FileName="Assets\Skills\Skill Effects\SkillEffect.cs" Line="1" Column="1" />
-      <File FileName="Assets\Characters\Stat.cs" Line="58" Column="45" />
-      <File FileName="Assets\Skills\Scripts\Skill.cs" Line="30" Column="28" />
-      <File FileName="Assets\Characters\Behaviors\ArcherBehavior.cs" Line="60" Column="72" />
+      <File FileName="Assets\Equipment\Scripts\Skill.cs" Line="74" Column="5" />
+      <File FileName="Assets\Battleground.cs" Line="139" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
