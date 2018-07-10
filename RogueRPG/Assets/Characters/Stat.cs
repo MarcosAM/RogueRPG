@@ -56,4 +56,7 @@ public class Stat {
 	public const float PRECISION_BUFF_1 = 0.1f;
 	public const float PRECISION_BUFF_2 = 0.3f;
 	public const float PRECISION_BUFF_3 = 0.5f;
+	public const float ATRIBUTE_BUFF_1 = 10;
+	public const float ATRIBUTE_BUFF_2 = 20;
+	public const float ATRIBUTE_BUFF_3 = 30;
 }

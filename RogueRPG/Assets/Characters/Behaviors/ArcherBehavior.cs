@@ -22,8 +22,6 @@ public class ArcherBehavior : CombatBehavior {
 		Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
 		Battleground.Tile[] tempEnemiesTiles = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles ();
 
-		Debug.Log("Archer doing archer things");
-
 		targetTile = null;
 		if (tempHeroesTiles [character.getPosition ()].getOccupant () == null) {
 			for (int i = 0; i < tempHeroesTiles.Length; i++) {
@@ -53,13 +51,13 @@ public class ArcherBehavior : CombatBehavior {
 					rightIndex = i + j;
 					if (rightIndex >= tempHeroesTiles.Length)
 						rightIndex = tempHeroesTiles.Length - 1;
-					if (tempHeroesTiles [leftIndex].getOccupant () != null && tempHeroesTiles [rightIndex].getOccupant () != null) {
+					if (tempHeroesTiles [leftIndex].getOccupant () != null || tempHeroesTiles [rightIndex].getOccupant () != null) {
 						break;
 					} else {
 						currentDistance++;
 					}
 				}
-				if(currentDistance > mostDistant){
+				if(currentDistance > mostDistant || (currentDistance == mostDistant && (targetTile.getOccupant() != null && tempEnemiesTiles[i].getOccupant() == null))){
 					targetTile = tempEnemiesTiles[i];
 					mostDistant = currentDistance;
 				}
@@ -72,7 +70,7 @@ public class ArcherBehavior : CombatBehavior {
 	{
 		base.UseSkill ();
 		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect (character,targetTile);
+		choosedSkill.UseEquipmentOn (character,targetTile);
 	}
 
 	void EndTurn(){

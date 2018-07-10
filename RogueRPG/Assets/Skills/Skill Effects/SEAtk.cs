@@ -9,6 +9,6 @@ public class SEAtk : SkillEffect {
 	{
 		base.Effect (user, skill, tile);
 		if (tile.getOccupant ())
-			user.Attack (tile.getOccupant(),skill.getValue(),skill);
+			user.Attack (tile.getOccupant(),value,skill);
 	}
 }

@@ -67,7 +67,7 @@ public class RandomBehavior : CombatBehavior {
 	{
 		base.UseSkill ();
 		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect (character,targetTile);
+		choosedSkill.UseEquipmentOn (character,targetTile);
 	}
 
 //	public void UseSkill (Character u, Character t)

@@ -27,7 +27,7 @@ public abstract class Skill : ScriptableObject {
 	protected int targetsHited;
 	protected bool endable;
 
-	public void Effect (Character user,Battleground.Tile tile){
+	public void UseEquipmentOn (Character user,Battleground.Tile tile){
 //		TODO Check if already there before adding
 		charactersThatCantUseMe.Add(user);
 		endable = true;
@@ -114,7 +114,7 @@ public abstract class Skill : ScriptableObject {
 		}
 	}
 
-	public void Effect (Character user, Character target){
+	public void UseEquipmentOn (Character user, Character target){
 		endable = true;
 		FindObjectOfType<Narration>().Appear(user.getName(), sName);
 //		EffectAnimation (target);
@@ -148,7 +148,7 @@ public abstract class Skill : ScriptableObject {
 //		UniqueEffect ();
 //	}
 
-	public void Effect (Character user){
+	public void UseEquipmentOn (Character user){
 		endable = true;
 		FindObjectOfType<Narration>().Appear(user.getName(), sName);
 		user.DelayBy(sDelay);

@@ -116,7 +116,7 @@ public class ZombieBehavior : CombatBehavior {
 	{
 		base.UseSkill ();
 		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.Effect (character,targetTile);
+		choosedSkill.UseEquipmentOn (character,targetTile);
 	}
 
 	void EndTurn(){
