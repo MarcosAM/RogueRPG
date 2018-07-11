@@ -220,6 +220,22 @@ public abstract class Character : MonoBehaviour, IComparable {
 		}
 	}
 
+	public void AtkBuff (float buffValue, int buffDuration){
+		atk.BuffIt(buffValue,buffDuration);
+		OnBuffsGainOrLoss ();
+	}
+	public void AtkmBuff (float buffValue, int buffDuration){
+		atkm.BuffIt(buffValue,buffDuration);
+		OnBuffsGainOrLoss ();
+	}
+	public void DefBuff (float buffValue, int buffDuration){
+		def.BuffIt(buffValue,buffDuration);
+		OnBuffsGainOrLoss ();
+	}
+	public void DefmBuff (float buffValue, int buffDuration){
+		defm.BuffIt(buffValue,buffDuration);
+		OnBuffsGainOrLoss ();
+	}
 	public void CriticBuff (float buffValue, int buffDuration){
 		critic.BuffIt(buffValue,buffDuration);
 		OnBuffsGainOrLoss ();
