@@ -148,8 +148,10 @@ public class TargetBtn : CombatBtn {
 					}
 				} else {
 					if(skill.getTertiaryEffect() != null){
-						button.interactable = true;
-						text.text = skill.getTertiaryEffect ().getEffectName ();
+						if(Mathf.Abs (tile.getIndex() - user.getPosition ()) <= skill.getTertiaryEffect().getRange ()){
+							button.interactable = true;
+							text.text = skill.getTertiaryEffect ().getEffectName ();
+						}
 					}
 				}
 			} else {
@@ -163,8 +165,10 @@ public class TargetBtn : CombatBtn {
 		} else {
 			if(user.isPlayable() == tile.isFromHero()){
 				if(skill.getTertiaryEffect() != null){
-					button.interactable = true;
-					text.text = skill.getTertiaryEffect ().getEffectName ();
+					if(Mathf.Abs (tile.getIndex() - user.getPosition ()) <= skill.getTertiaryEffect().getRange ()){
+						button.interactable = true;
+						text.text = skill.getTertiaryEffect ().getEffectName ();
+					}
 				}
 			}else{
 				//NÃO APAREÇA
