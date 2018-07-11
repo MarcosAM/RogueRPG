@@ -123,25 +123,25 @@ public class CombatantHUD : MonoBehaviour {
 	void ShowBuffs (){
 		//TODO Fazer isso de forma automatica criando uma variável para o nome do stat
 		buffText.text = "";
-		if(combatant.getAtk().getBuffValue() > 0){
+		if(combatant.getAtk().getBuffValue() != 0){
 			buffText.text += "ATK " + combatant.getAtk().getBuffValue() + " ";
 		}
-		if(combatant.getAtkm().getBuffValue() > 0){
+		if(combatant.getAtkm().getBuffValue() != 0){
 			buffText.text += "ATKM " + combatant.getAtkm().getBuffValue() + " ";
 		}
-		if(combatant.getDef().getBuffValue() > 0){
+		if(combatant.getDef().getBuffValue() != 0){
 			buffText.text += "DEF " + combatant.getDef().getBuffValue() + " ";
 		}
-		if(combatant.getDefm().getBuffValue() > 0){
+		if(combatant.getDefm().getBuffValue() != 0){
 			buffText.text += "DEFM " + combatant.getDefm ().getBuffValue () + " ";
 		}
-		if (combatant.getPrecision ().getBuffValue () > 0) {
+		if (combatant.getPrecision ().getBuffValue () != 0) {
 			buffText.text += "PRECISION " + combatant.getPrecision ().getBuffValue () + " ";
 		}
-		if (combatant.getCritic ().getBuffValue () > 0) {
+		if (combatant.getCritic ().getBuffValue () != 0) {
 			buffText.text += "CRITIC " + combatant.getCritic ().getBuffValue () + " ";
 		}
-		if(combatant.getDodge().getBuffValue() > 0){
+		if(combatant.getDodge().getBuffValue() != 0){
 			buffText.text += "DODGE " + combatant.getDodge ().getBuffValue () + " ";
 		}
 	}

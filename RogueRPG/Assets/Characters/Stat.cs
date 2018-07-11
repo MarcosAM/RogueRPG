@@ -18,9 +18,14 @@ public class Stat {
 		}
 		return value;
 	}
+
 	public void BuffIt (float buffValue, int buffDuration){
 //		Debug.Log ("Tentei buffar");
-		if(buffValue>this.buffValue){
+		if(buffValue>this.buffValue && buffValue>0){
+			this.buffValue = buffValue;
+			this.buffDuration = buffDuration;
+		}
+		if (buffValue < this.buffValue && this.buffValue <= 0) {
 			this.buffValue = buffValue;
 			this.buffDuration = buffDuration;
 		}
@@ -29,6 +34,7 @@ public class Stat {
 		}
 //		TODO atualizar a interface para mostrar esse bonus
 	}
+
 	public void setStatBase (float value){
 		this.statBase = value;
 	}
@@ -50,13 +56,25 @@ public class Stat {
 	public const float CRITIC_BUFF_1 = 0.1f;
 	public const float CRITIC_BUFF_2 = 0.3f;
 	public const float CRITIC_BUFF_3 = 0.5f;
+	public const float CRITIC_DEBUFF_1 = -0.1f;
+	public const float CRITIC_DEBUFF_2 = -0.3f;
+	public const float CRITIC_DEBUFF_3 = -0.5f;
 	public const float DODGE_BUFF_1 = 0.1f;
 	public const float DODGE_BUFF_2 = 0.3f;
 	public const float DODGE_BUFF_3 = 0.5f;
+	public const float DODGE_DEBUFF_1 = -0.1f;
+	public const float DODGE_DEBUFF_2 = -0.3f;
+	public const float DODGE_DEBUFF_3 = -0.5f;
 	public const float PRECISION_BUFF_1 = 0.1f;
 	public const float PRECISION_BUFF_2 = 0.3f;
 	public const float PRECISION_BUFF_3 = 0.5f;
+	public const float PRECISION_DEBUFF_1 = -0.1f;
+	public const float PRECISION_DEBUFF_2 = -0.3f;
+	public const float PRECISION_DEBUFF_3 = -0.5f;
 	public const float ATRIBUTE_BUFF_1 = 10;
 	public const float ATRIBUTE_BUFF_2 = 20;
 	public const float ATRIBUTE_BUFF_3 = 30;
+	public const float ATRIBUTE_DEBUFF_1 = -10;
+	public const float ATRIBUTE_DEBUFF_2 = -20;
+	public const float ATRIBUTE_DEBUFF_3 = -30;
 }
