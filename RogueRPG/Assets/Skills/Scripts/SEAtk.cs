@@ -5,10 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Skill Effects/Attack")]
 public class SEAtk : SkillEffect {
 
-	public override void Effect (Character user, Skill skill, Battleground.Tile tile)
+//	public override void UniqueEffect (Character user, Skill skill, Battleground.Tile tile)
+//	{
+//		base.UniqueEffect (user, skill, tile);
+//		if (tile.getOccupant ())
+//			user.Attack (tile.getOccupant(),value,skill);
+//	}
+	public override void UniqueEffect (Character user, Battleground.Tile tile)
 	{
-		base.Effect (user, skill, tile);
+		base.UniqueEffect (user, tile);
 		if (tile.getOccupant ())
-			user.Attack (tile.getOccupant(),value,skill);
+			user.Attack (tile.getOccupant(),value,this);
 	}
 }

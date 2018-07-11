@@ -30,15 +30,15 @@ public abstract class Skill : ScriptableObject {
 	public void UseEquipmentOn (Character user,Battleground.Tile tile){
 //		TODO Check if already there before adding
 		charactersThatCantUseMe.Add(user);
-		endable = true;
-		user.DelayBy (sDelay);
-		if (sSingleTarget) {
-			FindObjectOfType<Narration> ().Appear (user.getName (), sName);
-			EffectAnimation (tile);
+//		endable = true;
+//		user.DelayBy (sDelay);
+//		if (sSingleTarget) {
+//			FindObjectOfType<Narration> ().Appear (user.getName (), sName);
+//			EffectAnimation (tile);
 			//TODO a habilidade paia que é utilizada quando não tem o que soltar
 			if (user.isPlayable() != tile.isFromHero ()) {
 				if (user.isPlayable () != tile.getOccupant ().isPlayable () && primaryEffect != null) {
-					primaryEffect.Effect (user, this, tile);
+					primaryEffect.Effect (user, tile);
 //					Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito primário!");
 					return;
 				}
@@ -46,50 +46,50 @@ public abstract class Skill : ScriptableObject {
 				if (tile.getOccupant () != null) {
 					if (user == tile.getOccupant ()) {
 						if (secondaryEffect != null) {
-							secondaryEffect.Effect (user, this, tile);
+							secondaryEffect.Effect (user, tile);
 //							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito secundário!");
 							return;
 						}
 					} else {
 						if (tertiaryEffect != null) {
-							tertiaryEffect.Effect (user, this, tile);
+							tertiaryEffect.Effect (user, tile);
 //							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
 							return;
 						}
 					}
 				} else {
 					if (tertiaryEffect != null) {
-						tertiaryEffect.Effect (user, this, tile);
+						tertiaryEffect.Effect (user, tile);
 //						Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
 						return;
 					}
 				}
 			}
-		} else {
-			FindObjectOfType<Narration>().Appear(user.getName(), sName);
-			Battleground.Tile[] targets;
-			if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
-				targets = DungeonManager.getInstance ().getBattleground ().getMySideTiles (user.isPlayable ());
-			} else {
-				targets = DungeonManager.getInstance ().getBattleground ().getMyEnemiesTiles (user.isPlayable ());
-			}
-
-			howManyTargets = targets.Length;
-			targetsHited = 0;
-			foreach(Battleground.Tile t in targets){
-				EffectAnimation(t);
-				if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
-					if (tile.getOccupant () == user) {
-						secondaryEffect.Effect (user, this, t);
-					} else {
-						tertiaryEffect.Effect (user,this,t);
-					}
-				} else {
-					Debug.Log ("Ataca geral!");
-					primaryEffect.Effect (user,this,t);
-				}
-			}
-		}
+//		}
+//		else {
+//			FindObjectOfType<Narration>().Appear(user.getName(), sName);
+//			Battleground.Tile[] targets;
+//			if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
+//				targets = DungeonManager.getInstance ().getBattleground ().getMySideTiles (user.isPlayable ());
+//			} else {
+//				targets = DungeonManager.getInstance ().getBattleground ().getMyEnemiesTiles (user.isPlayable ());
+//			}
+//
+//			howManyTargets = targets.Length;
+//			targetsHited = 0;
+//			foreach(Battleground.Tile t in targets){
+//				EffectAnimation(t);
+//				if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
+//					if (tile.getOccupant () == user) {
+//						secondaryEffect.UniqueEffect (user, this, t);
+//					} else {
+//						tertiaryEffect.UniqueEffect (user,this,t);
+//					}
+//				} else {
+//					primaryEffect.UniqueEffect (user,this,t);
+//				}
+//			}
+//		}
 	}
 
 	public void UseEquipmentOn (Character user, Character target){

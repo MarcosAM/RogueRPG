@@ -49,23 +49,51 @@ public abstract class Character : MonoBehaviour, IComparable {
 		EventManager.EndedTurn ();
 	}
 
-	public void Attack (Character target, float attack, Skill skill){
+//	public void Attack (Character target, float attack, Skill skill){
+//		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
+//		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
+//			distanceInfluenceOnPrecision = -1f;
+//		}
+//		if (skill.getCriticRate () + critic.getValue() >= UnityEngine.Random.value) {
+//			target.TakeDamage (Mathf.RoundToInt((attack + atk.getValue()) * 1.5f));
+//		} else {
+//			if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue() >= UnityEngine.Random.value) {
+//				target.TakeDamage (Mathf.RoundToInt((attack+atk.getValue())*UnityEngine.Random.Range(1f,1.2f)-target.getDefValue()));
+//			} else {
+////				print(target.characterName+" se esquivou!");
+//			}
+//		}
+//	}
+
+	public void Attack (Character target, float attack, SkillEffect skill){
 		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
 		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
 			distanceInfluenceOnPrecision = -1f;
 		}
-		if (skill.getCriticRate () + critic.getValue() >= UnityEngine.Random.value) {
+		if (skill.getCritic () + critic.getValue() >= UnityEngine.Random.value) {
 			target.TakeDamage (Mathf.RoundToInt((attack + atk.getValue()) * 1.5f));
 		} else {
 			if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue() >= UnityEngine.Random.value) {
 				target.TakeDamage (Mathf.RoundToInt((attack+atk.getValue())*UnityEngine.Random.Range(1f,1.2f)-target.getDefValue()));
 			} else {
-//				print(target.characterName+" se esquivou!");
+				//				print(target.characterName+" se esquivou!");
 			}
 		}
 	}
 
-	public void AttackMagic (Character target, float attack, Skill skill)
+//	public void AttackMagic (Character target, float attack, Skill skill)
+//	{
+//		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
+//		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
+//			distanceInfluenceOnPrecision = -1f;
+//		}
+//		if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue () >= UnityEngine.Random.value) {
+//			int damage = Mathf.RoundToInt((attack + atkm.getValue()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefmValue ());
+//			target.TakeDamage (damage);
+//		}
+//	}
+
+	public void AttackMagic (Character target, float attack, SkillEffect skill)
 	{
 		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
 		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
