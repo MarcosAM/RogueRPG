@@ -23,13 +23,13 @@ public class RandomBehavior : CombatBehavior {
 
 	public void ChooseTarget ()
 	{
-		if(choosedSkill.getTargets() == Skill.Targets.Enemies){
+		if (Random.value < 0.8f) {
 			Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
 			int heroesAlive = 0;
-			for(int i =0;i<tempHeroesTiles.Length;i++){
-				if(tempHeroesTiles[i].getOccupant()!=null)
-					if (tempHeroesTiles [i].getOccupant ().isAlive ())
-						heroesAlive++;
+			for (int i = 0; i < tempHeroesTiles.Length; i++) {
+				if (tempHeroesTiles [i].getOccupant () != null)
+				if (tempHeroesTiles [i].getOccupant ().isAlive ())
+					heroesAlive++;
 			}
 			if (heroesAlive > 0) {
 				Battleground.Tile[] heroesTile = new Battleground.Tile[heroesAlive];
@@ -41,19 +41,17 @@ public class RandomBehavior : CombatBehavior {
 						c++;
 					}
 				}
-				int r = Random.Range(0,heroesTile.Length);
+				int r = Random.Range (0, heroesTile.Length);
 				targetTile = heroesTile [r];
 				character.getHUD ().UseSkillAnimation ();
-//				UseSkill (heroesTile[r]);
+				//				UseSkill (heroesTile[r]);
 			} else {
 				//TODO terminar a batalha ou encontro ou dungeon wtv
-				print("Termina essa batalha");
+				print ("Termina essa batalha");
 			}
-		}
-		if(choosedSkill.getTargets() == Skill.Targets.Self){
+		} else {
 			targetTile = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles () [character.getPosition ()];
 			character.getHUD ().UseSkillAnimation ();
-//			UseSkill (DungeonManager.getInstance().getBattleground().getEnemiesTiles()[character.getPosition()]);
 		}
 	}
 

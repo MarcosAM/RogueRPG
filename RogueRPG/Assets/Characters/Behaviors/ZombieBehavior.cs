@@ -22,10 +22,10 @@ public class ZombieBehavior : CombatBehavior {
 		Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
 		Battleground.Tile[] tempEnemiesTiles = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles ();
 
-		int maxIndex = character.getPosition() + choosedSkill.getRange();
+		int maxIndex = character.getPosition() + choosedSkill.getPrimaryEffect().getRange();
 		if (maxIndex >= tempHeroesTiles.Length)
 			maxIndex = tempHeroesTiles.Length - 1;
-		int minIndex = character.getPosition () - choosedSkill.getRange ();
+		int minIndex = character.getPosition () - choosedSkill.getPrimaryEffect().getRange ();
 		if (minIndex < 0)
 			minIndex = 0;
 
@@ -90,6 +90,7 @@ public class ZombieBehavior : CombatBehavior {
 						return;
 					} else {
 						if (character.getPosition () - i >= 0) {
+							//TODO fazer com que ele ande só no máximo a distância da skill de andar
 							targetTile = tempEnemiesTiles [character.getPosition () - i];
 							character.getHUD ().UseSkillAnimation ();
 							return;

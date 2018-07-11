@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Skills/Heal")]
 public class HealSkill : Skill {
 
-	public override void UniqueEffect (Character user, Character target)
-	{
-		base.UniqueEffect (user, target);
-		target.Heal (sValue+(int)user.getAtkmValue());
-	}
+//	public override void UniqueEffect (Character user, Character target)
+//	{
+//		base.UniqueEffect (user, target);
+//		target.Heal (sValue+(int)user.getAtkmValue());
+//	}
 
 }

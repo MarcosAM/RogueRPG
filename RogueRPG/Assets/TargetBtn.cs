@@ -153,7 +153,7 @@ public class TargetBtn : CombatBtn {
 					}
 				}
 			} else {
-				if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getRange () && tile.getOccupant().isAlive()) {
+				if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getPrimaryEffect().getRange () && tile.getOccupant().isAlive()) {
 					if(skill.getPrimaryEffect() != null){
 						button.interactable = true;
 						text.text = skill.getPrimaryEffect ().getEffectName ();
