@@ -36,6 +36,9 @@ public class NonPlayableCharacter : Character {
 //		foreach(Skill skill in skills){
 //			skill.setUser(this);
 //		}
+		if(combatBehavior != null){
+			Destroy (combatBehavior.gameObject);
+		}
 		combatBehavior = stats.getCombatBehavior();
 		combatBehavior.setCharacter (this);
 	}

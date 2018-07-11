@@ -8,7 +8,7 @@ public class EventManager : MonoBehaviour {
 	public static event Action<Character> OnShowSkillsOf;
 	public static event Action<Skill> OnPlayerChoosedSkill;
 	public static event Action OnClickedSkillBtn;
-	public static event Action<Character> OnPlayerChoosedTarget;
+//	public static event Action<Character> OnPlayerChoosedTarget;
 	public static event Action<Battleground.Tile> OnPlayerChoosedTarget2;
 	public static event Action OnClickedTargetBtn;
 	public static event Action<Character,Skill> OnShowTargetsOf;
@@ -20,7 +20,7 @@ public class EventManager : MonoBehaviour {
 	public static event Action<Character> OnRechargedEnergy;
 	public static event Action<Character> OnDeathOf;
 //	public static event Action<Party> OnPartyLost;
-	public static event Action<int> OnPlayerChoosedLocation;
+//	public static event Action<int> OnPlayerChoosedLocation;
 
 	public static void ShowSkillsOf(Character c){
 		if (OnShowSkillsOf != null)
@@ -50,12 +50,12 @@ public class EventManager : MonoBehaviour {
 			OnShowTargetsOf2 (skill);
 	}
 
-	public static void ChooseTarget(Character c) {
-		if (OnClickedTargetBtn != null)
-			OnClickedTargetBtn();
-		if(OnPlayerChoosedTarget != null)
-			OnPlayerChoosedTarget(c);
-	}
+//	public static void ChooseTarget(Character c) {
+//		if (OnClickedTargetBtn != null)
+//			OnClickedTargetBtn();
+//		if(OnPlayerChoosedTarget != null)
+//			OnPlayerChoosedTarget(c);
+//	}
 
 	public static void ChooseTarget(Battleground.Tile tile){
 		if (OnClickedTargetBtn != null)
@@ -64,12 +64,12 @@ public class EventManager : MonoBehaviour {
 			OnPlayerChoosedTarget2(tile);
 	}
 
-	public static void ChooseLocation(int position){
-		if (OnClickedTargetBtn != null)
-			OnClickedTargetBtn();
-		if (OnPlayerChoosedLocation != null)
-			OnPlayerChoosedLocation (position);
-	}
+//	public static void ChooseLocation(int position){
+//		if (OnClickedTargetBtn != null)
+//			OnClickedTargetBtn();
+//		if (OnPlayerChoosedLocation != null)
+//			OnPlayerChoosedLocation (position);
+//	}
 
 	public static void SkillUsed(){
 		if (OnSkillUsed != null)

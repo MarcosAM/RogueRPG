@@ -13,8 +13,8 @@ public class PlayerControlled : CombatBehavior {
 
 	public void ChooseSkill ()
 	{
+		print (character.getName() + " veja suas skills!");
 		EventManager.OnPlayerChoosedSkill += ReadySkill;
-//		EventManager.ShowSkillsOf (character);
 		CombHUDManager.getInstance().ShowSkillsBtnOf(character);
 	}
 
@@ -22,68 +22,27 @@ public class PlayerControlled : CombatBehavior {
 	{
 		choosedSkill = skill;
 		EventManager.OnPlayerChoosedSkill -= ReadySkill;
-//		if (choosedSkill.getIsSingleTarget ()) {
-			EventManager.OnUnchoosedSkill += UnchooseSkill;
-			ChooseTarget ();
-//		} else {
-//			UseSkill();
-//		}
+		EventManager.OnUnchoosedSkill += UnchooseSkill;
+		ChooseTarget ();
 	}
 
 	public void UnchooseSkill(){
 		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
+		EventManager.OnUnchoosedSkill -= UnchooseSkill;
 		ChooseSkill ();
 	}
 
 	public void ChooseTarget (){
-//		if (choosedSkill.getTargets () != Skill.Targets.Location)
-			EventManager.OnPlayerChoosedTarget2 += ReadyTarget;
-//		else
-//			EventManager.OnPlayerChoosedLocation += MoveTo;
-//		EventManager.ShowTargetsOf (character,choosedSkill);
+		EventManager.OnPlayerChoosedTarget2 += ReadyTarget;
 
 		//TODO ALTERAR ISSO AQUI LOLOLOLOLO
 		EventManager.ShowTargetsOf(character,choosedSkill);
 	}
 
-//	public void MoveTo(int position){
-//		EventManager.OnPlayerChoosedLocation -= MoveTo;
-//		character.DelayBy (1);
-//		character.getMovement ().MoveTo (position);
-//		EndTurn ();
-//	}
-
-//	public void ReadyTarget (Character c)
-//	{
-//		UseSkill (character,c);
-//		EventManager.OnPlayerChoosedTarget -= ReadyTarget;
-//		EventManager.OnUnchoosedSkill -= UnchooseSkill;
-//	}
-
-//	public void ReadyTarget (Battleground.Tile tile){
-//		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
-//		EventManager.OnUnchoosedSkill -= UnchooseSkill;
-//
-//		UseSkill (tile);
-//	}
-		
-//	public void UseSkill (Character u, Character t)
-//	{
-//		EventManager.OnSkillUsed += EndTurn;
-//		choosedSkill.Effect (u,t);
-//	}
-
-//	public void UseSkill (Battleground.Tile tile){
-//		EventManager.OnSkillUsed += EndTurn;
-//		choosedSkill.Effect (character,tile);
-////		Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + character.getName()+" usou skill!");
-//	}
-
 	public void ReadyTarget (Battleground.Tile tile){
 		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
 		EventManager.OnUnchoosedSkill -= UnchooseSkill;
 		this.targetTile = tile;
-//		UseSkill (tile);
 		character.getHUD().UseSkillAnimation();
 	}
 
@@ -91,14 +50,9 @@ public class PlayerControlled : CombatBehavior {
 	{
 		base.UseSkill ();
 		EventManager.OnSkillUsed += EndTurn;
+//		print (character.getName() + " usa skill brother");
 		choosedSkill.UseEquipmentOn (character,targetTile);
 	}
-
-//	public void UseSkill ()
-//	{
-//		EventManager.OnSkillUsed += EndTurn;
-//		choosedSkill.Effect (character);
-//	}
 
 	void EndTurn(){
 		EventManager.OnSkillUsed -= EndTurn;
