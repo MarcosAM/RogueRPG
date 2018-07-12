@@ -278,26 +278,16 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 	//Detect if the Cursor starts to pass over the GameObject
 	public void OnPointerEnter(PointerEventData pointerEventData)
 	{
-		//Output to console the GameObject's name and the following message
-		Debug.Log("Cursor Entering " + name + " GameObject");
-		if(tile.getOccupant() != null){
-			if(tile.getOccupant().isPlayable()){
-				CombHUDManager.getInstance ().ShowSkillsBtnOf (tile.getOccupant());
-			}
-		}
+		CombHUDManager.getInstance ().onTargetBtnHoverEnter (this);
 	}
 
 	//Detect when Cursor leaves the GameObject
 	public void OnPointerExit(PointerEventData pointerEventData)
 	{
-		//Output the following message with the GameObject's name
-		Debug.Log("Cursor Exiting " + name + " GameObject");
-		if(tile.getOccupant() != null){
-			if(tile.getOccupant().isPlayable()){
-				CombHUDManager.getInstance ().ShowSkillsBtnOf (DungeonManager.getInstance().getInitiativeOrder()[0]);
-			}
-		}
+		CombHUDManager.getInstance ().onTargetBtnHoverExit (this);
 	}
+
+	public Battleground.Tile getTile() {return tile;}
 
 	void OnEnable(){
 		EventManager.OnShowTargetsOf += Appear;

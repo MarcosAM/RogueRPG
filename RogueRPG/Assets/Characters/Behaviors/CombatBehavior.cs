@@ -12,4 +12,6 @@ public class CombatBehavior : MonoBehaviour {
 	public virtual void UseSkill(){}
 
 	public void setCharacter(Character character) {this.character = character;}
+	public Character getCharacter() {return character;}
+	public Skill getChoosedSkill() {return choosedSkill;}
 }

@@ -29,6 +29,7 @@ public class PlayerControlled : CombatBehavior {
 	public void UnchooseSkill(){
 		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
 		EventManager.OnUnchoosedSkill -= UnchooseSkill;
+		choosedSkill = null;
 		ChooseSkill ();
 	}
 
@@ -56,6 +57,7 @@ public class PlayerControlled : CombatBehavior {
 
 	void EndTurn(){
 		EventManager.OnSkillUsed -= EndTurn;
+		choosedSkill = null;
 		character.EndTurn ();
 	}
 }
