@@ -275,13 +275,11 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		text.color = new Color (0.2f,0.2f,0.2f,1f);
 	}
 
-	//Detect if the Cursor starts to pass over the GameObject
 	public void OnPointerEnter(PointerEventData pointerEventData)
 	{
 		CombHUDManager.getInstance ().onTargetBtnHoverEnter (this);
 	}
 
-	//Detect when Cursor leaves the GameObject
 	public void OnPointerExit(PointerEventData pointerEventData)
 	{
 		CombHUDManager.getInstance ().onTargetBtnHoverExit (this);

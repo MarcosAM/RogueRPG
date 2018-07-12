@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class SkillBtn : CombatBtn {
+public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
 	Text text;
 	public Skill skill;
@@ -41,6 +42,18 @@ public class SkillBtn : CombatBtn {
 		button.interactable = false;
 		text.color = new Color (text.color.r,text.color.g,text.color.b,0f);
 	}
+
+	public void OnPointerEnter(PointerEventData pointerEventData)
+	{
+		CombHUDManager.getInstance ().onSkillBtnHoverEnter (this);
+	}
+
+	public void OnPointerExit(PointerEventData pointerEventData)
+	{
+		CombHUDManager.getInstance ().onSkillBtnHoverExit (this);
+	}
+
+	public Skill getSkill() {return skill;}
 
 	void OnEnable(){
 //		EventManager.OnShowSkillsOf += RefreshSelf;

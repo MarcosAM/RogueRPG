@@ -168,6 +168,14 @@ public class CombatantHUD : MonoBehaviour {
 		targetButton.TurnBackToBlack ();
 	}
 
+	public void ShowTargetBtn(Character user, Skill skill){
+		targetButton.Appear (user,skill);
+	}
+
+	public void HideTargetBtn(){
+		targetButton.Disappear ();
+	}
+
 	public void RefreshInitiative ()
 	{
 		DungeonManager dungeonManager = DungeonManager.getInstance ();

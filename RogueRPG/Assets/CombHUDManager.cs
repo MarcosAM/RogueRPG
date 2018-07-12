@@ -122,6 +122,42 @@ public class CombHUDManager : MonoBehaviour {
 		}
 	}
 
+	public void ShowTargetBtns(Character user, Skill choosedSkill){
+		for(int i=0; i<heroesCombatantHUD.Length; i++){
+			heroesCombatantHUD [i].ShowTargetBtn (user,choosedSkill);
+		}
+		for(int i=0; i<enemiesCombatantHUD.Length; i++){
+			enemiesCombatantHUD [i].ShowTargetBtn (user,choosedSkill);
+		}
+	}
+
+	public void HideTargetBtns(){
+		for(int i=0; i<heroesCombatantHUD.Length; i++){
+			heroesCombatantHUD [i].HideTargetBtn ();
+		}
+		for(int i=0; i<enemiesCombatantHUD.Length; i++){
+			enemiesCombatantHUD [i].HideTargetBtn ();
+		}
+	}
+
+	public void onSkillBtnHoverEnter(SkillBtn skillBtn){
+		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
+		if (combatBehavior.getChoosedSkill () != null) {
+			
+		} else {
+			ShowTargetBtns (combatBehavior.getCharacter(),skillBtn.getSkill());
+		}
+	}
+
+	public void onSkillBtnHoverExit(SkillBtn skillBtn){
+		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
+		if (combatBehavior.getChoosedSkill () != null) {
+
+		} else {
+			HideTargetBtns ();
+		}
+	}
+
 	public void onTargetBtnHoverEnter(TargetBtn targetBtn){
 		//TODO checar se já não é o caba da vez
 		if(targetBtn.getTile().getOccupant() != null){
