@@ -107,6 +107,14 @@ public abstract class Character : MonoBehaviour, IComparable {
 		}
 	}
 
+	public float getPrecisionOfSkillEffect(Character target, SkillEffect skill){
+		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
+		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
+			distanceInfluenceOnPrecision = -1f;
+		}
+		return skill.getPrecision () + precision.getValue () + distanceInfluenceOnPrecision - target.getDodgeValue ();
+	}
+
 	public void TakeDamage (int damage)
 	{
 		if (damage > 0) {

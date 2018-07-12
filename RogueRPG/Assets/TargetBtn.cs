@@ -172,6 +172,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 						button.colors = cb;
 						text.text = skill.getPrimaryEffect ().getEffectName ();
+						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getPrimaryEffect())*100 + "%";
 					}
 				} else {
 					if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getPrimaryEffect().getRange () && tile.getOccupant().isAlive()) {
@@ -181,6 +182,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 						button.colors = cb;
 						text.text = skill.getPrimaryEffect ().getEffectName ();
+						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getPrimaryEffect())*100 + "%";
 					}
 				}
 			}
