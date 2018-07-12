@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class TargetBtn : CombatBtn {
+public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
 	Text text;
 //	[SerializeField]Character combatant;
@@ -143,13 +144,21 @@ public class TargetBtn : CombatBtn {
 				if (user == tile.getOccupant ()) {
 					if (skill.getSecondaryEffect () != null) {
 						text.color = Color.blue;
-						button.interactable = true;
+//						button.interactable = true;
+						ColorBlock cb = button.colors;
+						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
+						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
+						button.colors = cb;
 						text.text = skill.getSecondaryEffect ().getEffectName ();
 					}
 				} else {
 					if(skill.getTertiaryEffect() != null){
 						if(Mathf.Abs (tile.getIndex() - user.getPosition ()) <= skill.getTertiaryEffect().getRange ()){
-							button.interactable = true;
+//							button.interactable = true;
+							ColorBlock cb = button.colors;
+							cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
+							cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
+							button.colors = cb;
 							text.text = skill.getTertiaryEffect ().getEffectName ();
 						}
 					}
@@ -157,12 +166,20 @@ public class TargetBtn : CombatBtn {
 			} else {
 				if (skill.getPrimaryEffect ().getSkillType() == Skill.Types.Ranged) {
 					if(tile.getOccupant().isAlive()){
-						button.interactable = true;
+//						button.interactable = true;
+						ColorBlock cb = button.colors;
+						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
+						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
+						button.colors = cb;
 						text.text = skill.getPrimaryEffect ().getEffectName ();
 					}
 				} else {
 					if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getPrimaryEffect().getRange () && tile.getOccupant().isAlive()) {
-						button.interactable = true;
+//						button.interactable = true;
+						ColorBlock cb = button.colors;
+						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
+						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
+						button.colors = cb;
 						text.text = skill.getPrimaryEffect ().getEffectName ();
 					}
 				}
@@ -171,7 +188,11 @@ public class TargetBtn : CombatBtn {
 			if(user.isPlayable() == tile.isFromHero()){
 				if(skill.getTertiaryEffect() != null){
 					if(Mathf.Abs (tile.getIndex() - user.getPosition ()) <= skill.getTertiaryEffect().getRange ()){
-						button.interactable = true;
+//						button.interactable = true;
+						ColorBlock cb = button.colors;
+						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
+						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
+						button.colors = cb;
 						text.text = skill.getTertiaryEffect ().getEffectName ();
 					}
 				}
@@ -227,7 +248,11 @@ public class TargetBtn : CombatBtn {
 //	}
 
 	override public void Disappear(){
-		button.interactable = false;
+//		button.interactable = false;
+		ColorBlock cb = button.colors;
+		cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,0);
+		cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,0);
+		button.colors = cb;
 		text.color = new Color (0.2f,0.2f,0.2f,1f);
 		if (tile != null) {
 			if (tile.getOccupant () != null) {
@@ -248,6 +273,30 @@ public class TargetBtn : CombatBtn {
 
 	public void TurnBackToBlack(){
 		text.color = new Color (0.2f,0.2f,0.2f,1f);
+	}
+
+	//Detect if the Cursor starts to pass over the GameObject
+	public void OnPointerEnter(PointerEventData pointerEventData)
+	{
+		//Output to console the GameObject's name and the following message
+		Debug.Log("Cursor Entering " + name + " GameObject");
+		if(tile.getOccupant() != null){
+			if(tile.getOccupant().isPlayable()){
+				CombHUDManager.getInstance ().ShowSkillsBtnOf (tile.getOccupant());
+			}
+		}
+	}
+
+	//Detect when Cursor leaves the GameObject
+	public void OnPointerExit(PointerEventData pointerEventData)
+	{
+		//Output the following message with the GameObject's name
+		Debug.Log("Cursor Exiting " + name + " GameObject");
+		if(tile.getOccupant() != null){
+			if(tile.getOccupant().isPlayable()){
+				CombHUDManager.getInstance ().ShowSkillsBtnOf (DungeonManager.getInstance().getInitiativeOrder()[0]);
+			}
+		}
 	}
 
 	void OnEnable(){
