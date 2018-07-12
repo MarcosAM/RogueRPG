@@ -14,7 +14,7 @@ public class ZombieBehavior : CombatBehavior {
 
 	public void ChooseSkill ()
 	{
-		choosedSkill = character.skills[Random.Range(0,character.skills.Length)];
+		choosedSkill = character.getUsableSkills()[Random.Range(0,character.getUsableSkills().Count)];
 	}
 
 	public void ChooseTarget ()

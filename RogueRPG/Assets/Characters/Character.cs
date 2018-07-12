@@ -274,6 +274,15 @@ public abstract class Character : MonoBehaviour, IComparable {
 	}
 
 	public Skill[] getSkills() {return skills;}
+	public List<Skill> getUsableSkills() {
+		List<Skill> usableSkills = new List<Skill> ();
+		for(int i=0; i<skills.Length; i++){
+			if(!skills[i].getCharactersThatCantUseMe().Contains(this)){
+				usableSkills.Add (skills[i]);
+			}
+		}
+		return usableSkills;
+	}
 	public float getHp() {return hp;}
 	public float getEnergy() {return delayCountdown;}
 	public float getMaxHp() {return maxHp;}
