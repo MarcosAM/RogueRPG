@@ -31,6 +31,8 @@ public class NonPlayableCharacter : Character {
 		skills = stats.getSkills ();
 		maxHp = stats.getHp ();
 		hp = maxHp;
+		currentStamina = 0;
+		maxStamina = stats.getStamina ();
 		characterName = stats.getName();
 		portrait = stats.getPortrait();
 //		foreach(Skill skill in skills){

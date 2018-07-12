@@ -7,7 +7,7 @@ public class CombatantHUD : MonoBehaviour {
 
 	[SerializeField]private Character combatant;
 	[SerializeField]private Slider hpBar;
-//	[SerializeField]private Slider energyBar;
+	[SerializeField]private Slider staminaBar;
 	[SerializeField]private Text hpNumbers;
 	[SerializeField]private TargetBtn targetButton;
 	[SerializeField]private Image image;
@@ -55,7 +55,7 @@ public class CombatantHUD : MonoBehaviour {
 			combatant = tile.getOccupant();
 			image.sprite = combatant.getPortrait ().sprite;
 			hpBar.gameObject.SetActive(true);
-//			energyBar.gameObject.SetActive(true);
+			staminaBar.gameObject.SetActive(true);
 			hpNumbers.gameObject.SetActive(true);
 			buffText.gameObject.SetActive (true);
 			combatant.OnHUDValuesChange += Refresh;
@@ -68,7 +68,7 @@ public class CombatantHUD : MonoBehaviour {
 			this.combatant = null;
 			image.sprite = null;
 			hpBar.gameObject.SetActive(false);
-//			energyBar.gameObject.SetActive(false);
+			staminaBar.gameObject.SetActive(false);
 			hpNumbers.gameObject.SetActive(false);
 			buffText.gameObject.SetActive (false);
 			if (targetButton != null)
@@ -95,8 +95,13 @@ public class CombatantHUD : MonoBehaviour {
 	}
 
 	public void setHpBar (float v){
-		if(v >= 0 || v <= 1)
+		if(v >= 0 && v <= 1)
 			hpBar.value = v;
+	}
+
+	public void setStaminaBar(float percentege){
+		if (percentege >= 0 && percentege <= 1)
+			staminaBar.value = percentege;
 	}
 
 	public void setHpNumbers (float hp, float maxHp){
@@ -106,6 +111,7 @@ public class CombatantHUD : MonoBehaviour {
 	public void Refresh (){
 		setHpBar (combatant.getHp () / combatant.getMaxHp ());
 		setHpNumbers (combatant.getHp (), combatant.getMaxHp ());
+		setStaminaBar (combatant.getCurrentStamina() / combatant.getMaxStamina());
 //		UpdateEnergyBar();
 	}
 

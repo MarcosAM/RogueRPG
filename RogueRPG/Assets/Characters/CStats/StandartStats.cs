@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StandartStats : ScriptableObject {
 	[SerializeField]string name;
 	[SerializeField]private int atk, atkm, def, defm, hp;
+	[SerializeField]private float stamina;
 	[SerializeField]private Skill[] skills;
 	[SerializeField]private Image portrait;
 	[SerializeField]private CombatBehavior behaviorPrefab;
@@ -17,6 +18,7 @@ public class StandartStats : ScriptableObject {
 	public int getDef() {return def;}
 	public int getDefm() {return defm;}
 	public int getHp() {return hp;}
+	public float getStamina() {return stamina;}
 	public Skill[] getSkills() {return skills;}
 	public Image getPortrait () {return portrait;}
 	public CombatBehavior getCombatBehavior (){

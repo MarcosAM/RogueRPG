@@ -35,6 +35,8 @@ public class PlayableCharacter : Character {
 		skills = stats.getSkills ();
 		maxHp = stats.getHp ();
 		hp = maxHp;
+		currentStamina = 0;
+		maxStamina = stats.getStamina ();
 //		foreach(Skill skill in skills){
 //			skill.setUser(this);
 //		}

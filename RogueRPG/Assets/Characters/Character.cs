@@ -10,6 +10,8 @@ public abstract class Character : MonoBehaviour, IComparable {
 	protected int hp;
 	protected int maxHp;
 	protected float delayCountdown = 0;
+	protected float maxStamina;
+	protected float currentStamina;
 	protected bool alive = true;
 
 	//TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
@@ -112,6 +114,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 				OnHPValuesChange (hp,damage);
 			}
 			hp -= damage;
+			currentStamina += damage;
 			if(hp<=0){
 				Die ();
 			}
@@ -295,6 +298,8 @@ public abstract class Character : MonoBehaviour, IComparable {
 	public Image getPortrait() {return portrait;}
 
 	public float getDelayCountdown(){return delayCountdown;}
+	public float getCurrentStamina(){return currentStamina;}
+	public float getMaxStamina(){return maxStamina;}
 
 	public void setName(string name){
 		this.characterName = name;
