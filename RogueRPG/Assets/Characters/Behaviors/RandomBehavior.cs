@@ -23,16 +23,18 @@ public class RandomBehavior : CombatBehavior {
 
 	public void ChooseTarget ()
 	{
-		if (Random.value < 0.8f) {
-			Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
-			int heroesAlive = 0;
+		targetTile = null;
+		Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
+		Battleground.Tile[] tempEnemiesTiles = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles ();
+		if(Random.value > 0.8f){
+			int heroesAliveAtRange = 0;
 			for (int i = 0; i < tempHeroesTiles.Length; i++) {
 				if (tempHeroesTiles [i].getOccupant () != null)
-				if (tempHeroesTiles [i].getOccupant ().isAlive ())
-					heroesAlive++;
+				if (tempHeroesTiles [i].getOccupant ().isAlive () && Mathf.Abs(i - character.getPosition()) <= choosedSkill.getPrimaryEffect().getRange())
+					heroesAliveAtRange++;
 			}
-			if (heroesAlive > 0) {
-				Battleground.Tile[] heroesTile = new Battleground.Tile[heroesAlive];
+			if (heroesAliveAtRange > 0) {
+				Battleground.Tile[] heroesTile = new Battleground.Tile[heroesAliveAtRange];
 				int c = 0;
 				for (int i = 0; i < tempHeroesTiles.Length; i++) {
 					if (tempHeroesTiles [i].getOccupant () != null)
@@ -43,16 +45,44 @@ public class RandomBehavior : CombatBehavior {
 				}
 				int r = Random.Range (0, heroesTile.Length);
 				targetTile = heroesTile [r];
-				character.getHUD ().UseSkillAnimation ();
-				//				UseSkill (heroesTile[r]);
-			} else {
-				//TODO terminar a batalha ou encontro ou dungeon wtv
-				print ("Termina essa batalha");
+				//			character.getHUD ().UseSkillAnimation ();
 			}
-		} else {
-			targetTile = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles () [character.getPosition ()];
-			character.getHUD ().UseSkillAnimation ();
 		}
+		else {
+			targetTile = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles () [character.getPosition ()];
+		}
+		if(targetTile == null){
+			int minIndex = character.getPosition () - choosedSkill.getTertiaryEffect ().getRange ();
+			if (minIndex < 0)
+				minIndex = 0;
+			int maxIndex = character.getPosition () + choosedSkill.getTertiaryEffect ().getRange ();
+			if (maxIndex >= tempHeroesTiles.Length)
+				maxIndex = tempHeroesTiles.Length - 1;
+			int direction = 1;
+			for(int i = 0;i<tempHeroesTiles.Length;i++){
+				if (Random.value > 0.5f)
+					direction *= -1;
+				if(character.getPosition() + i*direction >= 0 && character.getPosition() + i*direction <= tempHeroesTiles.Length - 1){
+					if(tempHeroesTiles[character.getPosition() + i*direction].getOccupant()){
+						targetTile = tempEnemiesTiles [character.getPosition() + i * direction];
+						if (character.getPosition () + i * direction >= minIndex && character.getPosition () + i * direction <= maxIndex) {
+							character.getHUD ().UseSkillAnimation ();
+							return;
+						}
+					}
+				}
+				if(character.getPosition() - i*direction >= 0 && character.getPosition() - i*direction <= tempHeroesTiles.Length - 1){
+					if(tempHeroesTiles[character.getPosition() - i*direction].getOccupant()){
+						targetTile = tempEnemiesTiles [character.getPosition() - i * direction];
+						if (character.getPosition () - i * direction >= minIndex && character.getPosition () - i * direction <= maxIndex) {
+							character.getHUD ().UseSkillAnimation ();
+							return;
+						}
+					}
+				}
+			}
+		}
+		character.getHUD ().UseSkillAnimation ();
 	}
 
 //	public void UseSkill (Battleground.Tile tile){
