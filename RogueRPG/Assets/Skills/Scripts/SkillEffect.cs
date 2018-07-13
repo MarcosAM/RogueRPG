@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class SkillEffect : ScriptableObject {
 
+	public enum Sources{Physical, Magic};
+
+	[SerializeField]protected Sources source;
 	[SerializeField]protected int value;
 	[SerializeField]protected float precision;
 	[SerializeField]protected float critic;
@@ -12,6 +15,7 @@ public abstract class SkillEffect : ScriptableObject {
 	[SerializeField]protected SkillAnimation animationPrefab;
 	[SerializeField]protected bool singleTarget;
 	[SerializeField]protected string effectName;
+	[SerializeField]protected bool canHitTile;
 	protected int howManyTargets;
 	protected int targetsHited;
 //	protected bool endable;
@@ -69,7 +73,11 @@ public abstract class SkillEffect : ScriptableObject {
 	}
 
 //	public virtual void UniqueEffect (Character user, Skill skill, Battleground.Tile tile) {}
+	public Sources getSource() {return source;}
+	public bool canTargetTile() {return canHitTile;}
 	public virtual void UniqueEffect (Character user, Battleground.Tile tile) {}
+	public virtual void onHitEffect (Character user, Battleground.Tile tile) {}
+	public virtual void onMissedEffect (Character user, Battleground.Tile tile) {}
 	public string getEffectName (){return effectName;}
 	public int getRange(){return range;}
 	public Skill.Types getSkillType(){return type;}

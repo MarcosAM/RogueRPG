@@ -12,6 +12,12 @@ public class SEBuff : SkillEffect {
 	public override void UniqueEffect (Character user, Battleground.Tile tile)
 	{
 		base.UniqueEffect (user, tile);
+		user.TryToHitWith (tile,this);
+	}
+
+	public override void onHitEffect (Character user, Battleground.Tile tile)
+	{
+		base.onHitEffect (user, tile);
 		if (tile.getOccupant () != null) {
 			switch (buffType) {
 			case BuffType.Critic:
@@ -38,7 +44,7 @@ public class SEBuff : SkillEffect {
 					tile.getOccupant ().CriticBuff (Stat.CRITIC_BUFF_1, duration);
 					break;
 				}
-			break;
+				break;
 			case BuffType.Dodge:
 				switch (value) {
 				case 1:
@@ -63,7 +69,7 @@ public class SEBuff : SkillEffect {
 					tile.getOccupant ().DodgeBuff (Stat.DODGE_BUFF_1, duration);
 					break;
 				}
-			break;
+				break;
 			case BuffType.Precision:
 				switch (value) {
 				case 1:
@@ -88,7 +94,7 @@ public class SEBuff : SkillEffect {
 					tile.getOccupant ().PrecisionBuff (Stat.PRECISION_BUFF_1, duration);
 					break;
 				}
-			break;
+				break;
 			case BuffType.Atk:
 				switch (value) {
 				case 1:
@@ -213,8 +219,13 @@ public class SEBuff : SkillEffect {
 					tile.getOccupant ().PrecisionBuff (Stat.PRECISION_BUFF_1, duration);
 					break;
 				}
-			break;
+				break;
 			}
 		}
+	}
+
+	public override void onMissedEffect (Character user, Battleground.Tile tile)
+	{
+		base.onMissedEffect (user, tile);
 	}
 }

@@ -14,7 +14,18 @@ public class SEAtk : SkillEffect {
 	public override void UniqueEffect (Character user, Battleground.Tile tile)
 	{
 		base.UniqueEffect (user, tile);
-		if (tile.getOccupant ())
-			user.Attack (tile.getOccupant(),value,this);
+//		if (tile.getOccupant ())
+			user.TryToHitWith (tile,this);
+	}
+
+	public override void onHitEffect (Character user, Battleground.Tile tile)
+	{
+		base.onHitEffect (user, tile);
+		user.HitWith (tile.getOccupant(),value,this);
+	}
+
+	public override void onMissedEffect (Character user, Battleground.Tile tile)
+	{
+		base.onMissedEffect (user, tile);
 	}
 }
