@@ -16,6 +16,7 @@ public abstract class SkillEffect : ScriptableObject {
 	[SerializeField]protected bool singleTarget;
 	[SerializeField]protected string effectName;
 	[SerializeField]protected bool canHitTile;
+	[SerializeField]protected string description;
 	protected int howManyTargets;
 	protected int targetsHited;
 //	protected bool endable;
@@ -73,6 +74,7 @@ public abstract class SkillEffect : ScriptableObject {
 	}
 
 //	public virtual void UniqueEffect (Character user, Skill skill, Battleground.Tile tile) {}
+	public string getDescription () {return description;}
 	public Sources getSource() {return source;}
 	public bool canTargetTile() {return canHitTile;}
 	public virtual void UniqueEffect (Character user, Battleground.Tile tile) {}

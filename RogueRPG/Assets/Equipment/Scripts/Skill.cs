@@ -236,6 +236,14 @@ public abstract class Skill : ScriptableObject {
 ////	public Character getUser() {return user;}
 //
 //	public int getValue() {return sValue;}
+	public string getMySkillEffectsDescriptions (){
+		string descriptions = "";
+		descriptions += primaryEffect.getEffectName() + ": " + primaryEffect.getDescription() + "\n";
+		descriptions += secondaryEffect.getEffectName() + ": " + secondaryEffect.getDescription() + "\n";
+		descriptions += tertiaryEffect.getEffectName() + ": " + tertiaryEffect.getDescription() + "\n";
+		return descriptions;
+	}
+	
 	public List<Character> getCharactersThatCantUseMe () {return charactersThatCantUseMe;}
 
 	public SkillEffect getPrimaryEffect() {return primaryEffect;}

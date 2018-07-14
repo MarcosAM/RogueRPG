@@ -164,7 +164,7 @@ public class CombHUDManager : MonoBehaviour {
 			CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
 			if(combatBehavior.getCharacter().isPlayable()){
 				if (combatBehavior.getChoosedSkill () != null) {
-
+					FindObjectOfType<Narration>().Appear(combatBehavior.getChoosedSkill().getMySkillEffectsDescriptions());
 				} else {
 					ShowSkillsBtnOf (targetBtn.getTile().getOccupant());
 				}
@@ -177,7 +177,7 @@ public class CombHUDManager : MonoBehaviour {
 			CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
 			if(combatBehavior.getCharacter().isPlayable()){
 				if (combatBehavior.getChoosedSkill () != null) {
-
+					FindObjectOfType<Narration>().Disappear();
 				} else {
 					ShowSkillsBtnOf (DungeonManager.getInstance().getInitiativeOrder()[0]);
 				}

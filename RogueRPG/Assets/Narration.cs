@@ -19,6 +19,11 @@ public class Narration : MonoBehaviour {
 		Appear();
 	}
 
+	public void Appear (string s){
+		text.text = s;
+		Appear();
+	}
+
 	void Appear (){
 		image.enabled = true;
 		text.enabled = true;

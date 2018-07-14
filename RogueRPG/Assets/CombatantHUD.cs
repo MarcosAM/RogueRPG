@@ -200,6 +200,12 @@ public class CombatantHUD : MonoBehaviour {
 
 	}
 
+//	public void CheckCharacterThatDied (Character character){
+//		if(this.combatant ==){
+//
+//		}
+//	}
+
 //	void OnEnable(){
 //		EventManager.OnShowTargetsOf += ShowPossibleInitiative;
 //		EventManager.OnClickedTargetBtn += RefreshInitiative;
