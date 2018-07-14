@@ -99,10 +99,16 @@ public class CombHUDManager : MonoBehaviour {
 	}
 
 	//TESTE
-	public void ShowSkillsBtnOf(Character character){
-		for(int i=0;i<skillsBtn.Length;i++){
+	public void ShowSkillsBtnOf (Character character)
+	{
+		for (int i = 0; i < skillsBtn.Length; i++) {
 			skillsBtn [i].RefreshSelf (character);
 		}
+		Character[] allCharacters = FindObjectsOfType<Character> ();
+		for (int i = 0; i < allCharacters.Length; i++) {
+			allCharacters[i].getHUD().getAnimator().SetBool ("Destaque", false);
+		}
+		character.getHUD().getAnimator().SetBool ("Destaque", true);
 	}
 
 	void MakeItASingleton(){
@@ -140,12 +146,17 @@ public class CombHUDManager : MonoBehaviour {
 		}
 	}
 
-	public void onSkillBtnHoverEnter(SkillBtn skillBtn){
+	public void onSkillBtnHoverEnter (SkillBtn skillBtn)
+	{
 		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
 		if (combatBehavior.getChoosedSkill () != null) {
 			
 		} else {
-			ShowTargetBtns (combatBehavior.getCharacter(),skillBtn.getSkill());
+			if (skillBtn.getSkill ().getCharactersThatCantUseMe ().Contains (combatBehavior.getCharacter ())) {
+
+			} else {
+				ShowTargetBtns (combatBehavior.getCharacter(),skillBtn.getSkill());
+			}
 		}
 	}
 
@@ -166,7 +177,10 @@ public class CombHUDManager : MonoBehaviour {
 				if (combatBehavior.getChoosedSkill () != null) {
 					FindObjectOfType<Narration>().Appear(combatBehavior.getChoosedSkill().getMySkillEffectsDescriptions());
 				} else {
-					ShowSkillsBtnOf (targetBtn.getTile().getOccupant());
+					if(targetBtn.getTile().getOccupant() != null){
+						if(targetBtn.getTile().getOccupant().isPlayable())
+							ShowSkillsBtnOf (targetBtn.getTile().getOccupant());
+					}
 				}
 			}
 		}
@@ -179,7 +193,10 @@ public class CombHUDManager : MonoBehaviour {
 				if (combatBehavior.getChoosedSkill () != null) {
 					FindObjectOfType<Narration>().Disappear();
 				} else {
-					ShowSkillsBtnOf (DungeonManager.getInstance().getInitiativeOrder()[0]);
+					if(targetBtn.getTile().getOccupant() != null){
+						if(targetBtn.getTile().getOccupant().isPlayable())
+							ShowSkillsBtnOf (DungeonManager.getInstance().getInitiativeOrder()[0]);
+					}
 				}
 			}
 		}

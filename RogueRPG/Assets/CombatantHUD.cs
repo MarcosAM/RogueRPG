@@ -11,6 +11,7 @@ public class CombatantHUD : MonoBehaviour {
 	[SerializeField]private Text hpNumbers;
 	[SerializeField]private TargetBtn targetButton;
 	[SerializeField]private Image image;
+//	[SerializeField]private Image emptyImage;
 	[SerializeField]private Text buffText;
 	[SerializeField]private DamageFB damageFbPrefab;
 	[SerializeField]private Text initiative;
@@ -20,6 +21,7 @@ public class CombatantHUD : MonoBehaviour {
 
 	void Awake(){
 		image = GetComponentInChildren<Image> ();
+//		image.sprite = emptyImage.sprite;
 		rectTransform = GetComponent<RectTransform> ();
 		animator = GetComponent<Animator> ();
 	}
@@ -55,7 +57,7 @@ public class CombatantHUD : MonoBehaviour {
 			combatant = tile.getOccupant();
 			image.sprite = combatant.getPortrait ().sprite;
 			hpBar.gameObject.SetActive(true);
-			staminaBar.gameObject.SetActive(true);
+//			staminaBar.gameObject.SetActive(true);
 			hpNumbers.gameObject.SetActive(true);
 			buffText.gameObject.SetActive (true);
 			combatant.OnHUDValuesChange += Refresh;
@@ -67,6 +69,7 @@ public class CombatantHUD : MonoBehaviour {
 		} else {
 			this.combatant = null;
 			image.sprite = null;
+//			image.sprite = emptyImage.sprite;
 			hpBar.gameObject.SetActive(false);
 			staminaBar.gameObject.SetActive(false);
 			hpNumbers.gameObject.SetActive(false);
@@ -99,10 +102,10 @@ public class CombatantHUD : MonoBehaviour {
 			hpBar.value = v;
 	}
 
-	public void setStaminaBar(float percentege){
-		if (percentege >= 0 && percentege <= 1)
-			staminaBar.value = percentege;
-	}
+//	public void setStaminaBar(float percentege){
+//		if (percentege >= 0 && percentege <= 1)
+//			staminaBar.value = percentege;
+//	}
 
 	public void setHpNumbers (float hp, float maxHp){
 		hpNumbers.text = hp +"/"+maxHp;
@@ -111,7 +114,7 @@ public class CombatantHUD : MonoBehaviour {
 	public void Refresh (){
 		setHpBar (combatant.getHp () / combatant.getMaxHp ());
 		setHpNumbers (combatant.getHp (), combatant.getMaxHp ());
-		setStaminaBar (combatant.getCurrentStamina() / combatant.getMaxStamina());
+//		setStaminaBar (combatant.getCurrentStamina() / combatant.getMaxStamina());
 //		UpdateEnergyBar();
 	}
 
