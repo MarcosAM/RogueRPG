@@ -5,3 +5,7 @@ using UnityEngine;
 public interface IPlaySkillAnimation{
 	void PlayAnimation (Skill skill, Battleground.Tile tile);
 }
+
+public interface IWaitForAnimation{
+	void resumeFromAnimation();
+}

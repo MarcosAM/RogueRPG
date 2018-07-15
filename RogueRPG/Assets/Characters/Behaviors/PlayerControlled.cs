@@ -24,7 +24,7 @@ public class PlayerControlled : CombatBehavior {
 				CombHUDManager.getInstance ().ShowTargetBtns (character, choosedSkill);
 			} else {
 				CombHUDManager.getInstance().HideTargetBtns();
-				UseSkill();
+				UseSkillAnimation();
 			}
 		}
 	}
@@ -73,9 +73,15 @@ public class PlayerControlled : CombatBehavior {
 	}
 
 	public void ReadyTarget (Battleground.Tile tile){
-		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
-		EventManager.OnUnchoosedSkill -= UnchooseSkill;
+//		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
+//		EventManager.OnUnchoosedSkill -= UnchooseSkill;
 		this.targetTile = tile;
+		character.getHUD().UseSkillAnimation();
+	}
+
+	public void UseSkillAnimation (){
+//		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
+//		EventManager.OnUnchoosedSkill -= UnchooseSkill;
 		character.getHUD().UseSkillAnimation();
 	}
 
