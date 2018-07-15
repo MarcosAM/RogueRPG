@@ -24,7 +24,6 @@ public class DungeonManager : MonoBehaviour {
 			pc.setStats(gameManager.getHeroesStats()[i]);
 			pc.setName(gameManager.getHeroesNames()[i]);
 			pcs.Add(pc);
-			print("criei");
 		}
 		battleground.ClearAndSetASide (pcs);
 		battleground.ClearAndSetASide (gameManager.getEnemiesAtFloor(dungeonFloor));

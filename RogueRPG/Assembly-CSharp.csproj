@@ -90,6 +90,7 @@
      <Compile Include="Assets\Skills\Scripts\SEAtk.cs" />
      <Compile Include="Assets\Skills\Scripts\SEAtkm.cs" />
      <Compile Include="Assets\Skills\Scripts\SEBuff.cs" />
+     <Compile Include="Assets\Skills\Scripts\SEEscudada.cs" />
      <Compile Include="Assets\Skills\Scripts\SEHeal.cs" />
      <Compile Include="Assets\Skills\Scripts\SEMove.cs" />
      <Compile Include="Assets\Skills\Scripts\SkillEffect.cs" />
