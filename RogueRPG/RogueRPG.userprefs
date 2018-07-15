@@ -1,18 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\Behaviors\PlayerControlled.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Characters\PlayableCharacter.cs">
     <Files>
-      <File FileName="Assets\Characters\Behaviors\PlayerControlled.cs" Line="27" Column="25" />
-      <File FileName="Assets\Characters\Behaviors\CombatBehavior.cs" Line="1" Column="1" />
-      <File FileName="Assets\CombHUDManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\SkillBtn.cs" Line="1" Column="1" />
-      <File FileName="Assets\TargetBtn.cs" Line="1" Column="1" />
-      <File FileName="Assets\Equipment\Scripts\Skill.cs" Line="25" Column="1" />
-      <File FileName="Assets\Skills\Scripts\SkillEffect.cs" Line="25" Column="1" />
-      <File FileName="Assets\Characters\Behaviors\ArcherBehavior.cs" Line="74" Column="3" />
-      <File FileName="Assets\CombatantHUD.cs" Line="163" Column="2" />
-      <File FileName="Assets\Intefaces.cs" Line="10" Column="29" />
-      <File FileName="Assets\SkillsAnimation\SkillAnimation.cs" Line="27" Column="3" />
+      <File FileName="Assets\Logic\DungeonManager.cs" Line="27" Column="19" />
+      <File FileName="Assets\BattlesTest\GameManager.cs" Line="48" Column="20" />
+      <File FileName="Assets\CombHUDManager.cs" Line="109" Column="1" />
+      <File FileName="Assets\Characters\PlayableCharacter.cs" Line="25" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

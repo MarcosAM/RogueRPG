@@ -12,12 +12,21 @@ public class DungeonManager : MonoBehaviour {
 	int round;
 	int dungeonFloor=0;
 	Battleground battleground;
+	[SerializeField]Character characterPrefab;
 
 	void Start (){
 		MakeItASingleton();
 		battleground = GetComponent<Battleground> ();
 		GameManager gameManager = GameManager.getInstance ();
-		battleground.ClearAndSetASide (gameManager.getPlayerCharacters ());
+		List<Character> pcs = new List<Character>();
+		for(int i = 0;i<gameManager.getHeroesStats().Count;i++){
+			Character pc = Instantiate(characterPrefab);
+			pc.setStats(gameManager.getHeroesStats()[i]);
+			pc.setName(gameManager.getHeroesNames()[i]);
+			pcs.Add(pc);
+			print("criei");
+		}
+		battleground.ClearAndSetASide (pcs);
 		battleground.ClearAndSetASide (gameManager.getEnemiesAtFloor(dungeonFloor));
 		foreach (Character hero in battleground.getHeroSide()) {
 			if(hero!=null)

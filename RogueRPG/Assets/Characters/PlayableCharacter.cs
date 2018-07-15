@@ -22,7 +22,7 @@ public class PlayableCharacter : Character {
 //		combatBehavior.setCharacter (this);
 		playable = true;
 //		DontDestroyOnLoad (transform.parent.gameObject);
-		DontDestroyOnLoad (gameObject);
+//		DontDestroyOnLoad (gameObject);
 	}
 
 	protected override void FillStats ()

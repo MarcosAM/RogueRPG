@@ -11,22 +11,21 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]Character pcPrefab;
 	[SerializeField]StandartStats pcGuerreiroStats;
 	[SerializeField]StandartStats pcMagoStats;
+	[SerializeField]List<StandartStats> pcStats;
+	[SerializeField]List<string> pcNames;
 
 	void Awake(){
 		MakeItASingleton();
 
 //		TODO Fill with players. Depois pensar em como fazer isso de maneira mais eficiente.
-//		Character pc1 = Instantiate(pcPrefab);
-//		pc1.setStats
-		playerCharacters.Add (Instantiate(pcPrefab));
-		playerCharacters.Add (Instantiate(pcPrefab));
-//		foreach (Character pc in playerCharacters) {
-//			pc.setStats (pcGuerreiroStats);
-//		}
-		playerCharacters[0].setStats(pcGuerreiroStats);
-		playerCharacters [1].setStats (pcMagoStats);
-		playerCharacters [0].setName ("Dante");
-		playerCharacters [1].setName ("Roxas");
+
+//		playerCharacters.Add (Instantiate(pcPrefab));
+//		playerCharacters.Add (Instantiate(pcPrefab));
+//		playerCharacters[0].setStats(pcGuerreiroStats);
+//		playerCharacters [1].setStats (pcMagoStats);
+//		playerCharacters [0].setName ("Dante");
+//		playerCharacters [1].setName ("Roxas");
+
 		DontDestroyOnLoad (this);
 	}
 
@@ -45,6 +44,8 @@ public class GameManager : MonoBehaviour {
 
 	public List<Character> getEnemiesAtFloor(int floor){return selectedQuest.getCurrentDungeon ().getBattleGroups () [floor].getEnemies ();}
 	public List<Character> getEnemiesDelayedAtFloor (int floor){return selectedQuest.getCurrentDungeon().getBattleGroups()[floor].getEnemiesDelayed();}
+	public List<StandartStats> getHeroesStats (){return pcStats;}
+	public List<string> getHeroesNames (){return pcNames;}
 	public Quest getSelectedQuest(){return selectedQuest;}
 	public static GameManager getInstance(){return instance;}
 	public List<Character> getPlayerCharacters(){return playerCharacters;}
