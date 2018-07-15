@@ -131,6 +131,8 @@ public abstract class Character : MonoBehaviour, IComparable {
 			skillEffect.onHitEffect (this, target);
 		} else {
 			skillEffect.onMissedEffect (this, target);
+			if(target.getOccupant() != null)
+				target.getOccupant().getHUD().getAnimator().SetTrigger("Dodge");
 		}
 	}
 
