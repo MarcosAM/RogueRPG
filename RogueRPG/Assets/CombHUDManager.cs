@@ -111,6 +111,13 @@ public class CombHUDManager : MonoBehaviour {
 		character.getHUD().getAnimator().SetBool ("Destaque", true);
 	}
 
+	public void HideSkillsBtn ()
+	{
+		for (int i = 0; i < skillsBtn.Length; i++) {
+			skillsBtn [i].Disappear ();
+		}
+	}
+
 	void MakeItASingleton(){
 		if (instance == null) {
 			instance = this;
@@ -144,6 +151,16 @@ public class CombHUDManager : MonoBehaviour {
 		for(int i=0; i<enemiesCombatantHUD.Length; i++){
 			enemiesCombatantHUD [i].HideTargetBtn ();
 		}
+	}
+
+	public void onSkillBtnPressed (SkillBtn skillBtn){
+		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
+		combatBehavior.skillBtnPressed(skillBtn.number);
+	}
+
+	public void onTargetBtnPressed (Battleground.Tile targetTile){
+		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
+		combatBehavior.targetBtnPressed(targetTile);
 	}
 
 	public void onSkillBtnHoverEnter (SkillBtn skillBtn)

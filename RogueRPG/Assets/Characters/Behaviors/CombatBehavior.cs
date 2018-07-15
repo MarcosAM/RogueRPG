@@ -10,6 +10,8 @@ public class CombatBehavior : MonoBehaviour {
 
 	public virtual void StartTurn(){}
 	public virtual void UseSkill(){}
+	public virtual void skillBtnPressed (int skillIndex){}
+	public virtual void targetBtnPressed (Battleground.Tile targetTile){}
 
 	public void setCharacter(Character character) {this.character = character;}
 	public Character getCharacter() {return character;}

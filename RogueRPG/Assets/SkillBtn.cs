@@ -13,7 +13,7 @@ public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		button = GetComponent<Button> ();
 		text = GetComponentInChildren<Text>();
 		Disappear();
-		button.onClick.AddListener (ChooseSkill);
+		button.onClick.AddListener (onClick);
 	}
 
 	public void RefreshSelf (Character c)
@@ -26,6 +26,10 @@ public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		} else {
 			Appear ();
 		}
+	}
+
+	void onClick (){
+		CombHUDManager.getInstance().onSkillBtnPressed(this);
 	}
 
 	void ChooseSkill(){

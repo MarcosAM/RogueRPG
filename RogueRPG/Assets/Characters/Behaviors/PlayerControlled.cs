@@ -8,12 +8,44 @@ public class PlayerControlled : CombatBehavior {
 	{
 		base.StartTurn ();
 		character.StartTurn();
-		ChooseSkill ();
+		choosedSkill = null;
+		targetTile = null;
+		checkForNextStep();
+//		ChooseSkill ();
+	}
+
+	public void checkForNextStep ()
+	{
+		if (choosedSkill == null) {
+			CombHUDManager.getInstance ().ShowSkillsBtnOf (character);
+		} else {
+			CombHUDManager.getInstance ().HideSkillsBtn ();
+			if (targetTile == null) {
+				CombHUDManager.getInstance ().ShowTargetBtns (character, choosedSkill);
+			} else {
+				CombHUDManager.getInstance().HideTargetBtns();
+				UseSkill();
+			}
+		}
+	}
+
+	public override void skillBtnPressed (int skillIndex)
+	{
+		base.skillBtnPressed (skillIndex);
+		choosedSkill = character.getSkills()[skillIndex];
+		checkForNextStep();
+	}
+
+	public override void targetBtnPressed (Battleground.Tile targetTile)
+	{
+		base.targetBtnPressed (targetTile);
+		this.targetTile = targetTile;
+		checkForNextStep();
 	}
 
 	public void ChooseSkill ()
 	{
-		print (character.getName() + " veja suas skills!");
+//		print (character.getName() + " veja suas skills!");
 		EventManager.OnPlayerChoosedSkill += ReadySkill;
 		CombHUDManager.getInstance().ShowSkillsBtnOf(character);
 	}

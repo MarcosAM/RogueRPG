@@ -14,7 +14,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		button = GetComponent<Button> ();
 		text = GetComponentInChildren<Text>();
 		Disappear ();
-		button.onClick.AddListener (ChooseTarget);
+		button.onClick.AddListener (onClick);
 	}
 
 	void ChooseTarget(){
@@ -93,6 +93,10 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 //			}
 //		}
 //	}
+
+	void onClick (){
+		CombHUDManager.getInstance().onTargetBtnPressed(tile);
+	}
 
 	public void Appear (Character user, Skill skill)
 	{
