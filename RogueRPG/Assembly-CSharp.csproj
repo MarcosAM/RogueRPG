@@ -80,6 +80,7 @@
      <Compile Include="Assets\Equipment\Scripts\CriticBuffSkill.cs" />
      <Compile Include="Assets\Equipment\Scripts\HealSkill.cs" />
      <Compile Include="Assets\Equipment\Scripts\Skill.cs" />
+     <Compile Include="Assets\GameOverUI.cs" />
      <Compile Include="Assets\ICombatDisplayer.cs" />
      <Compile Include="Assets\Intefaces.cs" />
      <Compile Include="Assets\Logic\DungeonManager.cs" />
@@ -93,6 +94,7 @@
      <Compile Include="Assets\Skills\Scripts\SEMove.cs" />
      <Compile Include="Assets\Skills\Scripts\SkillEffect.cs" />
      <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
+     <Compile Include="Assets\StartUI.cs" />
      <Compile Include="Assets\TargetBtn.cs" />
      <Compile Include="Assets\UndoBtn.cs" />
  <Reference Include="UnityEngine.UI">
