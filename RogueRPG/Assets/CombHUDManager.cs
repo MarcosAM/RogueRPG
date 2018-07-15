@@ -19,7 +19,7 @@ public class CombHUDManager : MonoBehaviour {
 
 	public void Awake(){
 		MakeItASingleton ();
-		DontDestroyOnLoad (this.gameObject);
+//		DontDestroyOnLoad (this.gameObject);
 		CreateCombatantHUDs ();
 	}
 

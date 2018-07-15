@@ -85,37 +85,19 @@ public class DungeonManager : MonoBehaviour {
 	}
 
 	void NextTurn(){
-		if(DidOnePartyLost()){
+		if(DidOnePartyLost() > 0){
 			EndBattleAndCheckIfDungeonEnded ();
-		} else if(initiativeOrder.Count>0){
-//			initiativeOrder.RemoveAt(0);
-//			round++;
-//			for(int i=1;i<initiativeOrder.Count;i++){
-//				initiativeOrder [i].RecoverFromDelayBy (1);
-//			}
-
-//			for(int i=1;i<initiativeOrder.Count;i++){
-//				initiativeOrder [i].RecoverFromDelayBy (1);
-//			}
-//
-//			for(int i=1; i<initiativeOrder.Count; i++){
-//				if(initiativeOrder[0].CompareTo(initiativeOrder[i]) > 0){
-//					initiativeOrder.Insert (i-1,initiativeOrder[0]);
-//					initiativeOrder.RemoveAt (0);
-//					break;
-//				}
-//				if (initiativeOrder [0].CompareTo (initiativeOrder [i]) <= 0 && i == (initiativeOrder.Count - 1)) {
-//					initiativeOrder.Add (initiativeOrder[0]);
-//					initiativeOrder.RemoveAt (0);
-//					break;
-//				}
-//			}
-//			initiativeOrder.Sort();
-//			initiativeOrder.Reverse ();
-			AdvanceInitiative(initiativeOrder);
-			CombHUDManager.getInstance().RefreshInitiativeHUD();
-			round++;
-			TryToStartTurn ();
+		}
+		if(DidOnePartyLost() == 0){
+			if(initiativeOrder.Count>0){
+				AdvanceInitiative(initiativeOrder);
+				CombHUDManager.getInstance().RefreshInitiativeHUD();
+				round++;
+				TryToStartTurn ();
+			}
+		}
+		if(DidOnePartyLost() < 0){
+			SceneManager.LoadScene (3);
 		}
 	}
 
@@ -171,7 +153,7 @@ public class DungeonManager : MonoBehaviour {
 		}
 	}
 
-	bool DidOnePartyLost(){
+	int DidOnePartyLost(){
 		int countdown = 0;
 		for(int i = 0;i<battleground.getHeroSide().Count;i++){
 			if(battleground.getHeroSide()[i] != null){
@@ -181,7 +163,7 @@ public class DungeonManager : MonoBehaviour {
 			}
 		}
 		if(countdown==battleground.HowManyHeroes()){
-			return true;
+			return -1;
 		}
 		countdown = 0;
 		for(int i = 0;i<battleground.getEnemySide().Count;i++){
@@ -192,9 +174,9 @@ public class DungeonManager : MonoBehaviour {
 			}
 		}
 		if(countdown==battleground.HowManyEnemies()){
-			return true;
+			return 1;
 		}
-		return false;
+		return 0;
 	}
 
 	void MakeItASingleton(){
