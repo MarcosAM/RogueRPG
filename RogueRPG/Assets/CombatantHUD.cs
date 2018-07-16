@@ -49,9 +49,13 @@ public class CombatantHUD : MonoBehaviour {
 	public void Initialize(Battleground.Tile tile){
 		if (tile.isFromHero ()) {
 //			portraitHandler.rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
+//			rectTransform.anchorMax = new Vector2(0.5f,0f);
+//			rectTransform.anchorMin = new Vector2(0.5f,0f);
 		} else {
 			portraitHandler.rotation = Quaternion.Euler (new Vector3 (0, 0, 180));
 			image.rectTransform.localScale = new Vector3 (1,-1,1);
+//			rectTransform.anchorMax = new Vector2(0.5f,1f);
+//			rectTransform.anchorMin = new Vector2(0.5f,1f);
 		}
 		if(tile.getOccupant() != null){
 			combatant = tile.getOccupant();

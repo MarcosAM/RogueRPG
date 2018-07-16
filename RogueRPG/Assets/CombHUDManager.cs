@@ -7,8 +7,8 @@ public class CombHUDManager : MonoBehaviour {
 
 	[SerializeField]CombatantHUD combatantHUDprefab;
 
-	CombatantHUD[] heroesCombatantHUD = new CombatantHUD[4];
-	CombatantHUD[] enemiesCombatantHUD = new CombatantHUD[4];
+	[SerializeField]CombatantHUD[] heroesCombatantHUD = new CombatantHUD[4];
+	[SerializeField]CombatantHUD[] enemiesCombatantHUD = new CombatantHUD[4];
 
 	[SerializeField] private Vector2[] heroesPositions = new Vector2[4];
 	[SerializeField] private Vector2[] enemiesPositions = new Vector2[4];
@@ -20,7 +20,7 @@ public class CombHUDManager : MonoBehaviour {
 	public void Awake(){
 		MakeItASingleton ();
 //		DontDestroyOnLoad (this.gameObject);
-		CreateCombatantHUDs ();
+//		CreateCombatantHUDs ();
 	}
 
 	public void CreateCombatantHUDs(){
