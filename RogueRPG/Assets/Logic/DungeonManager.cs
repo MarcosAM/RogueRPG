@@ -95,6 +95,7 @@ public class DungeonManager : MonoBehaviour {
 	void NextTurn(){
 		if(DidOnePartyLost() > 0){
 			EndBattleAndCheckIfDungeonEnded ();
+			return;
 		}
 		if(DidOnePartyLost() == 0){
 			if(initiativeOrder.Count>0){
@@ -102,10 +103,12 @@ public class DungeonManager : MonoBehaviour {
 				CombHUDManager.getInstance().RefreshInitiativeHUD();
 				round++;
 				TryToStartTurn ();
+				return;
 			}
 		}
 		if(DidOnePartyLost() < 0){
 			SceneManager.LoadScene (3);
+			return;
 		}
 	}
 
@@ -144,6 +147,7 @@ public class DungeonManager : MonoBehaviour {
 		dungeonFloor++;
 		GameManager gameManager = GameManager.getInstance ();
 		if (dungeonFloor < gameManager.getSelectedQuest ().getCurrentDungeon ().getBattleGroups ().Count) {
+			AdvanceInitiative(initiativeOrder);
 //			battleground.ClearAndSetASide (gameManager.getEnemiesDelayedAtFloor(dungeonFloor));
 			battleground.ClearAndSetASide (gameManager.getEnemiesAtFloor(dungeonFloor));
 			battleground.ShowCharactersToThePlayer ();
@@ -152,7 +156,7 @@ public class DungeonManager : MonoBehaviour {
 					initiativeOrder.Add (character);
 			}
 //			initiativeOrder.RemoveAt(0);
-			AdvanceInitiative(initiativeOrder);
+//			AdvanceInitiative(initiativeOrder);
 			CombHUDManager.getInstance().RefreshInitiativeHUD();
 			round ++;
 			TryToStartTurn ();

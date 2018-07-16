@@ -42,15 +42,21 @@ public class ArcherBehavior : CombatBehavior {
 			int currentDistance = 0;
 			int leftIndex = 0;
 			int rightIndex = 0;
+			int minIndex = character.getPosition () - choosedSkill.getAlliesEffect ().getRange ();
+			if(minIndex < 0)
+				minIndex = 0;
+			int maxIndex = character.getPosition () + choosedSkill.getAlliesEffect ().getRange ();
+			if (maxIndex >= tempEnemiesTiles.Length)
+				maxIndex = tempEnemiesTiles.Length - 1;
 			for (int i = 0; i < tempEnemiesTiles.Length; i++) {
 				currentDistance = 0;
 				for (int j = 0; j < tempHeroesTiles.Length; j++) {
 					leftIndex = i - j;
-					if (leftIndex < 0)
+					if (leftIndex < minIndex)
 						leftIndex = 0;
 					rightIndex = i + j;
-					if (rightIndex >= tempHeroesTiles.Length)
-						rightIndex = tempHeroesTiles.Length - 1;
+					if (rightIndex > maxIndex)
+						rightIndex = maxIndex;
 					if (tempHeroesTiles [leftIndex].getOccupant () != null || tempHeroesTiles [rightIndex].getOccupant () != null) {
 						break;
 					} else {
