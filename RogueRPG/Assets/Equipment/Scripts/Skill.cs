@@ -20,9 +20,10 @@ public abstract class Skill : ScriptableObject {
 //	[SerializeField]protected SkillAnimation sAnimationPrefab;
 //	[SerializeField]protected bool sSingleTarget;
 //	[SerializeField]protected Targets sTargets;
-	[SerializeField]protected SkillEffect primaryEffect;
-	[SerializeField]protected SkillEffect secondaryEffect;
-	[SerializeField]protected SkillEffect tertiaryEffect;
+	[SerializeField]protected SkillEffect meleeEffect;
+	[SerializeField]protected SkillEffect rangedEffect;
+	[SerializeField]protected SkillEffect selfEffect;
+	[SerializeField]protected SkillEffect alliesEffect;
 //	protected int howManyTargets;
 //	protected int targetsHited;
 //	protected bool endable;
@@ -37,29 +38,34 @@ public abstract class Skill : ScriptableObject {
 //			EffectAnimation (tile);
 			//TODO a habilidade paia que é utilizada quando não tem o que soltar
 			if (user.isPlayable() != tile.isFromHero ()) {
-				if (user.isPlayable () != tile.getOccupant ().isPlayable () && primaryEffect != null) {
-					primaryEffect.Effect (user, tile);
-//					Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito primário!");
-					return;
+				if (user.isPlayable () != tile.getOccupant ().isPlayable ()) {
+					if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= meleeEffect.getRange ()) {
+						meleeEffect.Effect (user, tile);
+						//					Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito primário!");
+						return;
+					} else {
+						rangedEffect.Effect (user, tile);
+						return;
+					}
 				}
 			} else {
 				if (tile.getOccupant () != null) {
 					if (user == tile.getOccupant ()) {
-						if (secondaryEffect != null) {
-							secondaryEffect.Effect (user, tile);
+						if (selfEffect != null) {
+							selfEffect.Effect (user, tile);
 //							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito secundário!");
 							return;
 						}
 					} else {
-						if (tertiaryEffect != null) {
-							tertiaryEffect.Effect (user, tile);
+						if (alliesEffect != null) {
+							alliesEffect.Effect (user, tile);
 //							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
 							return;
 						}
 					}
 				} else {
-					if (tertiaryEffect != null) {
-						tertiaryEffect.Effect (user, tile);
+					if (alliesEffect != null) {
+						alliesEffect.Effect (user, tile);
 //						Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
 						return;
 					}
@@ -238,17 +244,18 @@ public abstract class Skill : ScriptableObject {
 //	public int getValue() {return sValue;}
 	public string getMySkillEffectsDescriptions (){
 		string descriptions = "";
-		descriptions += primaryEffect.getEffectName() + ": " + primaryEffect.getDescription() + "\n";
-		descriptions += secondaryEffect.getEffectName() + ": " + secondaryEffect.getDescription() + "\n";
-		descriptions += tertiaryEffect.getEffectName() + ": " + tertiaryEffect.getDescription() + "\n";
+		descriptions += meleeEffect.getEffectName() + ": " + meleeEffect.getDescription() + "\n";
+		descriptions += selfEffect.getEffectName() + ": " + selfEffect.getDescription() + "\n";
+		descriptions += alliesEffect.getEffectName() + ": " + alliesEffect.getDescription() + "\n";
 		return descriptions;
 	}
 	
 	public List<Character> getCharactersThatCantUseMe () {return charactersThatCantUseMe;}
 
-	public SkillEffect getPrimaryEffect() {return primaryEffect;}
-	public SkillEffect getSecondaryEffect() {return secondaryEffect;}
-	public SkillEffect getTertiaryEffect() {return tertiaryEffect;}
+	public SkillEffect getMeleeEffect() {return meleeEffect;}
+	public SkillEffect getSelfEffect() {return selfEffect;}
+	public SkillEffect getRangedEffect() {return rangedEffect;}
+	public SkillEffect getAlliesEffect() {return alliesEffect;}
 }
 
 //			List<Character> myTargets = new List<Character>();

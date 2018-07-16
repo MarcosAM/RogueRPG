@@ -146,60 +146,79 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		if (tile.getOccupant () != null) {
 			if (user.isPlayable () == tile.isFromHero ()) {
 				if (user == tile.getOccupant ()) {
-					if (skill.getSecondaryEffect () != null) {
+					if (skill.getSelfEffect () != null) {
 						text.color = Color.blue;
 //						button.interactable = true;
 						ColorBlock cb = button.colors;
 						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
 						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 						button.colors = cb;
-						text.text = skill.getSecondaryEffect ().getEffectName ();
+						text.text = skill.getSelfEffect ().getEffectName ();
 					}
 				} else {
-					if(skill.getTertiaryEffect() != null){
-						if(Mathf.Abs (tile.getIndex() - user.getPosition ()) <= skill.getTertiaryEffect().getRange ()){
+					if(skill.getAlliesEffect() != null){
+						if(Mathf.Abs (tile.getIndex() - user.getPosition ()) <= skill.getAlliesEffect().getRange ()){
 //							button.interactable = true;
 							ColorBlock cb = button.colors;
 							cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
 							cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 							button.colors = cb;
-							text.text = skill.getTertiaryEffect ().getEffectName ();
+							text.text = skill.getAlliesEffect ().getEffectName ();
 						}
 					}
 				}
 			} else {
-				if (skill.getPrimaryEffect ().getSkillType() == Skill.Types.Ranged) {
-					if(tile.getOccupant().isAlive()){
-//						button.interactable = true;
+				if(tile.getOccupant ().isAlive ()){
+					if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getMeleeEffect ().getRange ()) {
+						button.interactable = true;
 						ColorBlock cb = button.colors;
 						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
 						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 						button.colors = cb;
-						text.text = skill.getPrimaryEffect ().getEffectName ();
-						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getPrimaryEffect())*100 + "%";
-					}
-				} else {
-					if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getPrimaryEffect().getRange () && tile.getOccupant().isAlive()) {
-//						button.interactable = true;
+						text.text = skill.getMeleeEffect ().getEffectName ();
+						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getMeleeEffect())*100 + "%";
+					} else {
+						button.interactable = true;
 						ColorBlock cb = button.colors;
 						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
 						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 						button.colors = cb;
-						text.text = skill.getPrimaryEffect ().getEffectName ();
-						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getPrimaryEffect())*100 + "%";
+						text.text = skill.getRangedEffect ().getEffectName ();
+						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getRangedEffect())*100 + "%";
 					}
 				}
+//				if (skill.getMeleeEffect ().getSkillType() == Skill.Types.Ranged) {
+//					if(tile.getOccupant().isAlive()){
+////						button.interactable = true;
+//						ColorBlock cb = button.colors;
+//						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
+//						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
+//						button.colors = cb;
+//						text.text = skill.getMeleeEffect ().getEffectName ();
+//						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getMeleeEffect())*100 + "%";
+//					}
+//				} else {
+//					if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getMeleeEffect().getRange () && tile.getOccupant().isAlive()) {
+////						button.interactable = true;
+//						ColorBlock cb = button.colors;
+//						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
+//						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
+//						button.colors = cb;
+//						text.text = skill.getMeleeEffect ().getEffectName ();
+//						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getMeleeEffect())*100 + "%";
+//					}
+//				}
 			}
 		} else {
 			if(user.isPlayable() == tile.isFromHero()){
-				if(skill.getTertiaryEffect() != null){
-					if(Mathf.Abs (tile.getIndex() - user.getPosition ()) <= skill.getTertiaryEffect().getRange ()){
+				if(skill.getAlliesEffect() != null){
+					if(Mathf.Abs (tile.getIndex() - user.getPosition ()) <= skill.getAlliesEffect().getRange ()){
 //						button.interactable = true;
 						ColorBlock cb = button.colors;
 						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
 						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 						button.colors = cb;
-						text.text = skill.getTertiaryEffect ().getEffectName ();
+						text.text = skill.getAlliesEffect ().getEffectName ();
 					}
 				}
 			}else{

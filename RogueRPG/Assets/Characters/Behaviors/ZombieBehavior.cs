@@ -22,10 +22,10 @@ public class ZombieBehavior : CombatBehavior {
 		Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
 		Battleground.Tile[] tempEnemiesTiles = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles ();
 
-		int maxIndex = character.getPosition() + choosedSkill.getPrimaryEffect().getRange();
+		int maxIndex = character.getPosition() + choosedSkill.getMeleeEffect().getRange();
 		if (maxIndex >= tempHeroesTiles.Length)
 			maxIndex = tempHeroesTiles.Length - 1;
-		int minIndex = character.getPosition () - choosedSkill.getPrimaryEffect().getRange ();
+		int minIndex = character.getPosition () - choosedSkill.getMeleeEffect().getRange ();
 		if (minIndex < 0)
 			minIndex = 0;
 

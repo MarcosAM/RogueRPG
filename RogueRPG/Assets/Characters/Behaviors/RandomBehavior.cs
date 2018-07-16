@@ -30,7 +30,7 @@ public class RandomBehavior : CombatBehavior {
 			int heroesAliveAtRange = 0;
 			for (int i = 0; i < tempHeroesTiles.Length; i++) {
 				if (tempHeroesTiles [i].getOccupant () != null)
-				if (tempHeroesTiles [i].getOccupant ().isAlive () && Mathf.Abs(i - character.getPosition()) <= choosedSkill.getPrimaryEffect().getRange())
+				if (tempHeroesTiles [i].getOccupant ().isAlive () && Mathf.Abs(i - character.getPosition()) <= choosedSkill.getMeleeEffect().getRange())
 					heroesAliveAtRange++;
 			}
 			if (heroesAliveAtRange > 0) {
@@ -52,10 +52,10 @@ public class RandomBehavior : CombatBehavior {
 			targetTile = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles () [character.getPosition ()];
 		}
 		if(targetTile == null){
-			int minIndex = character.getPosition () - choosedSkill.getTertiaryEffect ().getRange ();
+			int minIndex = character.getPosition () - choosedSkill.getAlliesEffect ().getRange ();
 			if (minIndex < 0)
 				minIndex = 0;
-			int maxIndex = character.getPosition () + choosedSkill.getTertiaryEffect ().getRange ();
+			int maxIndex = character.getPosition () + choosedSkill.getAlliesEffect ().getRange ();
 			if (maxIndex >= tempHeroesTiles.Length)
 				maxIndex = tempHeroesTiles.Length - 1;
 			int direction = 1;
