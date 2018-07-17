@@ -23,16 +23,16 @@ public class MomentumBar : MonoBehaviour {
 		}
 	}
 
-	void Update(){
-		if(Input.GetMouseButtonUp(0)){
-			print ("Aumenta!");
-			addMomentum (10);
-		}
-		if (Input.GetMouseButtonUp (1)) {
-			print ("Diminui!");
-			addMomentum (-10);
-		}
-	}
+//	void Update(){
+//		if(Input.GetMouseButtonUp(0)){
+//			print ("Aumenta!");
+//			addMomentum (10);
+//		}
+//		if (Input.GetMouseButtonUp (1)) {
+//			print ("Diminui!");
+//			addMomentum (-10);
+//		}
+//	}
 
 	IEnumerator fillBar(){
 		filling = true;
@@ -44,12 +44,11 @@ public class MomentumBar : MonoBehaviour {
 		filling = false;
 	}
 
-	public void Initialize(){
+	public void Initialize(float maxAmount){
 		momentumBar = GetComponent<Slider> ();
-	}
-
-	void Awake(){
-		print ("Get Component");
-		Initialize ();
+		filling = false;
+		targetAmount = 0;
+		currentDisplayedAmount = 0;
+		this.maxAmount = maxAmount;
 	}
 }

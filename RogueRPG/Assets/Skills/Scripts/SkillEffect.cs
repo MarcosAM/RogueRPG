@@ -17,11 +17,14 @@ public abstract class SkillEffect : ScriptableObject {
 	[SerializeField]protected string effectName;
 	[SerializeField]protected bool canHitTile;
 	[SerializeField]protected string description;
+	[SerializeField]protected float momentumValue;
 	protected int howManyTargets;
 	protected int targetsHited;
 //	protected bool endable;
 
 	public void Effect(Character user, Battleground.Tile tile){
+		if(user.isPlayable())
+			DungeonManager.getInstance ().addMomentum (momentumValue);
 		if (singleTarget) {
 			FindObjectOfType<Narration> ().Appear (user.getName (), effectName);
 			EffectAnimation (tile);

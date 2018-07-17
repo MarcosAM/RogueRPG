@@ -13,9 +13,15 @@ public class DungeonManager : MonoBehaviour {
 	int dungeonFloor=0;
 	Battleground battleground;
 	[SerializeField]Character characterPrefab;
+	[SerializeField]MomentumBar momentumBar;
+	float momentum = 0;
+	[SerializeField]float maxMomentum;
+	int currentMomentumDowntime = 0;
+	int maxMomentumDowntime = 4;
 
 	void Start (){
 		MakeItASingleton();
+		momentumBar.Initialize (maxMomentum);
 		battleground = GetComponent<Battleground> ();
 		GameManager gameManager = GameManager.getInstance ();
 		List<Character> pcs = new List<Character>();
@@ -56,6 +62,7 @@ public class DungeonManager : MonoBehaviour {
 //		}
 //		print (initiative);
 		if (initiativeOrder.Count>0) {
+			manageMomentum ();
 			initiativeOrder [0].getBehavior().StartTurn();
 		} else {
 			StartCoroutine(WaitForNonDelayedCharacter());
@@ -199,10 +206,45 @@ public class DungeonManager : MonoBehaviour {
 		}
 	}
 
+	public bool shouldMomentumStop(){
+		currentMomentumDowntime++;
+		if (currentMomentumDowntime >= maxMomentumDowntime) {
+			currentMomentumDowntime = 0;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public static DungeonManager getInstance () {return instance;}
 	public Battleground getBattleground () {return battleground;}
 	public List<Character> getInitiativeOrder (){return initiativeOrder;}
 	public int getRound(){return round;}
+	public void manageMomentum(){
+		if (momentum >= maxMomentum) {
+			if (shouldMomentumStop ()) {
+				addMomentum (-70);
+			}
+		} else {
+			addMomentum (-10/initiativeOrder.Count);
+		}
+	}
+	public void addMomentum(float amount){
+		momentum += amount;
+		momentumBar.addMomentum (amount);
+		if (momentum > maxMomentum)
+			momentum = maxMomentum;
+		if (momentum < 0)
+			momentum = 0;
+	}
+	public bool isMomentumFull(){
+		if (momentum >= maxMomentum) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 	void OnEnable(){
 		EventManager.OnEndedTurn += NextTurn;
