@@ -85,6 +85,7 @@
      <Compile Include="Assets\Intefaces.cs" />
      <Compile Include="Assets\Logic\DungeonManager.cs" />
      <Compile Include="Assets\Logic\EventManager.cs" />
+     <Compile Include="Assets\MomentumBar.cs" />
      <Compile Include="Assets\Narration.cs" />
      <Compile Include="Assets\SkillBtn.cs" />
      <Compile Include="Assets\Skills\Scripts\SEAtk.cs" />
