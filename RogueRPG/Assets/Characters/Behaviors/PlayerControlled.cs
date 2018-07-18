@@ -29,10 +29,10 @@ public class PlayerControlled : CombatBehavior {
 		}
 	}
 
-	public override void skillBtnPressed (int skillIndex)
+	public override void skillBtnPressed (Skill skill)
 	{
-		base.skillBtnPressed (skillIndex);
-		choosedSkill = character.getSkills()[skillIndex];
+		base.skillBtnPressed (skill);
+		choosedSkill = skill;
 		checkForNextStep();
 	}
 

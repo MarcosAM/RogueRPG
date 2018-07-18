@@ -16,8 +16,8 @@ public class CombHUDManager : MonoBehaviour {
 	//TESTE
 	[SerializeField]SkillBtn[] skillsBtn = new SkillBtn[4];
 	static CombHUDManager instance = null;
-	bool showingMomentumSkill = false;
-//	Button momentu
+	bool showingMomentumSkill = true;
+	[SerializeField]MomentumTabBtn momentumTabBtn;
 
 	public void Awake(){
 		MakeItASingleton ();
@@ -103,8 +103,22 @@ public class CombHUDManager : MonoBehaviour {
 	//TESTE
 	public void ShowSkillsBtnOf (Character character)
 	{
-		for (int i = 0; i < skillsBtn.Length; i++) {
-			skillsBtn [i].RefreshSelf (character);
+		if (DungeonManager.getInstance ().isMomentumFull ()) {
+			if (showingMomentumSkill) {
+				for (int i = 0; i < skillsBtn.Length; i++) {
+					skillsBtn [i].showMomentumSkillOf (character);
+				}
+				momentumTabBtn.appear ("Skills");
+			} else {
+				for (int i = 0; i < skillsBtn.Length; i++) {
+					skillsBtn [i].RefreshSelf (character);
+				}
+				momentumTabBtn.appear ("Momentum");
+			}
+		} else {
+			for (int i = 0; i < skillsBtn.Length; i++) {
+				skillsBtn [i].RefreshSelf (character);
+			}
 		}
 		Character[] allCharacters = FindObjectsOfType<Character> ();
 		for (int i = 0; i < allCharacters.Length; i++) {
@@ -118,6 +132,7 @@ public class CombHUDManager : MonoBehaviour {
 		for (int i = 0; i < skillsBtn.Length; i++) {
 			skillsBtn [i].Disappear ();
 		}
+		momentumTabBtn.disappear ();
 	}
 
 	void MakeItASingleton(){
@@ -157,7 +172,7 @@ public class CombHUDManager : MonoBehaviour {
 
 	public void onSkillBtnPressed (SkillBtn skillBtn){
 		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-		combatBehavior.skillBtnPressed(skillBtn.number);
+		combatBehavior.skillBtnPressed(skillBtn.getSkill());
 	}
 
 	public void onTargetBtnPressed (Battleground.Tile targetTile){
@@ -221,36 +236,42 @@ public class CombHUDManager : MonoBehaviour {
 		}
 	}
 
-	public void onMomentumTabBtnPressed(){
-	}
-
 	public static CombHUDManager getInstance(){return instance;}
 	public Vector2[] getHeroesPositions() {return heroesPositions;}
 	public Vector2[] getEnemiesPositions() {return enemiesPositions;}
 
-	public class momentumTabBtn{
-		Text text;
-		Button button;
-		CombHUDManager combHudManager;
-
-		public void appear(string buttonText){
-			text.text = buttonText;
-			button.interactable = true;
+	public void onMomentumTabBtnPressed(){
+		if (showingMomentumSkill) {
+			showingMomentumSkill = false;
+		} else {
+			showingMomentumSkill = true;
 		}
-
-		public void disappear(){
-			button.interactable = false;
-		}
-
-		public void onClick(){
-			combHudManager.onMomentumTabBtnPressed ();
-		}
-
-		public momentumTabBtn(Button button, CombHUDManager combHudManager){
-			this.button = button;
-			this.combHudManager = combHudManager;
-			this.text = button.GetComponentInChildren<Text>();
-			this.button.onClick.AddListener(onClick);
-		}
+		ShowSkillsBtnOf(DungeonManager.getInstance().getInitiativeOrder()[0]);
 	}
+
+//	public class momentumTabBtn{
+//		Text text;
+//		Button button;
+//		CombHUDManager combHudManager;
+//
+//		public void appear(string buttonText){
+//			text.text = buttonText;
+//			button.interactable = true;
+//		}
+//
+//		public void disappear(){
+//			button.interactable = false;
+//		}
+//
+//		public void onClick(){
+//			combHudManager.onMomentumTabBtnPressed ();
+//		}
+//
+//		public momentumTabBtn(Button button, CombHUDManager combHudManager){
+//			this.button = button;
+//			this.combHudManager = combHudManager;
+//			this.text = button.GetComponentInChildren<Text>();
+//			this.button.onClick.AddListener(onClick);
+//		}
+//	}
 }

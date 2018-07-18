@@ -33,6 +33,7 @@ public class PlayableCharacter : Character {
 		def.setStatBase (stats.getDef ());
 		defm.setStatBase (stats.getDefm ());
 		skills = stats.getSkills ();
+		momentumSkill = stats.getMomentumSkill ();
 		maxHp = stats.getHp ();
 		hp = maxHp;
 		currentStamina = 0;

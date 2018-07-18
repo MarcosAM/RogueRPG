@@ -18,11 +18,7 @@ public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
 	public void RefreshSelf (Character c)
 	{
-		if (DungeonManager.getInstance ().isMomentumFull ()) {
-			skill = c.getMomentumSkill ();
-		} else {
-			skill = c.getSkills () [number];
-		}
+		skill = c.getSkills () [number];
 		if (skill.getCharactersThatCantUseMe ().Contains (c)) {
 			button.interactable = false;
 			text.text = skill.getSkillName();
@@ -30,6 +26,14 @@ public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		} else {
 			Appear ();
 		}
+	}
+
+	public void showMomentumSkillOf (Character character){
+		skill = character.getMomentumSkill ();
+		button.interactable = false;
+		text.text = skill.getSkillName();
+		text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
+		Appear ();
 	}
 
 	void onClick (){

@@ -2,12 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\CombHUDManager.cs">
     <Files>
-      <File FileName="Assets\MomentumBar.cs" Line="43" Column="4" />
-      <File FileName="Assets\CombHUDManager.cs" Line="20" Column="18" />
-      <File FileName="Assets\SkillBtn.cs" Line="22" Column="34" />
-      <File FileName="Assets\Characters\CStats\StandartStats.cs" Line="24" Column="24" />
-      <File FileName="Assets\Characters\Character.cs" Line="390" Column="56" />
-      <File FileName="Assets\Logic\DungeonManager.cs" Line="211" Column="1" />
+      <File FileName="Assets\MomentumBar.cs" Line="1" Column="1" />
+      <File FileName="Assets\CombHUDManager.cs" Line="175" Column="53" />
+      <File FileName="Assets\Characters\Behaviors\CombatBehavior.cs" Line="13" Column="50" />
+      <File FileName="Assets\Characters\Behaviors\PlayerControlled.cs" Line="35" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
