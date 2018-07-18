@@ -1,10 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MomentumBar.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\CombHUDManager.cs">
     <Files>
       <File FileName="Assets\MomentumBar.cs" Line="43" Column="4" />
-      <File FileName="Assets\Logic\DungeonManager.cs" Line="223" Column="30" NotebookId="1" />
-      <File FileName="Assets\Skills\Scripts\SkillEffect.cs" Line="27" Column="4" NotebookId="1" />
+      <File FileName="Assets\CombHUDManager.cs" Line="20" Column="18" />
+      <File FileName="Assets\SkillBtn.cs" Line="22" Column="34" />
+      <File FileName="Assets\Characters\CStats\StandartStats.cs" Line="24" Column="24" />
+      <File FileName="Assets\Characters\Character.cs" Line="390" Column="56" />
+      <File FileName="Assets\Logic\DungeonManager.cs" Line="211" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -18,7 +18,11 @@ public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
 	public void RefreshSelf (Character c)
 	{
-		skill = c.getSkills () [number];
+		if (DungeonManager.getInstance ().isMomentumFull ()) {
+			skill = c.getMomentumSkill ();
+		} else {
+			skill = c.getSkills () [number];
+		}
 		if (skill.getCharactersThatCantUseMe ().Contains (c)) {
 			button.interactable = false;
 			text.text = skill.getSkillName();

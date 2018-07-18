@@ -23,6 +23,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 	protected bool playable;
 
 	public Skill[] skills = new Skill[4];
+	protected Skill momentumSkill;
 
 	[SerializeField]protected Image portrait;
 	protected CombatantHUD hud;
@@ -386,6 +387,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 	}
 
 	public Skill[] getSkills() {return skills;}
+	public Skill getMomentumSkill() {return momentumSkill;}
 	public List<Skill> getUsableSkills() {
 		List<Skill> usableSkills = new List<Skill> ();
 		for(int i=0; i<skills.Length; i++){
