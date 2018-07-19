@@ -24,6 +24,7 @@ public abstract class Skill : ScriptableObject {
 	[SerializeField]protected SkillEffect rangedEffect;
 	[SerializeField]protected SkillEffect selfEffect;
 	[SerializeField]protected SkillEffect alliesEffect;
+	[SerializeField]protected int hp, atk, atkm, def, defm;
 //	protected int howManyTargets;
 //	protected int targetsHited;
 //	protected bool endable;
@@ -256,6 +257,11 @@ public abstract class Skill : ScriptableObject {
 	public SkillEffect getSelfEffect() {return selfEffect;}
 	public SkillEffect getRangedEffect() {return rangedEffect;}
 	public SkillEffect getAlliesEffect() {return alliesEffect;}
+	public int getHp() {return hp;}
+	public int getAtk() {return atk;}
+	public int getAtkm() {return atkm;}
+	public int getDef() {return def;}
+	public int getDefm() {return defm;}
 }
 
 //			List<Character> myTargets = new List<Character>();

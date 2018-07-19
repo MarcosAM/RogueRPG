@@ -18,6 +18,7 @@ public class PlayerControlled : CombatBehavior {
 	{
 		if (choosedSkill == null) {
 			CombHUDManager.getInstance ().ShowSkillsBtnOf (character);
+			CombHUDManager.getInstance().HideTargetBtns();
 		} else {
 			CombHUDManager.getInstance ().HideSkillsBtn ();
 			if (targetTile == null) {
@@ -43,27 +44,34 @@ public class PlayerControlled : CombatBehavior {
 		checkForNextStep();
 	}
 
-	public void ChooseSkill ()
-	{
-//		print (character.getName() + " veja suas skills!");
-		EventManager.OnPlayerChoosedSkill += ReadySkill;
-		CombHUDManager.getInstance().ShowSkillsBtnOf(character);
-	}
+//	public void ChooseSkill ()
+//	{
+////		print (character.getName() + " veja suas skills!");
+////		EventManager.OnPlayerChoosedSkill += ReadySkill;
+////		CombHUDManager.getInstance().ShowSkillsBtnOf(character);
+//	}
 
-	public void ReadySkill (Skill skill)
-	{
-		choosedSkill = skill;
-		EventManager.OnPlayerChoosedSkill -= ReadySkill;
-		EventManager.OnUnchoosedSkill += UnchooseSkill;
-		ChooseTarget ();
-	}
+//	public void ReadySkill (Skill skill)
+//	{
+//		choosedSkill = skill;
+//		EventManager.OnPlayerChoosedSkill -= ReadySkill;
+//		EventManager.OnUnchoosedSkill += UnchooseSkill;
+//		ChooseTarget ();
+//	}
 
-	public void UnchooseSkill(){
-		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
-		EventManager.OnUnchoosedSkill -= UnchooseSkill;
+	public override void unchooseSkill ()
+	{
+		base.unchooseSkill ();
 		choosedSkill = null;
-		ChooseSkill ();
+		checkForNextStep ();
 	}
+
+//	public void UnchooseSkill(){
+//		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
+//		EventManager.OnUnchoosedSkill -= UnchooseSkill;
+//		choosedSkill = null;
+//		ChooseSkill ();
+//	}
 
 	public void ChooseTarget (){
 		EventManager.OnPlayerChoosedTarget2 += ReadyTarget;

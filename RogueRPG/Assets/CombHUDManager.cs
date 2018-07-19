@@ -18,6 +18,7 @@ public class CombHUDManager : MonoBehaviour {
 	static CombHUDManager instance = null;
 	bool showingMomentumSkill = true;
 	[SerializeField]MomentumTabBtn momentumTabBtn;
+	[SerializeField]UndoBtn undoBtn;
 
 	public void Awake(){
 		MakeItASingleton ();
@@ -159,6 +160,7 @@ public class CombHUDManager : MonoBehaviour {
 		for(int i=0; i<enemiesCombatantHUD.Length; i++){
 			enemiesCombatantHUD [i].ShowTargetBtn (user,choosedSkill);
 		}
+		undoBtn.Appear ();
 	}
 
 	public void HideTargetBtns(){
@@ -168,6 +170,7 @@ public class CombHUDManager : MonoBehaviour {
 		for(int i=0; i<enemiesCombatantHUD.Length; i++){
 			enemiesCombatantHUD [i].HideTargetBtn ();
 		}
+		undoBtn.Disappear ();
 	}
 
 	public void onSkillBtnPressed (SkillBtn skillBtn){
@@ -234,6 +237,11 @@ public class CombHUDManager : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	public void onUndoBtnPressed(){
+		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
+		combatBehavior.unchooseSkill ();
 	}
 
 	public static CombHUDManager getInstance(){return instance;}

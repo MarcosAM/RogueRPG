@@ -25,17 +25,21 @@ public class UndoBtn : MonoBehaviour {
 		icon.enabled = true;
 	}
 
-	void Disappear(){
+	public void Appear(){
+		icon.enabled = true;
+	}
+
+	public void Disappear(){
 		icon.enabled = false;
 	}
 
-	void OnEnable(){
-		EventManager.OnShowTargetsOf += Appear;
-		EventManager.OnClickedTargetBtn += Disappear;
-	}
-
-	void OnDisable(){
-		EventManager.OnShowTargetsOf -= Appear;
-		EventManager.OnClickedTargetBtn -= Disappear;
-	}
+//	void OnEnable(){
+//		EventManager.OnShowTargetsOf += Appear;
+//		EventManager.OnClickedTargetBtn += Disappear;
+//	}
+//
+//	void OnDisable(){
+//		EventManager.OnShowTargetsOf -= Appear;
+//		EventManager.OnClickedTargetBtn -= Disappear;
+//	}
 }
