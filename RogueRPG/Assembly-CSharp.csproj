@@ -85,6 +85,7 @@
      <Compile Include="Assets\Intefaces.cs" />
      <Compile Include="Assets\Logic\DungeonManager.cs" />
      <Compile Include="Assets\Logic\EventManager.cs" />
+     <Compile Include="Assets\Logic\TurnAction.cs" />
      <Compile Include="Assets\MomentumBar.cs" />
      <Compile Include="Assets\MomentumTabBtn.cs" />
      <Compile Include="Assets\Narration.cs" />
