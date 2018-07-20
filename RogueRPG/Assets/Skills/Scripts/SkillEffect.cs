@@ -5,12 +5,14 @@ using UnityEngine;
 public abstract class SkillEffect : ScriptableObject {
 
 	public enum Sources{Physical, Magic};
+	public enum Kind{Offensive, Heal, Buff, Debuff, Movement};
 
 	[SerializeField]protected Sources source;
 	[SerializeField]protected int value;
 	[SerializeField]protected float precision;
 	[SerializeField]protected float critic;
 	[SerializeField]protected Skill.Types type;
+	[SerializeField]protected Kind kind;
 	[SerializeField]protected int range;
 	[SerializeField]protected SkillAnimation animationPrefab;
 	[SerializeField]protected bool singleTarget;
@@ -86,6 +88,7 @@ public abstract class SkillEffect : ScriptableObject {
 	public string getEffectName (){return effectName;}
 	public int getRange(){return range;}
 	public Skill.Types getSkillType(){return type;}
+	public Kind getKind(){return kind;}
 	public float getCritic(){return critic;}
 	public float getPrecision(){return precision;}
 }

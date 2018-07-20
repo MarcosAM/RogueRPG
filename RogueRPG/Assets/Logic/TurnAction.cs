@@ -4,8 +4,12 @@ using UnityEngine;
 
 public abstract class TurnAction {
 
-	int priority;
-	float probability;
+	protected int priority;
+	protected float probability;
+	protected Character character;
+	protected CombatBehavior combatBehavior;
 
-	public virtual void defineEquipSkillTargetFor (CombatBehavior combatBehavior){}
+	public virtual void defineEquipSkillTargetFor (){}
+	public int getPriotity() {return priority;}
+	public float getProbability() {return probability;}
 }

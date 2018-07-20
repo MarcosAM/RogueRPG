@@ -17,4 +17,6 @@ public class CombatBehavior : MonoBehaviour {
 	public void setCharacter(Character character) {this.character = character;}
 	public Character getCharacter() {return character;}
 	public Skill getChoosedSkill() {return choosedSkill;}
+	public void setChoosedSkill(Skill skill) {this.choosedSkill = skill;}
+	public void setTargetTile(Battleground.Tile tile) {this.targetTile = tile;}
 }

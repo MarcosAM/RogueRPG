@@ -257,6 +257,18 @@ public abstract class Skill : ScriptableObject {
 	public SkillEffect getSelfEffect() {return selfEffect;}
 	public SkillEffect getRangedEffect() {return rangedEffect;}
 	public SkillEffect getAlliesEffect() {return alliesEffect;}
+	public List<SkillEffect> getAllSkillEffects() {
+		List<SkillEffect> allSkillEffects = new List<SkillEffect> ();
+		if (meleeEffect != null)
+			allSkillEffects.Add (meleeEffect);
+		if (selfEffect != null)
+			allSkillEffects.Add (selfEffect);
+		if (rangedEffect != null)
+			allSkillEffects.Add (rangedEffect);
+		if (alliesEffect != null)
+			allSkillEffects.Add (alliesEffect);
+		return allSkillEffects;
+	}
 	public int getHp() {return hp;}
 	public int getAtk() {return atk;}
 	public int getAtkm() {return atkm;}
