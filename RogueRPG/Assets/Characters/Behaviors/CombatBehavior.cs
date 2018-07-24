@@ -7,6 +7,7 @@ public class CombatBehavior : MonoBehaviour {
 	[SerializeField]protected Character character;
 	protected Skill choosedSkill;
 	protected Battleground.Tile targetTile;
+	protected List<TurnAction> possibleActions;
 
 	public virtual void StartTurn(){}
 	public virtual void UseSkill(){}

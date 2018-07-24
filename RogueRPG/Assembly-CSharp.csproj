@@ -70,6 +70,7 @@
      <Compile Include="Assets\Characters\NonPlayableCharacter.cs" />
      <Compile Include="Assets\Characters\PlayableCharacter.cs" />
      <Compile Include="Assets\Characters\Stat.cs" />
+     <Compile Include="Assets\Characters\Turn Actions\TAAtkHealthier.cs" />
      <Compile Include="Assets\Characters\Turn Actions\TARetreat.cs" />
      <Compile Include="Assets\CombatantHUD.cs" />
      <Compile Include="Assets\CombatBtn.cs" />

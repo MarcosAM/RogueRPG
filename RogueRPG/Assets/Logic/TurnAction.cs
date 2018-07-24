@@ -9,7 +9,7 @@ public abstract class TurnAction {
 	protected Character character;
 	protected CombatBehavior combatBehavior;
 
-	public virtual void defineEquipSkillTargetFor (){}
+	public virtual void tryToDefineEquipSkillTargetFor (){}
 	public int getPriotity() {return priority;}
 	public float getProbability() {return probability;}
 }
