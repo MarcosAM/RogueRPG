@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TARetreat : TurnAction {
-	
+public class TAGoToNearest : TurnAction {
+
 	public override void tryToDefineEquipSkillTargetFor ()
 	{
 		base.tryToDefineEquipSkillTargetFor ();
@@ -35,14 +35,15 @@ public class TARetreat : TurnAction {
 			if (maxIndex > tempEnemiesTiles.Length - 1)
 				maxIndex = tempEnemiesTiles.Length - 1;
 
-			int mostDistant = 0;
-			int currentDistance = 0;
+			float hpFromLeft;
+			float hpFromRight;
 			int leftIndex = 0;
 			int rightIndex = 0;
 			for (int i = 0; i < tempEnemiesTiles.Length; i++) {
-				currentDistance = 0;
 				if (i >= minIndex && i <= maxIndex) {
 					for (int j = 0; j < tempHeroesTiles.Length; j++) {
+						hpFromLeft = 0;
+						hpFromRight = 0;
 						leftIndex = i - j;
 						if (leftIndex < 0)
 							leftIndex = 0;
@@ -52,33 +53,29 @@ public class TARetreat : TurnAction {
 						if (tempHeroesTiles [leftIndex].getOccupant () != null || tempHeroesTiles [rightIndex].getOccupant () != null) {
 							break;
 						}
-						if (tempHeroesTiles [leftIndex].getOccupant () != null) {
-							if (tempHeroesTiles [leftIndex].getOccupant ().isAlive ())
-								break;
+						if(tempHeroesTiles[leftIndex].getOccupant() != null){
+							if(tempHeroesTiles[leftIndex].getOccupant().isAlive()){
+								if(Mathf.Abs(tempHeroesTiles[leftIndex].getOccupant().getPosition() - character.getPosition()) <= combatBehavior.getChoosedSkill().getAlliesEffect().getRange() ){
+									combatBehavior.setTargetTile (tempHeroesTiles[leftIndex]);
+									return;
+								}
+							}
 						}
-						if (tempHeroesTiles [rightIndex].getOccupant () != null) {
-							if (tempHeroesTiles [rightIndex].getOccupant ().isAlive ())
-								break;
-						}
-						currentDistance++;
-					}
-					if (currentDistance > mostDistant) {
-						combatBehavior.setTargetTile (tempEnemiesTiles [i]);
-						mostDistant = currentDistance;
-					} else {
-						if (combatBehavior.getTargetTile () != null) {
-							if (currentDistance == mostDistant && (combatBehavior.getTargetTile ().getOccupant () != null && tempEnemiesTiles [i].getOccupant () == null)) {
-								combatBehavior.setTargetTile (tempEnemiesTiles [i]);
-								mostDistant = currentDistance;
+						if(tempHeroesTiles[rightIndex].getOccupant() != null){
+							if(tempHeroesTiles[rightIndex].getOccupant().isAlive()){
+								if(Mathf.Abs(tempHeroesTiles[rightIndex].getOccupant().getPosition() - character.getPosition()) <= combatBehavior.getChoosedSkill().getAlliesEffect().getRange() ){
+									combatBehavior.setTargetTile (tempHeroesTiles[rightIndex]);
+									return;
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-	} 
+	}
 
-	public TARetreat(CombatBehavior combatBehavior){
+	public TAGoToNearest(CombatBehavior combatBehavior){
 		this.combatBehavior = combatBehavior;
 		this.character = combatBehavior.getCharacter ();
 	}

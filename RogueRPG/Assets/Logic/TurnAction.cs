@@ -12,4 +12,5 @@ public abstract class TurnAction {
 	public virtual void tryToDefineEquipSkillTargetFor (){}
 	public int getPriotity() {return priority;}
 	public float getProbability() {return probability;}
+	public void setCharacter(Character character){this.character = character;}
 }

@@ -13,20 +13,53 @@ public class TAAtkHealthier : TurnAction {
 
 		combatBehavior.setChoosedSkill (character.getUsableSkills()[Random.Range(0,character.getUsableSkills().Count -1)]);
 
-
-		//TODO Definir quando o equipamento é primariamente melee ou ranged
-		for (int i = 0; i < tempHeroesTiles.Length; i++) {
-			if (combatBehavior.getTargetTile() != null) {
-				if (tempHeroesTiles [i].getOccupant () != null) {
-					if (tempHeroesTiles [i].getOccupant ().getHp () > targetTile.getOccupant ().getHp ()) {
-						targetTile = tempHeroesTiles [i];
+		for (int i=0; i < tempHeroesTiles.Length; i++){
+			if (combatBehavior.getTargetTile () != null) {
+				if (combatBehavior.getTargetTile ().getOccupant () != null) {
+					if (tempHeroesTiles [i].getOccupant ().getHp () > combatBehavior.getTargetTile ().getOccupant ().getHp ()) {
+						if (combatBehavior.getChoosedSkill ().getType () == Skill.Types.Melee) {
+							if (Mathf.Abs (tempHeroesTiles [i].getOccupant ().getPosition () - character.getPosition ()) <= combatBehavior.getChoosedSkill ().getMeleeEffect ().getRange ()) {
+								combatBehavior.setTargetTile (tempHeroesTiles [i]);
+							}
+						} else {
+							if (Mathf.Abs (tempHeroesTiles [i].getOccupant ().getPosition () - character.getPosition ()) > combatBehavior.getChoosedSkill ().getMeleeEffect ().getRange ()) {
+								if (character.CanIHitWith (tempHeroesTiles [i], combatBehavior.getChoosedSkill ().getRangedEffect ())) {
+									combatBehavior.setTargetTile (tempHeroesTiles [i]);
+								}
+							}
+						}
+					}
+				} else {
+					if (combatBehavior.getChoosedSkill ().getType () == Skill.Types.Melee) {
+						if (Mathf.Abs (tempHeroesTiles [i].getOccupant ().getPosition () - character.getPosition ()) <= combatBehavior.getChoosedSkill ().getMeleeEffect ().getRange ()) {
+							combatBehavior.setTargetTile (tempHeroesTiles [i]);
+						}
+					} else {
+						if (Mathf.Abs (tempHeroesTiles [i].getOccupant ().getPosition () - character.getPosition ()) > combatBehavior.getChoosedSkill ().getMeleeEffect ().getRange ()) {
+							if (character.CanIHitWith (tempHeroesTiles [i], combatBehavior.getChoosedSkill ().getRangedEffect ())) {
+								combatBehavior.setTargetTile (tempHeroesTiles [i]);
+							}
+						}
 					}
 				}
 			} else {
-				if (tempHeroesTiles [i].getOccupant () != null) {
-					targetTile = tempHeroesTiles [i];
+				if (combatBehavior.getChoosedSkill ().getType () == Skill.Types.Melee) {
+					if (Mathf.Abs (tempHeroesTiles [i].getOccupant ().getPosition () - character.getPosition ()) <= combatBehavior.getChoosedSkill ().getMeleeEffect ().getRange ()) {
+						combatBehavior.setTargetTile (tempHeroesTiles [i]);
+					}
+				} else {
+					if (Mathf.Abs (tempHeroesTiles [i].getOccupant ().getPosition () - character.getPosition ()) > combatBehavior.getChoosedSkill ().getMeleeEffect ().getRange ()) {
+						if (character.CanIHitWith (tempHeroesTiles [i], combatBehavior.getChoosedSkill ().getRangedEffect ())) {
+							combatBehavior.setTargetTile (tempHeroesTiles [i]);
+						}
+					}
 				}
 			}
 		}
+	}
+
+	public TAAtkHealthier(CombatBehavior combatBehavior){
+		this.combatBehavior = combatBehavior;
+		this.character = combatBehavior.getCharacter ();
 	}
 }
