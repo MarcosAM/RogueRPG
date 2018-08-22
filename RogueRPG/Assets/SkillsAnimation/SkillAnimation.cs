@@ -26,6 +26,9 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 		animator.SetTrigger ("play");
 	}
 
+	public void PlayAnimation (IWaitForAnimation requester, Vector2 animationPosition){
+	}
+
 	public void End (){
 		mySkillEffect.EndSkill ();
 		Destroy (gameObject);

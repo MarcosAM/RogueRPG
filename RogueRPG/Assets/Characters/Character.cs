@@ -194,11 +194,11 @@ public abstract class Character : MonoBehaviour, IComparable {
 
 	public int takeDamage(int damage, SkillEffect.Sources damageSource){
 		if (damageSource == SkillEffect.Sources.Physical) {
-			loseHpBy (damage - getDefValue());
-			return damage - getDefValue ();
+			loseHpBy (Mathf.RoundToInt(damage - getDefValue()));
+			return Mathf.RoundToInt(damage - getDefValue ());
 		} else {
-			loseHpBy (damage - getDefmValue());
-			return damage - getDefmValue();
+			loseHpBy (Mathf.RoundToInt(damage - getDefmValue()));
+			return Mathf.RoundToInt(damage - getDefmValue());
 		}
 	}
 

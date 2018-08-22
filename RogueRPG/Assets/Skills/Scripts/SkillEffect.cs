@@ -79,14 +79,14 @@ public abstract class SkillEffect : ScriptableObject {
 	}
 
 	float getNewHitValue(Character user){
-		return precision + user.getPrecision () - Random.value;
+		return precision + user.getPrecision().getValue() - Random.value;
 	}
 
 	int getNewDamage(Character user, int skillDmg){
 		if (source == Sources.Physical) {
-			return skillDmg + user.getAtkValue () * Random.Range (1f, 1.2f);
+			return Mathf.RoundToInt(skillDmg + user.getAtkValue () * Random.Range (1f, 1.2f));
 		} else {
-			return skillDmg + user.getAtkmValue () * Random.Range (1f, 1.2f);
+			return Mathf.RoundToInt(skillDmg + user.getAtkmValue () * Random.Range (1f, 1.2f));
 		}
 	}
 
