@@ -22,42 +22,43 @@ public abstract class SkillEffect : ScriptableObject {
 	[SerializeField]protected float momentumValue;
 	protected int howManyTargets;
 	protected int targetsHited;
-//	protected bool endable;
 
-	public void Effect(Character user, Battleground.Tile tile){
-		if(user.isPlayable())
-			DungeonManager.getInstance ().addMomentum (momentumValue);
-		if (singleTarget) {
-			FindObjectOfType<Narration> ().Appear (user.getName (), effectName);
-			EffectAnimation (tile);
-			UniqueEffect(user,tile);
-			//TODO a habilidade paia que é utilizada quando não tem o que soltar
-			return;
-		} else {
-			FindObjectOfType<Narration>().Appear(user.getName(), effectName);
-			Battleground.Tile[] targets;
-			if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
-				targets = DungeonManager.getInstance ().getBattleground ().getMySideTiles (user.isPlayable ());
-			} else {
-				targets = DungeonManager.getInstance ().getBattleground ().getMyEnemiesTiles (user.isPlayable ());
-			}
+	public virtual void Effect(Character user, Battleground.Tile targetTile) {}
 
-			howManyTargets = targets.Length;
-			targetsHited = 0;
-			foreach(Battleground.Tile t in targets){
-				EffectAnimation(t);
-				if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
-					if (tile.getOccupant () == user) {
-						UniqueEffect (user, t);
-					} else {
-						UniqueEffect (user,t);
-					}
-				} else {
-					UniqueEffect (user,t);
-				}
-			}
-		}
-	}
+//	public void Effect(Character user, Battleground.Tile tile){
+//		if(user.isPlayable())
+//			DungeonManager.getInstance ().addMomentum (momentumValue);
+//		if (singleTarget) {
+//			FindObjectOfType<Narration> ().Appear (user.getName (), effectName);
+//			EffectAnimation (tile);
+//			UniqueEffect(user,tile);
+//			//TODO a habilidade paia que é utilizada quando não tem o que soltar
+//			return;
+//		} else {
+//			FindObjectOfType<Narration>().Appear(user.getName(), effectName);
+//			Battleground.Tile[] targets;
+//			if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
+//				targets = DungeonManager.getInstance ().getBattleground ().getMySideTiles (user.isPlayable ());
+//			} else {
+//				targets = DungeonManager.getInstance ().getBattleground ().getMyEnemiesTiles (user.isPlayable ());
+//			}
+//
+//			howManyTargets = targets.Length;
+//			targetsHited = 0;
+//			foreach(Battleground.Tile t in targets){
+//				EffectAnimation(t);
+//				if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
+//					if (tile.getOccupant () == user) {
+//						UniqueEffect (user, t);
+//					} else {
+//						UniqueEffect (user,t);
+//					}
+//				} else {
+//					UniqueEffect (user,t);
+//				}
+//			}
+//		}
+//	}
 
 	public void EffectAnimation(Battleground.Tile tile){
 		SkillAnimation skillAnimation = Instantiate (animationPrefab);
@@ -78,11 +79,11 @@ public abstract class SkillEffect : ScriptableObject {
 		}
 	}
 
-	float getNewHitValue(Character user){
-		return precision + user.getPrecision().getValue() - Random.value;
+	protected float getNewHitValue(Character user, Battleground.Tile targetTile){
+		return precision + user.getPrecision().getValue() - getDistanceInfluenceOnPrecision(user,targetTile);
 	}
 
-	int getNewDamage(Character user, int skillDmg){
+	protected int getNewDamage(Character user, int skillDmg){
 		if (source == Sources.Physical) {
 			return Mathf.RoundToInt(skillDmg + user.getAtkValue () * Random.Range (1f, 1.2f));
 		} else {
