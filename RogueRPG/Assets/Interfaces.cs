@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IPlaySkillAnimation{
-	void PlayAnimation (Skill skill, Battleground.Tile tile);
+	void PlayAnimation (IWaitForAnimation requester, Vector2 animationPosition);
 }
 
 public interface IWaitForAnimation{

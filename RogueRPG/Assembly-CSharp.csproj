@@ -85,7 +85,7 @@
      <Compile Include="Assets\Equipment\Scripts\Skill.cs" />
      <Compile Include="Assets\GameOverUI.cs" />
      <Compile Include="Assets\ICombatDisplayer.cs" />
-     <Compile Include="Assets\Intefaces.cs" />
+     <Compile Include="Assets\Interfaces.cs" />
      <Compile Include="Assets\Logic\DungeonManager.cs" />
      <Compile Include="Assets\Logic\EventManager.cs" />
      <Compile Include="Assets\Logic\TurnAction.cs" />

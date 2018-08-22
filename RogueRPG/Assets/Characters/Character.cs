@@ -111,11 +111,11 @@ public abstract class Character : MonoBehaviour, IComparable {
 	public void HitWith (Character target, float attack, SkillEffect skill){
 		if (skill.getSource () == SkillEffect.Sources.Physical) {
 			if (skill.getCritic () + critic.getValue () >= UnityEngine.Random.value)
-				target.TakeDamage (Mathf.RoundToInt ((attack + atk.getValue ()) * 1.5f));
+				target.loseHpBy (Mathf.RoundToInt ((attack + atk.getValue ()) * 1.5f));
 			else
-				target.TakeDamage (Mathf.RoundToInt ((attack + atk.getValue ()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefValue ()));
+				target.loseHpBy (Mathf.RoundToInt ((attack + atk.getValue ()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefValue ()));
 		} else {
-			target.TakeDamage (Mathf.RoundToInt((attack + atkm.getValue()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefmValue ()));
+			target.loseHpBy (Mathf.RoundToInt((attack + atkm.getValue()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefmValue ()));
 		}
 	}
 
@@ -151,6 +151,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 			}
 		}
 	}
+
 	public bool CanIHitWith (Battleground.Tile target, SkillEffect skillEffect){
 		if (skillEffect.canTargetTile ()) {
 			if (skillEffect.getSkillType() == Skill.Types.Ranged) {
@@ -180,6 +181,24 @@ public abstract class Character : MonoBehaviour, IComparable {
 			return skill.getPrecision () + precision.getValue () + getDistanceInfluenceOnPrecision(target,skill) - target.getDodgeValue ();
 		} else {
 			return -1;
+		}
+	}
+
+	public bool didIHitYouWith(float precision){
+		if (precision - getDodgeValue () >= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public int takeDamage(int damage, SkillEffect.Sources damageSource){
+		if (damageSource == SkillEffect.Sources.Physical) {
+			loseHpBy (damage - getDefValue());
+			return damage - getDefValue ();
+		} else {
+			loseHpBy (damage - getDefmValue());
+			return damage - getDefmValue();
 		}
 	}
 
@@ -220,7 +239,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 		}
 	}
 
-	public void TakeDamage (int damage)
+	public void loseHpBy (int damage)
 	{
 		if (damage > 0) {
 			if (OnHPValuesChange != null) {

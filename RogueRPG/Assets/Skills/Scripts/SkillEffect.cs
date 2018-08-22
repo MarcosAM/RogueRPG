@@ -78,6 +78,31 @@ public abstract class SkillEffect : ScriptableObject {
 		}
 	}
 
+	float getNewHitValue(Character user){
+		return precision + user.getPrecision () - Random.value;
+	}
+
+	int getNewDamage(Character user, int skillDmg){
+		if (source == Sources.Physical) {
+			return skillDmg + user.getAtkValue () * Random.Range (1f, 1.2f);
+		} else {
+			return skillDmg + user.getAtkmValue () * Random.Range (1f, 1.2f);
+		}
+	}
+
+	public float getDistanceInfluenceOnPrecision (Character user, Battleground.Tile targetTile){
+		if (type == Skill.Types.Melee) {
+			return 0f;
+		} else {
+			float distanceInfluenceOnPrecision = (range - Mathf.Abs (user.getPosition() - targetTile.getIndex())) * 0.1f;
+			if (distanceInfluenceOnPrecision > 0) {
+				return 0;
+			} else {
+				return distanceInfluenceOnPrecision;
+			}
+		}
+	}
+
 //	public virtual void UniqueEffect (Character user, Skill skill, Battleground.Tile tile) {}
 	public string getDescription () {return description;}
 	public Sources getSource() {return source;}
