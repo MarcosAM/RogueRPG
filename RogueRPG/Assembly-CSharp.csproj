@@ -101,6 +101,7 @@
      <Compile Include="Assets\Skills\Scripts\SEEscudada.cs" />
      <Compile Include="Assets\Skills\Scripts\SEHeal.cs" />
      <Compile Include="Assets\Skills\Scripts\SEMove.cs" />
+     <Compile Include="Assets\Skills\Scripts\SEPoison.cs" />
      <Compile Include="Assets\Skills\Scripts\SERegeneration.cs" />
      <Compile Include="Assets\Skills\Scripts\SkillAnimationManager.cs" />
      <Compile Include="Assets\Skills\Scripts\SkillEffect.cs" />

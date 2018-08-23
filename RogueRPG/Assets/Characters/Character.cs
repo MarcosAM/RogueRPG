@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public abstract class Character : MonoBehaviour, IComparable, IRegeneratable {
+public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IPoisonable {
 
 	[SerializeField]protected string characterName;
 	protected int hp;
@@ -27,7 +27,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable {
 
 	[SerializeField]protected Image portrait;
 	protected CombatantHUD hud;
-	protected RegenerationManager regenerationManager;
+	protected RegenerationAndPoisonManager regenerationManager;
 
 	public event Action OnHUDValuesChange;
 	public event Action<int,int> OnHPValuesChange;
@@ -459,28 +459,40 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable {
 	public IMovable getMovement() {return movement;}
 	public int getPosition() {return movement.getPosition ();}
 
-	protected class RegenerationManager{
+	protected class RegenerationAndPoisonManager{
 		public int duration = 0;
 		public bool consumable = true;
+		public bool poisened = false;
 		Character owner;
 
 		public void recover(){
-			if(duration > 0 || !consumable){
-				owner.Heal (Mathf.RoundToInt(owner.getMaxHp()*0.1f));
-				if(consumable){
-					duration--;
+			if (poisened) {
+				owner.loseHpBy (Mathf.RoundToInt(owner.getMaxHp()*0.1f));
+			} else {
+				if(duration > 0 || !consumable){
+					owner.Heal (Mathf.RoundToInt(owner.getMaxHp()*0.1f));
+					if(consumable){
+						duration--;
+					}
 				}
 			}
 		}
 
-		public RegenerationManager (Character owner){
+		public RegenerationAndPoisonManager (Character owner){
 			this.owner = owner;
 		}
 	}
+
 	public void startGeneration (int duration){
 		regenerationManager.duration += duration;
+		regenerationManager.poisened = false;
 	}
 	public void startGeneration (){
 		regenerationManager.consumable = false;
+		regenerationManager.poisened = false;
+	}
+	public void getPoisoned (){
+		regenerationManager.duration = 0;
+		regenerationManager.poisened = true;
 	}
 }

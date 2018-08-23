@@ -12,7 +12,7 @@ public class NonPlayableCharacter : Character {
 		critic = new Stat();
 		precision = new Stat();
 		dodge = new Stat();
-		regenerationManager = new Character.RegenerationManager (this);
+		regenerationManager = new Character.RegenerationAndPoisonManager (this);
 
 		if(stats != null){
 			FillStats ();

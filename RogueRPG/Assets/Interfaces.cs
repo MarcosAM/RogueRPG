@@ -23,3 +23,7 @@ public interface IRegeneratable{
 	void startGeneration (int duration);
 	void startGeneration ();
 }
+
+public interface IPoisonable{
+	void getPoisoned ();
+}
