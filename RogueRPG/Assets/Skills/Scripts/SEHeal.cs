@@ -24,7 +24,7 @@ public class SEHeal : SkillEffect {
 	public override void onHitEffect (Character user, Battleground.Tile tile)
 	{
 		base.onHitEffect (user, tile);
-		tile.getOccupant ().Heal (value + (int)user.getAtkmValue());
+		tile.getOccupant ().Heal (Mathf.RoundToInt(value + user.getAtkmValue()));
 	}
 
 	public override void onMissedEffect (Character user, Battleground.Tile tile)

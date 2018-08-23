@@ -21,7 +21,7 @@ public class SEBuff : SkillEffect {
 		if (tile.getOccupant () != null) {
 			switch (buffType) {
 			case BuffType.Critic:
-				switch (value) {
+				switch (Mathf.RoundToInt(value)) {
 				case 1:
 					tile.getOccupant ().CriticBuff (Stat.CRITIC_BUFF_1, duration);
 					break;
@@ -46,7 +46,7 @@ public class SEBuff : SkillEffect {
 				}
 				break;
 			case BuffType.Dodge:
-				switch (value) {
+				switch (Mathf.RoundToInt(value)) {
 				case 1:
 					tile.getOccupant ().DodgeBuff (Stat.DODGE_BUFF_1, duration);
 					break;
@@ -71,7 +71,7 @@ public class SEBuff : SkillEffect {
 				}
 				break;
 			case BuffType.Precision:
-				switch (value) {
+				switch (Mathf.RoundToInt(value)) {
 				case 1:
 					tile.getOccupant ().PrecisionBuff (Stat.PRECISION_BUFF_1, duration);
 					break;
@@ -96,7 +96,7 @@ public class SEBuff : SkillEffect {
 				}
 				break;
 			case BuffType.Atk:
-				switch (value) {
+				switch (Mathf.RoundToInt(value)) {
 				case 1:
 					tile.getOccupant ().AtkBuff (Stat.ATRIBUTE_BUFF_1, duration);
 					break;
@@ -121,7 +121,7 @@ public class SEBuff : SkillEffect {
 				}
 				break;
 			case BuffType.Atkm:
-				switch (value) {
+				switch (Mathf.RoundToInt(value)) {
 				case 1:
 					tile.getOccupant ().AtkmBuff (Stat.ATRIBUTE_BUFF_1, duration);
 					break;
@@ -146,7 +146,7 @@ public class SEBuff : SkillEffect {
 				}
 				break;
 			case BuffType.Def:
-				switch (value) {
+				switch (Mathf.RoundToInt(value)) {
 				case 1:
 					tile.getOccupant ().DefBuff (Stat.ATRIBUTE_BUFF_1, duration);
 					break;
@@ -171,7 +171,7 @@ public class SEBuff : SkillEffect {
 				}
 				break;
 			case BuffType.Defm:
-				switch (value) {
+				switch (Mathf.RoundToInt(value)) {
 				case 1:
 					tile.getOccupant ().DefmBuff (Stat.ATRIBUTE_BUFF_1, duration);
 					break;
@@ -196,7 +196,7 @@ public class SEBuff : SkillEffect {
 				}
 				break;
 			default:
-				switch (value) {
+				switch (Mathf.RoundToInt(value)) {
 				case 1:
 					tile.getOccupant ().PrecisionBuff (Stat.PRECISION_BUFF_1, duration);
 					break;

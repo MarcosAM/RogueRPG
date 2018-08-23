@@ -12,7 +12,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 	protected float delayCountdown = 0;
 	protected float maxStamina;
 	protected float currentStamina;
-	protected bool alive = true;
+	[SerializeField]protected bool alive = true;
 
 	//TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
 	[SerializeField]protected StandartStats stats;
@@ -280,6 +280,15 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 		alive = false;
 		EventManager.DeathOf (this);
 		RemoveAllBuffs ();
+		regenerationManager.poisened = false;
+		regenerationManager.duration = 0;
+	}
+
+	public void revive(int hpRecovered){
+		alive = true;
+		Heal (hpRecovered);
+		DungeonManager.getInstance ().addToInitiative (this);
+		RefreshHUD ();
 	}
 
 	public void DelayBy (float amount){
@@ -319,9 +328,12 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 
 	protected virtual void FillStats (){}
 		
-	public void PrepareForFirstBattle (){
+	public void refresh (){
 		RemoveAllBuffs ();
 		delayCountdown = 0;
+		hp = maxHp;
+		regenerationManager.poisened = false;
+		regenerationManager.duration = 0;
 	}
 
 	public void SpendBuffs (){

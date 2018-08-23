@@ -8,7 +8,7 @@ public abstract class SkillEffect : ScriptableObject {
 	public enum Kind{Offensive, Heal, Buff, Debuff, Movement};
 
 	[SerializeField]protected Sources source;
-	[SerializeField]protected int value;
+	[SerializeField]protected float value;
 	[SerializeField]protected float precision;
 	[SerializeField]protected float critic;
 	[SerializeField]protected Skill.Types type;

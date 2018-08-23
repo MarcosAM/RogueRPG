@@ -42,7 +42,7 @@ public class DungeonManager : MonoBehaviour {
 				initiativeOrder.Add(enemy);
 		}
 		foreach(Character character in initiativeOrder){
-			character.PrepareForFirstBattle ();
+			character.refresh ();
 		}
 //		for(int i=0;i<initiativeOrder.Count;i++){
 //			initiativeOrder [i].RecoverFromDelayBy ((float)(initiativeOrder.Count-i)/100);
@@ -148,6 +148,10 @@ public class DungeonManager : MonoBehaviour {
 
 	void DeleteFromInitiative (Character combatant){
 		initiativeOrder.Remove(combatant);
+	}
+
+	public void addToInitiative (Character character){
+		initiativeOrder.Add(character);
 	}
 
 	void EndBattleAndCheckIfDungeonEnded (){
