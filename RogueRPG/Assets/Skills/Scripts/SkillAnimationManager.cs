@@ -6,6 +6,7 @@ public abstract class SkillAnimationManager : MonoBehaviour {
 
 	protected Character user;
 	protected Battleground.Tile targetTile;
+	protected SkillEffect requester;
 
-	public virtual void start(Character user, Battleground.Tile targetTile){}
+	public virtual void start(SkillEffect requester, Battleground.Tile targetTile){}
 }

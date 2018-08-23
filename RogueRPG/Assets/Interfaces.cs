@@ -10,3 +10,11 @@ public interface IPlaySkillAnimation{
 public interface IWaitForAnimation{
 	void resumeFromAnimation();
 }
+
+public interface IPlayEffects{
+	void playEffect (IWaitForEffectsToEnd requester, Vector2 effectPosition);
+}
+
+public interface IWaitForEffectsToEnd{
+	void resumeFromEffect (IPlayEffects requester);
+}

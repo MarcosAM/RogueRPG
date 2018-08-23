@@ -164,10 +164,10 @@ public class Battleground : MonoBehaviour {
 
 	void CreateTiles(){
 		for(int i =0;i<heroTiles.Length;i++){
-			heroTiles [i] = new Tile (i,cHUDManager.getHeroesPositions()[i],true);
+			heroTiles [i] = new Tile (i,true);
 		}
 		for(int i =0;i<enemyTiles.Length;i++){
-			enemyTiles [i] = new Tile (i,cHUDManager.getEnemiesPositions()[i],false);
+			enemyTiles [i] = new Tile (i,false);
 		}
 	}
 
@@ -202,7 +202,7 @@ public class Battleground : MonoBehaviour {
 	public class Tile{
 		[SerializeField]Character occupant;
 		int index;
-		Vector2 localPosition;
+//		Vector2 localPosition;
 		bool fromHero;
 
 		public Tile(int index){
@@ -210,17 +210,29 @@ public class Battleground : MonoBehaviour {
 		}
 		public Tile(int index, Vector2 localPosition){
 			this.index = index;
-			this.localPosition = localPosition;
+//			this.localPosition = localPosition;
 		}
 		public Tile(int index, Vector2 localPosition, bool fromHero){
 			this.index = index;
-			this.localPosition = localPosition;
+//			this.localPosition = localPosition;
+			this.fromHero = fromHero;
+		}
+		public Tile(int index, bool fromHero){
+			this.index = index;
+			//			this.localPosition = localPosition;
 			this.fromHero = fromHero;
 		}
 		public void setOccupant(Character occupant) {this.occupant = occupant;}
 		public Character getOccupant() {return occupant;}
 		public int getIndex(){return index;}
-		public Vector2 getLocalPosition(){return localPosition;}
+//		public Vector2 getLocalPosition(){return localPosition;}
+		public Vector2 getLocalPosition(){
+			if (fromHero) {
+				return FindObjectOfType<CombHUDManager> ().getHeroesCombatantHUD () [index].getRectTransform ().localPosition;
+			} else {
+				return FindObjectOfType<CombHUDManager> ().getEnemiesCombatantHUD () [index].getRectTransform ().localPosition;
+			}
+		}
 		public bool isFromHero(){return fromHero;}
 	}
 }

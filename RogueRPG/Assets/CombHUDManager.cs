@@ -257,6 +257,9 @@ public class CombHUDManager : MonoBehaviour {
 		ShowSkillsBtnOf(DungeonManager.getInstance().getInitiativeOrder()[0]);
 	}
 
+	public CombatantHUD[] getHeroesCombatantHUD() {return heroesCombatantHUD;}
+	public CombatantHUD[] getEnemiesCombatantHUD() {return enemiesCombatantHUD;}
+
 //	public class momentumTabBtn{
 //		Text text;
 //		Button button;
