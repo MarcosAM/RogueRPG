@@ -247,6 +247,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 			}
 			hp -= damage;
 			currentStamina += damage;
+			hud.getAnimator().SetTrigger("Damage");
 			if(hp<=0){
 				Die ();
 			}
