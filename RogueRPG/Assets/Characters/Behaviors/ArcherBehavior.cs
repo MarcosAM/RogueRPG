@@ -85,7 +85,7 @@ public class ArcherBehavior : CombatBehavior {
 		if (targetTile == null) {
 			print ("Fuck!");
 		} else {
-			character.getHUD ().UseSkillAnimation ();
+			UseSkill ();
 		}
 	}
 

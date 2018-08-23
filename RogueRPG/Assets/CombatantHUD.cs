@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CombatantHUD : MonoBehaviour {
+public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 
 	[SerializeField]private Character combatant;
 	[SerializeField]private Slider hpBar;
@@ -18,6 +18,7 @@ public class CombatantHUD : MonoBehaviour {
 	private RectTransform rectTransform;
 	[SerializeField]RectTransform portraitHandler;
 	Animator animator;
+	IWaitForAnimationByString requester;
 
 	void Awake(){
 		image = GetComponentInChildren<Image> ();
@@ -161,6 +162,15 @@ public class CombatantHUD : MonoBehaviour {
 
 	public void UseSkillAnimation(){
 		animator.SetTrigger ("UseSkill");
+	}
+
+	public void playAnimation (IWaitForAnimationByString requester, string trigger){
+		animator.SetTrigger (trigger);
+		this.requester = requester;
+	}
+
+	void finishedAnimationByString(){
+		requester.resumeFromAnimation (this);
 	}
 
 	public void UseSkillFromCharacterBehavior(){

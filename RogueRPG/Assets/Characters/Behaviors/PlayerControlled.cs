@@ -24,8 +24,9 @@ public class PlayerControlled : CombatBehavior {
 			if (targetTile == null) {
 				CombHUDManager.getInstance ().ShowTargetBtns (character, choosedSkill);
 			} else {
-				CombHUDManager.getInstance().HideTargetBtns();
-				UseSkillAnimation();
+//				CombHUDManager.getInstance().HideTargetBtns();
+//				UseSkillAnimation();
+				UseSkill();
 			}
 		}
 	}

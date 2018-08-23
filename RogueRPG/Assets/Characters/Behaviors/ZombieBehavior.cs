@@ -35,7 +35,7 @@ public class ZombieBehavior : CombatBehavior {
 		if (targetTile == null) {
 			print ("Fuck!");
 		} else {
-			character.getHUD ().UseSkillAnimation ();
+			UseSkill ();
 		}
 //		Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
 //		Battleground.Tile[] tempEnemiesTiles = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles ();

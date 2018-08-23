@@ -27,3 +27,11 @@ public interface IRegeneratable{
 public interface IPoisonable{
 	void getPoisoned ();
 }
+
+public interface IPlayAnimationByString{
+	void playAnimation (IWaitForAnimationByString requester, string trigger);
+}
+
+public interface IWaitForAnimationByString{
+	void resumeFromAnimation (IPlayAnimationByString animationByString);
+}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SkillEffect : ScriptableObject {
+public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString {
 
 	public enum Sources{Physical, Magic};
 	public enum Kind{Offensive, Heal, Buff, Debuff, Movement};
@@ -22,22 +22,34 @@ public abstract class SkillEffect : ScriptableObject {
 	[SerializeField]protected float momentumValue;
 	protected int howManyTargets;
 	protected int targetsHited;
+	protected Character user;
+	protected Battleground.Tile targetTile;
 
 //	public virtual void Effect(Character user, Battleground.Tile targetTile) {}
 
-	public void Effect(Character user, Battleground.Tile tile){
+	public void startEffect(Character user, Battleground.Tile tile){
+		this.user = user;
+		this.targetTile = tile;
+		user.getHUD ().playAnimation (this, "UseSkill");
+	}
+
+	public void resumeFromAnimation (IPlayAnimationByString animationByString){
+		Effect ();
+	}
+
+	void Effect(){
 		if(user.isPlayable())
 			DungeonManager.getInstance ().addMomentum (momentumValue);
 		if (singleTarget) {
 			FindObjectOfType<Narration> ().Appear (user.getName (), effectName);
-			EffectAnimation (tile);
-			UniqueEffect(user,tile);
+			EffectAnimation (targetTile);
+			UniqueEffect(user,targetTile);
 			//TODO a habilidade paia que é utilizada quando não tem o que soltar
 			return;
 		} else {
 			FindObjectOfType<Narration>().Appear(user.getName(), effectName);
 			Battleground.Tile[] targets;
-			if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
+			if (targetTile.getOccupant ().isPlayable () == user.isPlayable ()) {
 				targets = DungeonManager.getInstance ().getBattleground ().getMySideTiles (user.isPlayable ());
 			} else {
 				targets = DungeonManager.getInstance ().getBattleground ().getMyEnemiesTiles (user.isPlayable ());
@@ -47,8 +59,8 @@ public abstract class SkillEffect : ScriptableObject {
 			targetsHited = 0;
 			foreach(Battleground.Tile t in targets){
 				EffectAnimation(t);
-				if (tile.getOccupant ().isPlayable () == user.isPlayable ()) {
-					if (tile.getOccupant () == user) {
+				if (targetTile.getOccupant ().isPlayable () == user.isPlayable ()) {
+					if (targetTile.getOccupant () == user) {
 						UniqueEffect (user, t);
 					} else {
 						UniqueEffect (user,t);

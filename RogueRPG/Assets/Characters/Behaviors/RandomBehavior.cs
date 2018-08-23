@@ -66,7 +66,7 @@ public class RandomBehavior : CombatBehavior {
 					if(tempHeroesTiles[character.getPosition() + i*direction].getOccupant()){
 						targetTile = tempEnemiesTiles [character.getPosition() + i * direction];
 						if (character.getPosition () + i * direction >= minIndex && character.getPosition () + i * direction <= maxIndex) {
-							character.getHUD ().UseSkillAnimation ();
+							UseSkill ();
 							return;
 						}
 					}
@@ -75,14 +75,14 @@ public class RandomBehavior : CombatBehavior {
 					if(tempHeroesTiles[character.getPosition() - i*direction].getOccupant()){
 						targetTile = tempEnemiesTiles [character.getPosition() - i * direction];
 						if (character.getPosition () - i * direction >= minIndex && character.getPosition () - i * direction <= maxIndex) {
-							character.getHUD ().UseSkillAnimation ();
+							UseSkill ();
 							return;
 						}
 					}
 				}
 			}
 		}
-		character.getHUD ().UseSkillAnimation ();
+		UseSkill ();
 	}
 
 //	public void UseSkill (Battleground.Tile tile){
