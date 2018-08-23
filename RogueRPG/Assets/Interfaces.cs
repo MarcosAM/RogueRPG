@@ -18,3 +18,8 @@ public interface IPlayEffects{
 public interface IWaitForEffectsToEnd{
 	void resumeFromEffect (IPlayEffects requester);
 }
+
+public interface IRegeneratable{
+	void startGeneration (int duration);
+	void startGeneration ();
+}

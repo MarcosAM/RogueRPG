@@ -12,6 +12,7 @@ public class PlayableCharacter : Character {
 		critic = new Stat();
 		precision = new Stat();
 		dodge = new Stat();
+		regenerationManager = new Character.RegenerationManager (this);
 
 		if(stats != null){
 			FillStats ();

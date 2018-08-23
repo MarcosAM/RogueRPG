@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public abstract class Character : MonoBehaviour, IComparable {
+public abstract class Character : MonoBehaviour, IComparable, IRegeneratable {
 
 	[SerializeField]protected string characterName;
 	protected int hp;
@@ -27,6 +27,7 @@ public abstract class Character : MonoBehaviour, IComparable {
 
 	[SerializeField]protected Image portrait;
 	protected CombatantHUD hud;
+	protected RegenerationManager regenerationManager;
 
 	public event Action OnHUDValuesChange;
 	public event Action<int,int> OnHPValuesChange;
@@ -42,6 +43,11 @@ public abstract class Character : MonoBehaviour, IComparable {
 		SpendBuffs();
 		hud.ShowItsActivePlayer ();
 		CheckIfSkillsShouldBeRefreshed();
+		if (regenerationManager != null) {
+			regenerationManager.recover ();
+		} else {
+			
+		}
 	}
 
 	public void EndTurn(){
@@ -452,4 +458,29 @@ public abstract class Character : MonoBehaviour, IComparable {
 	public CombatBehavior getBehavior() {return combatBehavior;}
 	public IMovable getMovement() {return movement;}
 	public int getPosition() {return movement.getPosition ();}
+
+	protected class RegenerationManager{
+		public int duration = 0;
+		public bool consumable = true;
+		Character owner;
+
+		public void recover(){
+			if(duration > 0 || !consumable){
+				owner.Heal (Mathf.RoundToInt(owner.getMaxHp()*0.1f));
+				if(consumable){
+					duration--;
+				}
+			}
+		}
+
+		public RegenerationManager (Character owner){
+			this.owner = owner;
+		}
+	}
+	public void startGeneration (int duration){
+		regenerationManager.duration += duration;
+	}
+	public void startGeneration (){
+		regenerationManager.consumable = false;
+	}
 }
