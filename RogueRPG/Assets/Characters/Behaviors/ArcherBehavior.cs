@@ -92,12 +92,16 @@ public class ArcherBehavior : CombatBehavior {
 	public override void UseSkill ()
 	{
 		base.UseSkill ();
-		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.UseEquipmentOn (character,targetTile);
+//		EventManager.OnSkillUsed += EndTurn;
+		choosedSkill.UseEquipmentOn (character,targetTile, this);
+	}
+
+	public override void resumeFromEquipment (){
+		EndTurn ();
 	}
 
 	void EndTurn(){
-		EventManager.OnSkillUsed -= EndTurn;
+//		EventManager.OnSkillUsed -= EndTurn;
 		character.EndTurn ();
 	}
 }

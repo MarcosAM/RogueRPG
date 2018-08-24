@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatBehavior : MonoBehaviour {
+public class CombatBehavior : MonoBehaviour, IWaitForEquipment {
 
 	[SerializeField]protected Character character;
 	protected Skill choosedSkill;
@@ -23,6 +23,7 @@ public class CombatBehavior : MonoBehaviour {
 			}
 		}
 	}
+	public virtual void resumeFromEquipment (){}
 	public Character getCharacter() {return character;}
 	public Skill getChoosedSkill() {return choosedSkill;}
 	public void setChoosedSkill(Skill skill) {this.choosedSkill = skill;}

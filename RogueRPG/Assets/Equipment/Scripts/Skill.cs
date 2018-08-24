@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Skill : ScriptableObject {
+public abstract class Skill : ScriptableObject, IWaitForSkill {
 
 	public enum Targets{Self, Allies, Enemies, All, Location};
 	public enum Types{Melee, Ranged};
@@ -26,12 +26,14 @@ public abstract class Skill : ScriptableObject {
 	[SerializeField]protected SkillEffect alliesEffect;
 	[SerializeField]protected int hp, atk, atkm, def, defm;
 	[SerializeField]protected Types type;
+	protected IWaitForEquipment requester;
 //	protected int howManyTargets;
 //	protected int targetsHited;
 //	protected bool endable;
 
-	public void UseEquipmentOn (Character user,Battleground.Tile tile){
+	public void UseEquipmentOn (Character user,Battleground.Tile tile, IWaitForEquipment requester){
 //		TODO Check if already there before adding
+		this.requester = requester;
 		charactersThatCantUseMe.Add(user);
 //		endable = true;
 //		user.DelayBy (sDelay);
@@ -42,11 +44,11 @@ public abstract class Skill : ScriptableObject {
 			if (user.isPlayable() != tile.isFromHero ()) {
 				if (user.isPlayable () != tile.getOccupant ().isPlayable ()) {
 					if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= meleeEffect.getRange ()) {
-						meleeEffect.startEffect (user, tile);
+						meleeEffect.startEffect (user, tile, this);
 						//					Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito primário!");
 						return;
 					} else {
-						rangedEffect.startEffect (user, tile);
+						rangedEffect.startEffect (user, tile, this);
 						return;
 					}
 				}
@@ -54,20 +56,20 @@ public abstract class Skill : ScriptableObject {
 				if (tile.getOccupant () != null) {
 					if (user == tile.getOccupant ()) {
 						if (selfEffect != null) {
-							selfEffect.startEffect (user, tile);
+							selfEffect.startEffect (user, tile, this);
 //							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito secundário!");
 							return;
 						}
 					} else {
 						if (alliesEffect != null) {
-							alliesEffect.startEffect (user, tile);
+							alliesEffect.startEffect (user, tile, this);
 //							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
 							return;
 						}
 					}
 				} else {
 					if (alliesEffect != null) {
-						alliesEffect.startEffect (user, tile);
+						alliesEffect.startEffect (user, tile, this);
 //						Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
 						return;
 					}
@@ -98,6 +100,10 @@ public abstract class Skill : ScriptableObject {
 //				}
 //			}
 //		}
+	}
+
+	public void resumeFromSkill (){
+		requester.resumeFromEquipment ();
 	}
 
 //	public void UseEquipmentOn (Character user, Character target){

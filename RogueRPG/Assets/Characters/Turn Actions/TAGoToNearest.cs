@@ -7,7 +7,6 @@ public class TAGoToNearest : TurnAction {
 	public override void tryToDefineEquipSkillTargetFor ()
 	{
 		base.tryToDefineEquipSkillTargetFor ();
-		Debug.Log ("Cheguei!");
 		combatBehavior.setChoosedSkill (null);
 		combatBehavior.setTargetTile (null);
 

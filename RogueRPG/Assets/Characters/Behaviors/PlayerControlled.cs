@@ -97,13 +97,17 @@ public class PlayerControlled : CombatBehavior {
 	public override void UseSkill ()
 	{
 		base.UseSkill ();
-		EventManager.OnSkillUsed += EndTurn;
+//		EventManager.OnSkillUsed += EndTurn;
 //		print (character.getName() + " usa skill brother");
-		choosedSkill.UseEquipmentOn (character,targetTile);
+		choosedSkill.UseEquipmentOn (character,targetTile, this);
 	}
 
+	public override void resumeFromEquipment (){
+		EndTurn ();
+	}
+		
 	void EndTurn(){
-		EventManager.OnSkillUsed -= EndTurn;
+//		EventManager.OnSkillUsed -= EndTurn;
 		choosedSkill = null;
 		character.EndTurn ();
 	}

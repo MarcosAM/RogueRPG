@@ -35,3 +35,11 @@ public interface IPlayAnimationByString{
 public interface IWaitForAnimationByString{
 	void resumeFromAnimation (IPlayAnimationByString animationByString);
 }
+
+public interface IWaitForEquipment{
+	void resumeFromEquipment ();
+}
+
+public interface IWaitForSkill{
+	void resumeFromSkill ();
+}

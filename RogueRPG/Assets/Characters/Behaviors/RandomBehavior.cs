@@ -94,8 +94,8 @@ public class RandomBehavior : CombatBehavior {
 	public override void UseSkill ()
 	{
 		base.UseSkill ();
-		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.UseEquipmentOn (character,targetTile);
+//		EventManager.OnSkillUsed += EndTurn;
+		choosedSkill.UseEquipmentOn (character,targetTile, this);
 	}
 
 //	public void UseSkill (Character u, Character t)
@@ -110,8 +110,12 @@ public class RandomBehavior : CombatBehavior {
 //		choosedSkill.Effect (character);
 //	}
 
+	public override void resumeFromEquipment (){
+		EndTurn ();
+	}
+
 	void EndTurn(){
-		EventManager.OnSkillUsed -= EndTurn;
+//		EventManager.OnSkillUsed -= EndTurn;
 		character.EndTurn ();
 	}
 }
