@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString {
+public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString, IWaitForAnimation {
 
 	public enum Sources{Physical, Magic};
 	public enum Kind{Offensive, Heal, Buff, Debuff, Movement};
@@ -50,7 +50,6 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString 
 			FindObjectOfType<Narration> ().Appear (user.getName (), effectName);
 			EffectAnimation (targetTile);
 			UniqueEffect(user,targetTile);
-			//TODO a habilidade paia que é utilizada quando não tem o que soltar
 			return;
 		} else {
 			FindObjectOfType<Narration>().Appear(user.getName(), effectName);
@@ -81,10 +80,10 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString 
 	public void EffectAnimation(Battleground.Tile tile){
 		SkillAnimation skillAnimation = Instantiate (animationPrefab);
 		skillAnimation.transform.SetParent (FindObjectOfType<Canvas>().transform,false);
-		skillAnimation.PlayAnimation (this,tile);
+		skillAnimation.PlayAnimation (this,tile.getLocalPosition());
 	}
 
-	public void EndSkill(){
+	public void resumeFromAnimation(){
 		if (singleTarget) {
 			FindObjectOfType<Narration>().Disappear();
 			resumeFromSkill ();
@@ -98,7 +97,7 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString 
 	}
 
 	float getAttack(){
-		return Random.value - precision - user.getPrecision ();
+		return Random.value - precision - user.getPrecision().getValue();
 	}
 
 	bool didIHit(Character target, float attack){

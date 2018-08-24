@@ -8,6 +8,7 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 	private RectTransform rectTransform;
 	private Skill mySkill;
 	private SkillEffect mySkillEffect;
+	private IWaitForAnimation requester;
 
 	void Awake (){
 		animator = GetComponent<Animator> ();
@@ -27,10 +28,14 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 	}
 
 	public void PlayAnimation (IWaitForAnimation requester, Vector2 animationPosition){
+		rectTransform.localPosition = animationPosition + new Vector2(0,50);
+		this.requester = requester;
+		animator.SetTrigger ("play");
 	}
 
 	public void End (){
-		mySkillEffect.EndSkill ();
+//		mySkillEffect.EndSkill ();
+		requester.resumeFromAnimation();
 		Destroy (gameObject);
 	}
 }
