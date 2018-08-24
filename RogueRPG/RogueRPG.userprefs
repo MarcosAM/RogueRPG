@@ -1,11 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Skills\Scripts\SkillEffect.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Skills\Scripts\SEAssault.cs">
     <Files>
-      <File FileName="Assets\Skills\Scripts\SkillEffect.cs" Line="83" Column="61" />
-      <File FileName="Assets\Characters\Character.cs" Line="153" Column="3" />
+      <File FileName="Assets\Skills\Scripts\SkillEffect.cs" Line="38" Column="22" />
+      <File FileName="Assets\Skills\Scripts\SEAssault.cs" Line="5" Column="49" />
+      <File FileName="Assets\Skills\Scripts\SEMove.cs" Line="5" Column="17" />
       <File FileName="Assets\Interfaces.cs" Line="11" Column="26" />
+      <File FileName="Assets\Characters\Character.cs" Line="1" Column="1" />
       <File FileName="Assets\SkillsAnimation\SkillAnimation.cs" Line="38" Column="35" />
+      <File FileName="Assets\Equipment\Scripts\Skill.cs" Line="105" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

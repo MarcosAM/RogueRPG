@@ -28,18 +28,18 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 
 //	public virtual void Effect(Character user, Battleground.Tile targetTile) {}
 
-	public void startEffect(Character user, Battleground.Tile tile, IWaitForSkill requester){
+	public virtual void startEffect(Character user, Battleground.Tile tile, IWaitForSkill requester){
 		this.requester = requester;
 		this.user = user;
 		this.targetTile = tile;
 		user.getHUD ().playAnimation (this, "UseSkill");
 	}
 
-	public void resumeFromSkill(){
+	public void endSkill(){
 		requester.resumeFromSkill ();
 	}
 
-	public void resumeFromAnimation (IPlayAnimationByString animationByString){
+	public virtual void resumeFromAnimation (IPlayAnimationByString animationByString){
 		Effect ();
 	}
 
@@ -86,12 +86,12 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 	public void resumeFromAnimation(){
 		if (singleTarget) {
 			FindObjectOfType<Narration>().Disappear();
-			resumeFromSkill ();
+			endSkill ();
 		} else {
 			targetsHited++;
 			if(targetsHited>=howManyTargets){
 				FindObjectOfType<Narration>().Disappear();
-				resumeFromSkill ();
+				endSkill ();
 			}
 		}
 	}
