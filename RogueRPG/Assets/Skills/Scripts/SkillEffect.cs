@@ -97,32 +97,30 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString 
 		}
 	}
 
-	protected float getNewHitValue(Character user, Battleground.Tile targetTile){
-		return precision + user.getPrecision().getValue() - getDistanceInfluenceOnPrecision(user,targetTile);
+	float getAttack(){
+		return Random.value - precision - user.getPrecision ();
 	}
 
-	protected int getNewDamage(Character user, int skillDmg){
-		if (source == Sources.Physical) {
-			return Mathf.RoundToInt(skillDmg + user.getAtkValue () * Random.Range (1f, 1.2f));
-		} else {
-			return Mathf.RoundToInt(skillDmg + user.getAtkmValue () * Random.Range (1f, 1.2f));
-		}
-	}
-
-	public float getDistanceInfluenceOnPrecision (Character user, Battleground.Tile targetTile){
+	bool didIHit(Character target, float attack){
 		if (type == Skill.Types.Melee) {
-			return 0f;
+			return target.didIHitYou (attack);
 		} else {
-			float distanceInfluenceOnPrecision = (range - Mathf.Abs (user.getPosition() - targetTile.getIndex())) * 0.1f;
-			if (distanceInfluenceOnPrecision > 0) {
-				return 0;
-			} else {
-				return distanceInfluenceOnPrecision;
-			}
+			return target.didIHitYou (attack - Mathf.Abs (user.getPosition() - target.getPosition()) );
 		}
 	}
 
-//	public virtual void UniqueEffect (Character user, Skill skill, Battleground.Tile tile) {}
+	float getDamage(int skillDamage){
+		if (source == Sources.Physical) {
+			return user.getAtkValue () + skillDamage;
+		} else {
+			return user.getAtkmValue () + skillDamage;
+		}
+	}
+
+	int damage(Character user, int skillDamage){
+		return user.takeDamage (skillDamage,source);
+	}
+		
 	public string getDescription () {return description;}
 	public Sources getSource() {return source;}
 	public bool canTargetTile() {return canHitTile;}

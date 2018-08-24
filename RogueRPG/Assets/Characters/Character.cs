@@ -143,6 +143,15 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 		}
 	}
 
+	public bool didIHitYou (float attackValue){
+		if (attackValue + getDodgeValue () < 0) {
+			return true;
+		} else {
+			hud.getAnimator ().SetTrigger ("Dodge");
+			return false;
+		}
+	}
+
 	public bool CanIHitWith (Character target, SkillEffect skillEffect){
 		if (skillEffect.getSkillType () == Skill.Types.Ranged) {
 //			if (getPrecisionOfSkillEffect (target, skillEffect) > 0) {
