@@ -210,6 +210,11 @@ public class DungeonManager : MonoBehaviour {
 		}
 	}
 
+	public static DungeonManager getInstance () {return instance;}
+	public Battleground getBattleground () {return battleground;}
+	public List<Character> getInitiativeOrder (){return initiativeOrder;}
+	public int getRound(){return round;}
+
 	public bool shouldMomentumStop(){
 		currentMomentumDowntime++;
 		if (currentMomentumDowntime >= maxMomentumDowntime) {
@@ -220,10 +225,6 @@ public class DungeonManager : MonoBehaviour {
 		}
 	}
 
-	public static DungeonManager getInstance () {return instance;}
-	public Battleground getBattleground () {return battleground;}
-	public List<Character> getInitiativeOrder (){return initiativeOrder;}
-	public int getRound(){return round;}
 	public void manageMomentum(){
 		if (momentum >= maxMomentum) {
 			if (shouldMomentumStop ()) {
@@ -235,7 +236,7 @@ public class DungeonManager : MonoBehaviour {
 	}
 	public void addMomentum(float amount){
 		momentum += amount;
-		momentumBar.addMomentum (amount);
+		momentumBar.changeMomentumBy (amount);
 		if (momentum > maxMomentum)
 			momentum = maxMomentum;
 		if (momentum < 0)

@@ -12,7 +12,7 @@ public class MomentumBar : MonoBehaviour {
 	bool filling = false;
 	[SerializeField]Slider momentumBar;
 
-	public void addMomentum (float value){
+	public void changeMomentumBy (float value){
 		targetAmount += value;
 		if (targetAmount > maxAmount)
 			targetAmount = maxAmount;
@@ -50,5 +50,6 @@ public class MomentumBar : MonoBehaviour {
 		targetAmount = 0;
 		currentDisplayedAmount = 0;
 		this.maxAmount = maxAmount;
+//		changeMomentumBy (50);
 	}
 }
