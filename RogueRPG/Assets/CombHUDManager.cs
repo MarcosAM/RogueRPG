@@ -106,7 +106,6 @@ public class CombHUDManager : MonoBehaviour {
 	//TESTE
 	public void ShowSkillsBtnOf (Character character)
 	{
-		print("Mostre!");
 		chooseYourTxt.gameObject.SetActive(true);
 		chooseYourTxt.text = "Choose Your Equipment:";
 		if (DungeonManager.getInstance ().isMomentumFull ()) {
@@ -175,14 +174,16 @@ public class CombHUDManager : MonoBehaviour {
 		}
 	}
 
-	public void HideTargetBtns(){
+	public void HideTargetBtns(bool asPreview){
 		for(int i=0; i<heroesCombatantHUD.Length; i++){
 			heroesCombatantHUD [i].HideTargetBtn ();
 		}
 		for(int i=0; i<enemiesCombatantHUD.Length; i++){
 			enemiesCombatantHUD [i].HideTargetBtn ();
 		}
-		chooseYourTxt.gameObject.SetActive(false);
+		if(!asPreview){
+			chooseYourTxt.gameObject.SetActive(false);
+		}
 		FindObjectOfType<Narration>().Disappear();
 		undoBtn.Disappear ();
 	}
@@ -216,7 +217,7 @@ public class CombHUDManager : MonoBehaviour {
 		if (combatBehavior.getChoosedSkill () != null) {
 
 		} else {
-			HideTargetBtns ();
+			HideTargetBtns (true);
 		}
 	}
 

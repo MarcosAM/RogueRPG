@@ -34,6 +34,7 @@ public abstract class Skill : ScriptableObject, IWaitForSkill {
 
 	public void UseEquipmentOn (Character user,Battleground.Tile tile, IWaitForEquipment requester){
 //		TODO Check if already there before adding
+		user.changeEquipmentSprite(image);
 		this.requester = requester;
 		charactersThatCantUseMe.Add(user);
 //		endable = true;

@@ -18,7 +18,7 @@ public class PlayerControlled : CombatBehavior {
 	{
 		if (choosedSkill == null) {
 			CombHUDManager.getInstance ().ShowSkillsBtnOf (character);
-			CombHUDManager.getInstance().HideTargetBtns();
+			CombHUDManager.getInstance().HideTargetBtns(true);
 		} else {
 			CombHUDManager.getInstance ().HideSkillsBtn ();
 			if (targetTile == null) {
@@ -26,7 +26,7 @@ public class PlayerControlled : CombatBehavior {
 			} else {
 //				CombHUDManager.getInstance().HideTargetBtns();
 //				UseSkillAnimation();
-				CombHUDManager.getInstance().HideTargetBtns();
+				CombHUDManager.getInstance().HideTargetBtns(false);
 				UseSkill();
 			}
 		}
