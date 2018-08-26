@@ -53,9 +53,11 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 //			portraitHandler.rotation = Quaternion.Euler (new Vector3 (0, 0, 0));
 //			rectTransform.anchorMax = new Vector2(0.5f,0f);
 //			rectTransform.anchorMin = new Vector2(0.5f,0f);
+			hpNumbers.gameObject.SetActive(true);
 		} else {
 			portraitHandler.rotation = Quaternion.Euler (new Vector3 (0, 0, 180));
 			image.rectTransform.localScale = new Vector3 (1,-1,1);
+			hpNumbers.gameObject.SetActive(false);
 //			rectTransform.anchorMax = new Vector2(0.5f,1f);
 //			rectTransform.anchorMin = new Vector2(0.5f,1f);
 		}
@@ -64,7 +66,6 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 			image.sprite = combatant.getPortrait ().sprite;
 			hpBar.gameObject.SetActive(true);
 //			staminaBar.gameObject.SetActive(true);
-			hpNumbers.gameObject.SetActive(true);
 			buffText.gameObject.SetActive (true);
 			combatant.OnHUDValuesChange += Refresh;
 			combatant.OnHPValuesChange += HPFeedback;

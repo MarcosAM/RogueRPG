@@ -19,9 +19,11 @@ public class CombHUDManager : MonoBehaviour {
 	bool showingMomentumSkill = true;
 	[SerializeField]MomentumTabBtn momentumTabBtn;
 	[SerializeField]UndoBtn undoBtn;
+	[SerializeField]Text chooseYourTxt;
 
 	public void Awake(){
 		MakeItASingleton ();
+		chooseYourTxt.gameObject.SetActive(false);
 //		DontDestroyOnLoad (this.gameObject);
 //		CreateCombatantHUDs ();
 	}
@@ -104,6 +106,9 @@ public class CombHUDManager : MonoBehaviour {
 	//TESTE
 	public void ShowSkillsBtnOf (Character character)
 	{
+		print("Mostre!");
+		chooseYourTxt.gameObject.SetActive(true);
+		chooseYourTxt.text = "Choose Your Equipment:";
 		if (DungeonManager.getInstance ().isMomentumFull ()) {
 			if (showingMomentumSkill) {
 				for (int i = 0; i < skillsBtn.Length; i++) {
@@ -133,6 +138,7 @@ public class CombHUDManager : MonoBehaviour {
 		for (int i = 0; i < skillsBtn.Length; i++) {
 			skillsBtn [i].Disappear ();
 		}
+		chooseYourTxt.gameObject.SetActive(false);
 		momentumTabBtn.disappear ();
 	}
 
@@ -164,6 +170,8 @@ public class CombHUDManager : MonoBehaviour {
 		if (!asPreview) {
 			FindObjectOfType<Narration>().Appear(choosedSkill.getMySkillEffectsDescriptions());
 			undoBtn.Appear ();
+			chooseYourTxt.gameObject.SetActive(true);
+			chooseYourTxt.text = "Choose Your Target:";
 		}
 	}
 
@@ -174,6 +182,7 @@ public class CombHUDManager : MonoBehaviour {
 		for(int i=0; i<enemiesCombatantHUD.Length; i++){
 			enemiesCombatantHUD [i].HideTargetBtn ();
 		}
+		chooseYourTxt.gameObject.SetActive(false);
 		FindObjectOfType<Narration>().Disappear();
 		undoBtn.Disappear ();
 	}
