@@ -25,6 +25,7 @@ public abstract class Skill : ScriptableObject, IWaitForSkill {
 	[SerializeField]protected SkillEffect selfEffect;
 	[SerializeField]protected SkillEffect alliesEffect;
 	[SerializeField]protected int hp, atk, atkm, def, defm;
+	[SerializeField]protected Sprite image;
 	[SerializeField]protected Types type;
 	protected IWaitForEquipment requester;
 //	protected int howManyTargets;
@@ -253,6 +254,7 @@ public abstract class Skill : ScriptableObject, IWaitForSkill {
 	public string getMySkillEffectsDescriptions (){
 		string descriptions = "";
 		descriptions += meleeEffect.getEffectName() + ": " + meleeEffect.getDescription() + "\n";
+		descriptions += rangedEffect.getEffectName() + ": " + rangedEffect.getDescription() + "\n";
 		descriptions += selfEffect.getEffectName() + ": " + selfEffect.getDescription() + "\n";
 		descriptions += alliesEffect.getEffectName() + ": " + alliesEffect.getDescription() + "\n";
 		return descriptions;

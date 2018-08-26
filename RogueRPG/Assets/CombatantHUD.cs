@@ -17,6 +17,7 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 	[SerializeField]private Text initiative;
 	private RectTransform rectTransform;
 	[SerializeField]RectTransform portraitHandler;
+	[SerializeField]private Image equipment;
 	Animator animator;
 	IWaitForAnimationByString requester;
 
@@ -123,17 +124,6 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 //		UpdateEnergyBar();
 	}
 
-//	void UpdateEnergyBar (){
-//		float i = (combatant.getEnergy() + 5f) / 5f;
-//		if (i >= 1) {
-//			i = 1;
-////			energyBar.fillRect.GetComponentInChildren<Image> ().color = Color.green;
-//		} else {
-////			energyBar.fillRect.GetComponentInChildren<Image>().color = Color.blue;
-//		}
-////		energyBar.value = i;
-//	}
-
 	void ShowBuffs (){
 		//TODO Fazer isso de forma automatica criando uma variável para o nome do stat
 		buffText.text = "";
@@ -197,8 +187,15 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 	{
 		DungeonManager dungeonManager = DungeonManager.getInstance ();
 		if (combatant != null) {
-			initiative.gameObject.SetActive(true);
-			initiative.text = (dungeonManager.getInitiativeOrder ().IndexOf (combatant) + 1).ToString ();
+			if (combatant.isAlive ()) {
+				initiative.gameObject.SetActive (true);
+				initiative.text = (dungeonManager.getInitiativeOrder ().IndexOf (combatant) + 1).ToString ();
+				if (initiative.text == "1") {
+					initiative.color = Color.black;
+				} else {
+					initiative.color = Color.gray;
+				}
+			}
 		} else {
 			initiative.gameObject.SetActive(false);
 		}
@@ -215,6 +212,10 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 	{
 		DungeonManager dungeonManager = DungeonManager.getInstance();
 
+	}
+
+	public void changeEquipmentSprite (Sprite sprite){
+		this.equipment.sprite = sprite;
 	}
 
 //	public void CheckCharacterThatDied (Character character){

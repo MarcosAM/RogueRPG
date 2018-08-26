@@ -19,6 +19,7 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 	[SerializeField]protected string effectName;
 	[SerializeField]protected bool canHitTile;
 	[SerializeField]protected string description;
+	[SerializeField]protected string castSkillAnimationTrigger;
 	[SerializeField]protected float momentumValue;
 	protected int howManyTargets;
 	protected int targetsHited;
@@ -32,7 +33,13 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 		this.requester = requester;
 		this.user = user;
 		this.targetTile = tile;
-		user.getHUD ().playAnimation (this, "UseSkill");
+		playCastSkillAnimation();
+	}
+
+	void playCastSkillAnimation (){
+		if(castSkillAnimationTrigger != null){
+			user.getHUD().playAnimation(this,castSkillAnimationTrigger);
+		}
 	}
 
 	public void endSkill(){

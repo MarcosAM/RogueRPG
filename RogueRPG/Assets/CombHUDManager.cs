@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CombHUDManager : MonoBehaviour {
 
-	[SerializeField]CombatantHUD combatantHUDprefab;
+//	[SerializeField]CombatantHUD combatantHUDprefab;
 
 	[SerializeField]CombatantHUD[] heroesCombatantHUD = new CombatantHUD[4];
 	[SerializeField]CombatantHUD[] enemiesCombatantHUD = new CombatantHUD[4];
@@ -26,22 +26,22 @@ public class CombHUDManager : MonoBehaviour {
 //		CreateCombatantHUDs ();
 	}
 
-	public void CreateCombatantHUDs(){
-		for(int i = 0; i<4;i++){
-			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
-			combatantHUD.transform.SetParent(transform,false);
-			combatantHUD.getRectTransform().localPosition = heroesPositions[i];
-			heroesCombatantHUD [i] = combatantHUD;
-			heroesCombatantHUD [i].gameObject.SetActive(false);
-		}
-		for(int i = 0; i<4;i++){
-			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
-			combatantHUD.transform.SetParent(transform,false);
-			combatantHUD.getRectTransform().localPosition = enemiesPositions[i];
-			enemiesCombatantHUD [i] = combatantHUD;
-			enemiesCombatantHUD [i].gameObject.SetActive (false);
-		}
-	}
+//	public void CreateCombatantHUDs(){
+//		for(int i = 0; i<4;i++){
+//			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
+//			combatantHUD.transform.SetParent(transform,false);
+//			combatantHUD.getRectTransform().localPosition = heroesPositions[i];
+//			heroesCombatantHUD [i] = combatantHUD;
+//			heroesCombatantHUD [i].gameObject.SetActive(false);
+//		}
+//		for(int i = 0; i<4;i++){
+//			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
+//			combatantHUD.transform.SetParent(transform,false);
+//			combatantHUD.getRectTransform().localPosition = enemiesPositions[i];
+//			enemiesCombatantHUD [i] = combatantHUD;
+//			enemiesCombatantHUD [i].gameObject.SetActive (false);
+//		}
+//	}
 
 //	public void ShowCharacterAt(Character character, int position){
 //		if (character.isPlayable ()) {
@@ -153,14 +153,18 @@ public class CombHUDManager : MonoBehaviour {
 		}
 	}
 
-	public void ShowTargetBtns(Character user, Skill choosedSkill){
-		for(int i=0; i<heroesCombatantHUD.Length; i++){
-			heroesCombatantHUD [i].ShowTargetBtn (user,choosedSkill);
+	public void ShowTargetBtns (Character user, Skill choosedSkill, bool asPreview)
+	{
+		for (int i = 0; i < heroesCombatantHUD.Length; i++) {
+			heroesCombatantHUD [i].ShowTargetBtn (user, choosedSkill);
 		}
-		for(int i=0; i<enemiesCombatantHUD.Length; i++){
-			enemiesCombatantHUD [i].ShowTargetBtn (user,choosedSkill);
+		for (int i = 0; i < enemiesCombatantHUD.Length; i++) {
+			enemiesCombatantHUD [i].ShowTargetBtn (user, choosedSkill);
 		}
-		undoBtn.Appear ();
+		if (!asPreview) {
+			FindObjectOfType<Narration>().Appear(choosedSkill.getMySkillEffectsDescriptions());
+			undoBtn.Appear ();
+		}
 	}
 
 	public void HideTargetBtns(){
@@ -170,6 +174,7 @@ public class CombHUDManager : MonoBehaviour {
 		for(int i=0; i<enemiesCombatantHUD.Length; i++){
 			enemiesCombatantHUD [i].HideTargetBtn ();
 		}
+		FindObjectOfType<Narration>().Disappear();
 		undoBtn.Disappear ();
 	}
 
@@ -192,7 +197,7 @@ public class CombHUDManager : MonoBehaviour {
 			if (skillBtn.getSkill ().getCharactersThatCantUseMe ().Contains (combatBehavior.getCharacter ())) {
 
 			} else {
-				ShowTargetBtns (combatBehavior.getCharacter(),skillBtn.getSkill());
+				ShowTargetBtns (combatBehavior.getCharacter(),skillBtn.getSkill(), true);
 			}
 		}
 	}
@@ -212,7 +217,7 @@ public class CombHUDManager : MonoBehaviour {
 			CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
 			if(combatBehavior.getCharacter().isPlayable()){
 				if (combatBehavior.getChoosedSkill () != null) {
-					FindObjectOfType<Narration>().Appear(combatBehavior.getChoosedSkill().getMySkillEffectsDescriptions());
+					
 				} else {
 					if(targetBtn.getTile().getOccupant() != null){
 						if(targetBtn.getTile().getOccupant().isPlayable())
@@ -228,7 +233,7 @@ public class CombHUDManager : MonoBehaviour {
 			CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
 			if(combatBehavior.getCharacter().isPlayable()){
 				if (combatBehavior.getChoosedSkill () != null) {
-					FindObjectOfType<Narration>().Disappear();
+//					FindObjectOfType<Narration>().Disappear();
 				} else {
 					if(targetBtn.getTile().getOccupant() != null){
 						if(targetBtn.getTile().getOccupant().isPlayable())

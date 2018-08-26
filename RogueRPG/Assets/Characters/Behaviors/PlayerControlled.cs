@@ -22,10 +22,11 @@ public class PlayerControlled : CombatBehavior {
 		} else {
 			CombHUDManager.getInstance ().HideSkillsBtn ();
 			if (targetTile == null) {
-				CombHUDManager.getInstance ().ShowTargetBtns (character, choosedSkill);
+				CombHUDManager.getInstance ().ShowTargetBtns (character, choosedSkill, false);
 			} else {
 //				CombHUDManager.getInstance().HideTargetBtns();
 //				UseSkillAnimation();
+				CombHUDManager.getInstance().HideTargetBtns();
 				UseSkill();
 			}
 		}
