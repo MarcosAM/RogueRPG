@@ -110,6 +110,8 @@
      <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
      <Compile Include="Assets\StartUI.cs" />
      <Compile Include="Assets\TargetBtn.cs" />
+     <Compile Include="Assets\UI\EquipToggle.cs" />
+     <Compile Include="Assets\UI\EquipToggleManager.cs" />
      <Compile Include="Assets\UI\Rotate.cs" />
      <Compile Include="Assets\UndoBtn.cs" />
  <Reference Include="UnityEngine.UI">

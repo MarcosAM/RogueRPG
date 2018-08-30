@@ -17,8 +17,9 @@ public class PlayerControlled : CombatBehavior {
 	public void checkForNextStep ()
 	{
 		if (choosedSkill == null) {
-			CombHUDManager.getInstance ().ShowSkillsBtnOf (character);
-			CombHUDManager.getInstance().HideTargetBtns(true);
+//			CombHUDManager.getInstance ().ShowSkillsBtnOf (character);
+//			CombHUDManager.getInstance().HideTargetBtns(true);
+			FindObjectOfType<EquipToggleManager>().showEquipTogglesFor(character, false);
 		} else {
 			CombHUDManager.getInstance ().HideSkillsBtn ();
 			if (targetTile == null) {
@@ -37,6 +38,13 @@ public class PlayerControlled : CombatBehavior {
 		base.skillBtnPressed (skill);
 		choosedSkill = skill;
 		checkForNextStep();
+	}
+
+	public override void skillBtnPressed (int index)
+	{
+		base.skillBtnPressed (index);
+		choosedSkill = character.getSkills () [index];
+		checkForNextStep ();
 	}
 
 	public override void targetBtnPressed (Battleground.Tile targetTile)
