@@ -23,6 +23,7 @@ public class PlayerInputManager : MonoBehaviour {
 	}
 
 	public void returnEquipAndTarget(Battleground.Tile target){
+		combHUDManager.HideTargetBtns (false);
 		if(combatBehavior == null){
 			print ("É nulo");
 		}

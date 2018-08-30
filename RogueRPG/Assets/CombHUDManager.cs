@@ -166,12 +166,12 @@ public class CombHUDManager : MonoBehaviour {
 		for (int i = 0; i < enemiesCombatantHUD.Length; i++) {
 			enemiesCombatantHUD [i].ShowTargetBtn (user, choosedSkill);
 		}
-		if (!asPreview) {
-			FindObjectOfType<Narration>().Appear(choosedSkill.getMySkillEffectsDescriptions());
-			undoBtn.Appear ();
-			chooseYourTxt.gameObject.SetActive(true);
-			chooseYourTxt.text = "Choose Your Target:";
-		}
+//		if (!asPreview) {
+////			FindObjectOfType<Narration>().Appear(choosedSkill.getMySkillEffectsDescriptions());
+//			undoBtn.Appear ();
+//			chooseYourTxt.gameObject.SetActive(true);
+//			chooseYourTxt.text = "Choose Your Target:";
+//		}
 	}
 
 	public void HideTargetBtns(bool asPreview){
@@ -181,9 +181,9 @@ public class CombHUDManager : MonoBehaviour {
 		for(int i=0; i<enemiesCombatantHUD.Length; i++){
 			enemiesCombatantHUD [i].HideTargetBtn ();
 		}
-		if(!asPreview){
-			chooseYourTxt.gameObject.SetActive(false);
-		}
+//		if(!asPreview){
+//			chooseYourTxt.gameObject.SetActive(false);
+//		}
 //		FindObjectOfType<Narration>().Disappear();
 //		undoBtn.Disappear ();
 	}

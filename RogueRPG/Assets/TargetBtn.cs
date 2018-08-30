@@ -6,93 +6,17 @@ using UnityEngine.EventSystems;
 
 public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
-//	Text text;
-//	[SerializeField]Character combatant;
 	Battleground.Tile tile;
 
 	void Awake () {
 		button = GetComponent<Button> ();
-//		text = GetComponentInChildren<Text>();
 		Disappear ();
 		button.onClick.AddListener (onClick);
 	}
 
-	void ChooseTarget(){
-		EventManager.ChooseTarget (tile);
-	}
-
-//	public void Initialize (Character c){
-//		combatant = c;
-//		text.text = c.getName();
-//		combatant.OnMyTurnStarts += ActiveCombatantOn;
-//		combatant.OnMyTurnEnds += ActiveCombatantOff;
-//	}
-
-	public void Initialize (Battleground.Tile tile){
-//		if(this.tile.getOccupant() != null){
-//				tile.getOccupant().OnMyTurnStarts -= ActiveCombatantOn;
-//				tile.getOccupant().OnMyTurnEnds -= ActiveCombatantOff;
-//		}
+	public void setTile (Battleground.Tile tile){
 		this.tile = tile;
-//		text.color = new Color (0.2f,0.2f,0.2f,1f);
-		if(tile.getOccupant() != null){
-//			text.text = tile.getOccupant ().getName ();
-//			tile.getOccupant().OnMyTurnStarts += ActiveCombatantOn;
-//			tile.getOccupant().OnMyTurnEnds += ActiveCombatantOff;
-		}
 	}
-
-//	public void ActiveCombatantOn (){
-//		text.color = Color.blue;
-//	}
-//
-//	public void ActiveCombatantOff(){
-//		text.color = new Color (0.2f,0.2f,0.2f,1f);
-//	}
-
-//	public void Appear (Character user, Skill skill)
-//	{
-//		//TODO Só aparecer quando tiver alvo para poder aparecer
-//		if(tile.getOccupant() != null){
-//			if (tile.getOccupant().isAlive ()) {
-//				switch (skill.getTargets ()) {
-//				case Skill.Targets.Allies:
-//					if (combatant.isPlayable () && Mathf.Abs (combatant.getPosition () - user.getPosition ()) <= skill.getRange ()) {
-//						button.interactable = true;
-//						text.color = new Color (text.color.r, text.color.g, text.color.b, 1f);
-//					}
-//					break;
-//				case Skill.Targets.Enemies:
-//					if (!combatant.isPlayable () && Mathf.Abs (combatant.getPosition () - user.getPosition ()) <= skill.getRange ()) {
-//						button.interactable = true;
-//						text.color = new Color (text.color.r, text.color.g, text.color.b, 1f);
-//					}
-//					if (combatant.isPlayable ()) {
-//						if (combatant == user) {
-//							button.interactable = true;
-//							text.text = "Defender";
-//						} else {
-//							button.interactable = true;
-//							text.text = "Mover-se";
-//						}
-//					}
-//					break;
-//				case Skill.Targets.Self:
-//					if(combatant==user){
-//						button.interactable = true;
-//						text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
-//					}
-//					break;
-//				case Skill.Targets.Location:
-//					break;
-//				default:
-//					button.interactable = true;
-//					text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
-//					break;
-//				}
-//			}
-//		}
-//	}
 
 	void onClick (){
 		CombHUDManager.getInstance().onTargetBtnPressed(tile);
@@ -143,6 +67,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 //			text.text = "Habilidade Secundária";
 //		}
 //		text.color = new Color (0.2f,0.2f,0.2f,1f);
+		button.interactable = true;
 		if (tile.getOccupant () != null) {
 			if (user.isPlayable () == tile.isFromHero ()) {
 				if (user == tile.getOccupant ()) {
@@ -187,27 +112,6 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 //						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getRangedEffect())*100 + "%";
 					}
 				}
-//				if (skill.getMeleeEffect ().getSkillType() == Skill.Types.Ranged) {
-//					if(tile.getOccupant().isAlive()){
-////						button.interactable = true;
-//						ColorBlock cb = button.colors;
-//						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
-//						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
-//						button.colors = cb;
-//						text.text = skill.getMeleeEffect ().getEffectName ();
-//						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getMeleeEffect())*100 + "%";
-//					}
-//				} else {
-//					if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getMeleeEffect().getRange () && tile.getOccupant().isAlive()) {
-////						button.interactable = true;
-//						ColorBlock cb = button.colors;
-//						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
-//						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
-//						button.colors = cb;
-//						text.text = skill.getMeleeEffect ().getEffectName ();
-//						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getMeleeEffect())*100 + "%";
-//					}
-//				}
 			}
 		} else {
 			if(user.isPlayable() == tile.isFromHero()){
@@ -273,23 +177,23 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 //	}
 
 	override public void Disappear(){
-//		button.interactable = false;
-		ColorBlock cb = button.colors;
-		cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,0);
-		cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,0);
-		button.colors = cb;
-//		text.color = new Color (0.2f,0.2f,0.2f,1f);
-		if (tile != null) {
-			if (tile.getOccupant () != null) {
-//				text.text = tile.getOccupant ().getName ();
-//				if(DungeonManager.getInstance().getInitiativeOrder()[0] == tile.getOccupant())
-//					text.color = Color.blue;
-			} else {
-//				text.text = "";
-			}
-		} else {
-//			text.text = "";
-		}
+		button.interactable = false;
+//		ColorBlock cb = button.colors;
+//		cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,0);
+//		cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,0);
+//		button.colors = cb;
+////		text.color = new Color (0.2f,0.2f,0.2f,1f);
+//		if (tile != null) {
+//			if (tile.getOccupant () != null) {
+////				text.text = tile.getOccupant ().getName ();
+////				if(DungeonManager.getInstance().getInitiativeOrder()[0] == tile.getOccupant())
+////					text.color = Color.blue;
+//			} else {
+////				text.text = "";
+//			}
+//		} else {
+////			text.text = "";
+//		}
 	}
 
 	public void ShowItsActivePlayer (){

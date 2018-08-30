@@ -59,7 +59,7 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 			UniqueEffect(user,targetTile);
 			return;
 		} else {
-			FindObjectOfType<Narration>().Appear(user.getName(), effectName);
+//			FindObjectOfType<Narration>().Appear(user.getName(), effectName);
 			Battleground.Tile[] targets;
 			if (targetTile.getOccupant ().isPlayable () == user.isPlayable ()) {
 				targets = DungeonManager.getInstance ().getBattleground ().getMySideTiles (user.isPlayable ());
@@ -92,12 +92,12 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 
 	public void resumeFromAnimation(){
 		if (singleTarget) {
-			FindObjectOfType<Narration>().Disappear();
+//			FindObjectOfType<Narration>().Disappear();
 			endSkill ();
 		} else {
 			targetsHited++;
 			if(targetsHited>=howManyTargets){
-				FindObjectOfType<Narration>().Disappear();
+//				FindObjectOfType<Narration>().Disappear();
 				endSkill ();
 			}
 		}

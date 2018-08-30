@@ -10,6 +10,7 @@ public class EquipToggleManager : MonoBehaviour {
 	public void onAnyToggleChange(EquipToggle equipToggle){
 		if(equipToggle.getToggle().isOn){
 //			combatBehavior.skillBtnPressed (equipToggles.IndexOf(equipToggle));
+			FindObjectOfType<PlayerInputManager>().showTargetsBtn();
 		}
 	}
 
