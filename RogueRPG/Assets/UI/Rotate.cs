@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Rotate : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	public float speed = 10f;
+	RectTransform rectTransform;
+
+	void Awake(){
+		rectTransform = GetComponent<RectTransform> ();
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		
+		rectTransform.Rotate (Vector3.forward, speed * Time.deltaTime);
 	}
 }
