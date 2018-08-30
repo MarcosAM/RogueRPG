@@ -66,7 +66,7 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 			image.sprite = combatant.getPortrait ().sprite;
 			hpBar.gameObject.SetActive(true);
 //			staminaBar.gameObject.SetActive(true);
-			buffText.gameObject.SetActive (true);
+//			buffText.gameObject.SetActive (true);
 			combatant.OnHUDValuesChange += Refresh;
 			combatant.OnHPValuesChange += HPFeedback;
 			combatant.OnBuffsGainOrLoss += ShowBuffs;
@@ -78,9 +78,9 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 			image.sprite = null;
 //			image.sprite = emptyImage.sprite;
 			hpBar.gameObject.SetActive(false);
-			staminaBar.gameObject.SetActive(false);
+//			staminaBar.gameObject.SetActive(false);
 			hpNumbers.gameObject.SetActive(false);
-			buffText.gameObject.SetActive (false);
+//			buffText.gameObject.SetActive (false);
 			if (targetButton != null)
 				targetButton.Disappear ();
 		}
@@ -127,28 +127,28 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 
 	void ShowBuffs (){
 		//TODO Fazer isso de forma automatica criando uma variável para o nome do stat
-		buffText.text = "";
-		if(combatant.getAtk().getBuffValue() != 0){
-			buffText.text += "ATK " + combatant.getAtk().getBuffValue() + " ";
-		}
-		if(combatant.getAtkm().getBuffValue() != 0){
-			buffText.text += "ATKM " + combatant.getAtkm().getBuffValue() + " ";
-		}
-		if(combatant.getDef().getBuffValue() != 0){
-			buffText.text += "DEF " + combatant.getDef().getBuffValue() + " ";
-		}
-		if(combatant.getDefm().getBuffValue() != 0){
-			buffText.text += "DEFM " + combatant.getDefm ().getBuffValue () + " ";
-		}
-		if (combatant.getPrecision ().getBuffValue () != 0) {
-			buffText.text += "PRECISION " + combatant.getPrecision ().getBuffValue () + " ";
-		}
-		if (combatant.getCritic ().getBuffValue () != 0) {
-			buffText.text += "CRITIC " + combatant.getCritic ().getBuffValue () + " ";
-		}
-		if(combatant.getDodge().getBuffValue() != 0){
-			buffText.text += "DODGE " + combatant.getDodge ().getBuffValue () + " ";
-		}
+//		buffText.text = "";
+//		if(combatant.getAtk().getBuffValue() != 0){
+//			buffText.text += "ATK " + combatant.getAtk().getBuffValue() + " ";
+//		}
+//		if(combatant.getAtkm().getBuffValue() != 0){
+//			buffText.text += "ATKM " + combatant.getAtkm().getBuffValue() + " ";
+//		}
+//		if(combatant.getDef().getBuffValue() != 0){
+//			buffText.text += "DEF " + combatant.getDef().getBuffValue() + " ";
+//		}
+//		if(combatant.getDefm().getBuffValue() != 0){
+//			buffText.text += "DEFM " + combatant.getDefm ().getBuffValue () + " ";
+//		}
+//		if (combatant.getPrecision ().getBuffValue () != 0) {
+//			buffText.text += "PRECISION " + combatant.getPrecision ().getBuffValue () + " ";
+//		}
+//		if (combatant.getCritic ().getBuffValue () != 0) {
+//			buffText.text += "CRITIC " + combatant.getCritic ().getBuffValue () + " ";
+//		}
+//		if(combatant.getDodge().getBuffValue() != 0){
+//			buffText.text += "DODGE " + combatant.getDodge ().getBuffValue () + " ";
+//		}
 	}
 
 	public void UseSkillAnimation(){
@@ -186,20 +186,20 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 
 	public void RefreshInitiative ()
 	{
-		DungeonManager dungeonManager = DungeonManager.getInstance ();
-		if (combatant != null) {
-			if (combatant.isAlive ()) {
-				initiative.gameObject.SetActive (true);
-				initiative.text = (dungeonManager.getInitiativeOrder ().IndexOf (combatant) + 1).ToString ();
-				if (initiative.text == "1") {
-					initiative.color = Color.black;
-				} else {
-					initiative.color = Color.gray;
-				}
-			}
-		} else {
-			initiative.gameObject.SetActive(false);
-		}
+//		DungeonManager dungeonManager = DungeonManager.getInstance ();
+//		if (combatant != null) {
+//			if (combatant.isAlive ()) {
+////				initiative.gameObject.SetActive (true);
+////				initiative.text = (dungeonManager.getInitiativeOrder ().IndexOf (combatant) + 1).ToString ();
+//				if (initiative.text == "1") {
+//					initiative.color = Color.black;
+//				} else {
+//					initiative.color = Color.gray;
+//				}
+//			}
+//		} else {
+//			initiative.gameObject.SetActive(false);
+//		}
 	}
 
 	public RectTransform getRectTransform(){

@@ -10,8 +10,10 @@ public class PlayerControlled : CombatBehavior {
 		character.StartTurn();
 		choosedSkill = null;
 		targetTile = null;
-		checkForNextStep();
+//		checkForNextStep();
 //		ChooseSkill ();
+		FindObjectOfType<PlayerInputManager>().showUIFor(this);
+
 	}
 
 	public void checkForNextStep ()
@@ -37,7 +39,7 @@ public class PlayerControlled : CombatBehavior {
 	{
 		base.skillBtnPressed (skill);
 		choosedSkill = skill;
-		checkForNextStep();
+//		checkForNextStep();
 	}
 
 	public override void skillBtnPressed (int index)
@@ -109,6 +111,12 @@ public class PlayerControlled : CombatBehavior {
 //		EventManager.OnSkillUsed += EndTurn;
 //		print (character.getName() + " usa skill brother");
 		choosedSkill.UseEquipmentOn (character,targetTile, this);
+	}
+
+	public override void useEquip (int equip, Battleground.Tile target)
+	{
+		base.useEquip (equip, target);
+		character.getSkills () [equip].UseEquipmentOn (character, target, this);
 	}
 
 	public override void resumeFromEquipment (){

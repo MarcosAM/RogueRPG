@@ -11,6 +11,7 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment {
 
 	public virtual void StartTurn(){}
 	public virtual void UseSkill(){}
+	public virtual void useEquip(int equip, Battleground.Tile target){}
 	public virtual void skillBtnPressed (Skill skill){}
 	public virtual void skillBtnPressed (int index){}
 	public virtual void targetBtnPressed (Battleground.Tile targetTile){}

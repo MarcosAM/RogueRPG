@@ -9,11 +9,12 @@ public class EquipToggleManager : MonoBehaviour {
 
 	public void onAnyToggleChange(EquipToggle equipToggle){
 		if(equipToggle.getToggle().isOn){
-			combatBehavior.skillBtnPressed (equipToggles.IndexOf(equipToggle));
+//			combatBehavior.skillBtnPressed (equipToggles.IndexOf(equipToggle));
 		}
 	}
 
 	public void showEquipTogglesFor(Character character, bool asPreview){
+		gameObject.SetActive (true);
 		for(int i = 0;i<equipToggles.Count;i++){
 			equipToggles[i].getText().text = character.getSkills()[i].getSkillName();
 			if (asPreview) {
@@ -22,5 +23,14 @@ public class EquipToggleManager : MonoBehaviour {
 				equipToggles [i].getToggle ().interactable = true;
 			}
 		}
+	}
+
+	public int getSelectedEquipIndex(){
+		for(int i = 0;i<equipToggles.Count;i++){
+			if (equipToggles [i].getToggle ().isOn) {
+				return i;
+			}
+		}
+		return 1;
 	}
 }

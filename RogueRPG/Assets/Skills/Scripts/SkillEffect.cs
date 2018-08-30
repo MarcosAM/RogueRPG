@@ -54,7 +54,7 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 		if(user.isPlayable())
 			DungeonManager.getInstance ().addMomentum (momentumValue);
 		if (singleTarget) {
-			FindObjectOfType<Narration> ().Appear (user.getName (), effectName);
+//			FindObjectOfType<Narration> ().Appear (user.getName (), effectName);
 			EffectAnimation (targetTile);
 			UniqueEffect(user,targetTile);
 			return;

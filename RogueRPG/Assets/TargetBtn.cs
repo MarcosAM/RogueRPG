@@ -6,13 +6,13 @@ using UnityEngine.EventSystems;
 
 public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
-	Text text;
+//	Text text;
 //	[SerializeField]Character combatant;
 	Battleground.Tile tile;
 
 	void Awake () {
 		button = GetComponent<Button> ();
-		text = GetComponentInChildren<Text>();
+//		text = GetComponentInChildren<Text>();
 		Disappear ();
 		button.onClick.AddListener (onClick);
 	}
@@ -34,9 +34,9 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 //				tile.getOccupant().OnMyTurnEnds -= ActiveCombatantOff;
 //		}
 		this.tile = tile;
-		text.color = new Color (0.2f,0.2f,0.2f,1f);
+//		text.color = new Color (0.2f,0.2f,0.2f,1f);
 		if(tile.getOccupant() != null){
-			text.text = tile.getOccupant ().getName ();
+//			text.text = tile.getOccupant ().getName ();
 //			tile.getOccupant().OnMyTurnStarts += ActiveCombatantOn;
 //			tile.getOccupant().OnMyTurnEnds += ActiveCombatantOff;
 		}
@@ -142,18 +142,18 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 //			button.interactable = true;
 //			text.text = "Habilidade Secundária";
 //		}
-		text.color = new Color (0.2f,0.2f,0.2f,1f);
+//		text.color = new Color (0.2f,0.2f,0.2f,1f);
 		if (tile.getOccupant () != null) {
 			if (user.isPlayable () == tile.isFromHero ()) {
 				if (user == tile.getOccupant ()) {
 					if (skill.getSelfEffect () != null) {
-						text.color = Color.blue;
+//						text.color = Color.blue;
 //						button.interactable = true;
 						ColorBlock cb = button.colors;
 						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
 						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 						button.colors = cb;
-						text.text = skill.getSelfEffect ().getEffectName ();
+//						text.text = skill.getSelfEffect ().getEffectName ();
 					}
 				} else {
 					if(skill.getAlliesEffect() != null){
@@ -163,7 +163,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 							cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
 							cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 							button.colors = cb;
-							text.text = skill.getAlliesEffect ().getEffectName ();
+//							text.text = skill.getAlliesEffect ().getEffectName ();
 						}
 					}
 				}
@@ -175,16 +175,16 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
 						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 						button.colors = cb;
-						text.text = skill.getMeleeEffect ().getEffectName ();
-						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getMeleeEffect())*100 + "%";
+//						text.text = skill.getMeleeEffect ().getEffectName ();
+//						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getMeleeEffect())*100 + "%";
 					} else {
 						button.interactable = true;
 						ColorBlock cb = button.colors;
 						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
 						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 						button.colors = cb;
-						text.text = skill.getRangedEffect ().getEffectName ();
-						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getRangedEffect())*100 + "%";
+//						text.text = skill.getRangedEffect ().getEffectName ();
+//						text.text += " " + user.getPrecisionOfSkillEffect (tile.getOccupant(),skill.getRangedEffect())*100 + "%";
 					}
 				}
 //				if (skill.getMeleeEffect ().getSkillType() == Skill.Types.Ranged) {
@@ -218,7 +218,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 						cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,1);
 						cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,1);
 						button.colors = cb;
-						text.text = skill.getAlliesEffect ().getEffectName ();
+//						text.text = skill.getAlliesEffect ().getEffectName ();
 					}
 				}
 			}else{
@@ -278,26 +278,26 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,0);
 		cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,0);
 		button.colors = cb;
-		text.color = new Color (0.2f,0.2f,0.2f,1f);
+//		text.color = new Color (0.2f,0.2f,0.2f,1f);
 		if (tile != null) {
 			if (tile.getOccupant () != null) {
-				text.text = tile.getOccupant ().getName ();
-				if(DungeonManager.getInstance().getInitiativeOrder()[0] == tile.getOccupant())
-					text.color = Color.blue;
+//				text.text = tile.getOccupant ().getName ();
+//				if(DungeonManager.getInstance().getInitiativeOrder()[0] == tile.getOccupant())
+//					text.color = Color.blue;
 			} else {
-				text.text = "";
+//				text.text = "";
 			}
 		} else {
-			text.text = "";
+//			text.text = "";
 		}
 	}
 
 	public void ShowItsActivePlayer (){
-		text.color = Color.blue;
+//		text.color = Color.blue;
 	}
 
 	public void TurnBackToBlack(){
-		text.color = new Color (0.2f,0.2f,0.2f,1f);
+//		text.color = new Color (0.2f,0.2f,0.2f,1f);
 	}
 
 	public void OnPointerEnter(PointerEventData pointerEventData)
