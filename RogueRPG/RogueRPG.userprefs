@@ -1,11 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UI\EquipToggle.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UI\SkillPreviewManager.cs">
     <Files>
       <File FileName="Assets\SkillBtn.cs" Line="1" Column="1" />
-      <File FileName="Assets\UI\EquipToggle.cs" Line="40" Column="15" />
-      <File FileName="Assets\ExtensionMethods.cs" Line="8" Column="42" />
-      <File FileName="Assets\UI\EquipToggleManager.cs" Line="38" Column="57" NotebookId="1" />
+      <File FileName="Assets\UI\EquipToggle.cs" Line="1" Column="1" />
+      <File FileName="Assets\ExtensionMethods.cs" Line="1" Column="1" />
+      <File FileName="Assets\UI\SkillPreview.cs" Line="15" Column="15" />
+      <File FileName="Assets\UI\SkillPreviewManager.cs" Line="18" Column="73" />
+      <File FileName="Assets\UI\PlayerInputManager.cs" Line="24" Column="156" />
+      <File FileName="Assets\TargetBtn.cs" Line="84" Column="54" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

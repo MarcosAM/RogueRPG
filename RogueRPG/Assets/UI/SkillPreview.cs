@@ -5,5 +5,13 @@ using UnityEngine.UI;
 
 public class SkillPreview : MonoBehaviour {
 
-//	[SerializeField]private 
+	[SerializeField]private Image circle;
+	[SerializeField]private Text text;
+
+	public Image getCircle(){
+		return circle;
+	}
+	public Text getText(){
+		return text;
+	}
 }

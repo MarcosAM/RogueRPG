@@ -21,6 +21,7 @@ public class PlayerInputManager : MonoBehaviour {
 	public void reportNewSelectedEquipToggle(EquipToggle equipToggle){
 		if (equipToggle != null) {
 			combHUDManager.ShowTargetBtns (combatBehavior.getCharacter (), combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()], false);
+			FindObjectOfType<SkillPreviewManager> ().showSkillPreviewsOf (combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()]);
 		} else {
 			combHUDManager.HideTargetBtns (false);
 		}
