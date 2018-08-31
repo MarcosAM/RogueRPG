@@ -31,5 +31,6 @@ public class PlayerInputManager : MonoBehaviour {
 		combHUDManager.HideTargetBtns (false);
 		combatBehavior.useEquip (equipTogglerManager.getSelectedEquipIndex(), target);
 		equipTogglerManager.setAllEquipTogglesOff ();
+		equipTogglerManager.hideEquipToggles ();
 	}
 }

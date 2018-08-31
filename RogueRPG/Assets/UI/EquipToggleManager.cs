@@ -51,4 +51,8 @@ public class EquipToggleManager : MonoBehaviour {
 		}
 		return 1;
 	}
+
+	public void hideEquipToggles(){
+		gameObject.SetActive (false);
+	}
 }
