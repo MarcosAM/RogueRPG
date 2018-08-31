@@ -26,14 +26,20 @@ public class EquipToggle : MonoBehaviour {
 	}
 
 	void refreshColor(){
-		if (toggle.isOn) {
-			lines.color = Color.white;
-			hexFill.color = standartGrey;
-			text.color = Color.white;
+		if (toggle.interactable) {
+			if (toggle.isOn) {
+				lines.color = Color.white;
+				hexFill.color = standartGrey;
+				text.color = Color.white;
+			} else {
+				lines.color = standartGrey;
+				hexFill.color = Color.white;
+				text.color = standartGrey;
+			}
 		} else {
-			lines.color = standartGrey;
-			hexFill.color = Color.white;
-			text.color = standartGrey;
+			print ("yo!");
+			lines.color = lines.color.lightGrey ();
+			text.color = text.color.lightGrey ();
 		}
 	}
 
