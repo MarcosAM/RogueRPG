@@ -1,17 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EquipToggleManager : MonoBehaviour {
 
 	private CombatBehavior combatBehavior;
 	[SerializeField]private List<EquipToggle> equipToggles = new List<EquipToggle>();
+	private PlayerInputManager playerInputManager;
+	private ToggleGroup toggleGroup;
+
+	void Awake(){
+		playerInputManager = FindObjectOfType<PlayerInputManager> ();
+		toggleGroup = GetComponent<ToggleGroup> ();
+	}
 
 	public void onAnyToggleChange(EquipToggle equipToggle){
 		if(equipToggle.getToggle().isOn){
-//			combatBehavior.skillBtnPressed (equipToggles.IndexOf(equipToggle));
-			FindObjectOfType<PlayerInputManager>().showTargetsBtn();
+			playerInputManager.reportNewSelectedEquipToggle(equipToggle);
+			return;
 		}
+		playerInputManager.reportNewSelectedEquipToggle (null);
+	}
+
+	public void setAllEquipTogglesOff(){
+		toggleGroup.SetAllTogglesOff ();
 	}
 
 	public void showEquipTogglesFor(Character character, bool asPreview){
@@ -21,7 +34,11 @@ public class EquipToggleManager : MonoBehaviour {
 			if (asPreview) {
 				equipToggles [i].getToggle ().interactable = false;
 			} else {
-				equipToggles [i].getToggle ().interactable = true;
+				if (character.getSkills () [i].getCharactersThatCantUseMe ().Contains (character)) {
+					equipToggles [i].getToggle ().interactable = false;
+				} else {
+					equipToggles [i].getToggle ().interactable = true;
+				}
 			}
 		}
 	}

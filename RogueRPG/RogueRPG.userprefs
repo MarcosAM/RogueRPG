@@ -1,11 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TargetBtn.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UI\EquipToggleManager.cs">
     <Files>
-      <File FileName="Assets\UI\EquipToggleManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\UI\PlayerInputManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\CombHUDManager.cs" Line="277" Column="78" />
-      <File FileName="Assets\TargetBtn.cs" Line="95" Column="50" />
+      <File FileName="Assets\SkillBtn.cs" Line="1" Column="1" />
+      <File FileName="Assets\UI\EquipToggleManager.cs" Line="38" Column="57" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

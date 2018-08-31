@@ -18,15 +18,17 @@ public class PlayerInputManager : MonoBehaviour {
 		equipTogglerManager.showEquipTogglesFor (combatBehavior.getCharacter(), false);
 	}
 
-	public void showTargetsBtn(){
-		combHUDManager.ShowTargetBtns (combatBehavior.getCharacter(),combatBehavior.getCharacter().getSkills()[equipTogglerManager.getSelectedEquipIndex()],false);
+	public void reportNewSelectedEquipToggle(EquipToggle equipToggle){
+		if (equipToggle != null) {
+			combHUDManager.ShowTargetBtns (combatBehavior.getCharacter (), combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()], false);
+		} else {
+			combHUDManager.HideTargetBtns (false);
+		}
 	}
 
 	public void returnEquipAndTarget(Battleground.Tile target){
 		combHUDManager.HideTargetBtns (false);
-		if(combatBehavior == null){
-			print ("É nulo");
-		}
 		combatBehavior.useEquip (equipTogglerManager.getSelectedEquipIndex(), target);
+		equipTogglerManager.setAllEquipTogglesOff ();
 	}
 }
