@@ -7,23 +7,32 @@ public class PlayerInputManager : MonoBehaviour {
 	private CombatBehavior combatBehavior;
 	private EquipToggleManager equipTogglerManager;
 	private CombHUDManager combHUDManager;
+	private SkillPreviewManager skillPreviewManager;
 
 	void Awake(){
 		equipTogglerManager = FindObjectOfType<EquipToggleManager> ();
 		combHUDManager = FindObjectOfType<CombHUDManager> ();
+		skillPreviewManager = FindObjectOfType<SkillPreviewManager> ();
+		equipTogglerManager.hideEquipToggles();
+		skillPreviewManager.hideSkillPreviews();
 	}
 
 	public void showUIFor(CombatBehavior combatBehavior){
 		this.combatBehavior = combatBehavior;
 		equipTogglerManager.showEquipTogglesFor (combatBehavior.getCharacter(), false);
+		combHUDManager.startTurnOf(combatBehavior.getCharacter());
 	}
 
 	public void reportNewSelectedEquipToggle(EquipToggle equipToggle){
 		if (equipToggle != null) {
+			combatBehavior.getCharacter().changeEquipmentSprite(combatBehavior.getCharacter().getSkills()[equipTogglerManager.getSelectedEquipIndex()].getSprite());
+			combatBehavior.getCharacter().getHUD().getAnimator().SetTrigger("ChangeEquip");
 			combHUDManager.ShowTargetBtns (combatBehavior.getCharacter (), combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()], false);
-			FindObjectOfType<SkillPreviewManager> ().showSkillPreviewsOf (combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()]);
+			skillPreviewManager.showSkillPreviewsOf (combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()]);
 		} else {
 			combHUDManager.HideTargetBtns (false);
+			skillPreviewManager.hideSkillPreviews();
+			combHUDManager.startTurnOf(combatBehavior.getCharacter());
 		}
 	}
 

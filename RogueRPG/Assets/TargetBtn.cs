@@ -70,6 +70,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 //		}
 //		text.color = new Color (0.2f,0.2f,0.2f,1f);
 //		button.interactable = true;
+		image.gameObject.SetActive(true);
 		if (tile.getOccupant () != null) {
 			if (user.isPlayable () == tile.isFromHero ()) {
 				if (user == tile.getOccupant ()) {
@@ -108,6 +109,12 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 				//NÃO APAREÇA
 			}
 		}
+	}
+
+	public void show (Color color){
+		image.gameObject.SetActive(true);
+		button.interactable = false;
+		image.color = color;
 	}
 
 //	public void Appear (Skill skill){
@@ -157,6 +164,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
 	override public void Disappear(){
 		button.interactable = false;
+		image.gameObject.SetActive(false);
 //		ColorBlock cb = button.colors;
 //		cb.normalColor = new Color(button.colors.normalColor.r,button.colors.normalColor.g,button.colors.normalColor.b,0);
 //		cb.highlightedColor = new Color(button.colors.highlightedColor.r,button.colors.highlightedColor.g,button.colors.highlightedColor.b,0);

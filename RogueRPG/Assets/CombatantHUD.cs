@@ -56,7 +56,8 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 			hpNumbers.gameObject.SetActive(true);
 		} else {
 //			portraitHandler.rotation = Quaternion.Euler (new Vector3 (0, 0, 180));
-			image.rectTransform.localScale = new Vector3 (-1,1,1);
+			portraitHandler.localScale = new Vector3 (-1,1,1);
+//			image.rectTransform.localScale = new Vector3 (-1,1,1);
 			hpNumbers.gameObject.SetActive(false);
 //			rectTransform.anchorMax = new Vector2(0.5f,1f);
 //			rectTransform.anchorMin = new Vector2(0.5f,1f);
@@ -231,6 +232,10 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 //		EventManager.OnUnchoosedSkill += RefreshInitiative;
 //	}
 
+	public void showTargetBtnWithColor(Color color){
+		targetButton.show(color);
+	}
+
 	void OnDisable(){
 //		EventManager.OnShowTargetsOf -= ShowPossibleInitiative;
 //		EventManager.OnClickedTargetBtn -= RefreshInitiative;
@@ -239,4 +244,6 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 			combatant.OnHUDValuesChange -= Refresh;
 		}
 	}
+
+	public Character getCharacter(){return combatant;}
 }

@@ -285,6 +285,7 @@ public abstract class Skill : ScriptableObject, IWaitForSkill {
 	public int getDef() {return def;}
 	public int getDefm() {return defm;}
 	public Types getType() {return type;}
+	public Sprite getSprite (){return image;}
 }
 
 //			List<Character> myTargets = new List<Character>();

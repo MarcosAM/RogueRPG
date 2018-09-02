@@ -260,6 +260,28 @@ public class CombHUDManager : MonoBehaviour {
 		combatBehavior.unchooseSkill ();
 	}
 
+	public void startTurnOf (Character character)
+	{
+		foreach (CombatantHUD combatantHUD in heroesCombatantHUD) {
+			if (combatantHUD.getCharacter () == character) {
+				combatantHUD.showTargetBtnWithColor (Color.grey);
+			} else {
+				combatantHUD.HideTargetBtn();
+			}
+		}
+		foreach (CombatantHUD combatantHUD in enemiesCombatantHUD) {
+			if (combatantHUD.getCharacter () == character) {
+				combatantHUD.showTargetBtnWithColor (Color.grey);
+			} else {
+				combatantHUD.HideTargetBtn();
+			}
+		}
+	}
+
+	public void endTurnOf (Character character){
+		character.getHUD().getAnimator().SetBool ("Destaque", false);
+	}
+
 	public static CombHUDManager getInstance(){return instance;}
 	public Vector2[] getHeroesPositions() {return heroesPositions;}
 	public Vector2[] getEnemiesPositions() {return enemiesPositions;}
