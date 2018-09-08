@@ -120,6 +120,7 @@ public class PlayerControlled : CombatBehavior {
 	}
 
 	public override void resumeFromEquipment (){
+		character.getHUD().getAnimator().SetBool("Equiped",false);
 		EndTurn ();
 	}
 		

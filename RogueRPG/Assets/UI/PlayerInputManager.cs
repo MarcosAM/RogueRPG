@@ -27,9 +27,11 @@ public class PlayerInputManager : MonoBehaviour {
 		if (equipToggle != null) {
 			combatBehavior.getCharacter().changeEquipmentSprite(combatBehavior.getCharacter().getSkills()[equipTogglerManager.getSelectedEquipIndex()].getSprite());
 			combatBehavior.getCharacter().getHUD().getAnimator().SetTrigger("ChangeEquip");
+			combatBehavior.getCharacter().getHUD().getAnimator().SetBool("Equiped",true);
 			combHUDManager.ShowTargetBtns (combatBehavior.getCharacter (), combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()], false);
 			skillPreviewManager.showSkillPreviewsOf (combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()]);
 		} else {
+			combatBehavior.getCharacter().getHUD().getAnimator().SetBool("Equiped",false);
 			combHUDManager.HideTargetBtns (false);
 			skillPreviewManager.hideSkillPreviews();
 			combHUDManager.startTurnOf(combatBehavior.getCharacter());

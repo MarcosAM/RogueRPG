@@ -15,6 +15,7 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 	[SerializeField]private Text buffText;
 	[SerializeField]private DamageFB damageFbPrefab;
 	[SerializeField]private Text initiative;
+	[SerializeField]private Text name;
 	private RectTransform rectTransform;
 	[SerializeField]RectTransform portraitHandler;
 	[SerializeField]private Image equipment;
@@ -64,10 +65,13 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 		}
 		if(tile.getOccupant() != null){
 			combatant = tile.getOccupant();
+			image.gameObject.SetActive(true);
 			image.sprite = combatant.getPortrait ().sprite;
 			hpBar.gameObject.SetActive(true);
 //			staminaBar.gameObject.SetActive(true);
 //			buffText.gameObject.SetActive (true);
+			name.gameObject.SetActive(true);
+			name.text = combatant.getName();
 			combatant.OnHUDValuesChange += Refresh;
 			combatant.OnHPValuesChange += HPFeedback;
 			combatant.OnBuffsGainOrLoss += ShowBuffs;
@@ -75,8 +79,10 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 			ShowBuffs ();
 			Refresh ();
 		} else {
+			name.gameObject.SetActive(false);
 			this.combatant = null;
 			image.sprite = null;
+			image.gameObject.SetActive(false);
 //			image.sprite = emptyImage.sprite;
 			hpBar.gameObject.SetActive(false);
 //			staminaBar.gameObject.SetActive(false);
