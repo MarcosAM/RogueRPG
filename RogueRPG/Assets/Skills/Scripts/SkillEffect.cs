@@ -36,7 +36,7 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 		playCastSkillAnimation();
 	}
 
-	void playCastSkillAnimation (){
+	protected void playCastSkillAnimation (){
 		if(castSkillAnimationTrigger != null){
 			user.getHUD().playAnimation(this,castSkillAnimationTrigger);
 		}
@@ -103,11 +103,11 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 		}
 	}
 
-	float getAttack(){
+	protected float getAttack(){
 		return Random.value - precision - user.getPrecision().getValue();
 	}
 
-	bool didIHit(Character target, float attack){
+	protected bool didIHit(Character target, float attack){
 		if (type == Skill.Types.Melee) {
 			return target.didIHitYou (attack);
 		} else {
@@ -115,7 +115,7 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 		}
 	}
 
-	float getDamage(int skillDamage){
+	protected float getDamage(int skillDamage){
 		if (source == Sources.Physical) {
 			return user.getAtkValue () + skillDamage;
 		} else {
@@ -123,7 +123,7 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 		}
 	}
 
-	int damage(Character user, int skillDamage){
+	protected int damage(Character user, int skillDamage){
 		return user.takeDamage (skillDamage,source);
 	}
 		

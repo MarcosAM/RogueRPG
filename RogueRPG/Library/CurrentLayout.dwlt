@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 392}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -106,10 +106,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 771
-  m_MinSize: {x: 681, y: 342}
-  m_MaxSize: {x: 12006, y: 8042}
+  m_MinSize: {x: 681, y: 492}
+  m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 23
+  controlID: 67
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -130,10 +130,10 @@ MonoBehaviour:
     y: 0
     width: 1223
     height: 771
-  m_MinSize: {x: 406, y: 342}
-  m_MaxSize: {x: 8006, y: 8042}
+  m_MinSize: {x: 406, y: 492}
+  m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 24
+  controlID: 68
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 25
+  controlID: 48
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -229,15 +229,15 @@ MonoBehaviour:
     y: 461
     width: 1223
     height: 310
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 18}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
+  m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
   - {fileID: 18}
   - {fileID: 19}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -368,9 +368,9 @@ MonoBehaviour:
     height: 440
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3c070000
+    m_SelectedIDs: 70270000
     m_LastClickedID: 0
-    m_ExpandedIDs: aef7ffff1afcffff00000000842d0000
+    m_ExpandedIDs: 76edffff1afcffff00000000c6280000e6280000982d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -425,9 +425,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 447.79822, y: 379.3004, z: 0}
+    m_Target: {x: 474.48984, y: 303.389, z: 0}
     speed: 2
-    m_Value: {x: 447.79822, y: 379.3004, z: 0}
+    m_Value: {x: 474.48984, y: 303.389, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -454,9 +454,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 403.58884
+    m_Target: 626.76105
     speed: 2
-    m_Value: 403.58884
+    m_Value: 626.76105
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -548,7 +548,7 @@ MonoBehaviour:
     width: 1221
     height: 289
   m_SearchFilter:
-    m_NameFilter: comba
+    m_NameFilter: 
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -559,18 +559,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/_Scenes
+    - Assets/Characters/CStats
   m_ViewMode: 1
   m_StartGridSize: 58
   m_LastFolders:
-  - Assets/_Scenes
+  - Assets/Characters/CStats
   m_LastFoldersGridSize: 58
   m_LastProjectPath: C:\Users\Marcos\Documents\Repos\RogueRPG\RogueRPG
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
+    scrollPos: {x: 0, y: 60}
+    m_SelectedIDs: 5a280000
+    m_LastClickedID: 10330
     m_ExpandedIDs: 00000000b4260000b8260000d4260000ec260000182700005c28000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -624,8 +624,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 3c070000
-    m_LastClickedInstanceID: 1852
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: cc26000048280000502a0000ea3c0000102800003e590000
     m_RenameOverlay:
@@ -714,7 +714,7 @@ MonoBehaviour:
     - {fileID: 1107493960817409006, guid: daeab6b1e2e01ff4ab4a2d0da8e5ac7a, type: 2}
     - {fileID: 1107396052609326146, guid: daf786c8eee0e914baad13071ec66440, type: 2}
     m_ValueSerializationHelper:
-    - {x: 669.60004, y: 214.40002}
+    - {x: 682.60004, y: 174.40001}
     - {x: 642.4, y: 84.00002}
     - {x: 642.4, y: 159.00003}
     - {x: 457.2, y: 154}
