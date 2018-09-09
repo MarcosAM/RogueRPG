@@ -15,7 +15,7 @@ public class SEAtkm : SkillEffect {
 	public override void UniqueEffect (Character user, Battleground.Tile tile)
 	{
 		base.UniqueEffect (user, tile);
-//		if (tile.getOccupant () != null)
+		if (tile.getOccupant () != null)
 			user.TryToHitWith (tile,this);
 	}
 

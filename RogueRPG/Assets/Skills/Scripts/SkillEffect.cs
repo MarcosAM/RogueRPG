@@ -18,6 +18,7 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 	[SerializeField]protected bool singleTarget;
 	[SerializeField]protected string effectName;
 	[SerializeField]protected bool canHitTile;
+	[SerializeField]protected bool canHitDead;
 	[SerializeField]protected string description;
 	[SerializeField]protected string castSkillAnimationTrigger;
 	[SerializeField]protected float momentumValue;
@@ -130,6 +131,7 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 	public string getDescription () {return description;}
 	public Sources getSource() {return source;}
 	public bool canTargetTile() {return canHitTile;}
+	public bool canTargetDead (){return canHitDead;}
 	public virtual void UniqueEffect (Character user, Battleground.Tile tile) {}
 	public virtual void onHitEffect (Character user, Battleground.Tile tile) {}
 	public virtual void onMissedEffect (Character user, Battleground.Tile tile) {}

@@ -70,43 +70,64 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 //		}
 //		text.color = new Color (0.2f,0.2f,0.2f,1f);
 //		button.interactable = true;
-		image.gameObject.SetActive(true);
+
+		image.gameObject.SetActive (true);
 		if (tile.getOccupant () != null) {
 			if (user.isPlayable () == tile.isFromHero ()) {
 				if (user == tile.getOccupant ()) {
 					if (skill.getSelfEffect () != null) {
 						button.interactable = true;
-						image.color = new Color(0.309f,0.380f,0.674f,1);
+						image.color = new Color (0.309f, 0.380f, 0.674f, 1);
 					}
 				} else {
-					if(skill.getAlliesEffect() != null){
-						if(Mathf.Abs (tile.getIndex() - user.getPosition ()) <= skill.getAlliesEffect().getRange ()){
-							button.interactable = true;
-							image.color = new Color(0.952f,0.921f,0.235f,1);
+					if (skill.getAlliesEffect () != null) {
+						if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.getAlliesEffect ().getRange ()) {
+							if ((skill.getAlliesEffect ().canTargetDead () && !tile.getOccupant ().isAlive ()) || tile.getOccupant ().isAlive ()) {
+								button.interactable = true;
+								image.color = new Color (0.952f, 0.921f, 0.235f, 1);
+							}
 						}
 					}
 				}
 			} else {
-				if(tile.getOccupant ().isAlive ()){
+				if (tile.getOccupant ().isAlive ()) {
 					if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getMeleeEffect ().getRange ()) {
-						button.interactable = true;
-						image.color = new Color(0.925f,0.258f,0.258f,1);
+						if ((skill.getMeleeEffect ().canTargetDead () && !tile.getOccupant ().isAlive ()) || tile.getOccupant ().isAlive ()) {
+							button.interactable = true;
+							image.color = new Color (0.925f, 0.258f, 0.258f, 1);
+						} else {
+							image.gameObject.SetActive (false);
+						}
 					} else {
-						button.interactable = true;
-						image.color = new Color(0.427f,0.745f,0.266f,1);
+						if ((skill.getRangedEffect ().canTargetDead () && !tile.getOccupant ().isAlive ()) || tile.getOccupant ().isAlive ()) {
+							button.interactable = true;
+							image.color = new Color (0.427f, 0.745f, 0.266f, 1);
+						} else {
+							image.gameObject.SetActive (false);
+						}
 					}
 				}
 			}
 		} else {
-			if(user.isPlayable() == tile.isFromHero()){
-				if(skill.getAlliesEffect() != null){
-					if(Mathf.Abs (tile.getIndex() - user.getPosition ()) <= skill.getAlliesEffect().getRange ()){
+			if (user.isPlayable () == tile.isFromHero ()) {
+				if (skill.getAlliesEffect () != null) {
+					if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.getAlliesEffect ().getRange () && skill.getAlliesEffect ().canTargetTile ()) {
 						button.interactable = true;
-						image.color = new Color(0.952f,0.921f,0.235f,1);
+						image.color = new Color (0.952f, 0.921f, 0.235f, 1);
+					} else {
+						image.gameObject.SetActive (false);
 					}
 				}
-			}else{
-				//NÃO APAREÇA
+			} else {
+				if (skill.getMeleeEffect ().canTargetTile () && Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getMeleeEffect ().getRange ()) {
+					button.interactable = true;
+					image.color = new Color (0.925f, 0.258f, 0.258f, 1);
+				} else {
+					if(skill.getRangedEffect().canTargetTile()){
+						button.interactable = true;
+						image.color = new Color (0.427f, 0.745f, 0.266f, 1);
+					}
+				}
 			}
 		}
 	}
