@@ -37,7 +37,6 @@ public class EquipToggle : MonoBehaviour {
 				text.color = standartGrey;
 			}
 		} else {
-			print ("yo!");
 			lines.color = lines.color.lightGrey ();
 			text.color = text.color.lightGrey ();
 		}

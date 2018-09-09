@@ -9,7 +9,6 @@ public class EquipToggleManager : MonoBehaviour {
 	[SerializeField]private List<EquipToggle> equipToggles = new List<EquipToggle>();
 	private PlayerInputManager playerInputManager;
 	private ToggleGroup toggleGroup;
-	[SerializeField]private Text headerTxt;
 
 	void Awake(){
 		playerInputManager = FindObjectOfType<PlayerInputManager> ();
@@ -19,10 +18,8 @@ public class EquipToggleManager : MonoBehaviour {
 	public void onAnyToggleChange(EquipToggle equipToggle){
 		if(equipToggle.getToggle().isOn){
 			playerInputManager.reportNewSelectedEquipToggle(equipToggle);
-			headerTxt.text = "CHOOSE YOUR TARGET";
 			return;
 		}
-		headerTxt.text = "CHOOSE YOUR EQUIPMENT";
 		playerInputManager.reportNewSelectedEquipToggle (null);
 	}
 
