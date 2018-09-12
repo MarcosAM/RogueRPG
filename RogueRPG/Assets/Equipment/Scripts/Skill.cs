@@ -37,46 +37,55 @@ public abstract class Skill : ScriptableObject, IWaitForSkill {
 		user.changeEquipmentSprite(image);
 		this.requester = requester;
 		charactersThatCantUseMe.Add(user);
-//		endable = true;
-//		user.DelayBy (sDelay);
-//		if (sSingleTarget) {
-//			FindObjectOfType<Narration> ().Appear (user.getName (), sName);
-//			EffectAnimation (tile);
-			//TODO a habilidade paia que é utilizada quando não tem o que soltar
-			if (user.isPlayable() != tile.isFromHero ()) {
-				if (user.isPlayable () != tile.getOccupant ().isPlayable ()) {
-					if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= meleeEffect.getRange ()) {
-						meleeEffect.startEffect (user, tile, this);
-						//					Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito primário!");
-						return;
-					} else {
-						rangedEffect.startEffect (user, tile, this);
-						return;
-					}
-				}
+
+		if (tile.isFromHero () == user.isPlayable ()) {
+			if (tile.getIndex () == user.getPosition ()) {
+				selfEffect.startEffect (user,tile,this);
 			} else {
-				if (tile.getOccupant () != null) {
-					if (user == tile.getOccupant ()) {
-						if (selfEffect != null) {
-							selfEffect.startEffect (user, tile, this);
-//							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito secundário!");
-							return;
-						}
-					} else {
-						if (alliesEffect != null) {
-							alliesEffect.startEffect (user, tile, this);
-//							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
-							return;
-						}
-					}
-				} else {
-					if (alliesEffect != null) {
-						alliesEffect.startEffect (user, tile, this);
-//						Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
-						return;
-					}
-				}
+				alliesEffect.startEffect (user, tile, this);
 			}
+		} else {
+			if ((Mathf.Abs (tile.getIndex () - user.getPosition ()) <= meleeEffect.getRange ()) && tile.getOccupant () != null) {
+				meleeEffect.startEffect (user, tile, this);
+			} else {
+				rangedEffect.startEffect (user, tile, this);
+			}
+		}
+
+//		if (user.isPlayable() != tile.isFromHero ()) {
+////				if (user.isPlayable () != tile.getOccupant ().isPlayable ()) {
+//				if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= meleeEffect.getRange ()) {
+//						meleeEffect.startEffect (user, tile, this);
+//						//					Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito primário!");
+//						return;
+//					} else {
+//						rangedEffect.startEffect (user, tile, this);
+//						return;
+//					}
+////				}
+//			} else {
+//				if (tile.getOccupant () != null) {
+//					if (user == tile.getOccupant ()) {
+//						if (selfEffect != null) {
+//							selfEffect.startEffect (user, tile, this);
+////							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito secundário!");
+//							return;
+//						}
+//					} else {
+//						if (alliesEffect != null) {
+//							alliesEffect.startEffect (user, tile, this);
+////							Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
+//							return;
+//						}
+//					}
+//				} else {
+//					if (alliesEffect != null) {
+//						alliesEffect.startEffect (user, tile, this);
+////						Debug.Log ("Na rodada " + DungeonManager.getInstance().getRound() + " " + user.getName()+" usou efeito terciário!");
+//						return;
+//					}
+//				}
+//			}
 //		}
 //		else {
 //			FindObjectOfType<Narration>().Appear(user.getName(), sName);

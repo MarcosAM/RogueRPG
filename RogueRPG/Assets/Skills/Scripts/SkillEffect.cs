@@ -61,8 +61,9 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 			return;
 		} else {
 //			FindObjectOfType<Narration>().Appear(user.getName(), effectName);
+			Debug.Log("Chegou aqui");
 			Battleground.Tile[] targets;
-			if (targetTile.getOccupant ().isPlayable () == user.isPlayable ()) {
+			if (targetTile.isFromHero() == user.isPlayable ()) {
 				targets = DungeonManager.getInstance ().getBattleground ().getMySideTiles (user.isPlayable ());
 			} else {
 				targets = DungeonManager.getInstance ().getBattleground ().getMyEnemiesTiles (user.isPlayable ());
@@ -72,7 +73,7 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 			targetsHited = 0;
 			foreach(Battleground.Tile t in targets){
 				EffectAnimation(t);
-				if (targetTile.getOccupant ().isPlayable () == user.isPlayable ()) {
+				if (targetTile.isFromHero() == user.isPlayable ()) {
 					if (targetTile.getOccupant () == user) {
 						UniqueEffect (user, t);
 					} else {
