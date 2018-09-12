@@ -61,6 +61,12 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 				image.gameObject.SetActive (false);
 				button.interactable = false;
 			}
+			if (skillEffect.getKind() == SkillEffect.Kind.Movement) {
+				if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skillEffect.getRange ()) {
+					image.gameObject.SetActive (true);
+					button.interactable = true;
+				}
+			}
 		}
 
 //		image.gameObject.SetActive (true);
