@@ -25,65 +25,103 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 	}
 
 	public void Appear (Character user, Skill skill){
-		image.gameObject.SetActive (true);
-		if (tile.getOccupant () != null) {
-			if (user.isPlayable () == tile.isFromHero ()) {
-				if (user == tile.getOccupant ()) {
-					if (skill.getSelfEffect () != null) {
-						button.interactable = true;
-						image.color = new Color (0.309f, 0.380f, 0.674f, 1);
-					}
-				} else {
-					if (skill.getAlliesEffect () != null) {
-						if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.getAlliesEffect ().getRange ()) {
-							if ((skill.getAlliesEffect ().canTargetDead () && !tile.getOccupant ().isAlive ()) || tile.getOccupant ().isAlive ()) {
-								button.interactable = true;
-								image.color = new Color (0.952f, 0.921f, 0.235f, 1);
-							}
-						}
-					}
-				}
+
+		SkillEffect skillEffect;
+		if (tile.isFromHero () == user.isPlayable ()) {
+			if (tile.getIndex () == user.getPosition ()) {
+				skillEffect = skill.getSelfEffect ();
+				image.color = new Color (0.309f, 0.380f, 0.674f, 1);
 			} else {
-				if (tile.getOccupant ().isAlive ()) {
-					if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getMeleeEffect ().getRange ()) {
-						if ((skill.getMeleeEffect ().canTargetDead () && !tile.getOccupant ().isAlive ()) || tile.getOccupant ().isAlive ()) {
-							button.interactable = true;
-							image.color = new Color (0.925f, 0.258f, 0.258f, 1);
-						} else {
-							image.gameObject.SetActive (false);
-						}
-					} else {
-						if ((skill.getRangedEffect ().canTargetDead () && !tile.getOccupant ().isAlive ()) || tile.getOccupant ().isAlive ()) {
-							button.interactable = true;
-							image.color = new Color (0.427f, 0.745f, 0.266f, 1);
-						} else {
-							image.gameObject.SetActive (false);
-						}
-					}
-				}
+				skillEffect = skill.getAlliesEffect ();
+				image.color = new Color (0.952f, 0.921f, 0.235f, 1);
 			}
 		} else {
-			if (user.isPlayable () == tile.isFromHero ()) {
-				if (skill.getAlliesEffect () != null) {
-					if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.getAlliesEffect ().getRange () && skill.getAlliesEffect ().canTargetTile ()) {
-						button.interactable = true;
-						image.color = new Color (0.952f, 0.921f, 0.235f, 1);
-					} else {
-						image.gameObject.SetActive (false);
-					}
-				}
+			if ((Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.getMeleeEffect ().getRange ()) && tile.getOccupant () != null) {
+				skillEffect = skill.getMeleeEffect ();
+				image.color = new Color (0.925f, 0.258f, 0.258f, 1);
 			} else {
-				if (skill.getMeleeEffect ().canTargetTile () && Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getMeleeEffect ().getRange ()) {
-					button.interactable = true;
-					image.color = new Color (0.925f, 0.258f, 0.258f, 1);
-				} else {
-					if(skill.getRangedEffect().canTargetTile()){
-						button.interactable = true;
-						image.color = new Color (0.427f, 0.745f, 0.266f, 1);
-					}
-				}
+				skillEffect = skill.getRangedEffect ();
+				image.color = new Color (0.427f, 0.745f, 0.266f, 1);
 			}
 		}
+
+		if (tile.getOccupant () != null) {
+			if (tile.getOccupant ().isAlive () || (!tile.getOccupant ().isAlive () && skillEffect.canTargetDead ())) {
+				image.gameObject.SetActive (true);
+				button.interactable = true;
+			} else {
+				image.gameObject.SetActive (false);
+				button.interactable = false;
+			}
+		} else {
+			if (skill.getType () == Skill.Types.Ranged && !skillEffect.isSingleTarget ()) {
+				image.gameObject.SetActive (true);
+				button.interactable = true;
+			} else {
+				image.gameObject.SetActive (false);
+				button.interactable = false;
+			}
+		}
+
+//		image.gameObject.SetActive (true);
+//		if (tile.getOccupant () != null) {
+//			if (user.isPlayable () == tile.isFromHero ()) {
+//				if (user == tile.getOccupant ()) {
+//					if (skill.getSelfEffect () != null) {
+//						button.interactable = true;
+//						image.color = new Color (0.309f, 0.380f, 0.674f, 1);
+//					}
+//				} else {
+//					if (skill.getAlliesEffect () != null) {
+//						if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.getAlliesEffect ().getRange ()) {
+//							if ((skill.getAlliesEffect ().canTargetDead () && !tile.getOccupant ().isAlive ()) || tile.getOccupant ().isAlive ()) {
+//								button.interactable = true;
+//								image.color = new Color (0.952f, 0.921f, 0.235f, 1);
+//							}
+//						}
+//					}
+//				}
+//			} else {
+//				if (tile.getOccupant ().isAlive ()) {
+//					if (Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getMeleeEffect ().getRange ()) {
+//						if ((skill.getMeleeEffect ().canTargetDead () && !tile.getOccupant ().isAlive ()) || tile.getOccupant ().isAlive ()) {
+//							button.interactable = true;
+//							image.color = new Color (0.925f, 0.258f, 0.258f, 1);
+//						} else {
+//							image.gameObject.SetActive (false);
+//						}
+//					} else {
+//						if ((skill.getRangedEffect ().canTargetDead () && !tile.getOccupant ().isAlive ()) || tile.getOccupant ().isAlive ()) {
+//							button.interactable = true;
+//							image.color = new Color (0.427f, 0.745f, 0.266f, 1);
+//						} else {
+//							image.gameObject.SetActive (false);
+//						}
+//					}
+//				}
+//			}
+//		} else {
+//			if (user.isPlayable () == tile.isFromHero ()) {
+//				if (skill.getAlliesEffect () != null) {
+//					if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.getAlliesEffect ().getRange () && skill.getAlliesEffect ().canTargetTile ()) {
+//						button.interactable = true;
+//						image.color = new Color (0.952f, 0.921f, 0.235f, 1);
+//					} else {
+//						image.gameObject.SetActive (false);
+//					}
+//				}
+//			} else {
+//				if (skill.getMeleeEffect ().canTargetTile () && Mathf.Abs (tile.getOccupant ().getPosition () - user.getPosition ()) <= skill.getMeleeEffect ().getRange ()) {
+//					button.interactable = true;
+//					image.color = new Color (0.925f, 0.258f, 0.258f, 1);
+//				} else {
+//					if(skill.getRangedEffect().canTargetTile()){
+//						button.interactable = true;
+//						image.color = new Color (0.427f, 0.745f, 0.266f, 1);
+//					}
+//				}
+//			}
+//		}
 	}
 
 	public void show (Color color){

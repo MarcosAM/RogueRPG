@@ -141,4 +141,5 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 	public Kind getKind(){return kind;}
 	public float getCritic(){return critic;}
 	public float getPrecision(){return precision;}
+	public bool isSingleTarget(){return singleTarget;}
 }
