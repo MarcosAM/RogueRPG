@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Skill : ScriptableObject, IWaitForSkill {
 
@@ -26,8 +27,10 @@ public abstract class Skill : ScriptableObject, IWaitForSkill {
 	[SerializeField]protected SkillEffect alliesEffect;
 	[SerializeField]protected int hp, atk, atkm, def, defm;
 	[SerializeField]protected Sprite image;
-	[SerializeField]protected RectTransform backEquip;
-	[SerializeField]protected RectTransform frontEquip;
+	[SerializeField]protected Image backEquipPrefab;
+	[SerializeField]protected Image frontEquipPrefab;
+	protected Image backEquip;
+	protected Image frontEquip;
 	[SerializeField]protected Types type;
 	protected IWaitForEquipment requester;
 //	protected int howManyTargets;
@@ -98,16 +101,23 @@ public abstract class Skill : ScriptableObject, IWaitForSkill {
 	public int getDefm() {return defm;}
 	public Types getType() {return type;}
 	public Sprite getSprite (){return image;}
-	public RectTransform getBackEquip (){
-		if(backEquip != null){
-			return Instantiate(backEquip);
+
+	public Image getBackEquip (){
+		if(backEquipPrefab != null){
+			if(backEquip == null){
+				backEquip = Instantiate (backEquipPrefab);
+			}
+			return backEquip;
 		} else{
 			return null;
 		}
 	}
-	public RectTransform getFrontEquip (){
-		if (frontEquip != null) {
-			return Instantiate (frontEquip);
+	public Image getFrontEquip (){
+		if (frontEquipPrefab != null) {
+			if(frontEquip == null){
+				frontEquip = Instantiate (frontEquipPrefab);
+			}
+			return frontEquip;
 		} else {
 			return null;
 		}

@@ -228,20 +228,20 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 //		this.equipment.sprite = sprite;
 //	}
 
-	public void changeEquipObject (RectTransform backEquip, RectTransform frontEquip){
+	public void changeEquipObject (Image backEquip, Image frontEquip){
 		foreach(RectTransform child in frontHandler){
-			Destroy (child.gameObject);
+			child.SetParent (null);
 		}
 		foreach(RectTransform child in backHandler){
-			Destroy (child.gameObject);
+			child.SetParent (null);
 		}
 		if(frontEquip != null){
-			frontEquip.SetParent (frontHandler);
-			frontEquip.anchoredPosition = new Vector2 (0f,100f);
+			frontEquip.rectTransform.SetParent (frontHandler);
+			frontEquip.rectTransform.anchoredPosition = new Vector2 (0f,100f);
 		}
 		if(backEquip != null){
-			backEquip.SetParent (backHandler);
-			backEquip.anchoredPosition = new Vector2 (0f,100f);
+			backEquip.rectTransform.SetParent (backHandler);
+			backEquip.rectTransform.anchoredPosition = new Vector2 (0f,100f);
 		}
 	}
 

@@ -521,7 +521,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 //		this.hud.changeEquipmentSprite(sprite);
 //	}
 
-	public void changeEquipObject (RectTransform backEquip, RectTransform frontEquip){
+	public void changeEquipObject (Image backEquip, Image frontEquip){
 		this.hud.changeEquipObject (backEquip, frontEquip);
 	}
 }
