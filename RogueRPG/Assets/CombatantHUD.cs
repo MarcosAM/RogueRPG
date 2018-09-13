@@ -18,6 +18,8 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 	[SerializeField]private Text name;
 	private RectTransform rectTransform;
 	[SerializeField]RectTransform portraitHandler;
+	[SerializeField]RectTransform frontHandler;
+	[SerializeField]RectTransform backHandler;
 	[SerializeField]private Image equipment;
 	Animator animator;
 	IWaitForAnimationByString requester;
@@ -222,8 +224,25 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 
 	}
 
-	public void changeEquipmentSprite (Sprite sprite){
-		this.equipment.sprite = sprite;
+//	public void changeEquipmentSprite (Sprite sprite){
+//		this.equipment.sprite = sprite;
+//	}
+
+	public void changeEquipObject (RectTransform backEquip, RectTransform frontEquip){
+		foreach(RectTransform child in frontHandler){
+			Destroy (child.gameObject);
+		}
+		foreach(RectTransform child in backHandler){
+			Destroy (child.gameObject);
+		}
+		if(frontEquip != null){
+			frontEquip.SetParent (frontHandler);
+			frontEquip.anchoredPosition = new Vector2 (0f,100f);
+		}
+		if(backEquip != null){
+			backEquip.SetParent (backHandler);
+			backEquip.anchoredPosition = new Vector2 (0f,100f);
+		}
 	}
 
 //	public void CheckCharacterThatDied (Character character){

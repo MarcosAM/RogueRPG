@@ -517,7 +517,11 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 		regenerationManager.poisened = true;
 	}
 
-	public void changeEquipmentSprite (Sprite sprite){
-		this.hud.changeEquipmentSprite(sprite);
+//	public void changeEquipmentSprite (Sprite sprite){
+//		this.hud.changeEquipmentSprite(sprite);
+//	}
+
+	public void changeEquipObject (RectTransform backEquip, RectTransform frontEquip){
+		this.hud.changeEquipObject (backEquip, frontEquip);
 	}
 }
