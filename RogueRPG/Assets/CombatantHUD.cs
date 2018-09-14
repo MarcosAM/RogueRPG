@@ -106,11 +106,11 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 //		targetButton.Initialize (null);
 	}
 
-	public void HPFeedback(int pastHp, int amountChanged){
+	public void HPFeedback(int pastHp, int amountChanged, bool wasCritic){
 		DamageFB damageFb = Instantiate (damageFbPrefab);
 		damageFb.transform.SetParent (transform.parent,false);
 		damageFb.getRectTransform ().localPosition = rectTransform.localPosition + Vector3.right*50;
-		damageFb.Initialize (amountChanged);
+		damageFb.Initialize (amountChanged, wasCritic);
 	}
 
 	public void setHpBar (float v){
@@ -238,10 +238,12 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 		if(frontEquip != null){
 			frontEquip.rectTransform.SetParent (frontHandler);
 			frontEquip.rectTransform.anchoredPosition = new Vector2 (0f,100f);
+			frontEquip.rectTransform.localEulerAngles = Vector3.zero;
 		}
 		if(backEquip != null){
 			backEquip.rectTransform.SetParent (backHandler);
 			backEquip.rectTransform.anchoredPosition = new Vector2 (0f,100f);
+			backEquip.rectTransform.localEulerAngles = Vector3.zero;
 		}
 	}
 

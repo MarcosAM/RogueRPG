@@ -119,16 +119,24 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 
 	protected float getDamage(int skillDamage){
 		if (source == Sources.Physical) {
-			return user.getAtkValue () + skillDamage;
+			return (user.getAtkValue () + skillDamage) * Random.Range (1f,1.2f);
 		} else {
-			return user.getAtkmValue () + skillDamage;
+			return (user.getAtkmValue () + skillDamage) * Random.Range (1f,1.2f);
 		}
 	}
 
-	protected int damage(Character user, int skillDamage){
-		return user.takeDamage (skillDamage,source);
+	protected int damage(Character user, int skillDamage, bool wasCritic){
+		return user.takeDamage (skillDamage,source, wasCritic);
 	}
-		
+
+	protected bool wasCritic(){
+		if (Random.value <= critic + user.getCritic ().getValue () && critic > 0 && source == Sources.Physical) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public string getDescription () {return description;}
 	public Sources getSource() {return source;}
 	public bool canTargetTile() {return canHitTile;}

@@ -7,6 +7,6 @@ public class DamageE : Effect {
 	public override void effect (Character target)
 	{
 		base.effect (target);
-		target.loseHpBy(value);
+		target.loseHpBy(value, false);
 	}
 }

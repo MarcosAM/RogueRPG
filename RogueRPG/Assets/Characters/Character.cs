@@ -30,7 +30,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 	protected RegenerationAndPoisonManager regenerationManager;
 
 	public event Action OnHUDValuesChange;
-	public event Action<int,int> OnHPValuesChange;
+	public event Action<int,int,bool> OnHPValuesChange;
 	public event Action OnMyTurnStarts;
 	public event Action OnMyTurnEnds;
 	public event Action OnBuffsGainOrLoss;
@@ -117,11 +117,11 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 	public void HitWith (Character target, float attack, SkillEffect skill){
 		if (skill.getSource () == SkillEffect.Sources.Physical) {
 			if (skill.getCritic () + critic.getValue () >= UnityEngine.Random.value)
-				target.loseHpBy (Mathf.RoundToInt ((attack + atk.getValue ()) * 1.5f));
+				target.loseHpBy (Mathf.RoundToInt ((attack + atk.getValue ()) * 1.5f), true);
 			else
-				target.loseHpBy (Mathf.RoundToInt ((attack + atk.getValue ()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefValue ()));
+				target.loseHpBy (Mathf.RoundToInt ((attack + atk.getValue ()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefValue ()), false);
 		} else {
-			target.loseHpBy (Mathf.RoundToInt((attack + atkm.getValue()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefmValue ()));
+			target.loseHpBy (Mathf.RoundToInt((attack + atkm.getValue()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefmValue ()), false);
 		}
 	}
 
@@ -207,12 +207,17 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 		}
 	}
 
-	public int takeDamage(int damage, SkillEffect.Sources damageSource){
+	public int takeDamage(int damage, SkillEffect.Sources damageSource, bool wasCritic){
 		if (damageSource == SkillEffect.Sources.Physical) {
-			loseHpBy (Mathf.RoundToInt(damage - getDefValue()));
-			return Mathf.RoundToInt(damage - getDefValue ());
+			if (wasCritic) {
+				loseHpBy (Mathf.RoundToInt(damage), true);
+				return Mathf.RoundToInt(damage);
+			} else {
+				loseHpBy (Mathf.RoundToInt(damage - getDefValue()), false);
+				return Mathf.RoundToInt(damage - getDefValue ());
+			}
 		} else {
-			loseHpBy (Mathf.RoundToInt(damage - getDefmValue()));
+			loseHpBy (Mathf.RoundToInt(damage - getDefmValue()), false);
 			return Mathf.RoundToInt(damage - getDefmValue());
 		}
 	}
@@ -254,11 +259,11 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 		}
 	}
 
-	public void loseHpBy (int damage)
+	public void loseHpBy (int damage, bool wasCritic)
 	{
 		if (damage > 0) {
 			if (OnHPValuesChange != null) {
-				OnHPValuesChange (hp,damage);
+				OnHPValuesChange (hp,damage,wasCritic);
 			}
 			hp -= damage;
 			currentStamina += damage;
@@ -273,7 +278,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 	public void Heal(int value){
 		if(value>=0 && alive){
 			if (OnHPValuesChange != null) {
-				OnHPValuesChange (hp,value);
+				OnHPValuesChange (hp,value, false);
 			}
 			hp += value;
 			if(hp>maxHp){
@@ -488,7 +493,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 
 		public void recover(){
 			if (poisened) {
-				owner.loseHpBy (Mathf.RoundToInt(owner.getMaxHp()*0.1f));
+				owner.loseHpBy (Mathf.RoundToInt(owner.getMaxHp()*0.1f), false);
 			} else {
 				if(duration > 0 || !consumable){
 					owner.Heal (Mathf.RoundToInt(owner.getMaxHp()*0.1f));

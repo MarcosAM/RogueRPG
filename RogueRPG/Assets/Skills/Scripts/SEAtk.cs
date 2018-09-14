@@ -42,8 +42,12 @@ public class SEAtk : SkillEffect {
 		base.UniqueEffect (user, tile);
 		//			user.TryToHitWith (tile,this);
 		if (tile.getOccupant ()) {
-			if(didIHit(tile.getOccupant(), attack)){
-				damage(tile.getOccupant(),dmg);
+			if (wasCritic()) {
+				damage(tile.getOccupant(),dmg,true);
+			} else {
+				if(didIHit(tile.getOccupant(), attack)){
+					damage(tile.getOccupant(),dmg,false);
+				}
 			}
 		}
 	}
