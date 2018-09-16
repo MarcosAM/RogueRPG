@@ -29,18 +29,18 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		SkillEffect skillEffect;
 		if (tile.isFromHero () == user.isPlayable ()) {
 			if (tile.getIndex () == user.getPosition ()) {
-				skillEffect = skill.getSelfEffect ();
+				skillEffect = skill.GetSelfEffect ();
 				image.color = new Color (0.309f, 0.380f, 0.674f, 1);
 			} else {
-				skillEffect = skill.getAlliesEffect ();
+				skillEffect = skill.GetAlliesEffect ();
 				image.color = new Color (0.952f, 0.921f, 0.235f, 1);
 			}
 		} else {
-			if ((Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.getMeleeEffect ().getRange ()) && tile.getOccupant () != null) {
-				skillEffect = skill.getMeleeEffect ();
+			if ((Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.GetMeleeEffect ().getRange ()) && tile.getOccupant () != null) {
+				skillEffect = skill.GetMeleeEffect ();
 				image.color = new Color (0.925f, 0.258f, 0.258f, 1);
 			} else {
-				skillEffect = skill.getRangedEffect ();
+				skillEffect = skill.GetRangedEffect ();
 				image.color = new Color (0.427f, 0.745f, 0.266f, 1);
 			}
 		}
@@ -135,18 +135,18 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		SkillEffect skillEffect;
 		if (target.isFromHero () == user.isPlayable ()) {
 			if (target.getIndex () == user.getPosition ()) {
-				skillEffect = choosedSkill.getSelfEffect ();
+				skillEffect = choosedSkill.GetSelfEffect ();
 				image.color = new Color (0.309f, 0.380f, 0.674f, 1);
 			} else {
-				skillEffect = choosedSkill.getAlliesEffect ();
+				skillEffect = choosedSkill.GetAlliesEffect ();
 				image.color = new Color (0.952f, 0.921f, 0.235f, 1);
 			}
 		} else {
-			if ((Mathf.Abs (target.getIndex () - user.getPosition ()) <= choosedSkill.getMeleeEffect ().getRange ()) && target.getOccupant () != null) {
-				skillEffect = choosedSkill.getMeleeEffect ();
+			if ((Mathf.Abs (target.getIndex () - user.getPosition ()) <= choosedSkill.GetMeleeEffect ().getRange ()) && target.getOccupant () != null) {
+				skillEffect = choosedSkill.GetMeleeEffect ();
 				image.color = new Color (0.925f, 0.258f, 0.258f, 1);
 			} else {
-				skillEffect = choosedSkill.getRangedEffect ();
+				skillEffect = choosedSkill.GetRangedEffect ();
 				image.color = new Color (0.427f, 0.745f, 0.266f, 1);
 			}
 		}

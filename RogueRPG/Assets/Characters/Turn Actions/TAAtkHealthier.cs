@@ -21,7 +21,7 @@ public class TAAtkHealthier : TurnAction
             {
                 //if (combatBehavior.getChoosedSkill().getType() == Equip.Types.Melee)
                 //{
-                    if (Mathf.Abs(tempHeroesTiles[i].getIndex() - character.getPosition()) <= combatBehavior.getChoosedSkill().getMeleeEffect().getRange())
+                    if (Mathf.Abs(tempHeroesTiles[i].getIndex() - character.getPosition()) <= combatBehavior.getChoosedSkill().GetMeleeEffect().getRange())
                     {
                         if (combatBehavior.getTargetTile() != null)
                         {
@@ -41,7 +41,7 @@ public class TAAtkHealthier : TurnAction
                 //}
                 //else
                 //{
-                    if (Mathf.Abs(tempHeroesTiles[i].getIndex() - character.getPosition()) > combatBehavior.getChoosedSkill().getMeleeEffect().getRange())
+                    if (Mathf.Abs(tempHeroesTiles[i].getIndex() - character.getPosition()) > combatBehavior.getChoosedSkill().GetMeleeEffect().getRange())
                     {
                         if (combatBehavior.getTargetTile() != null)
                         {

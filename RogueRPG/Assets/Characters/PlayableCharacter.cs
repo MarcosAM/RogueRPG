@@ -54,11 +54,11 @@ public class PlayableCharacter : Character {
 		int def = 0;
 		int defm = 0;
 		foreach (Equip skill in equips) {
-			hp += skill.getHp ();
-			atk += skill.getAtk ();
-			atkm += skill.getAtkm ();
-			def += skill.getDef ();
-			defm += skill.getDefm ();
+			hp += skill.GetHp ();
+			atk += skill.GetAtk ();
+			atkm += skill.GetAtkm ();
+			def += skill.GetDef ();
+			defm += skill.GetDefm ();
 		}
 
 		this.atk.setStatBase (atk);

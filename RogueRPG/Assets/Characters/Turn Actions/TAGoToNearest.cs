@@ -11,10 +11,10 @@ public class TAGoToNearest : TurnAction {
 		combatBehavior.setTargetTile (null);
 
 		foreach (Equip skill in character.getUsableEquips()){
-			foreach(SkillEffect skillEffect in skill.getAllSkillEffects()){
+			foreach(SkillEffect skillEffect in skill.GetAllSkillEffects()){
 				if(skillEffect.getKind() == SkillEffect.Kind.Movement){
 					if (combatBehavior.getChoosedSkill () != null) {
-						if(skillEffect.getRange() > combatBehavior.getChoosedSkill().getAlliesEffect().getRange()){
+						if(skillEffect.getRange() > combatBehavior.getChoosedSkill().GetAlliesEffect().getRange()){
 							combatBehavior.setChoosedSkill (skill);
 						}
 					} else {
@@ -75,10 +75,10 @@ public class TAGoToNearest : TurnAction {
 			Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
 			Battleground.Tile[] tempEnemiesTiles = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles ();
 
-			int minIndex = character.getPosition () - combatBehavior.getChoosedSkill ().getAlliesEffect ().getRange ();
+			int minIndex = character.getPosition () - combatBehavior.getChoosedSkill ().GetAlliesEffect ().getRange ();
 			if (minIndex < 0)
 				minIndex = 0;
-			int maxIndex = character.getPosition () + combatBehavior.getChoosedSkill ().getAlliesEffect ().getRange ();
+			int maxIndex = character.getPosition () + combatBehavior.getChoosedSkill ().GetAlliesEffect ().getRange ();
 			if (maxIndex > tempEnemiesTiles.Length - 1)
 				maxIndex = tempEnemiesTiles.Length - 1;
 

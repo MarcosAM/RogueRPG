@@ -31,7 +31,7 @@ public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 	public void showMomentumSkillOf (Character character){
 		skill = character.getMomentumSkill ();
 		button.interactable = false;
-		text.text = skill.getSkillName();
+		text.text = skill.GetEquipName();
 		text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
 		Appear ();
 	}
@@ -46,7 +46,7 @@ public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
 	override public void Appear (){
 		button.interactable = true;
-		text.text = skill.getSkillName();
+		text.text = skill.GetEquipName();
 		text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
 	}
 

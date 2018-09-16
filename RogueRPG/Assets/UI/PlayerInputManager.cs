@@ -31,7 +31,7 @@ public class PlayerInputManager : MonoBehaviour {
 		if (equipToggle != null) {
 			battleGuide.setText("CHOOSE YOUR TARGET");
 			battleGuide.setAnimatorTrigger("PointLeftRight");
-			combatBehavior.getCharacter().changeEquipObject(combatBehavior.getCharacter().getEquips()[equipTogglerManager.getSelectedEquipIndex()].getBackEquip(),combatBehavior.getCharacter().getEquips()[equipTogglerManager.getSelectedEquipIndex()].getFrontEquip());
+			combatBehavior.getCharacter().changeEquipObject(combatBehavior.getCharacter().getEquips()[equipTogglerManager.getSelectedEquipIndex()].GetBackEquip(),combatBehavior.getCharacter().getEquips()[equipTogglerManager.getSelectedEquipIndex()].GetFrontEquip());
 			combatBehavior.getCharacter().getHUD().getAnimator().SetBool("Equiped",true);
 			combatBehavior.getCharacter().getHUD().getAnimator().SetTrigger("ChangeEquip");
 			combHUDManager.ShowTargetBtns (combatBehavior.getCharacter (), SelectedEquip, false);
