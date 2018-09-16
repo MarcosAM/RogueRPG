@@ -24,7 +24,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		CombHUDManager.getInstance().onTargetBtnPressed(tile);
 	}
 
-	public void Appear (Character user, Skill skill){
+	public void Appear (Character user, Equip skill){
 
 		SkillEffect skillEffect;
 		if (tile.isFromHero () == user.isPlayable ()) {
@@ -54,7 +54,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 				button.interactable = false;
 			}
 		} else {
-			if (skill.getType () == Skill.Types.Ranged && !skillEffect.isSingleTarget ()) {
+			if (skillEffect.getSkillType() == SkillEffect.Type.Ranged && !skillEffect.isSingleTarget ()) {
 				image.gameObject.SetActive (true);
 				button.interactable = true;
 			} else {
@@ -130,7 +130,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 //		}
 	}
 
-	public void CheckIfAffected (Battleground.Tile target, Skill choosedSkill, Character user)
+	public void CheckIfAffected (Battleground.Tile target, Equip choosedSkill, Character user)
 	{
 		SkillEffect skillEffect;
 		if (target.isFromHero () == user.isPlayable ()) {

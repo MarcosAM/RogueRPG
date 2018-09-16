@@ -6,13 +6,13 @@ using System;
 public class EventManager : MonoBehaviour {
 
 	public static event Action<Character> OnShowSkillsOf;
-	public static event Action<Skill> OnPlayerChoosedSkill;
+	public static event Action<Equip> OnPlayerChoosedSkill;
 	public static event Action OnClickedSkillBtn;
 //	public static event Action<Character> OnPlayerChoosedTarget;
 	public static event Action<Battleground.Tile> OnPlayerChoosedTarget2;
 	public static event Action OnClickedTargetBtn;
-	public static event Action<Character,Skill> OnShowTargetsOf;
-	public static event Action<Skill> OnShowTargetsOf2;
+	public static event Action<Character,Equip> OnShowTargetsOf;
+	public static event Action<Equip> OnShowTargetsOf2;
 	public static event Action OnUnchoosedSkill;
 	public static event Action OnSkillUsed;
 	public static event Action OnEndedTurn;
@@ -27,7 +27,7 @@ public class EventManager : MonoBehaviour {
 			OnShowSkillsOf (c);
 	}
 
-	public static void ClickedSkillBtn(Skill s) {
+	public static void ClickedSkillBtn(Equip s) {
 		if (OnClickedSkillBtn != null)
 			OnClickedSkillBtn();
 		if(OnPlayerChoosedSkill != null)
@@ -40,12 +40,12 @@ public class EventManager : MonoBehaviour {
 		}
 	}
 
-	public static void ShowTargetsOf(Character user, Skill skill){
+	public static void ShowTargetsOf(Character user, Equip skill){
 		if (OnShowTargetsOf != null)
 			OnShowTargetsOf (user, skill);
 	}
 
-	public static void ShowTargetsOf(Skill skill){
+	public static void ShowTargetsOf(Equip skill){
 		if (OnShowTargetsOf2 != null)
 			OnShowTargetsOf2 (skill);
 	}

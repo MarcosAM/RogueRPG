@@ -6,7 +6,7 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 
 	private Animator animator;
 	private RectTransform rectTransform;
-	private Skill mySkill;
+	private Equip mySkill;
 	private SkillEffect mySkillEffect;
 	private IWaitForAnimation requester;
 
@@ -15,7 +15,7 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 		rectTransform = GetComponent<RectTransform> ();
 	}
 
-	public void PlayAnimation (Skill skill, Battleground.Tile tile){
+	public void PlayAnimation (Equip skill, Battleground.Tile tile){
 		rectTransform.localPosition = tile.getLocalPosition () + new Vector2(0,20);
 		mySkill = skill;
 		animator.SetTrigger ("play");

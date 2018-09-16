@@ -6,7 +6,7 @@ public class SkillPreviewManager : MonoBehaviour {
 
 	[SerializeField] List<SkillPreview> skillPreviews = new List<SkillPreview> ();
 
-	public void showSkillPreviewsOf(Skill equip){
+	public void showSkillPreviewsOf(Equip equip){
 		gameObject.SetActive(true);
 		skillPreviews [0].getText ().text = equip.getMeleeEffect ().getEffectName ();
 		skillPreviews [1].getText ().text = equip.getRangedEffect ().getEffectName ();

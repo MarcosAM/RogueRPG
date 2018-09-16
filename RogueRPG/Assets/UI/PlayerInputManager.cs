@@ -31,11 +31,11 @@ public class PlayerInputManager : MonoBehaviour {
 		if (equipToggle != null) {
 			battleGuide.setText("CHOOSE YOUR TARGET");
 			battleGuide.setAnimatorTrigger("PointLeftRight");
-			combatBehavior.getCharacter().changeEquipObject(combatBehavior.getCharacter().getSkills()[equipTogglerManager.getSelectedEquipIndex()].getBackEquip(),combatBehavior.getCharacter().getSkills()[equipTogglerManager.getSelectedEquipIndex()].getFrontEquip());
+			combatBehavior.getCharacter().changeEquipObject(combatBehavior.getCharacter().getEquips()[equipTogglerManager.getSelectedEquipIndex()].getBackEquip(),combatBehavior.getCharacter().getEquips()[equipTogglerManager.getSelectedEquipIndex()].getFrontEquip());
 			combatBehavior.getCharacter().getHUD().getAnimator().SetBool("Equiped",true);
 			combatBehavior.getCharacter().getHUD().getAnimator().SetTrigger("ChangeEquip");
 			combHUDManager.ShowTargetBtns (combatBehavior.getCharacter (), SelectedEquip, false);
-			skillPreviewManager.showSkillPreviewsOf (combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()]);
+			skillPreviewManager.showSkillPreviewsOf (combatBehavior.getCharacter ().getEquips () [equipTogglerManager.getSelectedEquipIndex ()]);
 		} else {
 			battleGuide.setText("CHOOSE YOUR EQUIPMENT");
 			battleGuide.setAnimatorTrigger("PointDown");
@@ -64,11 +64,11 @@ public class PlayerInputManager : MonoBehaviour {
 		combHUDManager.ShowTargetBtns (combatBehavior.getCharacter (), SelectedEquip, false);
 	}
 
-	public Skill SelectedEquip
+	public Equip SelectedEquip
 	{
 		get
 		{
-			return combatBehavior.getCharacter().getSkills()[equipTogglerManager.getSelectedEquipIndex()];
+			return combatBehavior.getCharacter().getEquips()[equipTogglerManager.getSelectedEquipIndex()];
 		}
 	}
 }

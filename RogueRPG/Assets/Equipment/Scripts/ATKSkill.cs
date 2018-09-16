@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName="Skills/Attacks")]
-public class ATKSkill : Skill {
+public class ATKSkill : Equip {
 
 //	public override void UniqueEffect (Character user, Character target)
 //	{

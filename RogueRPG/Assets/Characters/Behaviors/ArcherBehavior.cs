@@ -21,7 +21,7 @@ public class ArcherBehavior : CombatBehavior {
 
 	public void ChooseSkill ()
 	{
-		choosedSkill = character.getUsableSkills()[Random.Range(0,character.getUsableSkills().Count)];
+		choosedEquip = character.getUsableEquips()[Random.Range(0,character.getUsableEquips().Count)];
 	}
 
 	public void ChooseTarget ()
@@ -78,7 +78,7 @@ public class ArcherBehavior : CombatBehavior {
 //		}
 		for(int i = 0; i < possibleActions.Count;i++){
 			possibleActions [i].tryToDefineEquipSkillTargetFor();
-			if(choosedSkill != null && targetTile != null){
+			if(choosedEquip != null && targetTile != null){
 				break;
 			}
 		}
@@ -93,7 +93,7 @@ public class ArcherBehavior : CombatBehavior {
 	{
 		base.UseSkill ();
 //		EventManager.OnSkillUsed += EndTurn;
-		choosedSkill.UseEquipmentOn (character,targetTile, this);
+		choosedEquip.UseEquipmentOn (character,targetTile, this);
 	}
 
 	public override void resumeFromEquipment (){

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName="Skills/Buffs/Critic")]
-public class CriticBuffSkill : Skill {
+public class CriticBuffSkill : Equip {
 
 	[SerializeField]int bDuration;
 	

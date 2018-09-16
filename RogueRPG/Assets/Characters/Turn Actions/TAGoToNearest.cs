@@ -10,7 +10,7 @@ public class TAGoToNearest : TurnAction {
 		combatBehavior.setChoosedSkill (null);
 		combatBehavior.setTargetTile (null);
 
-		foreach (Skill skill in character.getUsableSkills()){
+		foreach (Equip skill in character.getUsableEquips()){
 			foreach(SkillEffect skillEffect in skill.getAllSkillEffects()){
 				if(skillEffect.getKind() == SkillEffect.Kind.Movement){
 					if (combatBehavior.getChoosedSkill () != null) {

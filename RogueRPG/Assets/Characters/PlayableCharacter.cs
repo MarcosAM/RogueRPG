@@ -33,7 +33,7 @@ public class PlayableCharacter : Character {
 //		atkm.setStatBase (stats.getAtkm ());
 //		def.setStatBase (stats.getDef ());
 //		defm.setStatBase (stats.getDefm ());
-		skills = stats.getSkills ();
+		equips = stats.getSkills ();
 		momentumSkill = stats.getMomentumSkill ();
 //		maxHp = stats.getHp ();
 //		hp = maxHp;
@@ -53,7 +53,7 @@ public class PlayableCharacter : Character {
 		int atkm = 0;
 		int def = 0;
 		int defm = 0;
-		foreach (Skill skill in skills) {
+		foreach (Equip skill in equips) {
 			hp += skill.getHp ();
 			atk += skill.getAtk ();
 			atkm += skill.getAtkm ();

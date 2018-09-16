@@ -17,11 +17,11 @@ public class UndoBtn : MonoBehaviour {
 		Disappear ();
 	}
 
-	void Appear(Character character, Skill skill){
+	void Appear(Character character, Equip skill){
 		icon.enabled = true;
 	}
 
-	void Appear(Skill skill){
+	void Appear(Equip skill){
 		icon.enabled = true;
 	}
 

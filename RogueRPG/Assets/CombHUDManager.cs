@@ -158,7 +158,7 @@ public class CombHUDManager : MonoBehaviour {
 		}
 	}
 
-	public void ShowTargetBtns (Character user, Skill choosedSkill, bool asPreview)
+	public void ShowTargetBtns (Character user, Equip choosedSkill, bool asPreview)
 	{
 		for (int i = 0; i < heroesCombatantHUD.Length; i++) {
 			heroesCombatantHUD [i].ShowTargetBtn (user, choosedSkill);
@@ -201,16 +201,16 @@ public class CombHUDManager : MonoBehaviour {
 
 	public void onSkillBtnHoverEnter (SkillBtn skillBtn)
 	{
-		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-		if (combatBehavior.getChoosedSkill () != null) {
+		//CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
+		//if (combatBehavior.getChoosedSkill () != null) {
 			
-		} else {
-			if (skillBtn.getSkill ().getCharactersThatCantUseMe ().Contains (combatBehavior.getCharacter ())) {
+		//} else {
+		//	if (skillBtn.getSkill ().getCharactersThatCantUseMe ().Contains (combatBehavior.getCharacter ())) {
 
-			} else {
-				ShowTargetBtns (combatBehavior.getCharacter(),skillBtn.getSkill(), true);
-			}
-		}
+		//	} else {
+		//		ShowTargetBtns (combatBehavior.getCharacter(),skillBtn.getSkill(), true);
+		//	}
+		//}
 	}
 
 	public void onSkillBtnHoverExit(SkillBtn skillBtn){
@@ -227,7 +227,7 @@ public class CombHUDManager : MonoBehaviour {
 		FindObjectOfType<PlayerInputManager>().HoverTargetBtnEnter(targetBtn);
 	}
 
-	public void PreviewTargets(Character user, Skill selectedEquip ,Battleground.Tile target)
+	public void PreviewTargets(Character user, Equip selectedEquip ,Battleground.Tile target)
 	{
 		for (int i = 0; i < heroesCombatantHUD.Length; i++)
 		{

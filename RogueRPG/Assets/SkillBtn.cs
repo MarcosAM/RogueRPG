@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
 	Text text;
-	public Skill skill;
+	public Equip skill;
 
 	void Awake () {
 		button = GetComponent<Button> ();
@@ -18,14 +18,14 @@ public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
 	public void RefreshSelf (Character c)
 	{
-		skill = c.getSkills () [number];
-		if (skill.getCharactersThatCantUseMe ().Contains (c)) {
-			button.interactable = false;
-			text.text = skill.getSkillName();
-			text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
-		} else {
-			Appear ();
-		}
+		//skill = c.getEquips () [number];
+		//if (skill.getCharactersThatCantUseMe ().Contains (c)) {
+		//	button.interactable = false;
+		//	text.text = skill.getSkillName();
+		//	text.color = new Color (text.color.r,text.color.g,text.color.b,1f);
+		//} else {
+		//	Appear ();
+		//}
 	}
 
 	public void showMomentumSkillOf (Character character){
@@ -65,7 +65,7 @@ public class SkillBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		CombHUDManager.getInstance ().onSkillBtnHoverExit (this);
 	}
 
-	public Skill getSkill() {return skill;}
+	public Equip getSkill() {return skill;}
 
 	void OnEnable(){
 //		EventManager.OnShowSkillsOf += RefreshSelf;

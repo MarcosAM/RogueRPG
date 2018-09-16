@@ -185,7 +185,7 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 		targetButton.TurnBackToBlack ();
 	}
 
-	public void ShowTargetBtn(Character user, Skill skill){
+	public void ShowTargetBtn(Character user, Equip skill){
 		targetButton.Appear (user,skill);
 	}
 
@@ -218,7 +218,7 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 		return animator;
 	}
 
-	public void ShowPossibleInitiative (Character activeCharacter, Skill skill)
+	public void ShowPossibleInitiative (Character activeCharacter, Equip skill)
 	{
 		DungeonManager dungeonManager = DungeonManager.getInstance();
 
@@ -263,7 +263,7 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 		targetButton.show(color);
 	}
 
-	public void CheckIfAffected (Battleground.Tile target, Skill choosedSkill, Character user)
+	public void CheckIfAffected (Battleground.Tile target, Equip choosedSkill, Character user)
 	{
 		targetButton.CheckIfAffected(target,choosedSkill,user);
 	}

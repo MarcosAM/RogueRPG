@@ -30,14 +30,14 @@ public class EquipToggleManager : MonoBehaviour {
 	public void showEquipTogglesFor(Character character, bool asPreview){
 		gameObject.SetActive (true);
 		for(int i = 0;i<equipToggles.Count;i++){
-			equipToggles[i].getText().text = character.getSkills()[i].getSkillName();
+			equipToggles[i].getText().text = character.getEquips()[i].getSkillName();
 			if (asPreview) {
 				equipToggles [i].getToggle ().interactable = false;
 			} else {
-				if (character.getSkills () [i].getCharactersThatCantUseMe ().Contains (character)) {
-					equipToggles [i].getToggle ().interactable = false;
-				} else {
+				if (character.getBehavior().IsEquipAvailable(i)) {
 					equipToggles [i].getToggle ().interactable = true;
+				} else {
+					equipToggles [i].getToggle ().interactable = false;
 				}
 			}
 		}
