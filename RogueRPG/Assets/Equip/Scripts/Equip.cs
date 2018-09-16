@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public abstract class Equip : ScriptableObject, IWaitForSkill
 {
     [SerializeField] protected string eName;
-    [SerializeField] protected SkillEffect meleeSkill;
-    [SerializeField] protected SkillEffect rangedSkill;
-    [SerializeField] protected SkillEffect selfSkill;
-    [SerializeField] protected SkillEffect alliesSkill;
+    [SerializeField] protected Skill meleeSkill;
+    [SerializeField] protected Skill rangedSkill;
+    [SerializeField] protected Skill selfSkill;
+    [SerializeField] protected Skill alliesSkill;
     [SerializeField] protected int hp, atk, atkm, def, defm;
     [SerializeField] protected Image backEquipPrefab;
     [SerializeField] protected Image frontEquipPrefab;
@@ -19,13 +19,12 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
 
     public void UseEquipmentOn(Character user, Battleground.Tile tile, IWaitForEquipment requester)
     {
-        //		TODO Check if already there before adding
         user.changeEquipObject(GetBackEquip(), GetFrontEquip());
         this.requester = requester;
-        AppropriateSkill(user, tile).startEffect(user, tile, this);
+        AppropriateSkill(user, tile).StartSkill(user, tile, this);
     }
 
-    public SkillEffect AppropriateSkill(Character user, Battleground.Tile target)
+    public Skill AppropriateSkill(Character user, Battleground.Tile target)
     {
         if (target.isFromHero() == user.isPlayable())
         {
@@ -40,7 +39,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
         }
         else
         {
-            if ((Mathf.Abs(target.getIndex() - user.getPosition()) <= meleeSkill.getRange()) && target.getOccupant() != null)
+            if ((Mathf.Abs(target.getIndex() - user.getPosition()) <= meleeSkill.GetRange()) && target.getOccupant() != null)
             {
                 return meleeSkill;
             }
@@ -62,13 +61,13 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
     public int GetAtkm() { return atkm; }
     public int GetDef() { return def; }
     public int GetDefm() { return defm; }
-    public SkillEffect GetMeleeEffect() { return meleeSkill; }
-    public SkillEffect GetSelfEffect() { return selfSkill; }
-    public SkillEffect GetRangedEffect() { return rangedSkill; }
-    public SkillEffect GetAlliesEffect() { return alliesSkill; }
-    public List<SkillEffect> GetAllSkillEffects()
+    public Skill GetMeleeEffect() { return meleeSkill; }
+    public Skill GetSelfEffect() { return selfSkill; }
+    public Skill GetRangedEffect() { return rangedSkill; }
+    public Skill GetAlliesEffect() { return alliesSkill; }
+    public List<Skill> GetAllSkillEffects()
     {
-        List<SkillEffect> allSkillEffects = new List<SkillEffect>();
+        List<Skill> allSkillEffects = new List<Skill>();
         if (meleeSkill != null)
             allSkillEffects.Add(meleeSkill);
         if (rangedSkill != null)

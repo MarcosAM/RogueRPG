@@ -106,11 +106,8 @@
     <Compile Include="Assets\CombHUDManager.cs" />
     <Compile Include="Assets\DamageFB\DamageFB.cs" />
     <Compile Include="Assets\DudeDontDie.cs" />
-    <Compile Include="Assets\Equipment\Scripts\ATKMSkill.cs" />
-    <Compile Include="Assets\Equipment\Scripts\ATKSkill.cs" />
-    <Compile Include="Assets\Equipment\Scripts\CriticBuffSkill.cs" />
-    <Compile Include="Assets\Equipment\Scripts\Equip.cs" />
-    <Compile Include="Assets\Equipment\Scripts\HealSkill.cs" />
+    <Compile Include="Assets\Equip\Scripts\Equip.cs" />
+    <Compile Include="Assets\Equip\Scripts\StandartEquip.cs" />
     <Compile Include="Assets\ExtensionMethods.cs" />
     <Compile Include="Assets\GameOverUI.cs" />
     <Compile Include="Assets\ICombatDisplayer.cs" />
@@ -134,8 +131,8 @@
     <Compile Include="Assets\Skills\Scripts\SEPoison.cs" />
     <Compile Include="Assets\Skills\Scripts\SERegeneration.cs" />
     <Compile Include="Assets\Skills\Scripts\SERevive.cs" />
+    <Compile Include="Assets\Skills\Scripts\Skill.cs" />
     <Compile Include="Assets\Skills\Scripts\SkillAnimationManager.cs" />
-    <Compile Include="Assets\Skills\Scripts\SkillEffect.cs" />
     <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
     <Compile Include="Assets\StartUI.cs" />
     <Compile Include="Assets\TargetBtn.cs" />

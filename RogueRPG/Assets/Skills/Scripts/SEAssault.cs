@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skill Effects/Assault")]
-public class SEAssault : SkillEffect, IWaitForSkill
+public class SEAssault : Skill, IWaitForSkill
 {
 
-    [SerializeField] protected SkillEffect firstEffect;
-    [SerializeField] protected SkillEffect secondEffect;
+    [SerializeField] protected Skill firstEffect;
+    [SerializeField] protected Skill secondEffect;
     bool alreadyDidFirst = false;
 
-    public override void startEffect(Character user, Battleground.Tile tile, IWaitForSkill requester)
+    public override void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester)
     {
         this.requester = requester;
-        this.user = user;
+        this.currentUser = user;
         this.targetTile = tile;
         alreadyDidFirst = false;
         //		user.getHUD ().playAnimation (this, "UseSkill");
-        firstEffect.startEffect(user, tile, this);
+        firstEffect.StartSkill(user, tile, this);
     }
 
     public override bool WillBeAffected(Battleground.Tile target, Battleground.Tile tile)
@@ -36,12 +36,12 @@ public class SEAssault : SkillEffect, IWaitForSkill
     {
         if (alreadyDidFirst)
         {
-            endSkill();
+            EndSkill();
         }
         else
         {
             alreadyDidFirst = true;
-            secondEffect.startEffect(user, targetTile, this);
+            secondEffect.StartSkill(currentUser, targetTile, this);
         }
     }
 }

@@ -7,7 +7,7 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 	private Animator animator;
 	private RectTransform rectTransform;
 	private Equip mySkill;
-	private SkillEffect mySkillEffect;
+	private Skill mySkillEffect;
 	private IWaitForAnimation requester;
 
 	void Awake (){
@@ -21,7 +21,7 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 		animator.SetTrigger ("play");
 	}
 
-	public void PlayAnimation (SkillEffect skillEffect, Battleground.Tile tile){
+	public void PlayAnimation (Skill skillEffect, Battleground.Tile tile){
 		rectTransform.localPosition = tile.getLocalPosition () + new Vector2(0,50);
 		mySkillEffect = skillEffect;
 		animator.SetTrigger ("play");
@@ -35,7 +35,7 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 
 	public void End (){
 //		mySkillEffect.EndSkill ();
-		requester.resumeFromAnimation();
+		requester.ResumeFromAnimation();
 		Destroy (gameObject);
 	}
 }

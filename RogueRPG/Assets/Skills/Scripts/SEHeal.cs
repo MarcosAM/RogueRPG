@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName="Skill Effects/Heal")]
-public class SEHeal : SkillEffect {
+public class SEHeal : Skill {
 
 //	public override void UniqueEffect (Character user, Skill skill, Battleground.Tile tile)
 //	{
@@ -21,14 +21,14 @@ public class SEHeal : SkillEffect {
 //			tile.getOccupant ().Heal (value + (int)user.getAtkmValue());
 	}
 
-	public override void onHitEffect (Character user, Battleground.Tile tile)
+	public override void OnHitEffect (Character user, Battleground.Tile tile)
 	{
-		base.onHitEffect (user, tile);
+		base.OnHitEffect (user, tile);
 		tile.getOccupant ().Heal (Mathf.RoundToInt(value + user.getAtkmValue()));
 	}
 
-	public override void onMissedEffect (Character user, Battleground.Tile tile)
+	public override void OnMissedEffect (Character user, Battleground.Tile tile)
 	{
-		base.onMissedEffect (user, tile);
+		base.OnMissedEffect (user, tile);
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName="Skill Effects/Escudada")]
-public class SEEscudada : SkillEffect {
+public class SEEscudada : Skill {
 
 	[SerializeField]int buffValue;
 	float defValue;
@@ -16,9 +16,9 @@ public class SEEscudada : SkillEffect {
 			user.TryToHitWith (tile,this);
 	}
 
-	public override void onHitEffect (Character user, Battleground.Tile tile)
+	public override void OnHitEffect (Character user, Battleground.Tile tile)
 	{
-		base.onHitEffect (user, tile);
+		base.OnHitEffect (user, tile);
 		user.HitWith (tile.getOccupant (), value, this);
 		Battleground.Tile[] heroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
 		if(buffValue == 1){
@@ -42,8 +42,8 @@ public class SEEscudada : SkillEffect {
 		}
 	}
 
-	public override void onMissedEffect (Character user, Battleground.Tile tile)
+	public override void OnMissedEffect (Character user, Battleground.Tile tile)
 	{
-		base.onMissedEffect (user, tile);
+		base.OnMissedEffect (user, tile);
 	}
 }

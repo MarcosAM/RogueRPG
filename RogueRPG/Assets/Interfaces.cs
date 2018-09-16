@@ -8,7 +8,7 @@ public interface IPlaySkillAnimation{
 }
 
 public interface IWaitForAnimation{
-	void resumeFromAnimation();
+	void ResumeFromAnimation();
 }
 
 public interface IPlayEffects{
@@ -29,11 +29,11 @@ public interface IPoisonable{
 }
 
 public interface IPlayAnimationByString{
-	void playAnimation (IWaitForAnimationByString requester, string trigger);
+	void PlayAnimation (IWaitForAnimationByString requester, string trigger);
 }
 
 public interface IWaitForAnimationByString{
-	void resumeFromAnimation (IPlayAnimationByString animationByString);
+	void ResumeFromAnimation (IPlayAnimationByString animationByString);
 }
 
 public interface IWaitForEquipment{

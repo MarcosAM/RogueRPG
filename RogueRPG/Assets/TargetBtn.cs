@@ -26,7 +26,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
 	public void Appear (Character user, Equip skill){
 
-		SkillEffect skillEffect;
+		Skill skillEffect;
 		if (tile.isFromHero () == user.isPlayable ()) {
 			if (tile.getIndex () == user.getPosition ()) {
 				skillEffect = skill.GetSelfEffect ();
@@ -36,7 +36,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 				image.color = new Color (0.952f, 0.921f, 0.235f, 1);
 			}
 		} else {
-			if ((Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.GetMeleeEffect ().getRange ()) && tile.getOccupant () != null) {
+			if ((Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.GetMeleeEffect ().GetRange ()) && tile.getOccupant () != null) {
 				skillEffect = skill.GetMeleeEffect ();
 				image.color = new Color (0.925f, 0.258f, 0.258f, 1);
 			} else {
@@ -46,7 +46,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 		}
 
 		if (tile.getOccupant () != null) {
-			if (tile.getOccupant ().isAlive () || (!tile.getOccupant ().isAlive () && skillEffect.canTargetDead ())) {
+			if (tile.getOccupant ().isAlive () || (!tile.getOccupant ().isAlive () && skillEffect.DoesTargetDead ())) {
 				image.gameObject.SetActive (true);
 				button.interactable = true;
 			} else {
@@ -54,15 +54,15 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 				button.interactable = false;
 			}
 		} else {
-			if (skillEffect.getSkillType() == SkillEffect.Type.Ranged && !skillEffect.isSingleTarget ()) {
+			if (skillEffect.GetSkillType() == Skill.Type.Ranged && !skillEffect.IsSingleTarget ()) {
 				image.gameObject.SetActive (true);
 				button.interactable = true;
 			} else {
 				image.gameObject.SetActive (false);
 				button.interactable = false;
 			}
-			if (skillEffect.getKind() == SkillEffect.Kind.Movement) {
-				if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skillEffect.getRange ()) {
+			if (skillEffect.GetKind() == Skill.Kind.Movement) {
+				if (Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skillEffect.GetRange ()) {
 					image.gameObject.SetActive (true);
 					button.interactable = true;
 				}
@@ -132,7 +132,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 
 	public void CheckIfAffected (Battleground.Tile target, Equip choosedSkill, Character user)
 	{
-		SkillEffect skillEffect;
+		Skill skillEffect;
 		if (target.isFromHero () == user.isPlayable ()) {
 			if (target.getIndex () == user.getPosition ()) {
 				skillEffect = choosedSkill.GetSelfEffect ();
@@ -142,7 +142,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 				image.color = new Color (0.952f, 0.921f, 0.235f, 1);
 			}
 		} else {
-			if ((Mathf.Abs (target.getIndex () - user.getPosition ()) <= choosedSkill.GetMeleeEffect ().getRange ()) && target.getOccupant () != null) {
+			if ((Mathf.Abs (target.getIndex () - user.getPosition ()) <= choosedSkill.GetMeleeEffect ().GetRange ()) && target.getOccupant () != null) {
 				skillEffect = choosedSkill.GetMeleeEffect ();
 				image.color = new Color (0.925f, 0.258f, 0.258f, 1);
 			} else {

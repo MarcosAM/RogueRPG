@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName="Skill Effects/Revive")]
-public class SERevive : SkillEffect {
+public class SERevive : Skill {
 
 	public override void UniqueEffect (Character user, Battleground.Tile tile)
 	{
@@ -11,21 +11,21 @@ public class SERevive : SkillEffect {
 
 		if (tile.getOccupant () != null) {
 			if(!tile.getOccupant().isAlive()){
-				onHitEffect (user,tile);
+				OnHitEffect (user,tile);
 				return;
 			}
 		}
-		onMissedEffect (user, tile);
+		OnMissedEffect (user, tile);
 	}
 
-	public override void onHitEffect (Character user, Battleground.Tile tile)
+	public override void OnHitEffect (Character user, Battleground.Tile tile)
 	{
-		base.onHitEffect (user, tile);
+		base.OnHitEffect (user, tile);
 		tile.getOccupant ().revive (Mathf.RoundToInt(tile.getOccupant().getMaxHp() * value));
 	}
 
-	public override void onMissedEffect (Character user, Battleground.Tile tile)
+	public override void OnMissedEffect (Character user, Battleground.Tile tile)
 	{
-		base.onMissedEffect (user, tile);
+		base.OnMissedEffect (user, tile);
 	}
 }

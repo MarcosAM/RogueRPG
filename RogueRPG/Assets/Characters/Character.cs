@@ -66,67 +66,11 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         EventManager.EndedTurn();
     }
 
-    //	public void Attack (Character target, float attack, Skill skill){
-    //		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
-    //		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
-    //			distanceInfluenceOnPrecision = -1f;
-    //		}
-    //		if (skill.getCriticRate () + critic.getValue() >= UnityEngine.Random.value) {
-    //			target.TakeDamage (Mathf.RoundToInt((attack + atk.getValue()) * 1.5f));
-    //		} else {
-    //			if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue() >= UnityEngine.Random.value) {
-    //				target.TakeDamage (Mathf.RoundToInt((attack+atk.getValue())*UnityEngine.Random.Range(1f,1.2f)-target.getDefValue()));
-    //			} else {
-    ////				print(target.characterName+" se esquivou!");
-    //			}
-    //		}
-    //	}
-
-    //	public void Attack (Character target, float attack, SkillEffect skill){
-    //		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
-    //		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
-    //			distanceInfluenceOnPrecision = -1f;
-    //		}
-    //		if (skill.getCritic () + critic.getValue() >= UnityEngine.Random.value) {
-    //			target.TakeDamage (Mathf.RoundToInt((attack + atk.getValue()) * 1.5f));
-    //		} else {
-    //			if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue() >= UnityEngine.Random.value) {
-    //				target.TakeDamage (Mathf.RoundToInt((attack+atk.getValue())*UnityEngine.Random.Range(1f,1.2f)-target.getDefValue()));
-    //			} else {
-    //				//				print(target.characterName+" se esquivou!");
-    //			}
-    //		}
-    //	}
-
-    //	public void AttackMagic (Character target, float attack, Skill skill)
-    //	{
-    //		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
-    //		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
-    //			distanceInfluenceOnPrecision = -1f;
-    //		}
-    //		if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue () >= UnityEngine.Random.value) {
-    //			int damage = Mathf.RoundToInt((attack + atkm.getValue()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefmValue ());
-    //			target.TakeDamage (damage);
-    //		}
-    //	}
-
-    //	public void AttackMagic (Character target, float attack, SkillEffect skill)
-    //	{
-    //		float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
-    //		if(skill.getSkillType() == Skill.Types.Melee && distanceInfluenceOnPrecision < 0){
-    //			distanceInfluenceOnPrecision = -1f;
-    //		}
-    //		if (skill.getPrecision () + precision.getValue() + distanceInfluenceOnPrecision - target.getDodgeValue () >= UnityEngine.Random.value) {
-    //			int damage = Mathf.RoundToInt((attack + atkm.getValue()) * UnityEngine.Random.Range (1f, 1.2f) - target.getDefmValue ());
-    //			target.TakeDamage (damage);
-    //		}
-    //	}
-
-    public void HitWith(Character target, float attack, SkillEffect skill)
+    public void HitWith(Character target, float attack, Skill skill)
     {
-        if (skill.getSource() == SkillEffect.Sources.Physical)
+        if (skill.GetSource() == Skill.Source.Physical)
         {
-            if (skill.getCritic() + critic.getValue() >= UnityEngine.Random.value)
+            if (skill.GetCritic() + critic.getValue() >= UnityEngine.Random.value)
                 target.loseHpBy(Mathf.RoundToInt((attack + atk.getValue()) * 1.5f), true);
             else
                 target.loseHpBy(Mathf.RoundToInt((attack + atk.getValue()) * UnityEngine.Random.Range(1f, 1.2f) - target.getDefValue()), false);
@@ -137,23 +81,15 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
     }
 
-    //	public void TryToHitWith (Character target, SkillEffect skillEffect){
-    //		if (getPrecisionOfSkillEffect(target, skillEffect) >= UnityEngine.Random.value) {
-    //			skillEffect.onHitEffect (target, skillEffect);
-    //		} else {
-    //			skillEffect.onMissedEffect (target,skillEffect);
-    //		}
-    //	}
-
-    public void TryToHitWith(Battleground.Tile target, SkillEffect skillEffect)
+    public void TryToHitWith(Battleground.Tile target, Skill skillEffect)
     {
         if (getPrecisionOfSkillEffect(target, skillEffect) >= UnityEngine.Random.value)
         {
-            skillEffect.onHitEffect(this, target);
+            skillEffect.OnHitEffect(this, target);
         }
         else
         {
-            skillEffect.onMissedEffect(this, target);
+            skillEffect.OnMissedEffect(this, target);
             if (target.getOccupant() != null)
                 target.getOccupant().getHUD().getAnimator().SetTrigger("Dodge");
         }
@@ -172,18 +108,15 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
     }
 
-    public bool CanIHitWith(Character target, SkillEffect skillEffect)
+    public bool CanIHitWith(Character target, Skill skillEffect)
     {
-        if (skillEffect.getSkillType() == SkillEffect.Type.Ranged)
+        if (skillEffect.GetSkillType() == Skill.Type.Ranged)
         {
-            //			if (getPrecisionOfSkillEffect (target, skillEffect) > 0) {
             return true;
-            //			} else
-            //				return false;
         }
         else
         {
-            if (Mathf.Abs(target.getPosition() - getPosition()) <= skillEffect.getRange())
+            if (Mathf.Abs(target.getPosition() - getPosition()) <= skillEffect.GetRange())
             {
                 return true;
             }
@@ -194,20 +127,17 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
     }
 
-    public bool CanIHitWith(Battleground.Tile target, SkillEffect skillEffect)
+    public bool CanIHitWith(Battleground.Tile target, Skill skillEffect)
     {
-        if (skillEffect.canTargetTile())
+        if (skillEffect.DoesTargetTile())
         {
-            if (skillEffect.getSkillType() == SkillEffect.Type.Ranged)
+            if (skillEffect.GetSkillType() == Skill.Type.Ranged)
             {
-                //				if (getPrecisionOfSkillEffect (target, skillEffect) > 0) {
                 return true;
-                //				} else
-                //					return false;
             }
             else
             {
-                if (Mathf.Abs(target.getIndex() - getPosition()) <= skillEffect.getRange())
+                if (Mathf.Abs(target.getIndex() - getPosition()) <= skillEffect.GetRange())
                 {
                     return true;
                 }
@@ -230,12 +160,11 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
     }
 
-    public float getPrecisionOfSkillEffect(Character target, SkillEffect skill)
+    public float getPrecisionOfSkillEffect(Character target, Skill skill)
     {
         if (CanIHitWith(target, skill))
         {
-            //			float distanceInfluenceOnPrecision = (skill.getRange () - Mathf.Abs (getPosition () - target.getPosition ())) * 0.1f;
-            return skill.getPrecision() + precision.getValue() + getDistanceInfluenceOnPrecision(target, skill) - target.getDodgeValue();
+            return skill.GetPrecision() + precision.getValue() + getDistanceInfluenceOnPrecision(target, skill) - target.getDodgeValue();
         }
         else
         {
@@ -255,9 +184,9 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
     }
 
-    public int takeDamage(int damage, SkillEffect.Sources damageSource, bool wasCritic)
+    public int takeDamage(int damage, Skill.Source damageSource, bool wasCritic)
     {
-        if (damageSource == SkillEffect.Sources.Physical)
+        if (damageSource == Skill.Source.Physical)
         {
             if (wasCritic)
             {
@@ -277,7 +206,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
     }
 
-    public float getPrecisionOfSkillEffect(Battleground.Tile target, SkillEffect skill)
+    public float getPrecisionOfSkillEffect(Battleground.Tile target, Skill skill)
     {
         if (CanIHitWith(target, skill))
         {
@@ -287,9 +216,9 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
             }
             else
             {
-                if (skill.canTargetTile())
+                if (skill.DoesTargetTile())
                 {
-                    return skill.getPrecision() + precision.getValue();
+                    return skill.GetPrecision() + precision.getValue();
                 }
                 else
                 {
@@ -303,25 +232,25 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
     }
 
-    public float getDistanceInfluenceOnPrecision(Character target, SkillEffect skill)
+    public float getDistanceInfluenceOnPrecision(Character target, Skill skill)
     {
         return getDistanceInfluenceOnPrecision(target.getPosition(), skill);
     }
 
-    public float getDistanceInfluenceOnPrecision(Battleground.Tile target, SkillEffect skill)
+    public float getDistanceInfluenceOnPrecision(Battleground.Tile target, Skill skill)
     {
         return getDistanceInfluenceOnPrecision(target.getIndex(), skill);
     }
 
-    public float getDistanceInfluenceOnPrecision(int targetPosition, SkillEffect skill)
+    public float getDistanceInfluenceOnPrecision(int targetPosition, Skill skill)
     {
-        if (skill.getSkillType() == SkillEffect.Type.Melee)
+        if (skill.GetSkillType() == Skill.Type.Melee)
         {
             return 0f;
         }
         else
         {
-            float distanceInfluenceOnPrecision = skill.getRange() - Mathf.Abs(getPosition() - targetPosition) * 0.1f;
+            float distanceInfluenceOnPrecision = skill.GetRange() - Mathf.Abs(getPosition() - targetPosition) * 0.1f;
             if (distanceInfluenceOnPrecision > 0)
             {
                 return 0;
@@ -421,16 +350,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
             OnHUDValuesChange();
         }
     }
-
-    //	protected void FillStats (){
-    //		atk.setStatBase (stats.getAtk ());
-    //		atkm.setStatBase (stats.getAtkm ());
-    //		def.setStatBase (stats.getDef ());
-    //		defm.setStatBase (stats.getDefm ());
-    //		skills = stats.getSkills ();
-    //		maxHp = stats.getHp ();
-    //		hp = maxHp;
-    //	}
 
     protected virtual void FillStats() { }
 
@@ -648,10 +567,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         regenerationManager.poisened = true;
     }
 
-    //	public void changeEquipmentSprite (Sprite sprite){
-    //		this.hud.changeEquipmentSprite(sprite);
-    //	}
-
     public void changeEquipObject(Image backEquip, Image frontEquip)
     {
         this.hud.changeEquipObject(backEquip, frontEquip);
@@ -668,5 +583,10 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
             }
         }
         return c;
+    }
+
+    public void PlayAnimation(IWaitForAnimationByString requester, string trigger)
+    {
+        hud.PlayAnimation(requester,trigger);
     }
 }
