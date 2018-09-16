@@ -18,6 +18,15 @@ public class SEAssault : SkillEffect, IWaitForSkill {
 		firstEffect.startEffect(user,tile,this);
 	}
 
+	public override bool WillBeAffected (Battleground.Tile target, Battleground.Tile tile)
+	{
+		if (firstEffect.WillBeAffected (DungeonManager.getInstance ().getBattleground ().getMyEnemiesTiles(target.isFromHero()) [target.getIndex ()], tile) || secondEffect.WillBeAffected (target, tile)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public void resumeFromSkill (){
 		if (alreadyDidFirst) {
 			endSkill ();
