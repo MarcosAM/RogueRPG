@@ -122,4 +122,31 @@ public abstract class Skill : ScriptableObject, IWaitForSkill {
 			return null;
 		}
 	}
+
+//	public SkillEffect getSkillEffect (Battleground.Tile target)
+//	{
+//		if (tile.isFromHero () == user.isPlayable ())
+//		{
+//			if (tile.getIndex () == user.getPosition ())
+//			{
+//				skillEffect = skill.getSelfEffect ();
+//				image.color = new Color (0.309f, 0.380f, 0.674f, 1);
+//			} else
+//			{
+//				skillEffect = skill.getAlliesEffect ();
+//				image.color = new Color (0.952f, 0.921f, 0.235f, 1);
+//			}
+//		} else
+//		{
+//			if ((Mathf.Abs (tile.getIndex () - user.getPosition ()) <= skill.getMeleeEffect ().getRange ()) && tile.getOccupant () != null)
+//			{
+//				skillEffect = skill.getMeleeEffect ();
+//				image.color = new Color (0.925f, 0.258f, 0.258f, 1);
+//			} else
+//			{
+//				skillEffect = skill.getRangedEffect ();
+//				image.color = new Color (0.427f, 0.745f, 0.266f, 1);
+//			}
+//		}
+//	}
 }

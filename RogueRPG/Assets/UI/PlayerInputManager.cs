@@ -34,7 +34,7 @@ public class PlayerInputManager : MonoBehaviour {
 			combatBehavior.getCharacter().changeEquipObject(combatBehavior.getCharacter().getSkills()[equipTogglerManager.getSelectedEquipIndex()].getBackEquip(),combatBehavior.getCharacter().getSkills()[equipTogglerManager.getSelectedEquipIndex()].getFrontEquip());
 			combatBehavior.getCharacter().getHUD().getAnimator().SetBool("Equiped",true);
 			combatBehavior.getCharacter().getHUD().getAnimator().SetTrigger("ChangeEquip");
-			combHUDManager.ShowTargetBtns (combatBehavior.getCharacter (), combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()], false);
+			combHUDManager.ShowTargetBtns (combatBehavior.getCharacter (), SelectedEquip, false);
 			skillPreviewManager.showSkillPreviewsOf (combatBehavior.getCharacter ().getSkills () [equipTogglerManager.getSelectedEquipIndex ()]);
 		} else {
 			battleGuide.setText("CHOOSE YOUR EQUIPMENT");
@@ -52,5 +52,23 @@ public class PlayerInputManager : MonoBehaviour {
 		combatBehavior.useEquip (equipTogglerManager.getSelectedEquipIndex(), target);
 		equipTogglerManager.setAllEquipTogglesOff ();
 		equipTogglerManager.hideEquipToggles ();
+	}
+
+	public void HoverTargetBtnEnter (TargetBtn targetBtn)
+	{
+		combHUDManager.PreviewTargets(combatBehavior.getCharacter(),SelectedEquip, targetBtn.getTile());
+	}
+
+	public void HoverTargetBtnExit (TargetBtn targetBtn)
+	{
+		combHUDManager.ShowTargetBtns (combatBehavior.getCharacter (), SelectedEquip, false);
+	}
+
+	public Skill SelectedEquip
+	{
+		get
+		{
+			return combatBehavior.getCharacter().getSkills()[equipTogglerManager.getSelectedEquipIndex()];
+		}
 	}
 }

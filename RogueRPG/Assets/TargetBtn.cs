@@ -130,6 +130,31 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 //		}
 	}
 
+	public void CheckIfAffected (Battleground.Tile target, Skill choosedSkill, Character user)
+	{
+		SkillEffect skillEffect;
+		if (target.isFromHero () == user.isPlayable ()) {
+			if (target.getIndex () == user.getPosition ()) {
+				skillEffect = choosedSkill.getSelfEffect ();
+			} else {
+				skillEffect = choosedSkill.getAlliesEffect ();
+			}
+		} else {
+			if ((Mathf.Abs (target.getIndex () - user.getPosition ()) <= choosedSkill.getMeleeEffect ().getRange ()) && target.getOccupant () != null) {
+				skillEffect = choosedSkill.getMeleeEffect ();
+			} else {
+				skillEffect = choosedSkill.getRangedEffect ();
+			}
+		}
+		if (skillEffect.WillBeAffected (target, tile)) {
+			image.gameObject.SetActive (true);
+			button.interactable = true;
+		} else {
+			image.gameObject.SetActive (false);
+			button.interactable = false;
+		}
+	}
+
 	public void show (Color color){
 		image.gameObject.SetActive(true);
 		button.interactable = false;

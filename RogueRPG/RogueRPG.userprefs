@@ -1,13 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\DamageFB\DamageFB.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\CombatantHUD.cs">
     <Files>
-      <File FileName="Assets\Skills\Scripts\SkillEffect.cs" Line="129" Column="56" />
-      <File FileName="Assets\Skills\Scripts\SEAtk.cs" Line="45" Column="19" />
-      <File FileName="Assets\Characters\Character.cs" Line="496" Column="67" />
-      <File FileName="Assets\CombatantHUD.cs" Line="113" Column="48" />
-      <File FileName="Assets\DamageFB\DamageFB.cs" Line="22" Column="48" />
-      <File FileName="Assets\Skills\Scripts\DamageE.cs" Line="10" Column="31" />
+      <File FileName="Assets\UI\PlayerInputManager.cs" Line="64" Column="88" />
+      <File FileName="Assets\CombHUDManager.cs" Line="243" Column="60" />
+      <File FileName="Assets\CombatantHUD.cs" Line="268" Column="58" />
+      <File FileName="Assets\TargetBtn.cs" Line="48" Column="1" />
+      <File FileName="Assets\Equipment\Scripts\Skill.cs" Line="126" Column="3" />
+      <File FileName="Assets\Skills\Scripts\SkillEffect.cs" Line="178" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

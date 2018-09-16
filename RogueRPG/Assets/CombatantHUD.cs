@@ -263,6 +263,11 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString {
 		targetButton.show(color);
 	}
 
+	public void CheckIfAffected (Battleground.Tile target, Skill choosedSkill, Character user)
+	{
+		targetButton.CheckIfAffected(target,choosedSkill,user);
+	}
+
 	void OnDisable(){
 //		EventManager.OnShowTargetsOf -= ShowPossibleInitiative;
 //		EventManager.OnClickedTargetBtn -= RefreshInitiative;

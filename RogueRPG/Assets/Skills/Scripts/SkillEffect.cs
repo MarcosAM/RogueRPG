@@ -137,6 +137,53 @@ public abstract class SkillEffect : ScriptableObject, IWaitForAnimationByString,
 		}
 	}
 
+	public virtual bool WillBeAffected (Battleground.Tile target, Battleground.Tile tile)
+	{
+		if (tile.getOccupant () != null) {
+			if (tile.getOccupant ().isAlive () || canHitDead) {
+				if (singleTarget) {
+					if (target == tile) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					if (Mathf.Abs (target.getIndex () - tile.getIndex ()) <= range) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+			} else {
+				return false;
+			}
+		} else {
+			if (target == tile) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		if (target == tile) {
+			return true;
+		} else {
+			if (singleTarget) {
+				return false;
+			} else {
+				if (Mathf.Abs (target.getIndex () - tile.getIndex ()) <= range) {
+					if (tile.getOccupant ().isAlive () || canHitDead) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			}
+		}
+	}
+
 	public string getDescription () {return description;}
 	public Sources getSource() {return source;}
 	public bool canTargetTile() {return canHitTile;}

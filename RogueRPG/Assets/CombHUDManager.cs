@@ -222,37 +222,25 @@ public class CombHUDManager : MonoBehaviour {
 		}
 	}
 
-	public void onTargetBtnHoverEnter(TargetBtn targetBtn){
-//		//TODO checar se já não é o caba da vez
-//		if(targetBtn.getTile().getOccupant() != null){
-//			CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-//			if(combatBehavior.getCharacter().isPlayable()){
-//				if (combatBehavior.getChoosedSkill () != null) {
-//					
-//				} else {
-//					if(targetBtn.getTile().getOccupant() != null){
-//						if(targetBtn.getTile().getOccupant().isPlayable())
-//							ShowSkillsBtnOf (targetBtn.getTile().getOccupant());
-//					}
-//				}
-//			}
-//		}
+	public void onTargetBtnHoverEnter(TargetBtn targetBtn)
+	{
+		FindObjectOfType<PlayerInputManager>().HoverTargetBtnEnter(targetBtn);
+	}
+
+	public void PreviewTargets(Character user, Skill selectedEquip ,Battleground.Tile target)
+	{
+		for (int i = 0; i < heroesCombatantHUD.Length; i++)
+		{
+			heroesCombatantHUD [i].CheckIfAffected (target, selectedEquip, user);
+		}
+		for (int i = 0; i < enemiesCombatantHUD.Length; i++)
+		{
+			enemiesCombatantHUD [i].CheckIfAffected (target, selectedEquip, user);
+		}
 	}
 
 	public void onTargetBtnHoverExit(TargetBtn targetBtn){
-//		if(targetBtn.getTile().getOccupant() != null){
-//			CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-//			if(combatBehavior.getCharacter().isPlayable()){
-//				if (combatBehavior.getChoosedSkill () != null) {
-////					FindObjectOfType<Narration>().Disappear();
-//				} else {
-//					if(targetBtn.getTile().getOccupant() != null){
-//						if(targetBtn.getTile().getOccupant().isPlayable())
-//							ShowSkillsBtnOf (DungeonManager.getInstance().getInitiativeOrder()[0]);
-//					}
-//				}
-//			}
-//		}
+		FindObjectOfType<PlayerInputManager>().HoverTargetBtnExit(targetBtn);
 	}
 
 	public void onUndoBtnPressed(){
