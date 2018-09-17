@@ -129,8 +129,8 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 
     public bool CanIHitWith(Battleground.Tile target, Skill skillEffect)
     {
-        if (skillEffect.DoesTargetTile())
-        {
+        //if (skillEffect.DoesTargetTile())
+        //{
             if (skillEffect.GetSkillType() == Skill.Type.Ranged)
             {
                 return true;
@@ -146,18 +146,18 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
                     return false;
                 }
             }
-        }
-        else
-        {
-            if (target.getOccupant() != null)
-            {
-                return CanIHitWith(target.getOccupant(), skillEffect);
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //}
+        //else
+        //{
+            //if (target.getOccupant() != null)
+            //{
+            //    return CanIHitWith(target.getOccupant(), skillEffect);
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+        //}
     }
 
     public float getPrecisionOfSkillEffect(Character target, Skill skill)
@@ -216,14 +216,15 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
             }
             else
             {
-                if (skill.DoesTargetTile())
-                {
-                    return skill.GetPrecision() + precision.getValue();
-                }
-                else
-                {
-                    return -1;
-                }
+                return -1;
+                //if (skill.DoesTargetTile())
+                //{
+                //    return skill.GetPrecision() + precision.getValue();
+                //}
+                //else
+                //{
+                //    return -1;
+                //}
             }
         }
         else
@@ -492,6 +493,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     public float getDefValue() { return def.getValue(); }
     public float getDefmValue() { return defm.getValue(); }
     public float getDodgeValue() { return dodge.getValue(); }
+    public float getPrecisionValue() { return precision.getValue(); }
 
     public Stat getAtk() { return atk; }
     public Stat getDef() { return def; }

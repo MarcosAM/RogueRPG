@@ -121,8 +121,8 @@
     <Compile Include="Assets\SkillBtn.cs" />
     <Compile Include="Assets\Skills\Scripts\DamageE.cs" />
     <Compile Include="Assets\Skills\Scripts\Effect.cs" />
+    <Compile Include="Assets\Skills\Scripts\SAtk.cs" />
     <Compile Include="Assets\Skills\Scripts\SEAssault.cs" />
-    <Compile Include="Assets\Skills\Scripts\SEAtk.cs" />
     <Compile Include="Assets\Skills\Scripts\SEAtkm.cs" />
     <Compile Include="Assets\Skills\Scripts\SEBuff.cs" />
     <Compile Include="Assets\Skills\Scripts\SEEscudada.cs" />

@@ -17,14 +17,12 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     [SerializeField] protected float critic;
     [SerializeField] protected int range;
     [SerializeField] protected bool singleTarget;
-    [SerializeField] protected bool hitsTile;
     [SerializeField] protected bool hitsDead;
     [SerializeField] protected string description;
     [SerializeField] protected string castSkillAnimationTrigger;
     [SerializeField] protected float momentumValue;
     [SerializeField] protected SkillAnimation animationPrefab;
-    protected int howManyTargets;
-    protected int targetsHited;
+    protected int targetsLeft;
     protected Character currentUser;
     protected Battleground.Tile targetTile;
     protected IWaitForSkill requester;
@@ -60,33 +58,13 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
         else
         {
-            howManyTargets = targetTile.GetAlliesTiles().Length;
-            targetsHited = 0;
+            targetsLeft = targetTile.GetAlliesTiles().Length;
             foreach (Battleground.Tile t in targetTile.GetAlliesTiles())
             {
                 EffectAnimation(t);
-                if (targetTile.isFromHero() == currentUser.isPlayable())
-                {
-                    if (targetTile.getOccupant() == currentUser)
-                    {
-                        UniqueEffect(currentUser, t);
-                    }
-                    else
-                    {
-                        UniqueEffect(currentUser, t);
-                    }
-                }
-                else
-                {
-                    UniqueEffect(currentUser, t);
-                }
+                UniqueEffect(currentUser, t);
             }
         }
-    }
-
-    public void EndSkill()
-    {
-        requester.resumeFromSkill();
     }
 
     public void EffectAnimation(Battleground.Tile tile)
@@ -104,17 +82,22 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
         else
         {
-            targetsHited++;
-            if (targetsHited >= howManyTargets)
+            targetsLeft--;
+            if (targetsLeft <= 0)
             {
                 EndSkill();
             }
         }
     }
 
-    protected float GetAttack()
+    public void EndSkill()
     {
-        return Random.value - precision - currentUser.getPrecision().getValue();
+        requester.resumeFromSkill();
+    }
+
+    protected float GetHit()
+    {
+        return Random.value - precision - currentUser.getPrecisionValue();
     }
 
     protected bool DidIHit(Character target, float attack)
@@ -125,7 +108,14 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
         else
         {
-            return target.didIHitYou(attack - Mathf.Abs(currentUser.getPosition() - target.getPosition()));
+            if (singleTarget)
+            {
+                return target.didIHitYou(attack - Mathf.Abs(currentUser.getPosition() - target.getPosition()));
+            }
+            else
+            {
+                return target.didIHitYou(attack - Mathf.Abs(this.targetTile.getIndex() - target.getPosition()));
+            }
         }
     }
 
@@ -208,7 +198,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     public string GetSkillName() { return sName; }
     public string GetDescription() { return description; }
     public Source GetSource() { return source; }
-    public bool DoesTargetTile() { return hitsTile; }
     public bool DoesTargetDead() { return hitsDead; }
     public virtual void UniqueEffect(Character user, Battleground.Tile tile) { }
     public virtual void OnHitEffect(Character user, Battleground.Tile tile) { }
