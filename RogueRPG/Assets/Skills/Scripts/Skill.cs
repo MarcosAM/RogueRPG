@@ -60,18 +60,9 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
         else
         {
-            Battleground.Tile[] targets;
-            if (targetTile.isFromHero() == currentUser.isPlayable())
-            {
-                targets = DungeonManager.getInstance().getBattleground().getMySideTiles(currentUser.isPlayable());
-            }
-            else
-            {
-                targets = DungeonManager.getInstance().getBattleground().getMyEnemiesTiles(currentUser.isPlayable());
-            }
-            howManyTargets = targets.Length;
+            howManyTargets = targetTile.GetAlliesTiles().Length;
             targetsHited = 0;
-            foreach (Battleground.Tile t in targets)
+            foreach (Battleground.Tile t in targetTile.GetAlliesTiles())
             {
                 EffectAnimation(t);
                 if (targetTile.isFromHero() == currentUser.isPlayable())
