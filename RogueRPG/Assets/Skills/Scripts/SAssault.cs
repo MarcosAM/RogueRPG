@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skill Effects/Assault")]
-public class SEAssault : Skill, IWaitForSkill
+[CreateAssetMenu(menuName = "Skill/Assault")]
+public class SAssault : Skill, IWaitForSkill
 {
 
     [SerializeField] protected Skill firstEffect;
@@ -16,7 +16,6 @@ public class SEAssault : Skill, IWaitForSkill
         this.currentUser = user;
         this.targetTile = tile;
         alreadyDidFirst = false;
-        //		user.getHUD ().playAnimation (this, "UseSkill");
         firstEffect.StartSkill(user, tile, this);
     }
 

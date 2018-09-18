@@ -119,14 +119,14 @@
     <Compile Include="Assets\MomentumTabBtn.cs" />
     <Compile Include="Assets\Narration.cs" />
     <Compile Include="Assets\SkillBtn.cs" />
+    <Compile Include="Assets\Skills\Scripts\SAssault.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtk.cs" />
     <Compile Include="Assets\Skills\Scripts\SBuff.cs" />
-    <Compile Include="Assets\Skills\Scripts\SEAssault.cs" />
     <Compile Include="Assets\Skills\Scripts\SEEscudada.cs" />
-    <Compile Include="Assets\Skills\Scripts\SEMove.cs" />
     <Compile Include="Assets\Skills\Scripts\SHeal.cs" />
     <Compile Include="Assets\Skills\Scripts\Skill.cs" />
     <Compile Include="Assets\Skills\Scripts\SkillAnimationManager.cs" />
+    <Compile Include="Assets\Skills\Scripts\SMove.cs" />
     <Compile Include="Assets\Skills\Scripts\SPoison.cs" />
     <Compile Include="Assets\Skills\Scripts\SRegeneration.cs" />
     <Compile Include="Assets\Skills\Scripts\SRevive.cs" />
