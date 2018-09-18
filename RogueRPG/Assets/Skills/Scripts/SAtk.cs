@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skill Effects/Attack")]
+[CreateAssetMenu(menuName = "Skill/Attack")]
 public class SAtk : Skill
 {
 
