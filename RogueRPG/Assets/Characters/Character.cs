@@ -131,32 +131,32 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     {
         //if (skillEffect.DoesTargetTile())
         //{
-            if (skillEffect.GetSkillType() == Skill.Type.Ranged)
+        if (skillEffect.GetSkillType() == Skill.Type.Ranged)
+        {
+            return true;
+        }
+        else
+        {
+            if (Mathf.Abs(target.getIndex() - getPosition()) <= skillEffect.GetRange())
             {
                 return true;
             }
             else
             {
-                if (Mathf.Abs(target.getIndex() - getPosition()) <= skillEffect.GetRange())
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
+        }
         //}
         //else
         //{
-            //if (target.getOccupant() != null)
-            //{
-            //    return CanIHitWith(target.getOccupant(), skillEffect);
-            //}
-            //else
-            //{
-            //    return false;
-            //}
+        //if (target.getOccupant() != null)
+        //{
+        //    return CanIHitWith(target.getOccupant(), skillEffect);
+        //}
+        //else
+        //{
+        //    return false;
+        //}
         //}
     }
 
@@ -589,6 +589,10 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 
     public void PlayAnimation(IWaitForAnimationByString requester, string trigger)
     {
-        hud.PlayAnimation(requester,trigger);
+        hud.PlayAnimation(requester, trigger);
     }
+
+    public Battleground.Tile GetTile() { return movement.GetTile(); }
+    public Battleground.Tile[] GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
+    public Battleground.Tile[] GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
 }

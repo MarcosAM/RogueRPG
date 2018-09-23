@@ -196,7 +196,7 @@ public class CombHUDManager : MonoBehaviour {
 	public void onTargetBtnPressed (Battleground.Tile targetTile){
 //		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
 //		combatBehavior.targetBtnPressed(targetTile);
-		FindObjectOfType<PlayerInputManager>().returnEquipAndTarget(targetTile);
+		FindObjectOfType<PlayerInputManager>().ReturnEquipAndTarget(targetTile);
 	}
 
 	public void onSkillBtnHoverEnter (SkillBtn skillBtn)

@@ -55,7 +55,6 @@ public class Battleground : MonoBehaviour
     public void ShowCharactersToThePlayer()
     {
         setOccupantsOfAllTiles(heroSide, enemySide);
-        //		cHUDManager.ShowCombatants(heroSide,enemySide);
         cHUDManager.ShowCombatants(heroTiles, enemyTiles);
     }
 
@@ -180,6 +179,27 @@ public class Battleground : MonoBehaviour
         }
     }
 
+    public Tile GetTile(Character character)
+    {
+        if (character.isPlayable())
+        {
+            foreach (Tile tile in heroTiles)
+            {
+                if (tile.IsYourCharacter(character))
+                    return tile;
+            }
+        }
+        else
+        {
+            foreach (Tile tile in enemyTiles)
+            {
+                if (tile.IsYourCharacter(character))
+                    return tile;
+            }
+        }
+        return null;
+    }
+
     public class Tile
     {
         [SerializeField] Character occupant;
@@ -189,6 +209,18 @@ public class Battleground : MonoBehaviour
         Tile[] side;
         Tile[] otherSide;
 
+        public bool IsOccupied()
+        {
+            if (occupant != null)
+            {
+                return occupant.isAlive() ? true : false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool IsYourCharacter(Character character) { return character == occupant ? true : false; }
         public Tile(int index, bool fromHero, Battleground battleground)
         {
             this.index = index;

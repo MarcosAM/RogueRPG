@@ -21,43 +21,43 @@ public class TAAtkHealthier : TurnAction
             {
                 //if (combatBehavior.getChoosedSkill().getType() == Equip.Types.Melee)
                 //{
-                    if (Mathf.Abs(tempHeroesTiles[i].getIndex() - character.getPosition()) <= combatBehavior.getChoosedSkill().GetMeleeEffect().GetRange())
+                if (Mathf.Abs(tempHeroesTiles[i].getIndex() - character.getPosition()) <= combatBehavior.getChoosedSkill().GetMeleeEffect().GetRange())
+                {
+                    if (combatBehavior.getTargetTile() != null)
                     {
-                        if (combatBehavior.getTargetTile() != null)
+                        if (combatBehavior.getTargetTile().getOccupant() != null)
                         {
-                            if (combatBehavior.getTargetTile().getOccupant() != null)
+                            if (tempHeroesTiles[i].getOccupant().getHp() > combatBehavior.getTargetTile().getOccupant().getHp())
                             {
-                                if (tempHeroesTiles[i].getOccupant().getHp() > combatBehavior.getTargetTile().getOccupant().getHp())
-                                {
-                                    combatBehavior.setTargetTile(tempHeroesTiles[i]);
-                                }
+                                combatBehavior.setTargetTile(tempHeroesTiles[i]);
                             }
                         }
-                        else
-                        {
-                            combatBehavior.setTargetTile(tempHeroesTiles[i]);
-                        }
                     }
+                    else
+                    {
+                        combatBehavior.setTargetTile(tempHeroesTiles[i]);
+                    }
+                }
                 //}
                 //else
                 //{
-                    if (Mathf.Abs(tempHeroesTiles[i].getIndex() - character.getPosition()) > combatBehavior.getChoosedSkill().GetMeleeEffect().GetRange())
+                if (Mathf.Abs(tempHeroesTiles[i].getIndex() - character.getPosition()) > combatBehavior.getChoosedSkill().GetMeleeEffect().GetRange())
+                {
+                    if (combatBehavior.getTargetTile() != null)
                     {
-                        if (combatBehavior.getTargetTile() != null)
+                        if (combatBehavior.getTargetTile().getOccupant() != null)
                         {
-                            if (combatBehavior.getTargetTile().getOccupant() != null)
+                            if (tempHeroesTiles[i].getOccupant().getHp() > combatBehavior.getTargetTile().getOccupant().getHp())
                             {
-                                if (tempHeroesTiles[i].getOccupant().getHp() > combatBehavior.getTargetTile().getOccupant().getHp())
-                                {
-                                    combatBehavior.setTargetTile(tempHeroesTiles[i]);
-                                }
+                                combatBehavior.setTargetTile(tempHeroesTiles[i]);
                             }
                         }
-                        else
-                        {
-                            combatBehavior.setTargetTile(tempHeroesTiles[i]);
-                        }
                     }
+                    else
+                    {
+                        combatBehavior.setTargetTile(tempHeroesTiles[i]);
+                    }
+                }
                 //}
             }
         }

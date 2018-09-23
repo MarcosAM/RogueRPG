@@ -22,7 +22,7 @@ public class EquipToggle : MonoBehaviour {
 
 	public void onToggleValueChange(){
 		refreshColor ();
-		equipToggleManager.onAnyToggleChange (this);
+		equipToggleManager.OnAnyToggleChange (this);
 	}
 
 	void refreshColor(){

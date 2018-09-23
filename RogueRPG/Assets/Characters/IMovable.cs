@@ -6,4 +6,5 @@ public interface IMovable {
 	void MoveTo (int destination);
 	void Initialize (Character character);
 	int getPosition ();
+    Battleground.Tile GetTile();
 }

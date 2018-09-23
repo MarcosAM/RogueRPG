@@ -12,7 +12,7 @@ public class PlayerControlled : CombatBehavior {
 		targetTile = null;
 //		checkForNextStep();
 //		ChooseSkill ();
-		FindObjectOfType<PlayerInputManager>().showUIFor(this);
+		FindObjectOfType<PlayerInputManager>().ShowUIFor(this);
 
 	}
 
@@ -21,7 +21,7 @@ public class PlayerControlled : CombatBehavior {
 		if (choosedEquip == null) {
 //			CombHUDManager.getInstance ().ShowSkillsBtnOf (character);
 //			CombHUDManager.getInstance().HideTargetBtns(true);
-			FindObjectOfType<EquipToggleManager>().showEquipTogglesFor(character, false);
+			FindObjectOfType<EquipToggleManager>().ShowEquipTogglesFor(character, false);
 		} else {
 			CombHUDManager.getInstance ().HideSkillsBtn ();
 			if (targetTile == null) {

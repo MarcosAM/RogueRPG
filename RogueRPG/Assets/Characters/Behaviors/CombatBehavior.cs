@@ -52,7 +52,7 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
     }
     public void SetEquipsAvailability(bool availability)
     {
-        for(int i = 0;i < availableEquips.Length; i++)
+        for (int i = 0; i < availableEquips.Length; i++)
         {
             availableEquips[i] = availability;
         }
