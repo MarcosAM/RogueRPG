@@ -28,37 +28,37 @@ public class ArcherBehavior : CombatBehavior
 
     public void ChooseTarget()
     {
-        Battleground.Tile[] tempHeroesTiles = character.GetEnemiesTiles();
-        Battleground.Tile[] tempEnemiesTiles = character.GetAlliesTiles();
+        Battleground.Tile[] tempPCTiles = character.GetEnemiesTiles();
+        Battleground.Tile[] tempNPCTiles = character.GetAlliesTiles();
         Equip choosedEquip = character.getUsableEquips()[Random.RandomRange(0,character.getUsableEquips().Count)];
 
-        targetTile = tempHeroesTiles[character.getPosition()];
+        targetTile = tempPCTiles[character.getPosition()];
         if (!targetTile.IsOccupied())
         {
-            for (int i = 0; i < tempHeroesTiles.Length; i++)
+            for (int i = 0; i < tempPCTiles.Length; i++)
             {
                 if (targetTile != null)
                 {
-                    if (tempHeroesTiles[i].getOccupant() != null)
+                    if (tempPCTiles[i].getOccupant() != null)
                     {
                         if (targetTile.getOccupant() != null)
                         {
-                            if (tempHeroesTiles[i].getOccupant().getHp() > targetTile.getOccupant().getHp())
+                            if (tempPCTiles[i].getOccupant().getHp() > targetTile.getOccupant().getHp())
                             {
-                                targetTile = tempHeroesTiles[i];
+                                targetTile = tempPCTiles[i];
                             }
                         }
                         else
                         {
-                            targetTile = tempHeroesTiles[i];
+                            targetTile = tempPCTiles[i];
                         }
                     }
                 }
                 else
                 {
-                    if (tempHeroesTiles[i].getOccupant() != null)
+                    if (tempPCTiles[i].getOccupant() != null)
                     {
-                        targetTile = tempHeroesTiles[i];
+                        targetTile = tempPCTiles[i];
                     }
                 }
             }
@@ -73,12 +73,12 @@ public class ArcherBehavior : CombatBehavior
             if (minIndex < 0)
                 minIndex = 0;
             int maxIndex = character.getPosition() + choosedEquip.GetAlliesEffect().GetRange();
-            if (maxIndex >= tempEnemiesTiles.Length)
-                maxIndex = tempEnemiesTiles.Length - 1;
-            for (int i = 0; i < tempEnemiesTiles.Length; i++)
+            if (maxIndex >= tempNPCTiles.Length)
+                maxIndex = tempNPCTiles.Length - 1;
+            for (int i = 0; i < tempNPCTiles.Length; i++)
             {
                 currentDistance = 0;
-                for (int j = 0; j < tempHeroesTiles.Length; j++)
+                for (int j = 0; j < tempPCTiles.Length; j++)
                 {
                     leftIndex = i - j;
                     if (leftIndex < minIndex)
@@ -86,7 +86,7 @@ public class ArcherBehavior : CombatBehavior
                     rightIndex = i + j;
                     if (rightIndex > maxIndex)
                         rightIndex = maxIndex;
-                    if (tempHeroesTiles[leftIndex].getOccupant() != null || tempHeroesTiles[rightIndex].getOccupant() != null)
+                    if (tempPCTiles[leftIndex].getOccupant() != null || tempPCTiles[rightIndex].getOccupant() != null)
                     {
                         break;
                     }
@@ -95,9 +95,9 @@ public class ArcherBehavior : CombatBehavior
                         currentDistance++;
                     }
                 }
-                if (currentDistance > mostDistant || (currentDistance == mostDistant && (targetTile.getOccupant() != null && tempEnemiesTiles[i].getOccupant() == null)))
+                if (currentDistance > mostDistant || (currentDistance == mostDistant && (targetTile.getOccupant() != null && tempNPCTiles[i].getOccupant() == null)))
                 {
-                    targetTile = tempEnemiesTiles[i];
+                    targetTile = tempNPCTiles[i];
                     mostDistant = currentDistance;
                 }
             }

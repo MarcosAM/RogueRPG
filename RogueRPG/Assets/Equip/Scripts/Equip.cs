@@ -55,6 +55,12 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
         requester.resumeFromEquipment();
     }
 
+    public virtual Battleground.Tile GetBestTarget(Character user)
+    {
+        Battleground.Tile[] possibleTargets = DungeonManager.getInstance().getBattleground().GetAliveOpponents(user);
+        return possibleTargets[Random.Range(0, possibleTargets.Length)];
+    }
+
     public string GetEquipName() { return eName; }
     public int GetHp() { return hp; }
     public int GetAtk() { return atk; }

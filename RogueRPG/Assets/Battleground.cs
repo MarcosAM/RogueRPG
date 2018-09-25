@@ -200,6 +200,47 @@ public class Battleground : MonoBehaviour
         return null;
     }
 
+    public Tile[] GetAlivePCTiles()
+    {
+        List<int> alivePCIndex = new List<int>();
+        foreach (Tile tile in heroTiles)
+        {
+            if (tile.IsOccupied())
+            {
+                alivePCIndex.Add(tile.getIndex());
+            }
+        }
+        Tile[] alivePCTiles = new Tile[alivePCIndex.Count];
+        for (int i = 0; i < alivePCIndex.Count; i++)
+        {
+            alivePCTiles[i] = heroTiles[alivePCIndex[i]];
+        }
+        return alivePCTiles;
+    }
+
+    public Tile[] GetAliveNPCTiles()
+    {
+        List<int> aliveNPCIndex = new List<int>();
+        foreach (Tile tile in enemyTiles)
+        {
+            if (tile.IsOccupied())
+            {
+                aliveNPCIndex.Add(tile.getIndex());
+            }
+        }
+        Tile[] aliveNPCTiles = new Tile[aliveNPCIndex.Count];
+        for (int i = 0; i < aliveNPCIndex.Count; i++)
+        {
+            aliveNPCTiles[i] = enemyTiles[aliveNPCIndex[i]];
+        }
+        return aliveNPCTiles;
+    }
+
+    public Tile[] GetAliveOpponents(Character character)
+    {
+        return character.isPlayable() ? GetAliveNPCTiles() : GetAlivePCTiles();
+    }
+
     public class Tile
     {
         [SerializeField] Character occupant;
@@ -211,7 +252,6 @@ public class Battleground : MonoBehaviour
 
         public bool IsOccupied()
         {
-            Debug.Log("Meu ocupante é: " + occupant);
             if (occupant != null)
             {
                 return occupant.isAlive() ? true : false;
