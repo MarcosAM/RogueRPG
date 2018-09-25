@@ -32,7 +32,7 @@ public class ArcherBehavior : CombatBehavior
         Battleground.Tile[] tempEnemiesTiles = character.GetAlliesTiles();
         Equip choosedEquip = character.getUsableEquips()[Random.RandomRange(0,character.getUsableEquips().Count)];
 
-        targetTile = tempEnemiesTiles[character.getPosition()];
+        targetTile = tempHeroesTiles[character.getPosition()];
         if (!targetTile.IsOccupied())
         {
             for (int i = 0; i < tempHeroesTiles.Length; i++)
@@ -41,7 +41,14 @@ public class ArcherBehavior : CombatBehavior
                 {
                     if (tempHeroesTiles[i].getOccupant() != null)
                     {
-                        if (tempHeroesTiles[i].getOccupant().getHp() > targetTile.getOccupant().getHp())
+                        if (targetTile.getOccupant() != null)
+                        {
+                            if (tempHeroesTiles[i].getOccupant().getHp() > targetTile.getOccupant().getHp())
+                            {
+                                targetTile = tempHeroesTiles[i];
+                            }
+                        }
+                        else
                         {
                             targetTile = tempHeroesTiles[i];
                         }
@@ -95,6 +102,7 @@ public class ArcherBehavior : CombatBehavior
                 }
             }
         }
+        UseSkill();
 
         //for (int i = 0; i < possibleActions.Count; i++)
         //{

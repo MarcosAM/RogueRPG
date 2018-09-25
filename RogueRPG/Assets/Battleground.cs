@@ -211,6 +211,7 @@ public class Battleground : MonoBehaviour
 
         public bool IsOccupied()
         {
+            Debug.Log("Meu ocupante é: " + occupant);
             if (occupant != null)
             {
                 return occupant.isAlive() ? true : false;
