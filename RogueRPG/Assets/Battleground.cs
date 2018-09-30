@@ -21,7 +21,7 @@ public class Battleground : MonoBehaviour
 
     public void MoveCharacterTo(Character character, int position)
     {
-        if (character.isPlayable())
+        if (character.IsPlayable())
         {
             if (heroSide[position] != null)
             {
@@ -60,7 +60,7 @@ public class Battleground : MonoBehaviour
 
     public int getPositionOf(Character character)
     {
-        if (character.isPlayable())
+        if (character.IsPlayable())
         {
             return heroSide.IndexOf(character);
         }
@@ -132,7 +132,7 @@ public class Battleground : MonoBehaviour
         {
             if (side[i] != null)
             {
-                sideIsPlayers = side[i].isPlayable();
+                sideIsPlayers = side[i].IsPlayable();
             }
         }
         if (sideIsPlayers)
@@ -181,7 +181,7 @@ public class Battleground : MonoBehaviour
 
     public Tile GetTile(Character character)
     {
-        if (character.isPlayable())
+        if (character.IsPlayable())
         {
             foreach (Tile tile in heroTiles)
             {
@@ -238,7 +238,7 @@ public class Battleground : MonoBehaviour
 
     public Tile[] GetAliveOpponents(Character character)
     {
-        return character.isPlayable() ? GetAliveNPCTiles() : GetAlivePCTiles();
+        return character.IsPlayable() ? GetAliveNPCTiles() : GetAlivePCTiles();
     }
 
     public class Tile

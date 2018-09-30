@@ -27,7 +27,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 	public void Appear (Character user, Equip skill){
 
 		Skill skillEffect;
-		if (tile.isFromHero () == user.isPlayable ()) {
+		if (tile.isFromHero () == user.IsPlayable ()) {
 			if (tile.getIndex () == user.getPosition ()) {
 				skillEffect = skill.GetSelfEffect ();
 				image.color = new Color (0.309f, 0.380f, 0.674f, 1);
@@ -133,7 +133,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler {
 	public void CheckIfAffected (Battleground.Tile target, Equip choosedSkill, Character user)
 	{
 		Skill skillEffect;
-		if (target.isFromHero () == user.isPlayable ()) {
+		if (target.isFromHero () == user.IsPlayable ()) {
 			if (target.getIndex () == user.getPosition ()) {
 				skillEffect = choosedSkill.GetSelfEffect ();
 				image.color = new Color (0.309f, 0.380f, 0.674f, 1);

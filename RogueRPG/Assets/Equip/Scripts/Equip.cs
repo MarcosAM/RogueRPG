@@ -26,7 +26,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
 
     public Skill AppropriateSkill(Character user, Battleground.Tile target)
     {
-        if (target.isFromHero() == user.isPlayable())
+        if (target.isFromHero() == user.IsPlayable())
         {
             if (target.getIndex() == user.getPosition())
             {

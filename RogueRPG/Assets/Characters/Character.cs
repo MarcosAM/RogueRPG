@@ -11,8 +11,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     protected int hp;
     protected int maxHp;
     protected float delayCountdown = 0;
-    protected float maxStamina;
-    protected float currentStamina;
     [SerializeField] protected bool alive = true;
 
     //TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
@@ -20,8 +18,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     protected Stat atk, atkm, def, defm, precision, dodge, critic;
     protected CombatBehavior combatBehavior;
     [SerializeField] protected IMovable movement;
-
-    protected bool playable;
 
     public Equip[] equips = new Equip[4];
     protected Equip momentumSkill;
@@ -35,6 +31,24 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     public event Action OnMyTurnStarts;
     public event Action OnMyTurnEnds;
     public event Action OnBuffsGainOrLoss;
+
+    void Awake()
+    {
+        atk = new Stat();
+        atkm = new Stat();
+        def = new Stat();
+        defm = new Stat();
+        critic = new Stat();
+        precision = new Stat();
+        dodge = new Stat();
+        regenerationManager = new Character.RegenerationAndPoisonManager(this);
+        if (stats != null)
+        {
+            FillStats();
+        }
+        movement = GetComponent<IMovable>();
+        movement.Initialize(this);
+    }
 
     public void StartTurn()
     {
@@ -272,7 +286,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
                 OnHPValuesChange(hp, damage, wasCritic);
             }
             hp -= damage;
-            currentStamina += damage;
             hud.getAnimator().SetTrigger("Damage");
             if (hp <= 0)
             {
@@ -352,7 +365,31 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
     }
 
-    protected virtual void FillStats() { }
+    protected virtual void FillStats()
+    {
+        equips = stats.getSkills();
+        combatBehavior = GetComponent<CombatBehavior>();
+        combatBehavior.setCharacter(this);
+        int hp = 0;
+        int atk = 0;
+        int atkm = 0;
+        int def = 0;
+        int defm = 0;
+        foreach (Equip skill in equips)
+        {
+            hp += skill.GetHp();
+            atk += skill.GetAtk();
+            atkm += skill.GetAtkm();
+            def += skill.GetDef();
+            defm += skill.GetDefm();
+        }
+        this.atk.setStatBase(atk);
+        this.atkm.setStatBase(atkm);
+        this.def.setStatBase(def);
+        this.defm.setStatBase(defm);
+        this.maxHp = hp;
+        this.hp = maxHp;
+    }
 
     public void refresh()
     {
@@ -503,13 +540,11 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     public Stat getPrecision() { return precision; }
     public Stat getDodge() { return dodge; }
 
-    public bool isPlayable() { return playable; }
+    public virtual bool IsPlayable() { return true; }
     public bool isAlive() { return alive; }
     public Image getPortrait() { return portrait; }
 
     public float getDelayCountdown() { return delayCountdown; }
-    public float getCurrentStamina() { return currentStamina; }
-    public float getMaxStamina() { return maxStamina; }
 
     public void setName(string name)
     {
