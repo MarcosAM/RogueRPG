@@ -52,7 +52,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
 
     public void resumeFromSkill()
     {
-        requester.ResumeFromEquipment();
+        requester.resumeFromEquipment();
     }
 
     public virtual Battleground.Tile GetBestTarget(Character user)

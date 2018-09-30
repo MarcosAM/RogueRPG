@@ -37,7 +37,7 @@ public interface IWaitForAnimationByString{
 }
 
 public interface IWaitForEquipment{
-	void ResumeFromEquipment ();
+	void resumeFromEquipment ();
 }
 
 public interface IWaitForSkill{

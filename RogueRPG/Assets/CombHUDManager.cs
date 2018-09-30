@@ -213,14 +213,14 @@ public class CombHUDManager : MonoBehaviour {
 		//}
 	}
 
-	//public void onSkillBtnHoverExit(SkillBtn skillBtn){
-	//	Inventory combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-	//	if (combatBehavior.getChoosedSkill () != null) {
+	public void onSkillBtnHoverExit(SkillBtn skillBtn){
+		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
+		if (combatBehavior.getChoosedSkill () != null) {
 
-	//	} else {
-	//		HideTargetBtns (true);
-	//	}
-	//}
+		} else {
+			HideTargetBtns (true);
+		}
+	}
 
 	public void onTargetBtnHoverEnter(TargetBtn targetBtn)
 	{
@@ -244,8 +244,8 @@ public class CombHUDManager : MonoBehaviour {
 	}
 
 	public void onUndoBtnPressed(){
-		//Inventory combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-		//combatBehavior.unchooseSkill ();
+		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
+		combatBehavior.unchooseSkill ();
 	}
 
 	public void startTurnOf (Character character)

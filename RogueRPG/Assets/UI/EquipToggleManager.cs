@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EquipToggleManager : MonoBehaviour
 {
 
-    private Inventory combatBehavior;
+    private CombatBehavior combatBehavior;
     [SerializeField] private List<EquipToggle> equipToggles = new List<EquipToggle>();
     private PlayerInputManager playerInputManager;
     private ToggleGroup toggleGroup;
