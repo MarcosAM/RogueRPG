@@ -17,34 +17,25 @@ public class NonPlayableCharacter : Character {
 		if(stats != null){
 			FillStats ();
 		}
-//		combatBehavior = GetComponent<CombatBehavior> ();
-		movement = GetComponent<IMovable> ();
+
+        inventory = GetComponent<Inventory>();
+        inventory.SetCharacter(this);
+        movement = GetComponent<IMovable> ();
 		movement.Initialize (this);
-//		combatBehavior.setCharacter (this);
 		playable = false;
 	}
 
 	protected override void FillStats (){
 		base.FillStats ();
-//		atk.setStatBase (stats.getAtk ());
-//		atkm.setStatBase (stats.getAtkm ());
-//		def.setStatBase (stats.getDef ());
-//		defm.setStatBase (stats.getDefm ());
 		equips = stats.getSkills ();
-//		maxHp = stats.getHp ();
-//		hp = maxHp;
 		currentStamina = 0;
 		maxStamina = stats.getStamina ();
 		characterName = stats.getName();
 		portrait = stats.getPortrait();
-//		foreach(Skill skill in skills){
-//			skill.setUser(this);
-//		}
-		if(combatBehavior != null){
-			Destroy (combatBehavior.gameObject);
+		if(inventory != null){
+			Destroy (inventory.gameObject);
 		}
-		combatBehavior = stats.getCombatBehavior();
-		combatBehavior.setCharacter (this);
+		inventory.SetCharacter (this);
 
 		int hp = 0;
 		int atk = 0;

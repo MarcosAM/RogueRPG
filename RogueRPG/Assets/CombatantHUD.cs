@@ -129,7 +129,7 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString
 
     public void UseSkillFromCharacterBehavior()
     {
-        combatant.getBehavior().UseSkill();
+        //combatant.getBehavior().UseSkill();
     }
 
     public void ShowItsActivePlayer()

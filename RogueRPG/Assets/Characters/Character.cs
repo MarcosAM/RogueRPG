@@ -18,7 +18,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     //TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
     [SerializeField] protected StandartStats stats;
     protected Stat atk, atkm, def, defm, precision, dodge, critic;
-    protected CombatBehavior combatBehavior;
+    protected Inventory inventory;
     [SerializeField] protected IMovable movement;
 
     protected bool playable;
@@ -32,17 +32,11 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 
     public event Action OnHUDValuesChange;
     public event Action<int, int, bool> OnHPValuesChange;
-    public event Action OnMyTurnStarts;
     public event Action OnMyTurnEnds;
     public event Action OnBuffsGainOrLoss;
 
     public void StartTurn()
     {
-        if (OnMyTurnStarts != null)
-        {
-            OnMyTurnStarts();
-        }
-        //		RecoverFromDelayBy (delayCountdown*-1);
         SpendBuffs();
         hud.ShowItsActivePlayer();
         CheckIfSkillsShouldBeRefreshed();
@@ -395,13 +389,13 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 
     void CheckIfSkillsShouldBeRefreshed()
     {
-        if (combatBehavior.AtLeastOneEquipAvailable())
+        if (inventory.AtLeastOneEquipAvailable())
         {
             return;
         }
         else
         {
-            combatBehavior.SetEquipsAvailability(true);
+            inventory.SetEquipsAvailability(true);
         }
     }
 
@@ -476,7 +470,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         List<Equip> usableSkills = new List<Equip>();
         for (int i = 0; i < equips.Length; i++)
         {
-            if (combatBehavior.IsEquipAvailable(i))
+            if (inventory.IsEquipAvailable(i))
             {
                 usableSkills.Add(equips[i]);
             }
@@ -517,7 +511,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     }
     public void setHUD(CombatantHUD combatantHUD) { hud = combatantHUD; }
     public CombatantHUD getHUD() { return hud; }
-    public CombatBehavior getBehavior() { return combatBehavior; }
+    public Inventory getBehavior() { return inventory; }
     public IMovable getMovement() { return movement; }
     public int getPosition() { return movement.getPosition(); }
 

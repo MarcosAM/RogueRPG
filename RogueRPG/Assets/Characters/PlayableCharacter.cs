@@ -14,39 +14,24 @@ public class PlayableCharacter : Character {
 		dodge = new Stat();
 		regenerationManager = new Character.RegenerationAndPoisonManager (this);
 
-		if(stats != null){
+        inventory = GetComponent<Inventory>();
+        inventory.SetCharacter(this);
+
+        if (stats != null){
 			FillStats ();
 		}
-//		combatBehavior = GetComponent<CombatBehavior> ();
 		movement = GetComponent<IMovable> ();
 		movement.Initialize (this);
-//		combatBehavior.setCharacter (this);
 		playable = true;
-//		DontDestroyOnLoad (transform.parent.gameObject);
-//		DontDestroyOnLoad (gameObject);
 	}
 
 	protected override void FillStats ()
 	{
 		base.FillStats ();
-//		atk.setStatBase (stats.getAtk ());
-//		atkm.setStatBase (stats.getAtkm ());
-//		def.setStatBase (stats.getDef ());
-//		defm.setStatBase (stats.getDefm ());
 		equips = stats.getSkills ();
 		momentumSkill = stats.getMomentumSkill ();
-//		maxHp = stats.getHp ();
-//		hp = maxHp;
 		currentStamina = 0;
 		maxStamina = stats.getStamina ();
-//		foreach(Skill skill in skills){
-//			skill.setUser(this);
-//		}
-		if(combatBehavior != null){
-			Destroy (combatBehavior.gameObject);
-		}
-		combatBehavior = stats.getCombatBehavior();
-		combatBehavior.setCharacter (this);
 
 		int hp = 0;
 		int atk = 0;
