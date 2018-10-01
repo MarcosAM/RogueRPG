@@ -10,12 +10,7 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
     protected bool[] availableEquips;
 
     public virtual void StartTurn() { }
-    public virtual void UseSkill() { }
-    public virtual void useEquip(int equip, Battleground.Tile target) { }
-    public virtual void skillBtnPressed(Equip skill) { }
-    public virtual void skillBtnPressed(int index) { }
-    public virtual void targetBtnPressed(Battleground.Tile targetTile) { }
-    public virtual void unchooseSkill() { }
+    public virtual void UseEquip(int equip, Battleground.Tile target) { }
 
     public void setCharacter(Character character)
     {

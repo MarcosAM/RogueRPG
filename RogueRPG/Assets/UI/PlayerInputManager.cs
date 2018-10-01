@@ -57,7 +57,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         battleGuide.gameObject.SetActive(false);
         combHUDManager.HideTargetBtns(false);
-        combatBehavior.useEquip(equipTogglerManager.GetSelectedEquipIndex(), target);
+        combatBehavior.UseEquip(equipTogglerManager.GetSelectedEquipIndex(), target);
         equipTogglerManager.SetAllEquipTogglesOff();
         equipTogglerManager.HideEquipToggles();
     }

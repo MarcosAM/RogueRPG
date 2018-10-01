@@ -243,11 +243,6 @@ public class CombHUDManager : MonoBehaviour {
 		FindObjectOfType<PlayerInputManager>().HoverTargetBtnExit(targetBtn);
 	}
 
-	public void onUndoBtnPressed(){
-		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-		combatBehavior.unchooseSkill ();
-	}
-
 	public void startTurnOf (Character character)
 	{
 		foreach (CombatantHUD combatantHUD in heroesCombatantHUD) {

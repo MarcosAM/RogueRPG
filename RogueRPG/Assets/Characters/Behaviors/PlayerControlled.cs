@@ -17,7 +17,7 @@ public class PlayerControlled : CombatBehavior
         {
             choosedEquip = character.getUsableEquips()[Random.Range(0, character.getUsableEquips().Count)];
             targetTile = choosedEquip.GetBestTarget(character);
-            UseSkill();
+            choosedEquip.UseEquipmentOn(character, targetTile, this);
         }
     }
 
@@ -25,8 +25,6 @@ public class PlayerControlled : CombatBehavior
     {
         if (choosedEquip == null)
         {
-            //			CombHUDManager.getInstance ().ShowSkillsBtnOf (character);
-            //			CombHUDManager.getInstance().HideTargetBtns(true);
             FindObjectOfType<EquipToggleManager>().ShowEquipTogglesFor(character, false);
         }
         else
@@ -38,63 +36,11 @@ public class PlayerControlled : CombatBehavior
             }
             else
             {
-                //				CombHUDManager.getInstance().HideTargetBtns();
-                //				UseSkillAnimation();
                 CombHUDManager.getInstance().HideTargetBtns(false);
-                UseSkill();
+                //UseSkill();
             }
         }
     }
-
-    public override void skillBtnPressed(Equip skill)
-    {
-        base.skillBtnPressed(skill);
-        choosedEquip = skill;
-        //		checkForNextStep();
-    }
-
-    public override void skillBtnPressed(int index)
-    {
-        base.skillBtnPressed(index);
-        choosedEquip = character.getEquips()[index];
-        checkForNextStep();
-    }
-
-    public override void targetBtnPressed(Battleground.Tile targetTile)
-    {
-        base.targetBtnPressed(targetTile);
-        this.targetTile = targetTile;
-        checkForNextStep();
-    }
-
-    //	public void ChooseSkill ()
-    //	{
-    ////		print (character.getName() + " veja suas skills!");
-    ////		EventManager.OnPlayerChoosedSkill += ReadySkill;
-    ////		CombHUDManager.getInstance().ShowSkillsBtnOf(character);
-    //	}
-
-    //	public void ReadySkill (Skill skill)
-    //	{
-    //		choosedSkill = skill;
-    //		EventManager.OnPlayerChoosedSkill -= ReadySkill;
-    //		EventManager.OnUnchoosedSkill += UnchooseSkill;
-    //		ChooseTarget ();
-    //	}
-
-    public override void unchooseSkill()
-    {
-        base.unchooseSkill();
-        choosedEquip = null;
-        checkForNextStep();
-    }
-
-    //	public void UnchooseSkill(){
-    //		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
-    //		EventManager.OnUnchoosedSkill -= UnchooseSkill;
-    //		choosedSkill = null;
-    //		ChooseSkill ();
-    //	}
 
     public void ChooseTarget()
     {
@@ -106,30 +52,18 @@ public class PlayerControlled : CombatBehavior
 
     public void ReadyTarget(Battleground.Tile tile)
     {
-        //		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
-        //		EventManager.OnUnchoosedSkill -= UnchooseSkill;
         this.targetTile = tile;
         character.getHUD().UseSkillAnimation();
     }
 
     public void UseSkillAnimation()
     {
-        //		EventManager.OnPlayerChoosedTarget2 -= ReadyTarget;
-        //		EventManager.OnUnchoosedSkill -= UnchooseSkill;
         character.getHUD().UseSkillAnimation();
     }
 
-    public override void UseSkill()
+    public override void UseEquip(int equip, Battleground.Tile target)
     {
-        base.UseSkill();
-        //		EventManager.OnSkillUsed += EndTurn;
-        //		print (character.getName() + " usa skill brother");
-        choosedEquip.UseEquipmentOn(character, targetTile, this);
-    }
-
-    public override void useEquip(int equip, Battleground.Tile target)
-    {
-        base.useEquip(equip, target);
+        base.UseEquip(equip, target);
         availableEquips[equip] = false;
         character.getEquips()[equip].UseEquipmentOn(character, target, this);
     }
@@ -142,7 +76,6 @@ public class PlayerControlled : CombatBehavior
 
     void EndTurn()
     {
-        //		EventManager.OnSkillUsed -= EndTurn;
         choosedEquip = null;
         character.EndTurn();
     }

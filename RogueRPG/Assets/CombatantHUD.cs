@@ -12,7 +12,6 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString
     [SerializeField] private Text hpNumbers;
     [SerializeField] private TargetBtn targetButton;
     [SerializeField] private Image image;
-    //	[SerializeField]private Image emptyImage;
     [SerializeField] private Text buffText;
     [SerializeField] private DamageFB damageFbPrefab;
     [SerializeField] private Text initiative;
@@ -125,11 +124,6 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString
     void finishedAnimationByString()
     {
         requester.ResumeFromAnimation(this);
-    }
-
-    public void UseSkillFromCharacterBehavior()
-    {
-        combatant.getBehavior().UseSkill();
     }
 
     public void ShowItsActivePlayer()
