@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class ZombieBehavior : CombatBehavior {
 
-	void Start (){
-		TurnAction atkHealthier = new TAAtkHealthier (this);
-		TurnAction goToNearest = new TAGoToNearest (this);
-		possibleActions.Add (atkHealthier);
-		possibleActions.Add (goToNearest);
-	}
-
 	public override void StartTurn ()
 	{
 		base.StartTurn ();
