@@ -9,6 +9,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
 
     Battleground.Tile tile;
     public Image image;
+    [SerializeField] RectTransform hitPreview;
 
     void Awake()
     {
@@ -30,7 +31,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
 
     public void Appear(Character user, Equip skill)
     {
-
+        HideHitPreview();
         Skill skillEffect;
         if (tile.isFromHero() == user.IsPlayable())
         {
@@ -129,6 +130,8 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         {
             image.gameObject.SetActive(true);
             button.interactable = true;
+            if (skill is SAtk)
+                ShowHitPreview();
         }
         else
         {
@@ -148,6 +151,17 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
     {
         button.interactable = false;
         image.gameObject.SetActive(false);
+        HideHitPreview();
+    }
+
+    void ShowHitPreview()
+    {
+        hitPreview.gameObject.SetActive(true);
+    }
+
+    void HideHitPreview()
+    {
+        hitPreview.gameObject.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
