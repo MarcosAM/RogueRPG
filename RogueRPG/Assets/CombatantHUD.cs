@@ -126,16 +126,6 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString
         requester.ResumeFromAnimation(this);
     }
 
-    public void ShowItsActivePlayer()
-    {
-        targetButton.ShowItsActivePlayer();
-    }
-
-    public void TurnNameBackToBlack()
-    {
-        targetButton.TurnBackToBlack();
-    }
-
     public void ShowTargetBtn(Character user, Equip skill)
     {
         targetButton.Appear(user, skill);
@@ -192,7 +182,7 @@ public class CombatantHUD : MonoBehaviour, IPlayAnimationByString
 
     public void showTargetBtnWithColor(Color color)
     {
-        targetButton.show(color);
+        targetButton.Show(color);
     }
 
     public void CheckIfAffected(Battleground.Tile target, Equip choosedSkill, Character user)

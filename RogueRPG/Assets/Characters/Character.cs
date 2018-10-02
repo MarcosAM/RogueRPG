@@ -58,7 +58,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
         //		RecoverFromDelayBy (delayCountdown*-1);
         SpendBuffs();
-        hud.ShowItsActivePlayer();
         CheckIfSkillsShouldBeRefreshed();
         if (regenerationManager != null)
         {
@@ -76,7 +75,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         {
             OnMyTurnEnds();
         }
-        hud.TurnNameBackToBlack();
         EventManager.EndedTurn();
     }
 

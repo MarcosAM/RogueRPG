@@ -39,7 +39,7 @@ public class PlayerInputManager : MonoBehaviour
             combatBehavior.GetCharacter().changeEquipObject(combatBehavior.GetCharacter().getEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), combatBehavior.GetCharacter().getEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
             combatBehavior.GetCharacter().getHUD().getAnimator().SetBool("Equiped", true);
             combatBehavior.GetCharacter().getHUD().getAnimator().SetTrigger("ChangeEquip");
-            combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedEquip, false);
+            combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedEquip);
             skillPreviewManager.showSkillPreviewsOf(combatBehavior.GetCharacter().getEquips()[equipTogglerManager.GetSelectedEquipIndex()]);
         }
         else
@@ -71,7 +71,7 @@ public class PlayerInputManager : MonoBehaviour
     public void HoverTargetBtnExit(TargetBtn targetBtn)
     {
         if (equipTogglerManager.AnyToggleOne())
-            combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedEquip, false);
+            combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedEquip);
     }
 
     public Equip SelectedEquip

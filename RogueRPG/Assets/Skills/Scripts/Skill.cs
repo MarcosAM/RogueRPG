@@ -148,11 +148,21 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
     }
 
-    public virtual bool WillBeAffected(Battleground.Tile target, Battleground.Tile tile)
+    public virtual bool WillBeAffected(Character user,Battleground.Tile target, Battleground.Tile tile)
     {
         if (target == tile)
         {
-            return true;
+            if (tile.IsOccupied())
+            {
+                return true;
+            }
+            else
+            {
+                if (((type == Type.Ranged && !singleTarget) || kind == Kind.Movement) && Mathf.Abs(user.getPosition() - tile.getIndex()) <= range)
+                    return true;
+                else
+                    return false;
+            }
         }
         else
         {

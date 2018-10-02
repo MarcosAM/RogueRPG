@@ -19,9 +19,9 @@ public class SAssault : Skill, IWaitForSkill
         firstEffect.StartSkill(user, tile, this);
     }
 
-    public override bool WillBeAffected(Battleground.Tile target, Battleground.Tile tile)
+    public override bool WillBeAffected(Character user, Battleground.Tile target, Battleground.Tile tile)
     {
-        if (firstEffect.WillBeAffected(DungeonManager.getInstance().getBattleground().getMyEnemiesTiles(target.isFromHero())[target.getIndex()], tile) || secondEffect.WillBeAffected(target, tile))
+        if (firstEffect.WillBeAffected(user, DungeonManager.getInstance().getBattleground().getMyEnemiesTiles(target.isFromHero())[target.getIndex()], tile) || secondEffect.WillBeAffected(user, target, tile))
         {
             return true;
         }
