@@ -215,7 +215,7 @@ public class CombHUDManager : MonoBehaviour {
 
 	public void onSkillBtnHoverExit(SkillBtn skillBtn){
 		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-		if (combatBehavior.getChoosedSkill () != null) {
+		if (combatBehavior.GetChoosedEquip () != null) {
 
 		} else {
 			HideTargetBtns (true);

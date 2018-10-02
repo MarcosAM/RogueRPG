@@ -369,7 +369,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     {
         equips = stats.getSkills();
         combatBehavior = GetComponent<CombatBehavior>();
-        combatBehavior.setCharacter(this);
+        combatBehavior.SetCharacter(this);
         int hp = 0;
         int atk = 0;
         int atkm = 0;

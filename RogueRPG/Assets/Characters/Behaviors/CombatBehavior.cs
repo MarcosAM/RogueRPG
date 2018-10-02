@@ -9,10 +9,27 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
     protected Battleground.Tile targetTile;
     protected bool[] availableEquips;
 
-    public virtual void StartTurn() { }
-    public virtual void UseEquip(int equip, Battleground.Tile target) { }
+    public virtual void StartTurn()
+    {
+        character.StartTurn();
+        choosedEquip = null;
+        targetTile = null;
+        if (character.IsPlayable())
+            FindObjectOfType<PlayerInputManager>().ShowUIFor(this);
+        else
+        {
+            choosedEquip = character.getUsableEquips()[Random.Range(0, character.getUsableEquips().Count)];
+            targetTile = choosedEquip.GetBestTarget(character);
+            choosedEquip.UseEquipmentOn(character, targetTile, this);
+        }
+    }
+    public virtual void UseEquip(int equip, Battleground.Tile target)
+    {
+        availableEquips[equip] = false;
+        character.getEquips()[equip].UseEquipmentOn(character, target, this);
+    }
 
-    public void setCharacter(Character character)
+    public void SetCharacter(Character character)
     {
         this.character = character;
         availableEquips = new bool[character.getEquips().Length];
@@ -21,12 +38,22 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
             availableEquips[i] = true;
         }
     }
-    public virtual void resumeFromEquipment() { }
-    public Character getCharacter() { return character; }
-    public Equip getChoosedSkill() { return choosedEquip; }
-    public void setChoosedSkill(Equip skill) { this.choosedEquip = skill; }
-    public void setTargetTile(Battleground.Tile tile) { this.targetTile = tile; }
-    public Battleground.Tile getTargetTile() { return targetTile; }
+    public virtual void ResumeFromEquipment()
+    {
+        character.getHUD().getAnimator().SetBool("Equiped", false);
+        EndTurn();
+    }
+
+    void EndTurn()
+    {
+        choosedEquip = null;
+        character.EndTurn();
+    }
+    public Character GetCharacter() { return character; }
+    public Equip GetChoosedEquip() { return choosedEquip; }
+    public void SetChoosedEquip(Equip skill) { this.choosedEquip = skill; }
+    public void SetTargetTile(Battleground.Tile tile) { this.targetTile = tile; }
+    public Battleground.Tile GetTargetTile() { return targetTile; }
     public bool IsEquipAvailable(int index) { return availableEquips[index]; }
     public bool AtLeastOneEquipAvailable()
     {

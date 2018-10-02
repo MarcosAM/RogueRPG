@@ -21,46 +21,6 @@ public class PlayerControlled : CombatBehavior
         }
     }
 
-    public void checkForNextStep()
-    {
-        if (choosedEquip == null)
-        {
-            FindObjectOfType<EquipToggleManager>().ShowEquipTogglesFor(character, false);
-        }
-        else
-        {
-            CombHUDManager.getInstance().HideSkillsBtn();
-            if (targetTile == null)
-            {
-                CombHUDManager.getInstance().ShowTargetBtns(character, choosedEquip, false);
-            }
-            else
-            {
-                CombHUDManager.getInstance().HideTargetBtns(false);
-                //UseSkill();
-            }
-        }
-    }
-
-    public void ChooseTarget()
-    {
-        EventManager.OnPlayerChoosedTarget2 += ReadyTarget;
-
-        //TODO ALTERAR ISSO AQUI LOLOLOLOLO
-        EventManager.ShowTargetsOf(character, choosedEquip);
-    }
-
-    public void ReadyTarget(Battleground.Tile tile)
-    {
-        this.targetTile = tile;
-        character.getHUD().UseSkillAnimation();
-    }
-
-    public void UseSkillAnimation()
-    {
-        character.getHUD().UseSkillAnimation();
-    }
-
     public override void UseEquip(int equip, Battleground.Tile target)
     {
         base.UseEquip(equip, target);
@@ -68,7 +28,7 @@ public class PlayerControlled : CombatBehavior
         character.getEquips()[equip].UseEquipmentOn(character, target, this);
     }
 
-    public override void resumeFromEquipment()
+    public override void ResumeFromEquipment()
     {
         character.getHUD().getAnimator().SetBool("Equiped", false);
         EndTurn();
