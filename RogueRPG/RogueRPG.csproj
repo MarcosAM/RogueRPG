@@ -86,7 +86,6 @@
     <Compile Include="Assets\BattlesTest\GameManager.cs" />
     <Compile Include="Assets\BattlesTest\Quest.cs" />
     <Compile Include="Assets\Characters\Behaviors\CombatBehavior.cs" />
-    <Compile Include="Assets\Characters\Behaviors\PlayerControlled.cs" />
     <Compile Include="Assets\Characters\Character.cs" />
     <Compile Include="Assets\Characters\CharacterMovement.cs" />
     <Compile Include="Assets\Characters\CStats\StandartStats.cs" />
