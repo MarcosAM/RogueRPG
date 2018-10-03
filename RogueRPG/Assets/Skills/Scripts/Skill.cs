@@ -127,11 +127,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     public float ProbabilityToHit(Character user, Character target, Battleground.Tile tile)
     {
         float distanceInfluence;
-        if (target == null || user == null)
-        {
-            Debug.Log("lol");
-            return 1;
-        }
         if (type == Skill.Type.Melee)
         {
             distanceInfluence = 0;
