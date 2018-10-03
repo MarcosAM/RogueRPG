@@ -102,21 +102,54 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     protected bool DidIHit(Character target, float attack)
     {
+        return AttackValue(target, attack) < 0;
+    }
+
+    protected float AttackValue(Character target, float attack)
+    {
         if (type == Skill.Type.Melee)
         {
-            return target.didIHitYou(attack);
+            return attack;
         }
         else
         {
             if (singleTarget)
             {
-                return target.didIHitYou(attack - Mathf.Abs(currentUser.getPosition() - target.getPosition()));
+                return attack + (Mathf.Abs(currentUser.getPosition() - target.getPosition()) * 0.1f) + target.getDodgeValue();
             }
             else
             {
-                return target.didIHitYou(attack - Mathf.Abs(this.targetTile.getIndex() - target.getPosition()));
+                return attack + (Mathf.Abs(this.targetTile.getIndex() - target.getPosition()) * 0.1f) + target.getDodgeValue();
             }
         }
+    }
+
+    public float ProbabilityToHit(Character user, Character target)
+    {
+        float distanceInfluence;
+        if (type == Skill.Type.Melee)
+        {
+            distanceInfluence = 0;
+        }
+        else
+        {
+            if (Mathf.Abs(user.getPosition() - target.getPosition()) <= range)
+            {
+                distanceInfluence = 0;
+            }
+            else
+            {
+                if (singleTarget)
+                {
+                    distanceInfluence = Mathf.Abs(user.getPosition() - target.getPosition()) * 0.1f;
+                }
+                else
+                {
+                    distanceInfluence = Mathf.Abs(this.targetTile.getIndex() - target.getPosition()) * 0.1f;
+                }
+            }
+        }
+        return precision + user.getPrecisionValue() - distanceInfluence - target.getDodgeValue();
     }
 
     protected float GetDamage(int skillDamage)
@@ -148,7 +181,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
     }
 
-    public virtual bool WillBeAffected(Character user,Battleground.Tile target, Battleground.Tile tile)
+    public virtual bool WillBeAffected(Character user, Battleground.Tile target, Battleground.Tile tile)
     {
         if (target == tile)
         {

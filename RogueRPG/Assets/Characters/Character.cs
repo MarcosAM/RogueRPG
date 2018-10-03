@@ -107,7 +107,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
     }
 
-    public bool didIHitYou(float attackValue)
+    public bool DidIHitYou(float attackValue)
     {
         if (attackValue + getDodgeValue() < 0)
         {

@@ -130,8 +130,8 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         {
             image.gameObject.SetActive(true);
             button.interactable = true;
-            if (skill is SAtk)
-                ShowHitPreview();
+            if (skill is SAtk && target.IsOccupied())
+                ShowHitPreview(skill.ProbabilityToHit(user, target.getOccupant()));
         }
         else
         {
@@ -154,9 +154,10 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         HideHitPreview();
     }
 
-    void ShowHitPreview()
+    void ShowHitPreview(float hit)
     {
         hitPreview.gameObject.SetActive(true);
+        hitPreview.GetComponentInChildren<Text>().text = (hit*100f).ToString() + "%";
     }
 
     void HideHitPreview()
