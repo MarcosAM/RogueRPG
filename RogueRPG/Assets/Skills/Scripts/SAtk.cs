@@ -39,6 +39,11 @@ public class SAtk : Skill
         }
     }
 
+    public override bool HasHitPreview()
+    {
+        return true;
+    }
+
     public override void OnHitEffect(Character user, Battleground.Tile tile)
     {
         base.OnHitEffect(user, tile);

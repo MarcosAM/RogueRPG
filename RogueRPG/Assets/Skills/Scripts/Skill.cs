@@ -102,7 +102,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     protected bool DidIHit(Character target, float attack)
     {
-        return AttackValue(target, attack) < 0;
+        return attack + ProbabilityToHit(currentUser, target, targetTile) > 0;
     }
 
     protected float AttackValue(Character target, float attack)
@@ -124,30 +124,49 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
     }
 
-    public float ProbabilityToHit(Character user, Character target)
+    public float ProbabilityToHit(Character user, Character target, Battleground.Tile tile)
     {
         float distanceInfluence;
+        if (target == null || user == null)
+        {
+            Debug.Log("lol");
+            return 1;
+        }
         if (type == Skill.Type.Melee)
         {
             distanceInfluence = 0;
         }
         else
         {
-            if (Mathf.Abs(user.getPosition() - target.getPosition()) <= range)
+            //if (Mathf.Abs(user.getPosition() - target.getPosition()) <= range)
+            //{
+            //    distanceInfluence = 0;
+            //}
+            //else
+            //{
+            if (singleTarget)
             {
-                distanceInfluence = 0;
-            }
-            else
-            {
-                if (singleTarget)
+                if (Mathf.Abs(user.getPosition() - target.getPosition()) <= range)
                 {
-                    distanceInfluence = Mathf.Abs(user.getPosition() - target.getPosition()) * 0.1f;
+                    distanceInfluence = 0;
                 }
                 else
                 {
-                    distanceInfluence = Mathf.Abs(this.targetTile.getIndex() - target.getPosition()) * 0.1f;
+                    distanceInfluence = Mathf.Abs(user.getPosition() - target.getPosition()) * 0.1f;
                 }
             }
+            else
+            {
+                if (Mathf.Abs(target.getPosition() - tile.getIndex()) <= range)
+                {
+                    distanceInfluence = 0;
+                }
+                else
+                {
+                    distanceInfluence = Mathf.Abs(target.getPosition() - tile.getIndex()) * 0.1f;
+                }
+            }
+            //}
         }
         return precision + user.getPrecisionValue() - distanceInfluence - target.getDodgeValue();
     }
@@ -205,7 +224,39 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
             }
             else
             {
-                if (Mathf.Abs(target.getIndex() - tile.getIndex()) <= range)
+                if (type == Type.Melee)
+                {
+                    if (Mathf.Abs(target.getIndex() - tile.getIndex()) <= range)
+                    {
+                        if (target.isFromHero() == tile.isFromHero())
+                        {
+                            if (tile.getOccupant() != null)
+                            {
+                                if (tile.getOccupant().isAlive() || hitsDead)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
                 {
                     if (target.isFromHero() == tile.isFromHero())
                     {
@@ -230,10 +281,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
                         return false;
                     }
                 }
-                else
-                {
-                    return false;
-                }
             }
         }
     }
@@ -251,4 +298,5 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     public float GetCritic() { return critic; }
     public float GetPrecision() { return precision; }
     public bool IsSingleTarget() { return singleTarget; }
+    public virtual bool HasHitPreview() { return false; }
 }

@@ -43,4 +43,12 @@ public class SAssault : Skill, IWaitForSkill
             secondEffect.StartSkill(currentUser, targetTile, this);
         }
     }
+
+    public override bool HasHitPreview()
+    {
+        if (firstEffect is SAtk || secondEffect is SAtk)
+            return true;
+        else
+            return false;
+    }
 }
