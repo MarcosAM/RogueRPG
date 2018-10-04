@@ -20,7 +20,6 @@ public class Stat {
 	}
 
 	public void BuffIt (float buffValue, int buffDuration){
-//		Debug.Log ("Tentei buffar");
 		if(buffValue>this.buffValue && buffValue>0){
 			this.buffValue = buffValue;
 			this.buffDuration = buffDuration;

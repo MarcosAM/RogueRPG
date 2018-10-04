@@ -102,8 +102,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     protected bool DidIHit(Character target, float attack)
     {
-        Debug.Log((attack.ToString() + " " + ProbabilityToHit(currentUser, target.GetTile(), targetTile)).ToString());
-        return attack < ProbabilityToHit(currentUser, target.GetTile(), targetTile);
+        return attack < ProbabilityToHit(currentUser, targetTile, target.GetTile());
     }
 
     //protected float AttackValue(Character target, float attack)
@@ -166,7 +165,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
         if (tile.IsOccupied())
         {
-            Debug.Log("Let's see this treta: " + " ps:" + precision.ToString() + " p:" + user.getPrecisionValue().ToString() + " d:" + distanceInfluence.ToString() + " e:" + tile.getOccupant().getDodgeValue().ToString());
             return precision + user.getPrecisionValue() - distanceInfluence - tile.getOccupant().getDodgeValue();
         }
         else
