@@ -102,7 +102,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     protected bool DidIHit(Character target, float attack)
     {
-        return attack + ProbabilityToHit(currentUser, target, targetTile) > 0;
+        return attack + ProbabilityToHit(currentUser, target.GetTile(), targetTile) > 0;
     }
 
     protected float AttackValue(Character target, float attack)
@@ -124,7 +124,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
     }
 
-    public float ProbabilityToHit(Character user, Character target, Battleground.Tile tile)
+    public float ProbabilityToHit(Character user, Battleground.Tile target, Battleground.Tile tile)
     {
         float distanceInfluence;
         if (type == Skill.Type.Melee)
@@ -141,29 +141,32 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
             //{
             if (singleTarget)
             {
-                if (Mathf.Abs(user.getPosition() - target.getPosition()) <= range)
+                if (Mathf.Abs(user.getPosition() - target.getIndex()) <= range)
                 {
                     distanceInfluence = 0;
                 }
                 else
                 {
-                    distanceInfluence = Mathf.Abs(user.getPosition() - target.getPosition()) * 0.1f;
+                    distanceInfluence = Mathf.Abs(user.getPosition() - target.getIndex()) * 0.1f;
                 }
             }
             else
             {
-                if (Mathf.Abs(target.getPosition() - tile.getIndex()) <= range)
+                if (Mathf.Abs(target.getIndex() - tile.getIndex()) <= range)
                 {
                     distanceInfluence = 0;
                 }
                 else
                 {
-                    distanceInfluence = Mathf.Abs(target.getPosition() - tile.getIndex()) * 0.1f;
+                    distanceInfluence = Mathf.Abs(target.getIndex() - tile.getIndex()) * 0.1f;
                 }
             }
             //}
         }
-        return precision + user.getPrecisionValue() - distanceInfluence - target.getDodgeValue();
+        if (tile.IsOccupied())
+            return precision + user.getPrecisionValue() - distanceInfluence - tile.getOccupant().getDodgeValue();
+        else
+            return 0f;
     }
 
     protected float GetDamage(int skillDamage)
@@ -205,7 +208,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
             }
             else
             {
-                if (((type == Type.Ranged && !singleTarget) || kind == Kind.Movement) && Mathf.Abs(user.getPosition() - tile.getIndex()) <= range)
+                if ((type == Type.Ranged && !singleTarget) || (kind == Kind.Movement && Mathf.Abs(user.getPosition() - tile.getIndex()) <= range))
                     return true;
                 else
                     return false;

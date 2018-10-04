@@ -131,7 +131,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
             image.gameObject.SetActive(true);
             button.interactable = true;
             if (skill.HasHitPreview() && tile.IsOccupied())
-                ShowHitPreview(skill.ProbabilityToHit(user, target.getOccupant(), tile));
+                ShowHitPreview(skill.ProbabilityToHit(user, target, tile));
         }
         else
         {
