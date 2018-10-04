@@ -35,6 +35,10 @@ public class SAtk : Skill
                 {
                     Damage(tile.getOccupant(), dmg, false);
                 }
+                else
+                {
+                    Debug.Log("Missed!");
+                }
             }
         }
     }

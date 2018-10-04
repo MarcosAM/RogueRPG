@@ -97,32 +97,33 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     protected float GetHit()
     {
-        return Random.value - precision - currentUser.getPrecisionValue();
+        return Random.value;
     }
 
     protected bool DidIHit(Character target, float attack)
     {
-        return attack + ProbabilityToHit(currentUser, target.GetTile(), targetTile) > 0;
+        Debug.Log((attack.ToString() + " " + ProbabilityToHit(currentUser, target.GetTile(), targetTile)).ToString());
+        return attack < ProbabilityToHit(currentUser, target.GetTile(), targetTile);
     }
 
-    protected float AttackValue(Character target, float attack)
-    {
-        if (type == Skill.Type.Melee)
-        {
-            return attack;
-        }
-        else
-        {
-            if (singleTarget)
-            {
-                return attack + (Mathf.Abs(currentUser.getPosition() - target.getPosition()) * 0.1f) + target.getDodgeValue();
-            }
-            else
-            {
-                return attack + (Mathf.Abs(this.targetTile.getIndex() - target.getPosition()) * 0.1f) + target.getDodgeValue();
-            }
-        }
-    }
+    //protected float AttackValue(Character target, float attack)
+    //{
+    //    if (type == Skill.Type.Melee)
+    //    {
+    //        return attack;
+    //    }
+    //    else
+    //    {
+    //        if (singleTarget)
+    //        {
+    //            return attack + (Mathf.Abs(currentUser.getPosition() - target.getPosition()) * 0.1f) + target.getDodgeValue();
+    //        }
+    //        else
+    //        {
+    //            return attack + (Mathf.Abs(this.targetTile.getIndex() - target.getPosition()) * 0.1f) + target.getDodgeValue();
+    //        }
+    //    }
+    //}
 
     public float ProbabilityToHit(Character user, Battleground.Tile target, Battleground.Tile tile)
     {
@@ -164,7 +165,10 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
             //}
         }
         if (tile.IsOccupied())
+        {
+            Debug.Log("Let's see this treta: " + " ps:" + precision.ToString() + " p:" + user.getPrecisionValue().ToString() + " d:" + distanceInfluence.ToString() + " e:" + tile.getOccupant().getDodgeValue().ToString());
             return precision + user.getPrecisionValue() - distanceInfluence - tile.getOccupant().getDodgeValue();
+        }
         else
             return 0f;
     }
