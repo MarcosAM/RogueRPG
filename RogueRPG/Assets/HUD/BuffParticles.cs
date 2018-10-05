@@ -14,7 +14,7 @@ public class BuffParticles : MonoBehaviour, IBuffHUD
         Stop();
     }
 
-    public void PlayAt(Stat.Stats stats, Vector2 position)
+    public void PlayAt(Stat.Stats stats, Stat.Intensity intensity, Vector2 position)
     {
         uIParticleSystem.particleSprite = sprites[(int)stats];
         transform.localPosition = position;

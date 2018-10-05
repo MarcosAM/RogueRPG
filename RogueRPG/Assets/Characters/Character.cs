@@ -440,39 +440,39 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
     }
 
-    public void AtkBuff(float buffValue, int buffDuration)
+    public void AtkBuff(Stat.Intensity intesity, int buffDuration)
     {
-        atk.BuffIt(buffValue, buffDuration);
+        atk.BuffIt(intesity, buffDuration);
         OnBuffsGainOrLoss();
     }
-    public void AtkmBuff(float buffValue, int buffDuration)
+    public void AtkmBuff(Stat.Intensity intensity, int buffDuration)
     {
-        atkm.BuffIt(buffValue, buffDuration);
+        atkm.BuffIt(intensity, buffDuration);
         OnBuffsGainOrLoss();
     }
-    public void DefBuff(float buffValue, int buffDuration)
+    public void DefBuff(Stat.Intensity intensity, int buffDuration)
     {
-        def.BuffIt(buffValue, buffDuration);
+        def.BuffIt(intensity, buffDuration);
         OnBuffsGainOrLoss();
     }
-    public void DefmBuff(float buffValue, int buffDuration)
+    public void DefmBuff(Stat.Intensity intensity, int buffDuration)
     {
-        defm.BuffIt(buffValue, buffDuration);
+        defm.BuffIt(intensity, buffDuration);
         OnBuffsGainOrLoss();
     }
-    public void CriticBuff(float buffValue, int buffDuration)
+    public void CriticBuff(Stat.Intensity intensity, int buffDuration)
     {
-        critic.BuffIt(buffValue, buffDuration);
+        critic.BuffIt(intensity, buffDuration);
         OnBuffsGainOrLoss();
     }
-    public void DodgeBuff(float buffValue, int buffDuration)
+    public void DodgeBuff(Stat.Intensity intensity, int buffDuration)
     {
-        dodge.BuffIt(buffValue, buffDuration);
+        dodge.BuffIt(intensity, buffDuration);
         OnBuffsGainOrLoss();
     }
-    public void PrecisionBuff(float buffValue, int buffDuration)
+    public void PrecisionBuff(Stat.Intensity intensity, int buffDuration)
     {
-        precision.BuffIt(buffValue, buffDuration);
+        precision.BuffIt(intensity, buffDuration);
         OnBuffsGainOrLoss();
     }
 

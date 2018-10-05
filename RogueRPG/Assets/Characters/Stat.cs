@@ -5,14 +5,16 @@ using UnityEngine;
 public class Stat
 {
     public enum Stats { Atk, Atkm, Def, Defm, Precision, Dodge, Critic };
+    public enum Intensity { None = 0, SmallDebuff = 1, SmallBuff = 2, MediumDebuff = 3, MediumBuff = 4, HighDebuff = 5, HighBuff = 6 };
 
     Character character;
     Stats stats;
     float statBase = 0;
-    float buffValue = 0;
+    Intensity intensity = Intensity.None;
     int buffDuration = 0;
     List<float> bonus = new List<float>();
     IBuffHUD buffHUD;
+    static List<List<float>> buffValues = new List<List<float>> { new List<float> { 0, -10f, 10f, -20f, 20f, -30f, 30f }, new List<float> { 0, -0.1f, 0.1f, -0.3f, 0.3f, -0.5f, 0.5f } };
 
     public Stat(Character character, Stats stats, IBuffHUD buffHUD)
     {
@@ -23,33 +25,30 @@ public class Stat
 
     public float GetValue()
     {
-        float value;
-        value = statBase;
-        value += buffValue;
-        for (int i = 0; i < bonus.Count; i++)
-        {
-            value += bonus[i];
-        }
-        return value;
+        //float value;
+        //value = statBase;
+        //value += buffValue;
+        //for (int i = 0; i < bonus.Count; i++)
+        //{
+        //    value += bonus[i];
+        //}
+        return statBase + getBuffValue();
     }
 
-    public void BuffIt(float buffValue, int buffDuration)
+    public void BuffIt(Intensity intensity, int buffDuration)
     {
-        if (buffValue > this.buffValue && buffValue > 0)
+        if (intensity > this.intensity)
         {
-            this.buffValue = buffValue;
+            this.intensity = intensity;
             this.buffDuration = buffDuration;
         }
-        if (buffValue < this.buffValue && this.buffValue <= 0)
+        if (intensity == this.intensity && intensity < Intensity.HighDebuff)
         {
-            this.buffValue = buffValue;
-            this.buffDuration = buffDuration;
+            this.intensity = this.intensity + 2;
+            if (this.buffDuration < buffDuration)
+                this.buffDuration = buffDuration;
         }
-        if (buffValue == this.buffValue)
-        {
-            this.buffDuration = buffDuration;
-        }
-        buffHUD.PlayAt(stats,character.GetTile().getLocalPosition());
+        buffHUD.PlayAt(stats, intensity, character.GetTile().getLocalPosition());
         //		TODO atualizar a interface para mostrar esse bonus
     }
 
@@ -58,16 +57,28 @@ public class Stat
         this.statBase = value;
     }
     public List<float> getBonus() { return bonus; }
-    public float getBuffValue() { return buffValue; }
+    public float getBuffValue()
+    {
+        switch (stats)
+        {
+            case Stats.Atk:
+            case Stats.Atkm:
+            case Stats.Def:
+            case Stats.Defm:
+                return buffValues[0][(int)intensity];
+            default:
+                return buffValues[1][(int)intensity];
+        }
+    }
     public void ResetBuff()
     {
-        buffValue = 0;
+        intensity = Intensity.None;
         buffDuration = 0;
         buffHUD.Stop();
     }
     public void SpendAndCheckIfEnded()
     {
-        if (buffValue != 0)
+        if (intensity != 0)
         {
             buffDuration--;
             if (buffDuration <= 0)
