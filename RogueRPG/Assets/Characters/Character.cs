@@ -23,7 +23,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     protected Equip momentumSkill;
 
     [SerializeField] protected Image portrait;
-    protected CombatantHUD hud;
+    protected TileUI hud;
     protected RegenerationAndPoisonManager regenerationManager;
 
     public event Action OnHUDValuesChange;
@@ -56,7 +56,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         {
             OnMyTurnStarts();
         }
-        //		RecoverFromDelayBy (delayCountdown*-1);
         SpendBuffs();
         CheckIfSkillsShouldBeRefreshed();
         if (regenerationManager != null)
@@ -548,8 +547,8 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     {
         this.characterName = name;
     }
-    public void setHUD(CombatantHUD combatantHUD) { hud = combatantHUD; }
-    public CombatantHUD getHUD() { return hud; }
+    public void setHUD(TileUI combatantHUD) { hud = combatantHUD; }
+    public TileUI getHUD() { return hud; }
     public CombatBehavior getBehavior() { return combatBehavior; }
     public IMovable getMovement() { return movement; }
     public int getPosition() { return movement.getPosition(); }
@@ -566,6 +565,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
             if (poisened)
             {
                 owner.loseHpBy(Mathf.RoundToInt(owner.getMaxHp() * 0.1f), false);
+                print("WORK!");
             }
             else
             {

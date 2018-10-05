@@ -8,8 +8,8 @@ public class CombHUDManager : MonoBehaviour
 
     //	[SerializeField]CombatantHUD combatantHUDprefab;
 
-    [SerializeField] CombatantHUD[] heroesCombatantHUD = new CombatantHUD[4];
-    [SerializeField] CombatantHUD[] enemiesCombatantHUD = new CombatantHUD[4];
+    [SerializeField] TileUI[] heroesCombatantHUD = new TileUI[4];
+    [SerializeField] TileUI[] enemiesCombatantHUD = new TileUI[4];
 
     [SerializeField] private Vector2[] heroesPositions = new Vector2[4];
     [SerializeField] private Vector2[] enemiesPositions = new Vector2[4];
@@ -98,13 +98,13 @@ public class CombHUDManager : MonoBehaviour
 
     public void ClearCombatantsHUDs()
     {
-        foreach (CombatantHUD combatantHUD in heroesCombatantHUD)
+        foreach (TileUI combatantHUD in heroesCombatantHUD)
         {
             combatantHUD.Deinitialize();
             combatantHUD.gameObject.SetActive(false);
         }
 
-        foreach (CombatantHUD combatantHUD in enemiesCombatantHUD)
+        foreach (TileUI combatantHUD in enemiesCombatantHUD)
         {
             combatantHUD.Deinitialize();
             combatantHUD.gameObject.SetActive(false);
@@ -174,11 +174,11 @@ public class CombHUDManager : MonoBehaviour
 
     public void RefreshInitiativeHUD()
     {
-        foreach (CombatantHUD hud in heroesCombatantHUD)
+        foreach (TileUI hud in heroesCombatantHUD)
         {
             hud.RefreshInitiative();
         }
-        foreach (CombatantHUD hud in enemiesCombatantHUD)
+        foreach (TileUI hud in enemiesCombatantHUD)
         {
             hud.RefreshInitiative();
         }
@@ -277,7 +277,7 @@ public class CombHUDManager : MonoBehaviour
 
     public void startTurnOf(Character character)
     {
-        foreach (CombatantHUD combatantHUD in heroesCombatantHUD)
+        foreach (TileUI combatantHUD in heroesCombatantHUD)
         {
             if (combatantHUD.getCharacter() == character)
             {
@@ -288,7 +288,7 @@ public class CombHUDManager : MonoBehaviour
                 combatantHUD.HideTargetBtn();
             }
         }
-        foreach (CombatantHUD combatantHUD in enemiesCombatantHUD)
+        foreach (TileUI combatantHUD in enemiesCombatantHUD)
         {
             if (combatantHUD.getCharacter() == character)
             {
@@ -323,8 +323,8 @@ public class CombHUDManager : MonoBehaviour
         ShowSkillsBtnOf(DungeonManager.getInstance().getInitiativeOrder()[0]);
     }
 
-    public CombatantHUD[] getHeroesCombatantHUD() { return heroesCombatantHUD; }
-    public CombatantHUD[] getEnemiesCombatantHUD() { return enemiesCombatantHUD; }
+    public TileUI[] getHeroesCombatantHUD() { return heroesCombatantHUD; }
+    public TileUI[] getEnemiesCombatantHUD() { return enemiesCombatantHUD; }
 
     //	public class momentumTabBtn{
     //		Text text;

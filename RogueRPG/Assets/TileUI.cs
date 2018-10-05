@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CombatantHUD : MonoBehaviour, IPlayAnimationByString
+public class TileUI : MonoBehaviour, IPlayAnimationByString
 {
 
     [SerializeField] private Character combatant;
