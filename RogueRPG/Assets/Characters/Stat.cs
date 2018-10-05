@@ -21,7 +21,7 @@ public class Stat
         this.buffHUD = buffHUD;
     }
 
-    public float getValue()
+    public float GetValue()
     {
         float value;
         value = statBase;

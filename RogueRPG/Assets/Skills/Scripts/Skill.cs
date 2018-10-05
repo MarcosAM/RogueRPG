@@ -190,7 +190,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     protected bool WasCritic()
     {
-        if (Random.value <= critic + currentUser.getCritic().getValue() && critic > 0 && source == Source.Physical)
+        if (Random.value <= critic + currentUser.getCritic().GetValue() && critic > 0 && source == Source.Physical)
         {
             return true;
         }

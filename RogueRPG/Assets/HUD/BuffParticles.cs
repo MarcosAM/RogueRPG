@@ -5,6 +5,7 @@ using UnityEngine;
 public class BuffParticles : MonoBehaviour, IBuffHUD
 {
     UIParticleSystem uIParticleSystem;
+    [SerializeField] List<Sprite> sprites;
 
     void Awake()
     {
@@ -15,6 +16,7 @@ public class BuffParticles : MonoBehaviour, IBuffHUD
 
     public void PlayAt(Stat.Stats stats, Vector2 position)
     {
+        uIParticleSystem.particleSprite = sprites[(int)stats];
         transform.localPosition = position;
         gameObject.SetActive(true);
     }

@@ -82,14 +82,14 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     {
         if (skill.GetSource() == Skill.Source.Physical)
         {
-            if (skill.GetCritic() + critic.getValue() >= UnityEngine.Random.value)
-                target.loseHpBy(Mathf.RoundToInt((attack + atk.getValue()) * 1.5f), true);
+            if (skill.GetCritic() + critic.GetValue() >= UnityEngine.Random.value)
+                target.loseHpBy(Mathf.RoundToInt((attack + atk.GetValue()) * 1.5f), true);
             else
-                target.loseHpBy(Mathf.RoundToInt((attack + atk.getValue()) * UnityEngine.Random.Range(1f, 1.2f) - target.getDefValue()), false);
+                target.loseHpBy(Mathf.RoundToInt((attack + atk.GetValue()) * UnityEngine.Random.Range(1f, 1.2f) - target.getDefValue()), false);
         }
         else
         {
-            target.loseHpBy(Mathf.RoundToInt((attack + atkm.getValue()) * UnityEngine.Random.Range(1f, 1.2f) - target.getDefmValue()), false);
+            target.loseHpBy(Mathf.RoundToInt((attack + atkm.GetValue()) * UnityEngine.Random.Range(1f, 1.2f) - target.getDefmValue()), false);
         }
     }
 
@@ -176,7 +176,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     {
         if (CanIHitWith(target, skill))
         {
-            return skill.GetPrecision() + precision.getValue() + getDistanceInfluenceOnPrecision(target, skill) - target.getDodgeValue();
+            return skill.GetPrecision() + precision.GetValue() + getDistanceInfluenceOnPrecision(target, skill) - target.getDodgeValue();
         }
         else
         {
@@ -523,12 +523,12 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     public float getMaxHp() { return maxHp; }
     public string getName() { return characterName; }
 
-    public float getAtkValue() { return atk.getValue(); }
-    public float getAtkmValue() { return atkm.getValue(); }
-    public float getDefValue() { return def.getValue(); }
-    public float getDefmValue() { return defm.getValue(); }
-    public float getDodgeValue() { return dodge.getValue(); }
-    public float getPrecisionValue() { return precision.getValue(); }
+    public float getAtkValue() { return atk.GetValue(); }
+    public float getAtkmValue() { return atkm.GetValue(); }
+    public float getDefValue() { return def.GetValue(); }
+    public float getDefmValue() { return defm.GetValue(); }
+    public float getDodgeValue() { return dodge.GetValue(); }
+    public float getPrecisionValue() { return precision.GetValue(); }
 
     public Stat getAtk() { return atk; }
     public Stat getDef() { return def; }
