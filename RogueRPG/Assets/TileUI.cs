@@ -21,6 +21,7 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
     [SerializeField] RectTransform frontHandler;
     [SerializeField] RectTransform backHandler;
     [SerializeField] private Image equipment;
+    //[SerializeField] private UIParticleSystem uiParticleSPrefab;
     Animator animator;
     IWaitForAnimationByString requester;
 
@@ -107,7 +108,10 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
 
     void ShowBuffs()
     {
-
+        //UIParticleSystem uIParticleSystem = Instantiate(uiParticleSPrefab);
+        //Debug.Log(combatant.GetTile().getLocalPosition().ToString());
+        //uIParticleSystem.transform.SetParent(FindObjectOfType<Canvas>().transform, false);
+        //uIParticleSystem.rectTransform.localPosition = combatant.GetTile().getLocalPosition();
     }
 
     public void UseSkillAnimation()
