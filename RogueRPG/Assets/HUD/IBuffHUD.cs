@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IBuffHUD
 {
-    void PlayAt(Stat.Stats stats, Stat.Intensity intensity, Vector2 position);
-    void Stop();
+    void PlayAt(Character character, Stat.Stats stats, Stat.Intensity intensity, Vector2 position);
+    void Stop(Character character, Stat.Stats stats);
 }

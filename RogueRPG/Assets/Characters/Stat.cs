@@ -25,13 +25,6 @@ public class Stat
 
     public float GetValue()
     {
-        //float value;
-        //value = statBase;
-        //value += buffValue;
-        //for (int i = 0; i < bonus.Count; i++)
-        //{
-        //    value += bonus[i];
-        //}
         return statBase + getBuffValue();
     }
 
@@ -48,7 +41,7 @@ public class Stat
             if (this.buffDuration < buffDuration)
                 this.buffDuration = buffDuration;
         }
-        buffHUD.PlayAt(stats, this.intensity, character.GetTile().getLocalPosition());
+        buffHUD.PlayAt(character, stats, this.intensity, character.GetTile().getLocalPosition());
         //		TODO atualizar a interface para mostrar esse bonus
     }
 
@@ -74,7 +67,7 @@ public class Stat
     {
         intensity = Intensity.None;
         buffDuration = 0;
-        buffHUD.Stop();
+        buffHUD.Stop(character, stats);
     }
     public void SpendAndCheckIfEnded()
     {

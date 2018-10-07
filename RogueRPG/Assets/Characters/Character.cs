@@ -23,7 +23,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     protected Equip momentumSkill;
 
     [SerializeField] protected Image portrait;
-    [SerializeField] protected BuffParticles buffHUDprefab;
     protected TileUI hud;
     protected RegenerationAndPoisonManager regenerationManager;
 
@@ -35,13 +34,14 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 
     void Awake()
     {
-        atk = new Stat(this, Stat.Stats.Atk, Instantiate(buffHUDprefab) as IBuffHUD);
-        atkm = new Stat(this, Stat.Stats.Atkm, Instantiate(buffHUDprefab) as IBuffHUD);
-        def = new Stat(this, Stat.Stats.Def, Instantiate(buffHUDprefab) as IBuffHUD);
-        defm = new Stat(this, Stat.Stats.Defm, Instantiate(buffHUDprefab) as IBuffHUD);
-        critic = new Stat(this, Stat.Stats.Critic, Instantiate(buffHUDprefab) as IBuffHUD);
-        precision = new Stat(this, Stat.Stats.Precision, Instantiate(buffHUDprefab) as IBuffHUD);
-        dodge = new Stat(this, Stat.Stats.Dodge, Instantiate(buffHUDprefab) as IBuffHUD);
+        BuffPManager buffPManager = FindObjectOfType<BuffPManager>();
+        atk = new Stat(this, Stat.Stats.Atk, buffPManager);
+        atkm = new Stat(this, Stat.Stats.Atkm, buffPManager);
+        def = new Stat(this, Stat.Stats.Def, buffPManager);
+        defm = new Stat(this, Stat.Stats.Defm, buffPManager);
+        critic = new Stat(this, Stat.Stats.Critic, buffPManager);
+        precision = new Stat(this, Stat.Stats.Precision, buffPManager);
+        dodge = new Stat(this, Stat.Stats.Dodge, buffPManager);
         regenerationManager = new Character.RegenerationAndPoisonManager(this);
         if (stats != null)
         {

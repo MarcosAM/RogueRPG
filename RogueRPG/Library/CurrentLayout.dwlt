@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -106,8 +106,8 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 771
-  m_MinSize: {x: 683, y: 492}
-  m_MaxSize: {x: 14004, y: 14042}
+  m_MinSize: {x: 683, y: 342}
+  m_MaxSize: {x: 12008, y: 8042}
   vertical: 0
   controlID: 46
 --- !u!114 &6
@@ -130,8 +130,8 @@ MonoBehaviour:
     y: 0
     width: 1223
     height: 771
-  m_MinSize: {x: 406, y: 492}
-  m_MaxSize: {x: 10002, y: 14042}
+  m_MinSize: {x: 406, y: 342}
+  m_MaxSize: {x: 8006, y: 8042}
   vertical: 1
   controlID: 47
 --- !u!114 &7
@@ -229,15 +229,15 @@ MonoBehaviour:
     y: 460
     width: 1223
     height: 311
-  m_MinSize: {x: 232, y: 271}
-  m_MaxSize: {x: 10002, y: 10021}
-  m_ActualView: {fileID: 17}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
+  m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 17}
   - {fileID: 18}
   - {fileID: 19}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -368,20 +368,20 @@ MonoBehaviour:
     height: 439
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 48290000
-    m_LastClickedID: 0
-    m_ExpandedIDs: 8473faff26c3fbff12f1fbffd807fcff686cfcffbcddfcff08fafcff606bfdffdcccfdff2036ffff10fafffff4ffffff00000000e22d0000f62d000004310000543e0000fc440000a44b0000f84e0000f45800009c5f0000f06200009869000012750000
+    m_SelectedIDs: c0effeff
+    m_LastClickedID: -69696
+    m_ExpandedIDs: 0e8afdffc6bdfdff64f7feff020bffff660dffff7026ffff1043ffff2a46ffffb4bcffff1afcfffff4ffffff00000000fc2c00001e3d0000f23f00008a4f0000d04f0000ec52000032530000e6590000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: BuffParticles
-      m_OriginalName: BuffParticles
+      m_Name: BuffParticles(Clone)
+      m_OriginalName: BuffParticles(Clone)
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -374648
+      m_UserData: -69696
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -420,14 +420,14 @@ MonoBehaviour:
     width: 819
     height: 439
   m_SceneLighting: 1
-  lastFramingTime: 13478.328397232985
+  lastFramingTime: 7472.29814532504
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 400, y: 340, z: 0}
+    m_Target: {x: 679.4666, y: 302.29068, z: 0}
     speed: 2
-    m_Value: {x: 400, y: 340, z: 0}
+    m_Value: {x: 679.4666, y: 302.29068, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -454,9 +454,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 209.91736
+    m_Target: 788.09344
     speed: 2
-    m_Value: 209.91736
+    m_Value: 788.09344
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -559,19 +559,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/_Scenes
   m_ViewMode: 1
   m_StartGridSize: 58
   m_LastFolders:
-  - Assets
+  - Assets/_Scenes
   m_LastFoldersGridSize: 58
   m_LastProjectPath: C:\Users\Marcos\Documents\Repos\RogueRPG\RogueRPG
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 542d0000
-    m_LastClickedID: 11604
-    m_ExpandedIDs: 00000000542d0000582d0000842d0000ca2d000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 11}
+    m_SelectedIDs: 1e270000
+    m_LastClickedID: 10014
+    m_ExpandedIDs: 000000009a2600009e260000082700005828000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -599,7 +599,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000542d0000582d0000842d0000ca2d0000
+    m_ExpandedIDs: 000000009a2600009e2600000827000058280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -624,8 +624,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: 0e270000
+    m_LastClickedInstanceID: 9998
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: cc26000048280000502a0000ea3c0000102800003e59000000000000
     m_RenameOverlay:
@@ -758,7 +758,7 @@ MonoBehaviour:
     y: 92
     width: 311
     height: 750
-  m_ScrollPosition: {x: 0, y: 181.09407}
+  m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: 100

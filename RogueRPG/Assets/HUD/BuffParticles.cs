@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffParticles : MonoBehaviour, IBuffHUD
+public class BuffParticles : MonoBehaviour
 {
     UIParticleSystem uIParticleSystem;
     ParticleSystem particleSystem;
-    [SerializeField] List<Sprite> spritesBuff;
-    [SerializeField] List<Sprite> spritesDebuff;
+    public Character Owner { get; set; }
+    public Stat.Stats Stats { get; set; }
 
     void Awake()
     {
@@ -17,21 +17,20 @@ public class BuffParticles : MonoBehaviour, IBuffHUD
         Stop();
     }
 
-    public void PlayAt(Stat.Stats stats, Stat.Intensity intensity, Vector2 position)
+    public void PlayAt(Character character, int intensity, Vector2 position, Sprite sprite, Stat.Stats stats)
     {
-        if ((int)stats % 2 == 0)
-            uIParticleSystem.particleSprite = spritesBuff[(int)stats];
-        else
-            uIParticleSystem.particleSprite = spritesDebuff[(int)stats];
+        Owner = character;
+        Stats = stats;
+        uIParticleSystem.particleSprite = sprite;
         var main = particleSystem.main;
-        //main.startSpeed = new ParticleSystem.MinMaxCurve(20 + 10 * (int)intensity);
-        main.startSize = new ParticleSystem.MinMaxCurve(10 * (int)intensity);
+        main.startSize = new ParticleSystem.MinMaxCurve(10 * intensity);
         transform.localPosition = position;
         gameObject.SetActive(true);
     }
 
     public void Stop()
     {
+        Owner = null;
         gameObject.SetActive(false);
     }
 }

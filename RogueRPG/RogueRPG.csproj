@@ -97,6 +97,7 @@
     <Compile Include="Assets\Feedbacks\DamageFB.cs" />
     <Compile Include="Assets\GameOverUI.cs" />
     <Compile Include="Assets\HUD\BuffParticles.cs" />
+    <Compile Include="Assets\HUD\BuffPManager.cs" />
     <Compile Include="Assets\HUD\IBuffHUD.cs" />
     <Compile Include="Assets\ICombatDisplayer.cs" />
     <Compile Include="Assets\Interfaces.cs" />
