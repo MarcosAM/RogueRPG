@@ -25,17 +25,25 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
             sprite = spritesBuff[(int)stats];
         else
             sprite = spritesDebuff[(int)stats];
-        if (AvailableBuffParticles.Count > 0)
+        BuffParticles bp = buffParticles.Find(b => b.Owner == character && b.Stats == stats);
+        if (bp != null)
         {
-            AvailableBuffParticles[0].transform.SetParent(canvas.transform);
-            AvailableBuffParticles[0].PlayAt(character, (int)intensity, position, sprite, stats);
+            bp.PlayAt(character, (int)intensity, position, sprite, stats);
         }
         else
         {
-            Debug.Log(AvailableBuffParticles.Count);
-            buffParticles.Add(Instantiate(buffParticlesPrefab));
-            buffParticles[buffParticles.Count - 1].transform.SetParent(canvas.transform);
-            buffParticles[buffParticles.Count - 1].PlayAt(character, (int)intensity, position, sprite, stats);
+            if (AvailableBuffParticles.Count > 0)
+            {
+                AvailableBuffParticles[0].transform.SetParent(canvas.transform);
+                AvailableBuffParticles[0].PlayAt(character, (int)intensity, position, sprite, stats);
+            }
+            else
+            {
+                Debug.Log(AvailableBuffParticles.Count);
+                buffParticles.Add(Instantiate(buffParticlesPrefab));
+                buffParticles[buffParticles.Count - 1].transform.SetParent(canvas.transform);
+                buffParticles[buffParticles.Count - 1].PlayAt(character, (int)intensity, position, sprite, stats);
+            }
         }
     }
 
