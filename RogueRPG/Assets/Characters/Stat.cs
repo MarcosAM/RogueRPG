@@ -42,13 +42,13 @@ public class Stat
             this.intensity = intensity;
             this.buffDuration = buffDuration;
         }
-        if (intensity == this.intensity && intensity < Intensity.HighDebuff)
+        else if (intensity == this.intensity && intensity < Intensity.HighDebuff)
         {
             this.intensity = this.intensity + 2;
             if (this.buffDuration < buffDuration)
                 this.buffDuration = buffDuration;
         }
-        buffHUD.PlayAt(stats, intensity, character.GetTile().getLocalPosition());
+        buffHUD.PlayAt(stats, this.intensity, character.GetTile().getLocalPosition());
         //		TODO atualizar a interface para mostrar esse bonus
     }
 
