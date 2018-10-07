@@ -8,14 +8,14 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
     [SerializeField] List<Sprite> spritesBuff;
     [SerializeField] List<Sprite> spritesDebuff;
     [SerializeField] BuffParticles buffParticlesPrefab;
-    List<BuffParticles> buffParticles = new List<BuffParticles>();
-    Canvas canvas;
+    List<BuffParticles> buffsParticles = new List<BuffParticles>();
+    Transform canvasTransform;
 
     private void Awake()
     {
-        canvas = FindObjectOfType<Canvas>();
-        buffParticles.Add(Instantiate(buffParticlesPrefab));
-        buffParticles[0].transform.SetParent(transform);
+        canvasTransform = FindObjectOfType<Canvas>().transform;
+        buffsParticles.Add(Instantiate(buffParticlesPrefab));
+        buffsParticles[0].transform.SetParent(transform);
     }
 
     public void PlayAt(Character character, Stat.Stats stats, Stat.Intensity intensity, Vector2 position)
@@ -25,34 +25,31 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
             sprite = spritesBuff[(int)stats];
         else
             sprite = spritesDebuff[(int)stats];
-        BuffParticles bp = buffParticles.Find(b => b.Owner == character && b.Stats == stats);
-        if (bp != null)
-        {
-            bp.PlayAt(character, (int)intensity, position, sprite, stats);
-        }
-        else
+        BuffParticles bp = buffsParticles.Find(b => b.Owner == character && b.Stats == stats);
+        if (bp == null)
         {
             if (AvailableBuffParticles.Count > 0)
             {
-                AvailableBuffParticles[0].transform.SetParent(canvas.transform);
-                AvailableBuffParticles[0].PlayAt(character, (int)intensity, position, sprite, stats);
+                bp = AvailableBuffParticles[0];
             }
             else
             {
-                Debug.Log(AvailableBuffParticles.Count);
-                buffParticles.Add(Instantiate(buffParticlesPrefab));
-                buffParticles[buffParticles.Count - 1].transform.SetParent(canvas.transform);
-                buffParticles[buffParticles.Count - 1].PlayAt(character, (int)intensity, position, sprite, stats);
+
+                buffsParticles.Add(Instantiate(buffParticlesPrefab));
+                bp = buffsParticles[buffsParticles.Count - 1];
             }
+            bp.transform.SetParent(canvasTransform);
         }
+        bp.PlayAt(character, (int)intensity, position, sprite, stats);
     }
 
     public void Stop(Character character, Stat.Stats stats)
     {
-        if (buffParticles.Find(bp => bp.Owner == character && bp.Stats == stats) != null)
+        BuffParticles bp = buffsParticles.Find(b => b.Owner == character && b.Stats == stats);
+        if (bp != null)
         {
-            buffParticles.Find(bp => bp.Owner == character && bp.Stats == stats).transform.SetParent(transform);
-            buffParticles.Find(bp => bp.Owner == character && bp.Stats == stats).Stop();
+            bp.transform.SetParent(transform);
+            bp.Stop();
         }
     }
 
@@ -60,7 +57,7 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
     {
         get
         {
-            return buffParticles.FindAll(bp => bp.Owner == null);
+            return buffsParticles.FindAll(bp => bp.Owner == null);
         }
     }
 }
