@@ -70,7 +70,7 @@ public class DungeonManager : MonoBehaviour
         //		print (initiative);
         if (initiativeOrder.Count > 0)
         {
-            manageMomentum();
+            //manageMomentum();
             initiativeOrder[0].getBehavior().StartTurn();
         }
         else
@@ -312,8 +312,7 @@ public class DungeonManager : MonoBehaviour
     {
         if (momentum != maxMomentum / 2)
         {
-            momentumBar.changeMomentumBy(momentum - maxMomentum / 2);
-            momentum = maxMomentum / 2;
+            addMomentum(-(momentum - maxMomentum / 2));
         }
     }
 

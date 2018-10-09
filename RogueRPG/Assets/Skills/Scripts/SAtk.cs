@@ -15,7 +15,6 @@ public class SAtk : Skill
 
         //base.StartSkill(user, tile, requester);
         damages.Clear();
-        Debug.Log(damages.Count);
         this.momentum = momentum;
         this.requester = requester;
         this.currentUser = user;
@@ -32,7 +31,7 @@ public class SAtk : Skill
         {
             if (WasCritic())
             {
-                Damage(tile.getOccupant(), dmg, true);
+                damages.Add(Damage(tile.getOccupant(), dmg, true));
             }
             else
             {
@@ -58,10 +57,13 @@ public class SAtk : Skill
             {
                 sum += i;
             }
-            if (currentUser.IsPlayable())
-                DungeonManager.getInstance().addMomentum(sum / damages.Count);
-            else
-                DungeonManager.getInstance().addMomentum(-(sum / damages.Count));
+            if (sum / damages.Count > 0)
+            {
+                if (currentUser.IsPlayable())
+                    DungeonManager.getInstance().addMomentum((sum / damages.Count) * 2);
+                else
+                    DungeonManager.getInstance().addMomentum(-(sum / damages.Count));
+            }
         }
         base.EndSkill();
     }
