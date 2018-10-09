@@ -38,6 +38,7 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
         {
             availableEquips[i] = true;
         }
+        availableEquips[availableEquips.Length - 1] = false;
     }
     public virtual void ResumeFromEquipment()
     {
@@ -55,7 +56,14 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
     public void SetChoosedEquip(Equip skill) { this.choosedEquip = skill; }
     public void SetTargetTile(Battleground.Tile tile) { this.targetTile = tile; }
     public Battleground.Tile GetTargetTile() { return targetTile; }
-    public bool IsEquipAvailable(int index) { return availableEquips[index]; }
+    public bool IsEquipAvailable(int index)
+    {
+        if (index == availableEquips.Length - 1)
+        {
+            return DungeonManager.getInstance().isMomentumFull();
+        }
+        return availableEquips[index];
+    }
     public bool AtLeastOneEquipAvailable()
     {
         foreach (bool b in availableEquips)
@@ -71,6 +79,7 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
         {
             availableEquips[i] = availability;
         }
+        availableEquips[availableEquips.Length - 1] = false;
     }
 }
 

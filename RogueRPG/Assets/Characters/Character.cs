@@ -19,7 +19,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     protected CombatBehavior combatBehavior;
     [SerializeField] protected IMovable movement;
 
-    public Equip[] equips = new Equip[4];
+    public Equip[] equips = new Equip[5];
     protected Equip momentumSkill;
 
     [SerializeField] protected Image portrait;
@@ -629,4 +629,9 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     public Battleground.Tile GetTile() { return movement.GetTile(); }
     public Battleground.Tile[] GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
     public Battleground.Tile[] GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
+
+    public bool IsMomentumEquip(Equip equip)
+    {
+        return equip == equips[equips.Length - 1];
+    }
 }

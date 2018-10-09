@@ -21,7 +21,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
     {
         user.changeEquipObject(GetBackEquip(), GetFrontEquip());
         this.requester = requester;
-        AppropriateSkill(user, tile).StartSkill(user, tile, this, momentum);
+        AppropriateSkill(user, tile).StartSkill(user, tile, this, user.IsMomentumEquip(this));
     }
 
     public Skill AppropriateSkill(Character user, Battleground.Tile target)
