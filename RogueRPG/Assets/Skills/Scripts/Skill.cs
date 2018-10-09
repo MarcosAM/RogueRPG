@@ -22,13 +22,15 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     [SerializeField] protected string castSkillAnimationTrigger;
     [SerializeField] protected float momentumValue;
     [SerializeField] protected SkillAnimation animationPrefab;
+    protected bool momentum = false;
     protected int targetsLeft;
     protected Character currentUser;
     protected Battleground.Tile targetTile;
     protected IWaitForSkill requester;
 
-    public virtual void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester)
+    public virtual void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester, bool momentum)
     {
+        this.momentum = momentum;
         this.requester = requester;
         this.currentUser = user;
         this.targetTile = tile;
@@ -90,8 +92,13 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
     }
 
-    public void EndSkill()
+    public virtual void EndSkill()
     {
+        if (!(requester is Skill) && momentum)
+        {
+            DungeonManager.getInstance().OnMomentumSkillUsed();
+            this.momentum = false;
+        }
         requester.resumeFromSkill();
     }
 

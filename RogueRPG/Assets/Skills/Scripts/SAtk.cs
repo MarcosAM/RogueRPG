@@ -8,15 +8,20 @@ public class SAtk : Skill
 
     float hit;
     int dmg;
+    List<int> damages = new List<int>();
 
-    public override void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester)
+    public override void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester, bool momentum)
     {
-        base.StartSkill(user, tile, requester);
-        hit = GetHit();
-        dmg = (int)GetDamage((int)value);
+
+        //base.StartSkill(user, tile, requester);
+        damages.Clear();
+        Debug.Log(damages.Count);
+        this.momentum = momentum;
         this.requester = requester;
         this.currentUser = user;
         this.targetTile = tile;
+        hit = GetHit();
+        dmg = (int)GetDamage((int)value);
         PlayCastSkillAnimation();
     }
 
@@ -33,14 +38,32 @@ public class SAtk : Skill
             {
                 if (DidIHit(tile.getOccupant(), hit))
                 {
-                    Damage(tile.getOccupant(), dmg, false);
+                    damages.Add(Damage(tile.getOccupant(), dmg, false));
                 }
                 else
                 {
+                    damages.Add(0);
                     Debug.Log("Missed!");
                 }
             }
         }
+    }
+
+    public override void EndSkill()
+    {
+        if (!momentum)
+        {
+            float sum = 0;
+            foreach (int i in damages)
+            {
+                sum += i;
+            }
+            if (currentUser.IsPlayable())
+                DungeonManager.getInstance().addMomentum(sum / damages.Count);
+            else
+                DungeonManager.getInstance().addMomentum(-(sum / damages.Count));
+        }
+        base.EndSkill();
     }
 
     public override bool HasHitPreview()

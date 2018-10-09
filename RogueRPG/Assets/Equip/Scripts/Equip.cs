@@ -17,11 +17,11 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
     protected Image frontEquip;
     protected IWaitForEquipment requester;
 
-    public void UseEquipmentOn(Character user, Battleground.Tile tile, IWaitForEquipment requester)
+    public void UseEquipmentOn(Character user, Battleground.Tile tile, IWaitForEquipment requester, bool momentum)
     {
         user.changeEquipObject(GetBackEquip(), GetFrontEquip());
         this.requester = requester;
-        AppropriateSkill(user, tile).StartSkill(user, tile, this);
+        AppropriateSkill(user, tile).StartSkill(user, tile, this, momentum);
     }
 
     public Skill AppropriateSkill(Character user, Battleground.Tile target)

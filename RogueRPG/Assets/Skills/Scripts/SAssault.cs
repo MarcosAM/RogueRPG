@@ -10,13 +10,14 @@ public class SAssault : Skill, IWaitForSkill
     [SerializeField] protected Skill secondEffect;
     bool alreadyDidFirst = false;
 
-    public override void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester)
+    public override void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester, bool momentum)
     {
+        this.momentum = momentum;
         this.requester = requester;
         this.currentUser = user;
         this.targetTile = tile;
         alreadyDidFirst = false;
-        firstEffect.StartSkill(user, tile, this);
+        firstEffect.StartSkill(user, tile, this, momentum);
     }
 
     public override bool WillBeAffected(Character user, Battleground.Tile target, Battleground.Tile tile)
@@ -40,7 +41,7 @@ public class SAssault : Skill, IWaitForSkill
         else
         {
             alreadyDidFirst = true;
-            secondEffect.StartSkill(currentUser, targetTile, this);
+            secondEffect.StartSkill(currentUser, targetTile, this, momentum);
         }
     }
 
