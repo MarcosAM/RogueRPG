@@ -30,69 +30,44 @@ public class CombHUDManager : MonoBehaviour
         //		CreateCombatantHUDs ();
     }
 
-    //	public void CreateCombatantHUDs(){
-    //		for(int i = 0; i<4;i++){
-    //			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
-    //			combatantHUD.transform.SetParent(transform,false);
-    //			combatantHUD.getRectTransform().localPosition = heroesPositions[i];
-    //			heroesCombatantHUD [i] = combatantHUD;
-    //			heroesCombatantHUD [i].gameObject.SetActive(false);
-    //		}
-    //		for(int i = 0; i<4;i++){
-    //			CombatantHUD combatantHUD = Instantiate(combatantHUDprefab);
-    //			combatantHUD.transform.SetParent(transform,false);
-    //			combatantHUD.getRectTransform().localPosition = enemiesPositions[i];
-    //			enemiesCombatantHUD [i] = combatantHUD;
-    //			enemiesCombatantHUD [i].gameObject.SetActive (false);
-    //		}
-    //	}
+    //public void ShowCombatants(Battleground.Tile[] heroesTiles, Battleground.Tile[] enemiesTiles)
+    //{
+    //    ClearCombatantsHUDs();
+    //    for (int i = 0; i < heroesTiles.Length; i++)
+    //    {
+    //        heroesCombatantHUD[i].gameObject.SetActive(true);
+    //        heroesCombatantHUD[i].Initialize(heroesTiles[i]);
+    //        if (heroesTiles[i].getOccupant() != null)
+    //            heroesTiles[i].getOccupant().setHUD(heroesCombatantHUD[i]);
+    //    }
+    //    for (int i = 0; i < enemiesTiles.Length; i++)
+    //    {
+    //        enemiesCombatantHUD[i].gameObject.SetActive(true);
+    //        enemiesCombatantHUD[i].Initialize(enemiesTiles[i]);
+    //        if (enemiesTiles[i].getOccupant() != null)
+    //            enemiesTiles[i].getOccupant().setHUD(enemiesCombatantHUD[i]);
+    //    }
+    //}
 
-    //	public void ShowCharacterAt(Character character, int position){
-    //		if (character.isPlayable ()) {
-    //			heroesCombatantHUD [position].gameObject.SetActive (true);
-    //			heroesCombatantHUD [position].Initialize (character);
-    //			character.setHUD (heroesCombatantHUD [position]);
-    //		} else {
-    //			enemiesCombatantHUD [position].gameObject.SetActive (true);
-    //			enemiesCombatantHUD [position].Initialize (character);
-    //			character.setHUD (enemiesCombatantHUD [position]);
-    //		}
-    //	}
-
-    //	public void ShowCombatants (List<Character> heroesParty, List<Character> enemiesParty){
-    //		ClearCombatantsHUDs ();
-    //		for(int i = 0;i<heroesParty.Count;i++){
-    //			if(heroesParty[i]!=null){
-    //				heroesCombatantHUD [i].gameObject.SetActive (true);
-    //				heroesCombatantHUD [i].Initialize(heroesParty[i]);
-    //				heroesParty [i].setHUD (heroesCombatantHUD[i]);
-    //			}
-    //		}
-    //		for(int i = 0;i<enemiesParty.Count;i++){
-    //			if(enemiesParty[i]!=null){
-    //				enemiesCombatantHUD [i].gameObject.SetActive (true);
-    //				enemiesCombatantHUD [i].Initialize(enemiesParty[i]);
-    //				enemiesParty [i].setHUD (enemiesCombatantHUD[i]);
-    //			}
-    //		}
-    //	}
-
-    public void ShowCombatants(Battleground.Tile[] heroesTiles, Battleground.Tile[] enemiesTiles)
+    public void ShowCombatants(List<Battleground.Tile> tiles)
     {
         ClearCombatantsHUDs();
-        for (int i = 0; i < heroesTiles.Length; i++)
+        for (int i = 0; i < tiles.Count; i++)
         {
-            heroesCombatantHUD[i].gameObject.SetActive(true);
-            heroesCombatantHUD[i].Initialize(heroesTiles[i]);
-            if (heroesTiles[i].getOccupant() != null)
-                heroesTiles[i].getOccupant().setHUD(heroesCombatantHUD[i]);
-        }
-        for (int i = 0; i < enemiesTiles.Length; i++)
-        {
-            enemiesCombatantHUD[i].gameObject.SetActive(true);
-            enemiesCombatantHUD[i].Initialize(enemiesTiles[i]);
-            if (enemiesTiles[i].getOccupant() != null)
-                enemiesTiles[i].getOccupant().setHUD(enemiesCombatantHUD[i]);
+            if (i < tiles.Count / 2)
+            {
+                heroesCombatantHUD[i].gameObject.SetActive(true);
+                heroesCombatantHUD[i].Initialize(tiles[i]);
+                if (tiles[i].getOccupant() != null)
+                    tiles[i].getOccupant().setHUD(heroesCombatantHUD[i]);
+            }
+            else
+            {
+                enemiesCombatantHUD[i - tiles.Count / 2].gameObject.SetActive(true);
+                enemiesCombatantHUD[i - tiles.Count / 2].Initialize(tiles[i - tiles.Count / 2]);
+                if (tiles[i - tiles.Count / 2].getOccupant() != null)
+                    tiles[i - tiles.Count / 2].getOccupant().setHUD(enemiesCombatantHUD[i]);
+            }
         }
     }
 

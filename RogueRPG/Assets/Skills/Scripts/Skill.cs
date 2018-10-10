@@ -112,25 +112,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         return attack < ProbabilityToHit(currentUser, targetTile, target.GetTile());
     }
 
-    //protected float AttackValue(Character target, float attack)
-    //{
-    //    if (type == Skill.Type.Melee)
-    //    {
-    //        return attack;
-    //    }
-    //    else
-    //    {
-    //        if (singleTarget)
-    //        {
-    //            return attack + (Mathf.Abs(currentUser.getPosition() - target.getPosition()) * 0.1f) + target.getDodgeValue();
-    //        }
-    //        else
-    //        {
-    //            return attack + (Mathf.Abs(this.targetTile.getIndex() - target.getPosition()) * 0.1f) + target.getDodgeValue();
-    //        }
-    //    }
-    //}
-
     public float ProbabilityToHit(Character user, Battleground.Tile target, Battleground.Tile tile)
     {
         float distanceInfluence;
