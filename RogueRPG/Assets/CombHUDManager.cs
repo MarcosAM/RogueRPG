@@ -66,7 +66,7 @@ public class CombHUDManager : MonoBehaviour
                 enemiesCombatantHUD[i - tiles.Count / 2].gameObject.SetActive(true);
                 enemiesCombatantHUD[i - tiles.Count / 2].Initialize(tiles[i - tiles.Count / 2]);
                 if (tiles[i - tiles.Count / 2].getOccupant() != null)
-                    tiles[i - tiles.Count / 2].getOccupant().setHUD(enemiesCombatantHUD[i]);
+                    tiles[i - tiles.Count / 2].getOccupant().setHUD(enemiesCombatantHUD[i - tiles.Count / 2]);
             }
         }
     }

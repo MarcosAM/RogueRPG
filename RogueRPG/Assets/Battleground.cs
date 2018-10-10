@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Battleground : MonoBehaviour
 {
-
     //[SerializeField] List<Character> heroSide = new List<Character>();
     //[SerializeField] List<Character> enemySide = new List<Character>();
     //[SerializeField] Tile[] heroTiles = new Tile[4];
@@ -161,13 +160,14 @@ public class Battleground : MonoBehaviour
             if (side[i] != null)
             {
                 sideIsPlayers = side[i].IsPlayable();
+                break;
             }
         }
         if (sideIsPlayers)
         {
-            for (int i = 0; i < tiles.Count / 2; i++)
+            for (int i = 0; i < side.Count; i++)
             {
-                tiles[i].setOccupant(null);
+                tiles[i].setOccupant(side[i]);
             }
             //heroSide.Clear();
             //this.heroSide = side;
@@ -178,9 +178,9 @@ public class Battleground : MonoBehaviour
         }
         else
         {
-            for (int i = tiles.Count / 2; i < tiles.Count; i++)
+            for (int i = 0; i < side.Count; i++)
             {
-                tiles[i].setOccupant(null);
+                tiles[i + tiles.Count / 2].setOccupant(side[i]);
             }
             //enemySide.Clear();
             //this.enemySide = side;
