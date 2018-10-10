@@ -21,7 +21,7 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
     public void PlayAt(Character character, Stat.Stats stats, Stat.Intensity intensity, Vector2 position)
     {
         Sprite sprite;
-        if ((int)stats % 2 == 0)
+        if (((int)intensity) % 2 == 0)
             sprite = spritesBuff[(int)stats];
         else
             sprite = spritesDebuff[(int)stats];

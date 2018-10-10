@@ -60,9 +60,9 @@ public class SAtk : Skill
             if (sum / damages.Count > 0)
             {
                 if (currentUser.IsPlayable())
-                    DungeonManager.getInstance().addMomentum((sum / damages.Count) * 2);
+                    DungeonManager.getInstance().AddMomentum((sum / damages.Count) * 2);
                 else
-                    DungeonManager.getInstance().addMomentum(-(sum / damages.Count));
+                    DungeonManager.getInstance().AddMomentum(-(sum / damages.Count));
             }
         }
         base.EndSkill();

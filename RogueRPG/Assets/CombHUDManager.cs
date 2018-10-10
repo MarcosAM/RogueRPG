@@ -116,7 +116,7 @@ public class CombHUDManager : MonoBehaviour
     {
         chooseYourTxt.gameObject.SetActive(true);
         chooseYourTxt.text = "Choose Your Equipment:";
-        if (DungeonManager.getInstance().isMomentumFull())
+        if (DungeonManager.getInstance().IsMomentumFull())
         {
             if (showingMomentumSkill)
             {

@@ -50,9 +50,6 @@ public class DungeonManager : MonoBehaviour
         {
             character.refresh();
         }
-        //		for(int i=0;i<initiativeOrder.Count;i++){
-        //			initiativeOrder [i].RecoverFromDelayBy ((float)(initiativeOrder.Count-i)/100);
-        //		}
         battleground.ShowCharactersToThePlayer();
         CombHUDManager.getInstance().RefreshInitiativeHUD();
         round = 0;
@@ -61,16 +58,8 @@ public class DungeonManager : MonoBehaviour
 
     void TryToStartTurn()
     {
-        //		string initiative="";
-        //		for(int i=0;i<initiativeOrder.Count;i++){
-        //			if (i == 0)
-        //				initiative += "Rodada " + round+": ";
-        //			initiative += initiativeOrder[i].getName()+": "+initiativeOrder [i].getDelayCountdown () + ",";
-        //		}
-        //		print (initiative);
         if (initiativeOrder.Count > 0)
         {
-            //manageMomentum();
             initiativeOrder[0].getBehavior().StartTurn();
         }
         else
@@ -144,22 +133,6 @@ public class DungeonManager : MonoBehaviour
 
     public void AdvanceInitiative(List<Character> initiative)
     {
-        //		for(int i=1;i<initiative.Count;i++){
-        //			initiative [i].RecoverFromDelayBy (1);
-        //			}
-        //
-        //		for(int i=1; i<initiative.Count; i++){
-        //			if(initiative[0].CompareTo(initiative[i]) > 0){
-        //				initiative.Insert (i-1,initiative[0]);
-        //				initiative.RemoveAt (0);
-        //					break;
-        //				}
-        //			if (initiative [0].CompareTo (initiative [i]) <= 0 && i == (initiative.Count - 1)) {
-        //				initiative.Add (initiative[0]);
-        //				initiative.RemoveAt (0);
-        //					break;
-        //				}
-        //			}
         initiative.Add(initiative[0]);
         initiative.RemoveAt(0);
     }
@@ -187,7 +160,6 @@ public class DungeonManager : MonoBehaviour
         if (dungeonFloor < gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups().Count)
         {
             AdvanceInitiative(initiativeOrder);
-            //			battleground.ClearAndSetASide (gameManager.getEnemiesDelayedAtFloor(dungeonFloor));
             battleground.ClearAndSetASide(gameManager.getEnemiesAtFloor(dungeonFloor));
             battleground.ShowCharactersToThePlayer();
             foreach (Character character in battleground.getEnemySide())
@@ -195,8 +167,6 @@ public class DungeonManager : MonoBehaviour
                 if (character != null)
                     initiativeOrder.Add(character);
             }
-            //			initiativeOrder.RemoveAt(0);
-            //			AdvanceInitiative(initiativeOrder);
             CombHUDManager.getInstance().RefreshInitiativeHUD();
             round++;
             TryToStartTurn();
@@ -259,7 +229,7 @@ public class DungeonManager : MonoBehaviour
     public List<Character> getInitiativeOrder() { return initiativeOrder; }
     public int getRound() { return round; }
 
-    public bool shouldMomentumStop()
+    public bool ShouldMomentumStop()
     {
         currentMomentumDowntime++;
         if (currentMomentumDowntime >= maxMomentumDowntime)
@@ -273,21 +243,21 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-    public void manageMomentum()
+    public void ManageMomentum()
     {
         if (momentum >= maxMomentum)
         {
-            if (shouldMomentumStop())
+            if (ShouldMomentumStop())
             {
-                addMomentum(-70);
+                AddMomentum(-70);
             }
         }
         else
         {
-            addMomentum(-10 / initiativeOrder.Count);
+            AddMomentum(-10 / initiativeOrder.Count);
         }
     }
-    public void addMomentum(float amount)
+    public void AddMomentum(float amount)
     {
         momentum += amount;
         momentumBar.changeMomentumBy(amount);
@@ -296,7 +266,7 @@ public class DungeonManager : MonoBehaviour
         if (momentum < 0)
             momentum = 0;
     }
-    public bool isMomentumFull()
+    public bool IsMomentumFull()
     {
         if (momentum >= maxMomentum)
         {
@@ -312,7 +282,7 @@ public class DungeonManager : MonoBehaviour
     {
         if (momentum != maxMomentum / 2)
         {
-            addMomentum(-(momentum - maxMomentum / 2));
+            AddMomentum(-(momentum - maxMomentum / 2));
         }
     }
 

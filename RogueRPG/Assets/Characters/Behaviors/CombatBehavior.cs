@@ -60,7 +60,7 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
     {
         if (index == availableEquips.Length - 1)
         {
-            return DungeonManager.getInstance().isMomentumFull();
+            return DungeonManager.getInstance().IsMomentumFull();
         }
         return availableEquips[index];
     }
