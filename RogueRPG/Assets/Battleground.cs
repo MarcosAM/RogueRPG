@@ -105,7 +105,7 @@ public class Battleground : MonoBehaviour
     public List<Character> getHeroSide()
     {
         List<Character> characters = new List<Character>();
-        for (int i = 0; i < tiles.Count / 2; i++)
+        for (int i = tiles.Count / 2; i < tiles.Count; i++)
         {
             characters.Add(tiles[i].getOccupant());
         }
@@ -114,7 +114,7 @@ public class Battleground : MonoBehaviour
     public List<Character> getEnemySide()
     {
         List<Character> characters = new List<Character>();
-        for (int i = tiles.Count / 2; i < tiles.Count; i++)
+        for (int i = 0; i < tiles.Count / 2; i++)
         {
             characters.Add(tiles[i].getOccupant());
         }
@@ -160,14 +160,13 @@ public class Battleground : MonoBehaviour
             if (side[i] != null)
             {
                 sideIsPlayers = side[i].IsPlayable();
-                break;
             }
         }
         if (sideIsPlayers)
         {
             for (int i = 0; i < side.Count; i++)
             {
-                tiles[i].setOccupant(side[i]);
+                tiles[i + tiles.Count / 2].setOccupant(side[i]);
             }
             //heroSide.Clear();
             //this.heroSide = side;
@@ -180,7 +179,7 @@ public class Battleground : MonoBehaviour
         {
             for (int i = 0; i < side.Count; i++)
             {
-                tiles[i + tiles.Count / 2].setOccupant(side[i]);
+                tiles[i].setOccupant(side[i]);
             }
             //enemySide.Clear();
             //this.enemySide = side;
@@ -195,14 +194,14 @@ public class Battleground : MonoBehaviour
     {
         for (int i = 0; i < tiles.Capacity; i++)
         {
-            if (i < tiles.Count / 2)
+            if (i < tiles.Capacity / 2)
             {
-                tiles.Add(new Tile(i, true, this));
+                tiles.Add(new Tile(i, false, this));
                 //tiles[i] = new Tile(i, true, this);
             }
             else
             {
-                tiles.Add(new Tile(i, false, this));
+                tiles.Add(new Tile(i, true, this));
             }
         }
         //for (int i = 0; i < heroTiles.Length; i++)

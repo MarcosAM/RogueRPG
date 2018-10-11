@@ -56,17 +56,17 @@ public class CombHUDManager : MonoBehaviour
         {
             if (i < tiles.Count / 2)
             {
-                heroesCombatantHUD[i].gameObject.SetActive(true);
-                heroesCombatantHUD[i].Initialize(tiles[i]);
+                enemiesCombatantHUD[i].gameObject.SetActive(true);
+                enemiesCombatantHUD[i].Initialize(tiles[i]);
                 if (tiles[i].getOccupant() != null)
-                    tiles[i].getOccupant().setHUD(heroesCombatantHUD[i]);
+                    tiles[i].getOccupant().setHUD(enemiesCombatantHUD[i]);
             }
             else
             {
-                enemiesCombatantHUD[i - tiles.Count / 2].gameObject.SetActive(true);
-                enemiesCombatantHUD[i - tiles.Count / 2].Initialize(tiles[i - tiles.Count / 2]);
-                if (tiles[i - tiles.Count / 2].getOccupant() != null)
-                    tiles[i - tiles.Count / 2].getOccupant().setHUD(enemiesCombatantHUD[i - tiles.Count / 2]);
+                heroesCombatantHUD[i - tiles.Count / 2].gameObject.SetActive(true);
+                heroesCombatantHUD[i - tiles.Count / 2].Initialize(tiles[i]);
+                if (tiles[i].getOccupant() != null)
+                    tiles[i].getOccupant().setHUD(heroesCombatantHUD[i - tiles.Count / 2]);
             }
         }
     }
