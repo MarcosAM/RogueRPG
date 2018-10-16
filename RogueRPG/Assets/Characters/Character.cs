@@ -149,7 +149,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         }
         else
         {
-            if (Mathf.Abs(target.getIndex() - getPosition()) <= skillEffect.GetRange())
+            if (Mathf.Abs(target.GetRow() - getPosition()) <= skillEffect.GetRange())
             {
                 return true;
             }
@@ -252,7 +252,7 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
 
     public float getDistanceInfluenceOnPrecision(Battleground.Tile target, Skill skill)
     {
-        return getDistanceInfluenceOnPrecision(target.getIndex(), skill);
+        return getDistanceInfluenceOnPrecision(target.GetRow(), skill);
     }
 
     public float getDistanceInfluenceOnPrecision(int targetPosition, Skill skill)

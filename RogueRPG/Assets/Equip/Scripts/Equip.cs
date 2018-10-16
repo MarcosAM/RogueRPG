@@ -28,7 +28,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
     {
         if (target.isFromHero() == user.IsPlayable())
         {
-            if (target.getIndex() == user.getPosition())
+            if (target.GetRow() == user.getPosition())
             {
                 return selfSkill;
             }
@@ -39,7 +39,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
         }
         else
         {
-            if ((Mathf.Abs(target.getIndex() - user.getPosition()) <= meleeSkill.GetRange()) && target.getOccupant() != null)
+            if ((Mathf.Abs(target.GetRow() - user.getPosition()) <= meleeSkill.GetRange()) && target.getOccupant() != null)
             {
                 return meleeSkill;
             }

@@ -9,7 +9,7 @@ public class SMove : Skill
     public override void UniqueEffect(Character user, Battleground.Tile tile)
     {
         base.UniqueEffect(user, tile);
-        user.getMovement().MoveTo(tile.getIndex());
+        user.getMovement().MoveTo(tile.GetRow());
     }
 
     public override void OnHitEffect(Character user, Battleground.Tile tile)

@@ -35,7 +35,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         Skill skillEffect;
         if (tile.isFromHero() == user.IsPlayable())
         {
-            if (tile.getIndex() == user.getPosition())
+            if (tile.GetRow() == user.getPosition())
             {
                 skillEffect = skill.GetSelfEffect();
                 image.color = new Color(0.309f, 0.380f, 0.674f, 1);
@@ -48,7 +48,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         }
         else
         {
-            if ((Mathf.Abs(tile.getIndex() - user.getPosition()) <= skill.GetMeleeEffect().GetRange()) && tile.getOccupant() != null)
+            if ((Mathf.Abs(tile.GetRow() - user.getPosition()) <= skill.GetMeleeEffect().GetRange()) && tile.getOccupant() != null)
             {
                 skillEffect = skill.GetMeleeEffect();
                 image.color = new Color(0.925f, 0.258f, 0.258f, 1);
@@ -87,7 +87,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
             }
             if (skillEffect.GetKind() == Skill.Kind.Movement)
             {
-                if (Mathf.Abs(tile.getIndex() - user.getPosition()) <= skillEffect.GetRange())
+                if (Mathf.Abs(tile.GetRow() - user.getPosition()) <= skillEffect.GetRange())
                 {
                     image.gameObject.SetActive(true);
                     button.interactable = true;
@@ -101,7 +101,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         Skill skill;
         if (target.isFromHero() == user.IsPlayable())
         {
-            if (target.getIndex() == user.getPosition())
+            if (target.GetRow() == user.getPosition())
             {
                 skill = choosedSkill.GetSelfEffect();
                 image.color = new Color(0.309f, 0.380f, 0.674f, 1);
@@ -114,7 +114,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         }
         else
         {
-            if ((Mathf.Abs(target.getIndex() - user.getPosition()) <= choosedSkill.GetMeleeEffect().GetRange()) && target.getOccupant() != null)
+            if ((Mathf.Abs(target.GetRow() - user.getPosition()) <= choosedSkill.GetMeleeEffect().GetRange()) && target.getOccupant() != null)
             {
                 skill = choosedSkill.GetMeleeEffect();
                 image.color = new Color(0.925f, 0.258f, 0.258f, 1);

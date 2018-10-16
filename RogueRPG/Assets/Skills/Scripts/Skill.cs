@@ -129,24 +129,24 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
             //{
             if (singleTarget)
             {
-                if (Mathf.Abs(user.getPosition() - target.getIndex()) <= range)
+                if (Mathf.Abs(user.getPosition() - target.GetRow()) <= range)
                 {
                     distanceInfluence = 0;
                 }
                 else
                 {
-                    distanceInfluence = Mathf.Abs(user.getPosition() - target.getIndex()) * 0.1f;
+                    distanceInfluence = Mathf.Abs(user.getPosition() - target.GetRow()) * 0.1f;
                 }
             }
             else
             {
-                if (Mathf.Abs(target.getIndex() - tile.getIndex()) <= range)
+                if (Mathf.Abs(target.GetRow() - tile.GetRow()) <= range)
                 {
                     distanceInfluence = 0;
                 }
                 else
                 {
-                    distanceInfluence = Mathf.Abs(target.getIndex() - tile.getIndex()) * 0.1f;
+                    distanceInfluence = Mathf.Abs(target.GetRow() - tile.GetRow()) * 0.1f;
                 }
             }
             //}
@@ -198,7 +198,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
             }
             else
             {
-                if ((type == Type.Ranged && !singleTarget) || (kind == Kind.Movement && Mathf.Abs(user.getPosition() - tile.getIndex()) <= range))
+                if ((type == Type.Ranged && !singleTarget) || (kind == Kind.Movement && Mathf.Abs(user.getPosition() - tile.GetRow()) <= range))
                     return true;
                 else
                     return false;
@@ -214,7 +214,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
             {
                 if (type == Type.Melee)
                 {
-                    if (Mathf.Abs(target.getIndex() - tile.getIndex()) <= range)
+                    if (Mathf.Abs(target.GetRow() - tile.GetRow()) <= range)
                     {
                         if (target.isFromHero() == tile.isFromHero())
                         {

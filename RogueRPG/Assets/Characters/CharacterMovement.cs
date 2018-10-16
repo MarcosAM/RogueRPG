@@ -29,7 +29,7 @@ public class CharacterMovement : MonoBehaviour, IMovable
         {
             battleground = FindObjectOfType<Battleground>();
         }
-        return battleground.getPositionOf(character);
+        return battleground.GetRow(character);
     }
 
     public Battleground.Tile GetTile()

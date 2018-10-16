@@ -61,9 +61,9 @@ public class Battleground : MonoBehaviour
         cHUDManager.ShowCombatants(tiles);
     }
 
-    public int getPositionOf(Character character)
+    public int GetRow(Character character)
     {
-        return tiles.Find(t => t.getOccupant() == character).getIndex();
+        return tiles.Find(t => t.getOccupant() == character).GetRow() % (tiles.Count / 2);
         //if (character.IsPlayable())
         //{
         //    return heroSide.IndexOf(character);
@@ -321,16 +321,16 @@ public class Battleground : MonoBehaviour
         }
         public void setOccupant(Character occupant) { this.occupant = occupant; }
         public Character getOccupant() { return occupant; }
-        public int getIndex() { return index; }
+        public int GetRow() { return index % (battleground.tiles.Count / 2); }
         public Vector2 getLocalPosition()
         {
             if (fromHero)
             {
-                return FindObjectOfType<CombHUDManager>().getHeroesCombatantHUD()[index].getRectTransform().localPosition;
+                return FindObjectOfType<CombHUDManager>().getHeroesCombatantHUD()[GetRow()].getRectTransform().localPosition;
             }
             else
             {
-                return FindObjectOfType<CombHUDManager>().getEnemiesCombatantHUD()[index].getRectTransform().localPosition;
+                return FindObjectOfType<CombHUDManager>().getEnemiesCombatantHUD()[GetRow()].getRectTransform().localPosition;
             }
         }
         public bool isFromHero() { return fromHero; }
