@@ -22,36 +22,14 @@ public class Battleground : MonoBehaviour
 
     public void MoveCharacterTo(Character character, int position)
     {
-        //if (character.IsPlayable())
-        //{
-        //    if (heroSide[position] != null)
-        //    {
-        //        heroSide.Remove(character);
-        //        heroSide.Insert(position, character);
-        //    }
-        //    else
-        //    {
-        //        int oldPosition = heroSide.IndexOf(character);
-        //        heroSide[position] = character;
-        //        heroSide[oldPosition] = null;
-        //    }
-        //}
-        //else
-        //{
-        //    if (enemySide[position] != null)
-        //    {
-        //        enemySide.Remove(character);
-        //        enemySide.Insert(position, character);
-        //    }
-        //    else
-        //    {
-        //        int oldPosition = enemySide.IndexOf(character);
-        //        enemySide[position] = character;
-        //        enemySide[oldPosition] = null;
-        //    }
-        //}
-        tiles[character.getPosition()].setOccupant(tiles[position].getOccupant());
-        tiles[position].setOccupant(character);
+        int oldPosition = character.IsPlayable() ? character.GetTile().GetRow() + tiles.Count / 2 : character.GetTile().GetIndex();
+        int newPosition = position;
+        if (character.IsPlayable())
+        {
+            newPosition = position + tiles.Count / 2;
+        }
+        tiles[oldPosition].setOccupant(tiles[newPosition].getOccupant());
+        tiles[newPosition].setOccupant(character);
         ShowCharactersToThePlayer();
     }
 
@@ -287,6 +265,8 @@ public class Battleground : MonoBehaviour
         //return aliveNPCTiles;
     }
 
+    public List<Tile> GetTiles() { return tiles; }
+
     public Tile[] GetAliveOpponents(Character character)
     {
         return character.IsPlayable() ? GetAliveNPCTiles() : GetAlivePCTiles();
@@ -338,5 +318,6 @@ public class Battleground : MonoBehaviour
         //public Tile[] GetEnemiesTiles() { return fromHero ? battleground.enemyTiles : battleground.heroTiles; }
         public Tile[] GetAlliesTiles() { return fromHero ? battleground.getHeroesTiles() : battleground.getEnemiesTiles(); }
         public Tile[] GetEnemiesTiles() { return fromHero ? battleground.getEnemiesTiles() : battleground.getHeroesTiles(); }
+        public int GetIndex() { return index; }
     }
 }

@@ -18,7 +18,7 @@ public class SAtk : Skill
         this.momentum = momentum;
         this.requester = requester;
         this.currentUser = user;
-        this.targetTile = tile;
+        this.currentTargetTile = tile;
         hit = GetHit();
         dmg = (int)GetDamage((int)value);
         PlayCastSkillAnimation();

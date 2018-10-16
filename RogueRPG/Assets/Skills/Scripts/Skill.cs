@@ -25,7 +25,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     protected bool momentum = false;
     protected int targetsLeft;
     protected Character currentUser;
-    protected Battleground.Tile targetTile;
+    protected Battleground.Tile currentTargetTile;
     protected IWaitForSkill requester;
 
     public virtual void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester, bool momentum)
@@ -33,7 +33,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         this.momentum = momentum;
         this.requester = requester;
         this.currentUser = user;
-        this.targetTile = tile;
+        this.currentTargetTile = tile;
         PlayCastSkillAnimation();
     }
 
@@ -52,20 +52,27 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     void Effect()
     {
-        if (singleTarget)
+        //if (singleTarget)
+        //{
+        //    EffectAnimation(currentTargetTile);
+        //    UniqueEffect(currentUser, currentTargetTile);
+        //    return;
+        //}
+        //else
+        //{
+        //    targetsLeft = currentTargetTile.GetAlliesTiles().Length;
+        //    foreach (Battleground.Tile t in currentTargetTile.GetAlliesTiles())
+        //    {
+        //        EffectAnimation(t);
+        //        UniqueEffect(currentUser, t);
+        //    }
+        //}
+        List<Battleground.Tile> tiles = FindObjectOfType<Battleground>().GetTiles().FindAll(t => WillBeAffected(currentUser, currentTargetTile, t));
+        targetsLeft = tiles.Count;
+        foreach (Battleground.Tile tile in tiles)
         {
-            EffectAnimation(targetTile);
-            UniqueEffect(currentUser, targetTile);
-            return;
-        }
-        else
-        {
-            targetsLeft = targetTile.GetAlliesTiles().Length;
-            foreach (Battleground.Tile t in targetTile.GetAlliesTiles())
-            {
-                EffectAnimation(t);
-                UniqueEffect(currentUser, t);
-            }
+            EffectAnimation(tile);
+            UniqueEffect(currentUser, tile);
         }
     }
 
@@ -78,18 +85,18 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     public void ResumeFromAnimation()
     {
-        if (singleTarget)
-        {
-            EndSkill();
-        }
-        else
-        {
+        //if (singleTarget)
+        //{
+        //    EndSkill();
+        //}
+        //else
+        //{
             targetsLeft--;
             if (targetsLeft <= 0)
             {
                 EndSkill();
             }
-        }
+        //}
     }
 
     public virtual void EndSkill()
@@ -109,7 +116,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     protected bool DidIHit(Character target, float attack)
     {
-        return attack < ProbabilityToHit(currentUser, targetTile, target.GetTile());
+        return attack < ProbabilityToHit(currentUser, currentTargetTile, target.GetTile());
     }
 
     public float ProbabilityToHit(Character user, Battleground.Tile target, Battleground.Tile tile)
@@ -121,12 +128,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
         else
         {
-            //if (Mathf.Abs(user.getPosition() - target.getPosition()) <= range)
-            //{
-            //    distanceInfluence = 0;
-            //}
-            //else
-            //{
             if (singleTarget)
             {
                 if (Mathf.Abs(user.getPosition() - target.GetRow()) <= range)
@@ -149,7 +150,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
                     distanceInfluence = Mathf.Abs(target.GetRow() - tile.GetRow()) * 0.1f;
                 }
             }
-            //}
         }
         if (tile.IsOccupied())
         {

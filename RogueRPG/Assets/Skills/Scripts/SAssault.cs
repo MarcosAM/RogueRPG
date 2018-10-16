@@ -15,7 +15,7 @@ public class SAssault : Skill, IWaitForSkill
         this.momentum = momentum;
         this.requester = requester;
         this.currentUser = user;
-        this.targetTile = tile;
+        this.currentTargetTile = tile;
         alreadyDidFirst = false;
         firstEffect.StartSkill(user, tile, this, momentum);
     }
@@ -41,7 +41,7 @@ public class SAssault : Skill, IWaitForSkill
         else
         {
             alreadyDidFirst = true;
-            secondEffect.StartSkill(currentUser, targetTile, this, momentum);
+            secondEffect.StartSkill(currentUser, currentTargetTile, this, momentum);
         }
     }
 
