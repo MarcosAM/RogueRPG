@@ -92,6 +92,7 @@
     <Compile Include="Assets\CombHUDManager.cs" />
     <Compile Include="Assets\DudeDontDie.cs" />
     <Compile Include="Assets\Equip\Scripts\Equip.cs" />
+    <Compile Include="Assets\Equip\Scripts\RangedEquip.cs" />
     <Compile Include="Assets\Equip\Scripts\StandartEquip.cs" />
     <Compile Include="Assets\ExtensionMethods.cs" />
     <Compile Include="Assets\Feedbacks\DamageFB.cs" />

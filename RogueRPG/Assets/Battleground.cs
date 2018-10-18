@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Battleground : MonoBehaviour
 {
-    //[SerializeField] List<Character> heroSide = new List<Character>();
-    //[SerializeField] List<Character> enemySide = new List<Character>();
-    //[SerializeField] Tile[] heroTiles = new Tile[4];
-    //[SerializeField] Tile[] enemyTiles = new Tile[4];
     List<Tile> tiles = new List<Tile>();
     CombHUDManager cHUDManager;
 
@@ -15,8 +11,6 @@ public class Battleground : MonoBehaviour
     {
         cHUDManager = FindObjectOfType<CombHUDManager>();
         tiles.Capacity = 8;
-        //heroSide.Capacity = 4;
-        //enemySide.Capacity = 4;
         CreateTiles();
     }
 
@@ -35,49 +29,22 @@ public class Battleground : MonoBehaviour
 
     public void ShowCharactersToThePlayer()
     {
-        //setOccupantsOfAllTiles(heroSide, enemySide);
         cHUDManager.ShowCombatants(tiles);
     }
 
     public int GetRow(Character character)
     {
         return tiles.Find(t => t.getOccupant() == character).GetRow() % (tiles.Count / 2);
-        //if (character.IsPlayable())
-        //{
-        //    return heroSide.IndexOf(character);
-        //}
-        //else
-        //{
-        //    return enemySide.IndexOf(character);
-        //}
     }
 
     public int HowManyHeroes()
     {
         return tiles.FindAll(t => t.getOccupant() != null ? t.getOccupant().IsPlayable() : false).Count;
-        //int heroesCountdown = 0;
-        //for (int i = 0; i < heroSide.Count; i++)
-        //{
-        //    if (heroSide[i] != null)
-        //    {
-        //        heroesCountdown++;
-        //    }
-        //}
-        //return heroesCountdown;
     }
 
     public int HowManyEnemies()
     {
         return tiles.FindAll(t => t.getOccupant() != null ? !t.getOccupant().IsPlayable() : false).Count;
-        //int enemiesCountdown = 0;
-        //for (int i = 0; i < enemySide.Count; i++)
-        //{
-        //    if (enemySide[i] != null)
-        //    {
-        //        enemiesCountdown++;
-        //    }
-        //}
-        //return enemiesCountdown;
     }
 
     public List<Character> getHeroSide()
@@ -102,31 +69,21 @@ public class Battleground : MonoBehaviour
     public Tile[] getHeroesTiles()
     {
         return tiles.FindAll(t => t.isFromHero()).ToArray();
-        //return heroTiles;
     }
 
     public Tile[] getEnemiesTiles()
     {
         return tiles.FindAll(t => !t.isFromHero()).ToArray();
-        //return enemyTiles;
     }
 
     public Tile[] getMySideTiles(bool side)
     {
         return side ? getHeroesTiles() : getEnemiesTiles();
-        //if (side)
-        //    return heroTiles;
-        //else
-        //    return enemyTiles;
     }
 
     public Tile[] getMyEnemiesTiles(bool side)
     {
         return getMySideTiles(!side);
-        //if (side)
-        //    return enemyTiles;
-        //else
-        //    return heroTiles;
     }
 
     public void ClearAndSetASide(List<Character> side)
@@ -146,12 +103,6 @@ public class Battleground : MonoBehaviour
             {
                 tiles[i + tiles.Count / 2].setOccupant(side[i]);
             }
-            //heroSide.Clear();
-            //this.heroSide = side;
-            //for (int i = 0; i < 4 - sideSize; i++)
-            //{
-            //    this.heroSide.Add(null);
-            //}
         }
         else
         {
@@ -159,12 +110,6 @@ public class Battleground : MonoBehaviour
             {
                 tiles[i].setOccupant(side[i]);
             }
-            //enemySide.Clear();
-            //this.enemySide = side;
-            //for (int i = 0; i < 4 - sideSize; i++)
-            //{
-            //    this.enemySide.Add(null);
-            //}
         }
     }
 
@@ -175,94 +120,27 @@ public class Battleground : MonoBehaviour
             if (i < tiles.Capacity / 2)
             {
                 tiles.Add(new Tile(i, false, this));
-                //tiles[i] = new Tile(i, true, this);
             }
             else
             {
                 tiles.Add(new Tile(i, true, this));
             }
         }
-        //for (int i = 0; i < heroTiles.Length; i++)
-        //{
-        //    heroTiles[i] = new Tile(i, true, this);
-        //}
-        //for (int i = 0; i < enemyTiles.Length; i++)
-        //{
-        //    enemyTiles[i] = new Tile(i, false, this);
-        //}
     }
-
-    //void setOccupantsOfAllTiles(List<Character> heroSide, List<Character> enemySide)
-    //{
-    //    for (int i = 0; i < heroSide.Count; i++)
-    //    {
-    //        heroTiles[i].setOccupant(heroSide[i]);
-    //    }
-    //    for (int i = 0; i < enemySide.Count; i++)
-    //    {
-    //        enemyTiles[i].setOccupant(enemySide[i]);
-    //    }
-    //}
 
     public Tile GetTile(Character character)
     {
         return tiles.Find(t => t.getOccupant() == character);
-        //if (character.IsPlayable())
-        //{
-        //    foreach (Tile tile in heroTiles)
-        //    {
-        //        if (tile.IsYourCharacter(character))
-        //            return tile;
-        //    }
-        //}
-        //else
-        //{
-        //    foreach (Tile tile in enemyTiles)
-        //    {
-        //        if (tile.IsYourCharacter(character))
-        //            return tile;
-        //    }
-        //}
-        //return null;
     }
 
     public Tile[] GetAlivePCTiles()
     {
         return tiles.FindAll(t => t.getOccupant() != null ? t.getOccupant().IsPlayable() && t.getOccupant().isAlive() : false).ToArray();
-
-        //List<int> alivePCIndex = new List<int>();
-        //foreach (Tile tile in heroTiles)
-        //{
-        //    if (tile.IsOccupied())
-        //    {
-        //        alivePCIndex.Add(tile.getIndex());
-        //    }
-        //}
-        //Tile[] alivePCTiles = new Tile[alivePCIndex.Count];
-        //for (int i = 0; i < alivePCIndex.Count; i++)
-        //{
-        //    alivePCTiles[i] = heroTiles[alivePCIndex[i]];
-        //}
-        //return alivePCTiles;
     }
 
     public Tile[] GetAliveNPCTiles()
     {
         return tiles.FindAll(t => t.getOccupant() != null ? !t.getOccupant().IsPlayable() && t.getOccupant().isAlive() : false).ToArray();
-        //List<int> aliveNPCIndex = new List<int>();
-        //foreach (Tile tile in enemyTiles)
-        //{
-        //    if (tile.IsOccupied())
-        //    {
-        //        aliveNPCIndex.Add(tile.getIndex());
-        //    }
-        //}
-        //Tile[] aliveNPCTiles = new Tile[aliveNPCIndex.Count];
-        //for (int i = 0; i < aliveNPCIndex.Count; i++)
-        //{
-        //    aliveNPCTiles[i] = enemyTiles[aliveNPCIndex[i]];
-        //}
-        //return aliveNPCTiles;
     }
 
     public List<Tile> GetTiles() { return tiles; }
@@ -314,8 +192,6 @@ public class Battleground : MonoBehaviour
             }
         }
         public bool isFromHero() { return fromHero; }
-        //public Tile[] GetAlliesTiles() { return fromHero ? battleground.heroTiles : battleground.enemyTiles; }
-        //public Tile[] GetEnemiesTiles() { return fromHero ? battleground.enemyTiles : battleground.heroTiles; }
         public Tile[] GetAlliesTiles() { return fromHero ? battleground.getHeroesTiles() : battleground.getEnemiesTiles(); }
         public Tile[] GetEnemiesTiles() { return fromHero ? battleground.getEnemiesTiles() : battleground.getHeroesTiles(); }
         public int GetIndex() { return index; }

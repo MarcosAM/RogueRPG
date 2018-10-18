@@ -20,7 +20,6 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
         {
             choosedEquip = character.getUsableEquips()[Random.Range(0, character.getUsableEquips().Count)];
             targetTile = choosedEquip.GetBestTarget(character);
-            //TODO todos os golpes de inimigos não são momentum
             choosedEquip.UseEquipmentOn(character, targetTile, this, false);
         }
     }
