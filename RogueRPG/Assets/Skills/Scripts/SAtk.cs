@@ -38,6 +38,7 @@ public class SAtk : Skill
                 if (DidIHit(tile.getOccupant(), hit))
                 {
                     damages.Add(Damage(tile.getOccupant(), dmg, false));
+                    Debug.Log("Hit!");
                 }
                 else
                 {

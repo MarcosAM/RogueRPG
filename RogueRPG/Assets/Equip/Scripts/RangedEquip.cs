@@ -7,10 +7,20 @@ public class RangedEquip : Equip
 {
     public override Battleground.Tile GetBestTarget(Character user)
     {
-        List<Battleground.Tile> alliedTiles = DungeonManager.getInstance().getBattleground().GetTiles().FindAll(t => t.isFromHero() == user.IsPlayable() && !t.IsOccupied());
+        List<Battleground.Tile> alliedTiles = DungeonManager.getInstance().getBattleground().GetTiles().FindAll(t => t.isFromHero() == user.IsPlayable() && (!t.IsOccupied() || t.getOccupant() == user));
         List<Battleground.Tile> aliveOpponentTiles = DungeonManager.getInstance().getBattleground().GetTiles().FindAll(t => t.isFromHero() != user.IsPlayable() && t.IsOccupied());
         alliedTiles.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
-        return alliedTiles.Find(t => Mathf.Abs(t.GetRow() - user.getPosition()) <= alliesSkill.GetRange());
+        Battleground.Tile targetTile = alliedTiles.Find(t => Mathf.Abs(t.GetRow() - user.getPosition()) <= alliesSkill.GetRange());
+        if (targetTile == user.GetTile())
+        {
+
+            if (aliveOpponentTiles.Exists(t => Mathf.Abs(user.GetTile().GetRow() - t.GetRow()) > meleeSkill.GetRange()))
+            {
+                aliveOpponentTiles.RemoveAll(t => Mathf.Abs(user.GetTile().GetRow() - t.GetRow()) <= meleeSkill.GetRange());
+            }
+            targetTile = aliveOpponentTiles[Random.Range(0, aliveOpponentTiles.Count)];
+        }
+        return targetTile;
     }
 
     int GetSmallerDistance(Battleground.Tile tile, List<Battleground.Tile> tiles)
