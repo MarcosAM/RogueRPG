@@ -1,10 +1,9 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Skills\Scripts\SEAssault.cs">
+﻿<Properties StartupItem="RogueRPG.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Equip\Scripts\RangedEquip.cs">
     <Files>
       <File FileName="Assets\TargetBtn.cs" Line="151" Column="1" />
-      <File FileName="Assets\Skills\Scripts\SkillEffect.cs" Line="169" Column="1" />
-      <File FileName="Assets\Skills\Scripts\SEAssault.cs" Line="23" Column="121" />
+      <File FileName="Assets\Equip\Scripts\RangedEquip.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

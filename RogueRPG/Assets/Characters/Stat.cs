@@ -81,6 +81,8 @@ public class Stat
         }
     }
 
+    public Intensity GetIntensity() { return intensity; }
+
     public const float CRITIC_BUFF_1 = 0.1f;
     public const float CRITIC_BUFF_2 = 0.3f;
     public const float CRITIC_BUFF_3 = 0.5f;

@@ -13,7 +13,27 @@ public class RangedEquip : Equip
         Battleground.Tile targetTile = alliedTiles.Find(t => Mathf.Abs(t.GetRow() - user.getPosition()) <= alliesSkill.GetRange());
         if (targetTile == user.GetTile())
         {
-
+            if (user.IsDebuffed())
+            {
+                if (selfSkill is SBuff)
+                {
+                    if (user.IsDebuffed(((SBuff)selfSkill).GetStats()))
+                    {
+                        if (user.GetBuffIntensity(((SBuff)selfSkill).GetStats()) < ((SBuff)selfSkill).GetIntensity())
+                        {
+                            return targetTile;
+                        }
+                    }
+                }
+            }
+            if (Random.value < 0.3f)
+            {
+                if (selfSkill is SBuff)
+                {
+                    if (user.GetBuffIntensity(((SBuff)selfSkill).GetStats()) <= ((SBuff)selfSkill).GetIntensity())
+                        return targetTile;
+                }
+            }
             if (aliveOpponentTiles.Exists(t => Mathf.Abs(user.GetTile().GetRow() - t.GetRow()) > meleeSkill.GetRange()))
             {
                 aliveOpponentTiles.RemoveAll(t => Mathf.Abs(user.GetTile().GetRow() - t.GetRow()) <= meleeSkill.GetRange());

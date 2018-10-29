@@ -6,9 +6,10 @@ using UnityEngine;
 public class SBuff : Skill
 {
 
-    public enum BuffType { Atk, Atkm, Def, Defm, Precision, Dodge, Critic };
+    //public enum BuffType { Atk, Atkm, Def, Defm, Precision, Dodge, Critic };
     [SerializeField] int duration;
-    [SerializeField] BuffType buffType;
+    //[SerializeField] BuffType buffType;
+    [SerializeField] Stat.Stats stat;
     [SerializeField] Stat.Intensity intensity;
 
     public override void UniqueEffect(Character user, Battleground.Tile tile)
@@ -16,27 +17,27 @@ public class SBuff : Skill
         base.UniqueEffect(user, tile);
         if (tile.getOccupant() != null)
         {
-            switch (buffType)
+            switch (stat)
             {
-                case BuffType.Critic:
+                case Stat.Stats.Critic:
                     tile.getOccupant().CriticBuff(intensity, duration);
                     break;
-                case BuffType.Dodge:
+                case Stat.Stats.Dodge:
                     tile.getOccupant().DodgeBuff(intensity, duration);
                     break;
-                case BuffType.Precision:
+                case Stat.Stats.Precision:
                     tile.getOccupant().PrecisionBuff(intensity, duration);
                     break;
-                case BuffType.Atk:
+                case Stat.Stats.Atk:
                     tile.getOccupant().AtkBuff(intensity, duration);
                     break;
-                case BuffType.Atkm:
+                case Stat.Stats.Atkm:
                     tile.getOccupant().AtkmBuff(intensity, duration);
                     break;
-                case BuffType.Def:
+                case Stat.Stats.Def:
                     tile.getOccupant().DefBuff(intensity, duration);
                     break;
-                case BuffType.Defm:
+                case Stat.Stats.Defm:
                     tile.getOccupant().DefmBuff(intensity, duration);
                     break;
                 default:
@@ -56,4 +57,7 @@ public class SBuff : Skill
     {
         base.OnMissedEffect(user, tile);
     }
+
+    public Stat.Stats GetStats() { return stat; }
+    public Stat.Intensity GetIntensity() { return intensity; }
 }

@@ -634,4 +634,157 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     {
         return equip == equips[equips.Length - 1];
     }
+
+    public bool IsBuffed(Stat.Stats stats)
+    {
+        switch (stats)
+        {
+            case Stat.Stats.Critic:
+                if (critic.getBuffValue() > 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Dodge:
+                if (dodge.getBuffValue() > 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Precision:
+                if (precision.getBuffValue() > 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Atk:
+                if (atk.getBuffValue() > 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Atkm:
+                if (atkm.getBuffValue() > 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Def:
+                if (def.getBuffValue() > 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Defm:
+                if (defm.getBuffValue() > 0)
+                    return true;
+                else
+                    return false;
+            default:
+                return false;
+        }
+    }
+
+    public float GetBuffValueOf(Stat.Stats stats)
+    {
+        switch (stats)
+        {
+            case Stat.Stats.Critic:
+                return critic.getBuffValue();
+            case Stat.Stats.Dodge:
+                return dodge.getBuffValue();
+            case Stat.Stats.Precision:
+                return precision.getBuffValue();
+            case Stat.Stats.Atk:
+                return atk.getBuffValue();
+            case Stat.Stats.Atkm:
+                return atkm.getBuffValue();
+            case Stat.Stats.Def:
+                return def.getBuffValue();
+            case Stat.Stats.Defm:
+                return defm.getBuffValue();
+            default:
+                return 0;
+        }
+    }
+
+    public Stat.Intensity GetBuffIntensity(Stat.Stats stats)
+    {
+        switch (stats)
+        {
+            case Stat.Stats.Critic:
+                return critic.GetIntensity();
+            case Stat.Stats.Dodge:
+                return dodge.GetIntensity();
+            case Stat.Stats.Precision:
+                return precision.GetIntensity();
+            case Stat.Stats.Atk:
+                return atk.GetIntensity();
+            case Stat.Stats.Atkm:
+                return atkm.GetIntensity();
+            case Stat.Stats.Def:
+                return def.GetIntensity();
+            case Stat.Stats.Defm:
+                return defm.GetIntensity();
+            default:
+                return Stat.Intensity.None;
+        }
+    }
+
+    public bool IsDebuffed()
+    {
+        if (atk.getBuffValue() < 0)
+            return true;
+        if (atkm.getBuffValue() < 0)
+            return true;
+        if (def.getBuffValue() < 0)
+            return true;
+        if (defm.getBuffValue() < 0)
+            return true;
+        if (critic.getBuffValue() < 0)
+            return true;
+        if (precision.getBuffValue() < 0)
+            return true;
+        if (dodge.getBuffValue() < 0)
+            return true;
+        return false;
+    }
+
+    public bool IsDebuffed(Stat.Stats stats)
+    {
+        switch (stats)
+        {
+            case Stat.Stats.Critic:
+                if (critic.getBuffValue() < 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Dodge:
+                if (dodge.getBuffValue() < 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Precision:
+                if (precision.getBuffValue() < 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Atk:
+                if (atk.getBuffValue() < 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Atkm:
+                if (atkm.getBuffValue() < 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Def:
+                if (def.getBuffValue() < 0)
+                    return true;
+                else
+                    return false;
+            case Stat.Stats.Defm:
+                if (defm.getBuffValue() < 0)
+                    return true;
+                else
+                    return false;
+            default:
+                return false;
+        }
+    }
 }
