@@ -91,6 +91,7 @@
     <Compile Include="Assets\CombatBtn.cs" />
     <Compile Include="Assets\CombHUDManager.cs" />
     <Compile Include="Assets\DudeDontDie.cs" />
+    <Compile Include="Assets\Equip\Scripts\ChargeEquip.cs" />
     <Compile Include="Assets\Equip\Scripts\Equip.cs" />
     <Compile Include="Assets\Equip\Scripts\RangedEquip.cs" />
     <Compile Include="Assets\Equip\Scripts\StandartEquip.cs" />
