@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class CombHUDManager : MonoBehaviour
 {
-    [SerializeField] TileUI[] heroesCombatantHUD = new TileUI[4];
-    [SerializeField] TileUI[] enemiesCombatantHUD = new TileUI[4];
     [SerializeField] List<TileUI> tileUIs = new List<TileUI>();
 
     static CombHUDManager instance = null;
@@ -18,52 +16,18 @@ public class CombHUDManager : MonoBehaviour
 
     public void ShowCombatants(List<Battleground.Tile> tiles)
     {
-        //foreach (TileUI tileUI in tileUIs)
-        //{
-        //    tileUI.Deinitialize();
-        //    tileUI.gameObject.SetActive(false);
-        //}
+        foreach (TileUI tileUI in tileUIs)
+        {
+            tileUI.Deinitialize();
+            tileUI.gameObject.SetActive(false);
+        }
 
-        //for (int i = 0; i < tiles.Count; i++)
-        //{
-        //    tileUIs[i].gameObject.SetActive(true);
-        //    tileUIs[i].Initialize(tiles[i]);
-        //    if (tiles[i].getOccupant() != null)
-        //        tiles[i].getOccupant().setHUD(tileUIs[i]);
-        //}
-
-        ClearCombatantsHUDs();
         for (int i = 0; i < tiles.Count; i++)
         {
-            if (i < tiles.Count / 2)
-            {
-                enemiesCombatantHUD[i].gameObject.SetActive(true);
-                enemiesCombatantHUD[i].Initialize(tiles[i]);
-                if (tiles[i].getOccupant() != null)
-                    tiles[i].getOccupant().setHUD(enemiesCombatantHUD[i]);
-            }
-            else
-            {
-                heroesCombatantHUD[i - tiles.Count / 2].gameObject.SetActive(true);
-                heroesCombatantHUD[i - tiles.Count / 2].Initialize(tiles[i]);
-                if (tiles[i].getOccupant() != null)
-                    tiles[i].getOccupant().setHUD(heroesCombatantHUD[i - tiles.Count / 2]);
-            }
-        }
-    }
-
-    public void ClearCombatantsHUDs()
-    {
-        foreach (TileUI combatantHUD in heroesCombatantHUD)
-        {
-            combatantHUD.Deinitialize();
-            combatantHUD.gameObject.SetActive(false);
-        }
-
-        foreach (TileUI combatantHUD in enemiesCombatantHUD)
-        {
-            combatantHUD.Deinitialize();
-            combatantHUD.gameObject.SetActive(false);
+            tileUIs[i].gameObject.SetActive(true);
+            tileUIs[i].Initialize(tiles[i]);
+            if (tiles[i].getOccupant() != null)
+                tiles[i].getOccupant().setHUD(tileUIs[i]);
         }
     }
 
@@ -79,39 +43,30 @@ public class CombHUDManager : MonoBehaviour
         }
     }
 
+
+    //TODO Apagar esse negócio aqui!
     public void RefreshInitiativeHUD()
     {
-        foreach (TileUI hud in heroesCombatantHUD)
+        foreach (TileUI tileUI in tileUIs)
         {
-            hud.RefreshInitiative();
-        }
-        foreach (TileUI hud in enemiesCombatantHUD)
-        {
-            hud.RefreshInitiative();
+            tileUI.RefreshInitiative();
         }
     }
 
     public void ShowTargetBtns(Character user, Equip choosedSkill)
     {
-        for (int i = 0; i < heroesCombatantHUD.Length; i++)
+        foreach (TileUI tileUI in tileUIs)
         {
-            heroesCombatantHUD[i].ShowTargetBtn(user, choosedSkill);
-        }
-        for (int i = 0; i < enemiesCombatantHUD.Length; i++)
-        {
-            enemiesCombatantHUD[i].ShowTargetBtn(user, choosedSkill);
+            tileUI.ShowTargetBtn(user, choosedSkill);
         }
     }
 
+    //TODO Tirar essa bool!
     public void HideTargetBtns(bool asPreview)
     {
-        for (int i = 0; i < heroesCombatantHUD.Length; i++)
+        foreach (TileUI tileUI in tileUIs)
         {
-            heroesCombatantHUD[i].HideTargetBtn();
-        }
-        for (int i = 0; i < enemiesCombatantHUD.Length; i++)
-        {
-            enemiesCombatantHUD[i].HideTargetBtn();
+            tileUI.HideTargetBtn();
         }
     }
 
@@ -128,13 +83,9 @@ public class CombHUDManager : MonoBehaviour
 
     public void PreviewTargets(Character user, Equip selectedEquip, Battleground.Tile target)
     {
-        for (int i = 0; i < heroesCombatantHUD.Length; i++)
+        foreach (TileUI tileUI in tileUIs)
         {
-            heroesCombatantHUD[i].CheckIfAffected(target, selectedEquip, user);
-        }
-        for (int i = 0; i < enemiesCombatantHUD.Length; i++)
-        {
-            enemiesCombatantHUD[i].CheckIfAffected(target, selectedEquip, user);
+            tileUI.CheckIfAffected(target, selectedEquip, user);
         }
     }
 
@@ -143,32 +94,24 @@ public class CombHUDManager : MonoBehaviour
         FindObjectOfType<PlayerInputManager>().HoverTargetBtnExit(targetBtn);
     }
 
+
+    //TODO Tirar isso aqui!
     public void startTurnOf(Character character)
     {
-        foreach (TileUI combatantHUD in heroesCombatantHUD)
+        foreach (TileUI tileUI in tileUIs)
         {
-            if (combatantHUD.getCharacter() == character)
+            if (tileUI.getCharacter() == character)
             {
-                combatantHUD.showTargetBtnWithColor(Color.grey);
+                tileUI.showTargetBtnWithColor(Color.grey);
             }
             else
             {
-                combatantHUD.HideTargetBtn();
-            }
-        }
-        foreach (TileUI combatantHUD in enemiesCombatantHUD)
-        {
-            if (combatantHUD.getCharacter() == character)
-            {
-                combatantHUD.showTargetBtnWithColor(Color.grey);
-            }
-            else
-            {
-                combatantHUD.HideTargetBtn();
+                tileUI.HideTargetBtn();
             }
         }
     }
 
+    //TODO Se livrar disso aqui tbm!
     public void endTurnOf(Character character)
     {
         character.getHUD().getAnimator().SetBool("Destaque", false);
@@ -176,7 +119,5 @@ public class CombHUDManager : MonoBehaviour
 
     public static CombHUDManager getInstance() { return instance; }
 
-
-    public TileUI[] getHeroesCombatantHUD() { return heroesCombatantHUD; }
-    public TileUI[] getEnemiesCombatantHUD() { return enemiesCombatantHUD; }
+    public List<TileUI> GetTileUIs() { return tileUIs; }
 }
