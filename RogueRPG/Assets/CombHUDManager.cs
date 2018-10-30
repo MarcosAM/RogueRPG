@@ -5,52 +5,33 @@ using UnityEngine.UI;
 
 public class CombHUDManager : MonoBehaviour
 {
-
-    //	[SerializeField]CombatantHUD combatantHUDprefab;
-
     [SerializeField] TileUI[] heroesCombatantHUD = new TileUI[4];
     [SerializeField] TileUI[] enemiesCombatantHUD = new TileUI[4];
+    [SerializeField] List<TileUI> tileUIs = new List<TileUI>();
 
-    [SerializeField] private Vector2[] heroesPositions = new Vector2[4];
-    [SerializeField] private Vector2[] enemiesPositions = new Vector2[4];
-
-    //TESTE
-    [SerializeField] SkillBtn[] skillsBtn = new SkillBtn[4];
     static CombHUDManager instance = null;
-    bool showingMomentumSkill = true;
-    [SerializeField] MomentumTabBtn momentumTabBtn;
-    [SerializeField] UndoBtn undoBtn;
-    [SerializeField] Text chooseYourTxt;
 
     public void Awake()
     {
         MakeItASingleton();
-        //		chooseYourTxt.gameObject.SetActive(false);
-        //		DontDestroyOnLoad (this.gameObject);
-        //		CreateCombatantHUDs ();
     }
-
-    //public void ShowCombatants(Battleground.Tile[] heroesTiles, Battleground.Tile[] enemiesTiles)
-    //{
-    //    ClearCombatantsHUDs();
-    //    for (int i = 0; i < heroesTiles.Length; i++)
-    //    {
-    //        heroesCombatantHUD[i].gameObject.SetActive(true);
-    //        heroesCombatantHUD[i].Initialize(heroesTiles[i]);
-    //        if (heroesTiles[i].getOccupant() != null)
-    //            heroesTiles[i].getOccupant().setHUD(heroesCombatantHUD[i]);
-    //    }
-    //    for (int i = 0; i < enemiesTiles.Length; i++)
-    //    {
-    //        enemiesCombatantHUD[i].gameObject.SetActive(true);
-    //        enemiesCombatantHUD[i].Initialize(enemiesTiles[i]);
-    //        if (enemiesTiles[i].getOccupant() != null)
-    //            enemiesTiles[i].getOccupant().setHUD(enemiesCombatantHUD[i]);
-    //    }
-    //}
 
     public void ShowCombatants(List<Battleground.Tile> tiles)
     {
+        //foreach (TileUI tileUI in tileUIs)
+        //{
+        //    tileUI.Deinitialize();
+        //    tileUI.gameObject.SetActive(false);
+        //}
+
+        //for (int i = 0; i < tiles.Count; i++)
+        //{
+        //    tileUIs[i].gameObject.SetActive(true);
+        //    tileUIs[i].Initialize(tiles[i]);
+        //    if (tiles[i].getOccupant() != null)
+        //        tiles[i].getOccupant().setHUD(tileUIs[i]);
+        //}
+
         ClearCombatantsHUDs();
         for (int i = 0; i < tiles.Count; i++)
         {
@@ -84,55 +65,6 @@ public class CombHUDManager : MonoBehaviour
             combatantHUD.Deinitialize();
             combatantHUD.gameObject.SetActive(false);
         }
-    }
-
-    //TESTE
-    public void ShowSkillsBtnOf(Character character)
-    {
-        chooseYourTxt.gameObject.SetActive(true);
-        chooseYourTxt.text = "Choose Your Equipment:";
-        if (DungeonManager.getInstance().IsMomentumFull())
-        {
-            if (showingMomentumSkill)
-            {
-                for (int i = 0; i < skillsBtn.Length; i++)
-                {
-                    skillsBtn[i].showMomentumSkillOf(character);
-                }
-                momentumTabBtn.appear("Skills");
-            }
-            else
-            {
-                for (int i = 0; i < skillsBtn.Length; i++)
-                {
-                    skillsBtn[i].RefreshSelf(character);
-                }
-                momentumTabBtn.appear("Momentum");
-            }
-        }
-        else
-        {
-            for (int i = 0; i < skillsBtn.Length; i++)
-            {
-                skillsBtn[i].RefreshSelf(character);
-            }
-        }
-        Character[] allCharacters = FindObjectsOfType<Character>();
-        for (int i = 0; i < allCharacters.Length; i++)
-        {
-            allCharacters[i].getHUD().getAnimator().SetBool("Destaque", false);
-        }
-        character.getHUD().getAnimator().SetBool("Destaque", true);
-    }
-
-    public void HideSkillsBtn()
-    {
-        for (int i = 0; i < skillsBtn.Length; i++)
-        {
-            skillsBtn[i].Disappear();
-        }
-        chooseYourTxt.gameObject.SetActive(false);
-        momentumTabBtn.disappear();
     }
 
     void MakeItASingleton()
@@ -181,51 +113,12 @@ public class CombHUDManager : MonoBehaviour
         {
             enemiesCombatantHUD[i].HideTargetBtn();
         }
-        //		if(!asPreview){
-        //			chooseYourTxt.gameObject.SetActive(false);
-        //		}
-        //		FindObjectOfType<Narration>().Disappear();
-        //		undoBtn.Disappear ();
     }
 
-    public void onSkillBtnPressed(SkillBtn skillBtn)
-    {
-        //		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-        //		combatBehavior.skillBtnPressed(skillBtn.getSkill());
-    }
 
     public void onTargetBtnPressed(Battleground.Tile targetTile)
     {
-        //		CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-        //		combatBehavior.targetBtnPressed(targetTile);
         FindObjectOfType<PlayerInputManager>().ReturnEquipAndTarget(targetTile);
-    }
-
-    public void onSkillBtnHoverEnter(SkillBtn skillBtn)
-    {
-        //CombatBehavior combatBehavior = DungeonManager.getInstance ().getInitiativeOrder () [0].getBehavior ();
-        //if (combatBehavior.getChoosedSkill () != null) {
-
-        //} else {
-        //	if (skillBtn.getSkill ().getCharactersThatCantUseMe ().Contains (combatBehavior.getCharacter ())) {
-
-        //	} else {
-        //		ShowTargetBtns (combatBehavior.getCharacter(),skillBtn.getSkill(), true);
-        //	}
-        //}
-    }
-
-    public void onSkillBtnHoverExit(SkillBtn skillBtn)
-    {
-        CombatBehavior combatBehavior = DungeonManager.getInstance().getInitiativeOrder()[0].getBehavior();
-        if (combatBehavior.GetChoosedEquip() != null)
-        {
-
-        }
-        else
-        {
-            HideTargetBtns(true);
-        }
     }
 
     public void OnTargetBtnHoverEnter(TargetBtn targetBtn)
@@ -282,48 +175,8 @@ public class CombHUDManager : MonoBehaviour
     }
 
     public static CombHUDManager getInstance() { return instance; }
-    public Vector2[] getHeroesPositions() { return heroesPositions; }
-    public Vector2[] getEnemiesPositions() { return enemiesPositions; }
 
-    public void onMomentumTabBtnPressed()
-    {
-        if (showingMomentumSkill)
-        {
-            showingMomentumSkill = false;
-        }
-        else
-        {
-            showingMomentumSkill = true;
-        }
-        ShowSkillsBtnOf(DungeonManager.getInstance().getInitiativeOrder()[0]);
-    }
 
     public TileUI[] getHeroesCombatantHUD() { return heroesCombatantHUD; }
     public TileUI[] getEnemiesCombatantHUD() { return enemiesCombatantHUD; }
-
-    //	public class momentumTabBtn{
-    //		Text text;
-    //		Button button;
-    //		CombHUDManager combHudManager;
-    //
-    //		public void appear(string buttonText){
-    //			text.text = buttonText;
-    //			button.interactable = true;
-    //		}
-    //
-    //		public void disappear(){
-    //			button.interactable = false;
-    //		}
-    //
-    //		public void onClick(){
-    //			combHudManager.onMomentumTabBtnPressed ();
-    //		}
-    //
-    //		public momentumTabBtn(Button button, CombHUDManager combHudManager){
-    //			this.button = button;
-    //			this.combHudManager = combHudManager;
-    //			this.text = button.GetComponentInChildren<Text>();
-    //			this.button.onClick.AddListener(onClick);
-    //		}
-    //	}
 }

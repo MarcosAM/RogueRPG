@@ -107,12 +107,10 @@
     <Compile Include="Assets\Logic\EventManager.cs" />
     <Compile Include="Assets\Logic\GameManager.cs" />
     <Compile Include="Assets\MomentumBar.cs" />
-    <Compile Include="Assets\MomentumTabBtn.cs" />
     <Compile Include="Assets\Narration.cs" />
     <Compile Include="Assets\Quests\BattleGroups\BattleGroup.cs" />
     <Compile Include="Assets\Quests\Dungeons\Dungeon.cs" />
     <Compile Include="Assets\Quests\Quest.cs" />
-    <Compile Include="Assets\SkillBtn.cs" />
     <Compile Include="Assets\Skills\Scripts\SAssault.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtk.cs" />
     <Compile Include="Assets\Skills\Scripts\SBuff.cs" />
