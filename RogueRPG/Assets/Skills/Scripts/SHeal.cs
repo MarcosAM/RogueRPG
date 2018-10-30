@@ -8,8 +8,8 @@ public class SHeal : Skill
     public override void UniqueEffect(Character user, Battleground.Tile tile)
     {
         base.UniqueEffect(user, tile);
-        if (tile.getOccupant () != null)
-            tile.getOccupant().Heal(Mathf.RoundToInt(value + user.getAtkmValue()));
+        if (tile.getOccupant() != null)
+            tile.getOccupant().Heal(Mathf.RoundToInt(value + user.GetStatValue(Stat.Stats.Atkm)));
     }
 
     public override void OnHitEffect(Character user, Battleground.Tile tile)

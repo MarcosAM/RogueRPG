@@ -84,6 +84,7 @@
     <Compile Include="Assets\Characters\Character.cs" />
     <Compile Include="Assets\Characters\CharacterMovement.cs" />
     <Compile Include="Assets\Characters\CStats\StandartStats.cs" />
+    <Compile Include="Assets\Characters\HPStat.cs" />
     <Compile Include="Assets\Characters\IMovable.cs" />
     <Compile Include="Assets\Characters\NonPlayableCharacter.cs" />
     <Compile Include="Assets\Characters\PlayableCharacter.cs" />

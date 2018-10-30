@@ -91,11 +91,11 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         //}
         //else
         //{
-            targetsLeft--;
-            if (targetsLeft <= 0)
-            {
-                EndSkill();
-            }
+        targetsLeft--;
+        if (targetsLeft <= 0)
+        {
+            EndSkill();
+        }
         //}
     }
 
@@ -153,7 +153,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
         if (tile.IsOccupied())
         {
-            return precision + user.getPrecisionValue() - distanceInfluence - tile.getOccupant().getDodgeValue();
+            return precision + user.GetStatValue(Stat.Stats.Precision) - distanceInfluence - tile.getOccupant().GetStatValue(Stat.Stats.Dodge);
         }
         else
             return 0f;
@@ -163,11 +163,11 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     {
         if (source == Source.Physical)
         {
-            return (currentUser.getAtkValue() + skillDamage) * Random.Range(1f, 1.2f);
+            return (currentUser.GetStatValue(Stat.Stats.Atk) + skillDamage) * Random.Range(1f, 1.2f);
         }
         else
         {
-            return (currentUser.getAtkmValue() + skillDamage) * Random.Range(1f, 1.2f);
+            return (currentUser.GetStatValue(Stat.Stats.Atkm) + skillDamage) * Random.Range(1f, 1.2f);
         }
     }
 
@@ -178,7 +178,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     protected bool WasCritic()
     {
-        if (Random.value <= critic + currentUser.getCritic().GetValue() && critic > 0 && source == Source.Physical)
+        if (Random.value <= critic + currentUser.GetStatValue(Stat.Stats.Critic) && critic > 0 && source == Source.Physical)
         {
             return true;
         }

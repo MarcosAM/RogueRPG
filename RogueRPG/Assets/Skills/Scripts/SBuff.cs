@@ -17,33 +17,34 @@ public class SBuff : Skill
         base.UniqueEffect(user, tile);
         if (tile.getOccupant() != null)
         {
-            switch (stat)
-            {
-                case Stat.Stats.Critic:
-                    tile.getOccupant().CriticBuff(intensity, duration);
-                    break;
-                case Stat.Stats.Dodge:
-                    tile.getOccupant().DodgeBuff(intensity, duration);
-                    break;
-                case Stat.Stats.Precision:
-                    tile.getOccupant().PrecisionBuff(intensity, duration);
-                    break;
-                case Stat.Stats.Atk:
-                    tile.getOccupant().AtkBuff(intensity, duration);
-                    break;
-                case Stat.Stats.Atkm:
-                    tile.getOccupant().AtkmBuff(intensity, duration);
-                    break;
-                case Stat.Stats.Def:
-                    tile.getOccupant().DefBuff(intensity, duration);
-                    break;
-                case Stat.Stats.Defm:
-                    tile.getOccupant().DefmBuff(intensity, duration);
-                    break;
-                default:
-                    tile.getOccupant().PrecisionBuff(intensity, duration);
-                    break;
-            }
+            tile.getOccupant().BuffIt(stat, intensity, duration);
+            //switch (stat)
+            //{
+            //    case Stat.Stats.Critic:
+            //        tile.getOccupant().CriticBuff(intensity, duration);
+            //        break;
+            //    case Stat.Stats.Dodge:
+            //        tile.getOccupant().DodgeBuff(intensity, duration);
+            //        break;
+            //    case Stat.Stats.Precision:
+            //        tile.getOccupant().PrecisionBuff(intensity, duration);
+            //        break;
+            //    case Stat.Stats.Atk:
+            //        tile.getOccupant().AtkBuff(intensity, duration);
+            //        break;
+            //    case Stat.Stats.Atkm:
+            //        tile.getOccupant().AtkmBuff(intensity, duration);
+            //        break;
+            //    case Stat.Stats.Def:
+            //        tile.getOccupant().DefBuff(intensity, duration);
+            //        break;
+            //    case Stat.Stats.Defm:
+            //        tile.getOccupant().DefmBuff(intensity, duration);
+            //        break;
+            //    default:
+            //        tile.getOccupant().PrecisionBuff(intensity, duration);
+            //        break;
+            //}
         }
     }
 

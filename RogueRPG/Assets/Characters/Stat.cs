@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Stat
 {
-    public enum Stats { Atk, Atkm, Def, Defm, Precision, Dodge, Critic };
+    public enum Stats { Atk, Atkm, Def, Defm, Precision, Dodge, Critic, Hp };
     public enum Intensity { None = 0, SmallDebuff = 1, SmallBuff = 2, MediumDebuff = 3, MediumBuff = 4, HighDebuff = 5, HighBuff = 6 };
 
-    Character character;
-    Stats stats;
-    float statBase = 0;
-    Intensity intensity = Intensity.None;
-    int buffDuration = 0;
-    List<float> bonus = new List<float>();
-    IBuffHUD buffHUD;
-    static List<List<float>> buffValues = new List<List<float>> { new List<float> { 0, -10f, 10f, -20f, 20f, -30f, 30f }, new List<float> { 0, -0.1f, 0.1f, -0.3f, 0.3f, -0.5f, 0.5f } };
+    protected Character character;
+    protected Stats stats;
+    protected float statBase = 0;
+    protected Intensity intensity = Intensity.None;
+    protected int buffDuration = 0;
+    protected List<float> bonus = new List<float>();
+    protected IBuffHUD buffHUD;
+    protected static List<List<float>> buffValues = new List<List<float>> { new List<float> { 0, -10f, 10f, -20f, 20f, -30f, 30f }, new List<float> { 0, -0.1f, 0.1f, -0.3f, 0.3f, -0.5f, 0.5f } };
 
     public Stat(Character character, Stats stats, IBuffHUD buffHUD)
     {
@@ -69,7 +69,7 @@ public class Stat
         buffDuration = 0;
         buffHUD.Stop(character, stats);
     }
-    public void SpendAndCheckIfEnded()
+    public virtual void SpendAndCheckIfEnded()
     {
         if (intensity != 0)
         {
@@ -82,6 +82,8 @@ public class Stat
     }
 
     public Intensity GetIntensity() { return intensity; }
+
+    public Stats GetStats() { return stats; }
 
     public const float CRITIC_BUFF_1 = 0.1f;
     public const float CRITIC_BUFF_2 = 0.3f;

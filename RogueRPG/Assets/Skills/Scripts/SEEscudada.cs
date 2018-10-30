@@ -24,14 +24,14 @@ public class SEEscudada : Skill
         {
             if (heroesTiles[user.getPosition() - 1].getOccupant() != null)
             {
-                heroesTiles[user.getPosition() - 1].getOccupant().DefBuff(intensity, duration);
+                heroesTiles[user.getPosition() - 1].getOccupant().BuffIt(Stat.Stats.Def, intensity, duration);
             }
         }
         if (user.getPosition() + 1 <= 4)
         {
             if (heroesTiles[user.getPosition() + 1].getOccupant() != null)
             {
-                heroesTiles[user.getPosition() + 1].getOccupant().DefBuff(intensity, duration);
+                heroesTiles[user.getPosition() + 1].getOccupant().BuffIt(Stat.Stats.Def, intensity, duration);
             }
         }
     }
