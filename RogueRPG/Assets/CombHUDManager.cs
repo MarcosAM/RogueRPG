@@ -43,16 +43,6 @@ public class CombHUDManager : MonoBehaviour
         }
     }
 
-
-    //TODO Apagar esse negócio aqui!
-    public void RefreshInitiativeHUD()
-    {
-        foreach (TileUI tileUI in tileUIs)
-        {
-            tileUI.RefreshInitiative();
-        }
-    }
-
     public void ShowTargetBtns(Character user, Equip choosedSkill)
     {
         foreach (TileUI tileUI in tileUIs)
@@ -61,8 +51,7 @@ public class CombHUDManager : MonoBehaviour
         }
     }
 
-    //TODO Tirar essa bool!
-    public void HideTargetBtns(bool asPreview)
+    public void HideTargetBtns()
     {
         foreach (TileUI tileUI in tileUIs)
         {
@@ -92,29 +81,6 @@ public class CombHUDManager : MonoBehaviour
     public void OnTargetBtnHoverExit(TargetBtn targetBtn)
     {
         FindObjectOfType<PlayerInputManager>().HoverTargetBtnExit(targetBtn);
-    }
-
-
-    //TODO Tirar isso aqui!
-    public void startTurnOf(Character character)
-    {
-        foreach (TileUI tileUI in tileUIs)
-        {
-            if (tileUI.getCharacter() == character)
-            {
-                tileUI.showTargetBtnWithColor(Color.grey);
-            }
-            else
-            {
-                tileUI.HideTargetBtn();
-            }
-        }
-    }
-
-    //TODO Se livrar disso aqui tbm!
-    public void endTurnOf(Character character)
-    {
-        character.getHUD().getAnimator().SetBool("Destaque", false);
     }
 
     public static CombHUDManager getInstance() { return instance; }

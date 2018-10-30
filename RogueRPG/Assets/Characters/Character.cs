@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IPoisonable
+public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
 {
 
     [SerializeField] protected string characterName;
@@ -30,7 +30,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     public event Action<int, int, bool> OnHPValuesChange;
     public event Action OnMyTurnStarts;
     public event Action OnMyTurnEnds;
-    public event Action OnBuffsGainOrLoss;
 
     void Awake()
     {
@@ -407,10 +406,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         critic.SpendAndCheckIfEnded();
         dodge.SpendAndCheckIfEnded();
         precision.SpendAndCheckIfEnded();
-        if (OnBuffsGainOrLoss != null)
-        {
-            OnBuffsGainOrLoss();
-        }
     }
 
     void RemoveAllBuffs()
@@ -422,10 +417,6 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
         dodge.ResetBuff();
         precision.ResetBuff();
         critic.ResetBuff();
-        if (OnBuffsGainOrLoss != null)
-        {
-            OnBuffsGainOrLoss();
-        }
     }
 
     void CheckIfSkillsShouldBeRefreshed()
@@ -443,59 +434,30 @@ public abstract class Character : MonoBehaviour, IComparable, IRegeneratable, IP
     public void AtkBuff(Stat.Intensity intesity, int buffDuration)
     {
         atk.BuffIt(intesity, buffDuration);
-        OnBuffsGainOrLoss();
     }
     public void AtkmBuff(Stat.Intensity intensity, int buffDuration)
     {
         atkm.BuffIt(intensity, buffDuration);
-        OnBuffsGainOrLoss();
     }
     public void DefBuff(Stat.Intensity intensity, int buffDuration)
     {
         def.BuffIt(intensity, buffDuration);
-        OnBuffsGainOrLoss();
     }
     public void DefmBuff(Stat.Intensity intensity, int buffDuration)
     {
         defm.BuffIt(intensity, buffDuration);
-        OnBuffsGainOrLoss();
     }
     public void CriticBuff(Stat.Intensity intensity, int buffDuration)
     {
         critic.BuffIt(intensity, buffDuration);
-        OnBuffsGainOrLoss();
     }
     public void DodgeBuff(Stat.Intensity intensity, int buffDuration)
     {
         dodge.BuffIt(intensity, buffDuration);
-        OnBuffsGainOrLoss();
     }
     public void PrecisionBuff(Stat.Intensity intensity, int buffDuration)
     {
         precision.BuffIt(intensity, buffDuration);
-        OnBuffsGainOrLoss();
-    }
-
-    public int CompareTo(object obj)
-    {
-        if (obj == null)
-        {
-            return 1;
-        }
-
-        Character other = obj as Character;
-        if (this.delayCountdown - other.getDelayCountdown() == 0)
-        {
-            return 0;
-        }
-        if (this.delayCountdown > other.getDelayCountdown())
-        {
-            return 1;
-        }
-        else
-        {
-            return -1;
-        }
     }
 
     public void setStats(StandartStats standartStats)

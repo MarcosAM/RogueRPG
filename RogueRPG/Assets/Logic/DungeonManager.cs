@@ -51,7 +51,6 @@ public class DungeonManager : MonoBehaviour
             character.refresh();
         }
         battleground.ShowCharactersToThePlayer();
-        CombHUDManager.getInstance().RefreshInitiativeHUD();
         round = 0;
         TryToStartTurn();
     }
@@ -118,7 +117,6 @@ public class DungeonManager : MonoBehaviour
             if (initiativeOrder.Count > 0)
             {
                 AdvanceInitiative(initiativeOrder);
-                CombHUDManager.getInstance().RefreshInitiativeHUD();
                 round++;
                 TryToStartTurn();
                 return;
@@ -167,7 +165,6 @@ public class DungeonManager : MonoBehaviour
                 if (character != null)
                     initiativeOrder.Add(character);
             }
-            CombHUDManager.getInstance().RefreshInitiativeHUD();
             round++;
             TryToStartTurn();
         }

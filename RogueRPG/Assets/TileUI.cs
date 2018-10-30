@@ -21,7 +21,6 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
     [SerializeField] RectTransform frontHandler;
     [SerializeField] RectTransform backHandler;
     [SerializeField] private Image equipment;
-    //[SerializeField] private UIParticleSystem uiParticleSPrefab;
     Animator animator;
     IWaitForAnimationByString requester;
 
@@ -52,8 +51,6 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
             name.text = combatant.getName();
             combatant.OnHUDValuesChange += Refresh;
             combatant.OnHPValuesChange += HPFeedback;
-            combatant.OnBuffsGainOrLoss += ShowBuffs;
-            ShowBuffs();
             Refresh();
         }
         else
@@ -76,7 +73,6 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
         {
             combatant.OnHUDValuesChange -= Refresh;
             combatant.OnHPValuesChange -= HPFeedback;
-            combatant.OnBuffsGainOrLoss -= ShowBuffs;
             combatant = null;
         }
     }
@@ -106,14 +102,6 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
         setHpNumbers(combatant.getHp(), combatant.getMaxHp());
     }
 
-    void ShowBuffs()
-    {
-        //UIParticleSystem uIParticleSystem = Instantiate(uiParticleSPrefab);
-        //Debug.Log(combatant.GetTile().getLocalPosition().ToString());
-        //uIParticleSystem.transform.SetParent(FindObjectOfType<Canvas>().transform, false);
-        //uIParticleSystem.rectTransform.localPosition = combatant.GetTile().getLocalPosition();
-    }
-
     public void UseSkillAnimation()
     {
         animator.SetTrigger("UseSkill");
@@ -138,11 +126,6 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
     public void HideTargetBtn()
     {
         targetButton.Disappear();
-    }
-
-    public void RefreshInitiative()
-    {
-
     }
 
     public RectTransform getRectTransform()

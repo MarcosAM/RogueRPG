@@ -183,14 +183,6 @@ public class Battleground : MonoBehaviour
         public Vector2 getLocalPosition()
         {
             return FindObjectOfType<CombHUDManager>().GetTileUIs()[index].getRectTransform().localPosition;
-            //if (fromHero)
-            //{
-            //    return FindObjectOfType<CombHUDManager>().getHeroesCombatantHUD()[GetRow()].getRectTransform().localPosition;
-            //}
-            //else
-            //{
-            //    return FindObjectOfType<CombHUDManager>().getEnemiesCombatantHUD()[GetRow()].getRectTransform().localPosition;
-            //}
         }
         public bool isFromHero() { return fromHero; }
         public Tile[] GetAlliesTiles() { return fromHero ? battleground.getHeroesTiles() : battleground.getEnemiesTiles(); }

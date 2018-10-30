@@ -27,7 +27,6 @@ public class PlayerInputManager : MonoBehaviour
         battleGuide.gameObject.SetActive(true);
         this.combatBehavior = combatBehavior;
         equipTogglerManager.ShowEquipTogglesFor(combatBehavior.GetCharacter(), false);
-        combHUDManager.startTurnOf(combatBehavior.GetCharacter());
     }
 
     public void ReportNewSelectedEquipToggle(EquipToggle equipToggle)
@@ -47,16 +46,15 @@ public class PlayerInputManager : MonoBehaviour
             battleGuide.setText("CHOOSE YOUR EQUIPMENT");
             battleGuide.setAnimatorTrigger("PointDown");
             combatBehavior.GetCharacter().getHUD().getAnimator().SetBool("Equiped", false);
-            combHUDManager.HideTargetBtns(false);
+            combHUDManager.HideTargetBtns();
             skillPreviewManager.hideSkillPreviews();
-            combHUDManager.startTurnOf(combatBehavior.GetCharacter());
         }
     }
 
     public void ReturnEquipAndTarget(Battleground.Tile target)
     {
         battleGuide.gameObject.SetActive(false);
-        combHUDManager.HideTargetBtns(false);
+        combHUDManager.HideTargetBtns();
         //TODO todos os golpes de herois está sendo como momentum
         combatBehavior.UseEquip(equipTogglerManager.GetSelectedEquipIndex(), target, false);
         equipTogglerManager.SetAllEquipTogglesOff();
