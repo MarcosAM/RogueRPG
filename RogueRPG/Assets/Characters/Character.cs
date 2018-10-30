@@ -15,8 +15,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
 
     //TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
     [SerializeField] protected StandartStats stats;
-    //protected Stat atk, atkm, def, defm, precision, dodge, critic;
-    protected List<Stat> listaStat;
+    protected List<Stat> listaStat = new List<Stat>();
     protected CombatBehavior combatBehavior;
     [SerializeField] protected IMovable movement;
 
@@ -26,6 +25,10 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
     [SerializeField] protected Image portrait;
     protected TileUI hud;
     protected RegenerationAndPoisonManager regenerationManager;
+
+    [SerializeField] Image avatarImg;
+    [SerializeField] RectTransform frontHandler;
+    [SerializeField] RectTransform backHandler;
 
     public event Action OnHUDValuesChange;
     public event Action<int, int, bool> OnHPValuesChange;
@@ -40,21 +43,13 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
         {
             listaStat.Add(new Stat(this, stat, buffPManager));
         }
-
-        //atk = new Stat(this, Stat.Stats.Atk, buffPManager);
-        //atkm = new Stat(this, Stat.Stats.Atkm, buffPManager);
-        //def = new Stat(this, Stat.Stats.Def, buffPManager);
-        //defm = new Stat(this, Stat.Stats.Defm, buffPManager);
-        //critic = new Stat(this, Stat.Stats.Critic, buffPManager);
-        //precision = new Stat(this, Stat.Stats.Precision, buffPManager);
-        //dodge = new Stat(this, Stat.Stats.Dodge, buffPManager);
-        //regenerationManager = new Character.RegenerationAndPoisonManager(this);
         if (stats != null)
         {
             FillStats();
         }
         movement = GetComponent<IMovable>();
         movement.Initialize(this);
+        avatarImg.sprite = portrait.sprite;
     }
 
     public void StartTurn()
@@ -147,8 +142,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
 
     public bool CanIHitWith(Battleground.Tile target, Skill skillEffect)
     {
-        //if (skillEffect.DoesTargetTile())
-        //{
         if (skillEffect.GetSkillType() == Skill.Type.Ranged)
         {
             return true;
@@ -164,18 +157,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
                 return false;
             }
         }
-        //}
-        //else
-        //{
-        //if (target.getOccupant() != null)
-        //{
-        //    return CanIHitWith(target.getOccupant(), skillEffect);
-        //}
-        //else
-        //{
-        //    return false;
-        //}
-        //}
     }
 
     public float getPrecisionOfSkillEffect(Character target, Skill skill)
@@ -235,14 +216,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
             else
             {
                 return -1;
-                //if (skill.DoesTargetTile())
-                //{
-                //    return skill.GetPrecision() + precision.getValue();
-                //}
-                //else
-                //{
-                //    return -1;
-                //}
             }
         }
         else
@@ -400,8 +373,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
         RemoveAllBuffs();
         delayCountdown = 0;
         hp = maxHp;
-        regenerationManager.poisened = false;
-        regenerationManager.duration = 0;
     }
 
     public void SpendBuffs()
@@ -410,13 +381,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
         {
             stat.SpendAndCheckIfEnded();
         }
-        //atk.SpendAndCheckIfEnded();
-        //atkm.SpendAndCheckIfEnded();
-        //def.SpendAndCheckIfEnded();
-        //defm.SpendAndCheckIfEnded();
-        //critic.SpendAndCheckIfEnded();
-        //dodge.SpendAndCheckIfEnded();
-        //precision.SpendAndCheckIfEnded();
     }
 
     void RemoveAllBuffs()
@@ -425,13 +389,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
         {
             stat.ResetBuff();
         }
-        //atk.ResetBuff();
-        //atkm.ResetBuff();
-        //def.ResetBuff();
-        //defm.ResetBuff();
-        //dodge.ResetBuff();
-        //precision.ResetBuff();
-        //critic.ResetBuff();
     }
 
     void CheckIfSkillsShouldBeRefreshed()
@@ -445,35 +402,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
             combatBehavior.SetEquipsAvailability(true);
         }
     }
-
-    //public void AtkBuff(Stat.Intensity intesity, int buffDuration)
-    //{
-    //    atk.BuffIt(intesity, buffDuration);
-    //}
-    //public void AtkmBuff(Stat.Intensity intensity, int buffDuration)
-    //{
-    //    atkm.BuffIt(intensity, buffDuration);
-    //}
-    //public void DefBuff(Stat.Intensity intensity, int buffDuration)
-    //{
-    //    def.BuffIt(intensity, buffDuration);
-    //}
-    //public void DefmBuff(Stat.Intensity intensity, int buffDuration)
-    //{
-    //    defm.BuffIt(intensity, buffDuration);
-    //}
-    //public void CriticBuff(Stat.Intensity intensity, int buffDuration)
-    //{
-    //    critic.BuffIt(intensity, buffDuration);
-    //}
-    //public void DodgeBuff(Stat.Intensity intensity, int buffDuration)
-    //{
-    //    dodge.BuffIt(intensity, buffDuration);
-    //}
-    //public void PrecisionBuff(Stat.Intensity intensity, int buffDuration)
-    //{
-    //    precision.BuffIt(intensity, buffDuration);
-    //}
 
     public void BuffIt(Stat.Stats stats, Stat.Intensity intensity, int buffDuration)
     {
@@ -528,21 +456,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
             return null;
         }
     }
-
-    //public float getAtkValue() { return atk.GetValue(); }
-    //public float getAtkmValue() { return atkm.GetValue(); }
-    //public float getDefValue() { return def.GetValue(); }
-    //public float getDefmValue() { return defm.GetValue(); }
-    //public float getDodgeValue() { return dodge.GetValue(); }
-    //public float getPrecisionValue() { return precision.GetValue(); }
-
-    //public Stat getAtk() { return atk; }
-    //public Stat getDef() { return def; }
-    //public Stat getDefm() { return defm; }
-    //public Stat getAtkm() { return atkm; }
-    //public Stat getCritic() { return critic; }
-    //public Stat getPrecision() { return precision; }
-    //public Stat getDodge() { return dodge; }
 
     public virtual bool IsPlayable() { return true; }
     public bool isAlive() { return alive; }
@@ -611,7 +524,27 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
 
     public void changeEquipObject(Image backEquip, Image frontEquip)
     {
-        this.hud.changeEquipObject(backEquip, frontEquip);
+        //this.hud.changeEquipObject(backEquip, frontEquip);
+        foreach (RectTransform child in frontHandler)
+        {
+            child.SetParent(null);
+        }
+        foreach (RectTransform child in backHandler)
+        {
+            child.SetParent(null);
+        }
+        if (frontEquip != null)
+        {
+            frontEquip.rectTransform.SetParent(frontHandler);
+            frontEquip.rectTransform.anchoredPosition = new Vector2(0f, 100f);
+            frontEquip.rectTransform.localEulerAngles = Vector3.zero;
+        }
+        if (backEquip != null)
+        {
+            backEquip.rectTransform.SetParent(backHandler);
+            backEquip.rectTransform.anchoredPosition = new Vector2(0f, 100f);
+            backEquip.rectTransform.localEulerAngles = Vector3.zero;
+        }
     }
 
     public int howManyOf(Equip equip)
@@ -644,158 +577,25 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
     public bool IsBuffed(Stat.Stats stats)
     {
         return listaStat.Find(s => s.GetStats() == stats).getBuffValue() > 0;
-        //switch (stats)
-        //{
-        //    case Stat.Stats.Critic:
-        //        if (critic.getBuffValue() > 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Dodge:
-        //        if (dodge.getBuffValue() > 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Precision:
-        //        if (precision.getBuffValue() > 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Atk:
-        //        if (atk.getBuffValue() > 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Atkm:
-        //        if (atkm.getBuffValue() > 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Def:
-        //        if (def.getBuffValue() > 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Defm:
-        //        if (defm.getBuffValue() > 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    default:
-        //        return false;
-        //}
     }
 
     public float GetBuffValueOf(Stat.Stats stats)
     {
         return listaStat.Find(s => s.GetStats() == stats).getBuffValue();
-        //switch (stats)
-        //{
-        //    case Stat.Stats.Critic:
-        //        return critic.getBuffValue();
-        //    case Stat.Stats.Dodge:
-        //        return dodge.getBuffValue();
-        //    case Stat.Stats.Precision:
-        //        return precision.getBuffValue();
-        //    case Stat.Stats.Atk:
-        //        return atk.getBuffValue();
-        //    case Stat.Stats.Atkm:
-        //        return atkm.getBuffValue();
-        //    case Stat.Stats.Def:
-        //        return def.getBuffValue();
-        //    case Stat.Stats.Defm:
-        //        return defm.getBuffValue();
-        //    default:
-        //        return 0;
-        //}
     }
 
     public Stat.Intensity GetBuffIntensity(Stat.Stats stats)
     {
         return listaStat.Find(s => s.GetStats() == stats).GetIntensity();
-        //switch (stats)
-        //{
-        //    case Stat.Stats.Critic:
-        //        return critic.GetIntensity();
-        //    case Stat.Stats.Dodge:
-        //        return dodge.GetIntensity();
-        //    case Stat.Stats.Precision:
-        //        return precision.GetIntensity();
-        //    case Stat.Stats.Atk:
-        //        return atk.GetIntensity();
-        //    case Stat.Stats.Atkm:
-        //        return atkm.GetIntensity();
-        //    case Stat.Stats.Def:
-        //        return def.GetIntensity();
-        //    case Stat.Stats.Defm:
-        //        return defm.GetIntensity();
-        //    default:
-        //        return Stat.Intensity.None;
-        //}
     }
 
     public bool IsDebuffed()
     {
-        //if (atk.getBuffValue() < 0)
-        //    return true;
-        //if (atkm.getBuffValue() < 0)
-        //    return true;
-        //if (def.getBuffValue() < 0)
-        //    return true;
-        //if (defm.getBuffValue() < 0)
-        //    return true;
-        //if (critic.getBuffValue() < 0)
-        //    return true;
-        //if (precision.getBuffValue() < 0)
-        //    return true;
-        //if (dodge.getBuffValue() < 0)
-        //    return true;
-        //return false;
         return listaStat.Exists(s => s.getBuffValue() < 0);
     }
 
     public bool IsDebuffed(Stat.Stats stats)
     {
         return listaStat.Find(s => s.GetStats() == stats).getBuffValue() < 0;
-        //switch (stats)
-        //{
-        //    case Stat.Stats.Critic:
-        //        if (critic.getBuffValue() < 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Dodge:
-        //        if (dodge.getBuffValue() < 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Precision:
-        //        if (precision.getBuffValue() < 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Atk:
-        //        if (atk.getBuffValue() < 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Atkm:
-        //        if (atkm.getBuffValue() < 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Def:
-        //        if (def.getBuffValue() < 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    case Stat.Stats.Defm:
-        //        if (defm.getBuffValue() < 0)
-        //            return true;
-        //        else
-        //            return false;
-        //    default:
-        //        return false;
-        //}
     }
 }

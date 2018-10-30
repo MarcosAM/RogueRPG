@@ -24,7 +24,9 @@ public class BuffParticles : MonoBehaviour
         uIParticleSystem.particleSprite = sprite;
         var main = particleSystem.main;
         main.startSize = new ParticleSystem.MinMaxCurve(10 * intensity);
-        transform.localPosition = position;
+        //transform.localPosition = position;
+        transform.SetParent(character.transform);
+        transform.localPosition = Vector3.zero;
         gameObject.SetActive(true);
     }
 

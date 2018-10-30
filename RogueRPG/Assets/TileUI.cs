@@ -11,16 +11,16 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
     [SerializeField] private Slider staminaBar;
     [SerializeField] private Text hpNumbers;
     [SerializeField] private TargetBtn targetButton;
-    [SerializeField] private Image image;
+    //[SerializeField] private Image image;
     [SerializeField] private Text buffText;
     [SerializeField] private DamageFB damageFbPrefab;
     [SerializeField] private Text initiative;
     [SerializeField] private Text name;
     private RectTransform rectTransform;
     [SerializeField] RectTransform portraitHandler;
-    [SerializeField] RectTransform frontHandler;
-    [SerializeField] RectTransform backHandler;
-    [SerializeField] private Image equipment;
+    //[SerializeField] RectTransform frontHandler;
+    //[SerializeField] RectTransform backHandler;
+    //[SerializeField] private Image equipment;
     Animator animator;
     IWaitForAnimationByString requester;
 
@@ -44,8 +44,10 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
         if (tile.getOccupant() != null)
         {
             combatant = tile.getOccupant();
-            image.gameObject.SetActive(true);
-            image.sprite = combatant.getPortrait().sprite;
+            combatant.transform.SetParent(portraitHandler);
+            combatant.transform.localPosition = new Vector3(0, 40);
+            //image.gameObject.SetActive(true);
+            //image.sprite = combatant.getPortrait().sprite;
             hpBar.gameObject.SetActive(true);
             name.gameObject.SetActive(true);
             name.text = combatant.getName();
@@ -57,8 +59,8 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
         {
             name.gameObject.SetActive(false);
             this.combatant = null;
-            image.sprite = null;
-            image.gameObject.SetActive(false);
+            //image.sprite = null;
+            //image.gameObject.SetActive(false);
             hpBar.gameObject.SetActive(false);
             hpNumbers.gameObject.SetActive(false);
             if (targetButton != null)
@@ -143,29 +145,29 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
 
     }
 
-    public void changeEquipObject(Image backEquip, Image frontEquip)
-    {
-        foreach (RectTransform child in frontHandler)
-        {
-            child.SetParent(null);
-        }
-        foreach (RectTransform child in backHandler)
-        {
-            child.SetParent(null);
-        }
-        if (frontEquip != null)
-        {
-            frontEquip.rectTransform.SetParent(frontHandler);
-            frontEquip.rectTransform.anchoredPosition = new Vector2(0f, 100f);
-            frontEquip.rectTransform.localEulerAngles = Vector3.zero;
-        }
-        if (backEquip != null)
-        {
-            backEquip.rectTransform.SetParent(backHandler);
-            backEquip.rectTransform.anchoredPosition = new Vector2(0f, 100f);
-            backEquip.rectTransform.localEulerAngles = Vector3.zero;
-        }
-    }
+    //public void changeEquipObject(Image backEquip, Image frontEquip)
+    //{
+    //    foreach (RectTransform child in frontHandler)
+    //    {
+    //        child.SetParent(null);
+    //    }
+    //    foreach (RectTransform child in backHandler)
+    //    {
+    //        child.SetParent(null);
+    //    }
+    //    if (frontEquip != null)
+    //    {
+    //        frontEquip.rectTransform.SetParent(frontHandler);
+    //        frontEquip.rectTransform.anchoredPosition = new Vector2(0f, 100f);
+    //        frontEquip.rectTransform.localEulerAngles = Vector3.zero;
+    //    }
+    //    if (backEquip != null)
+    //    {
+    //        backEquip.rectTransform.SetParent(backHandler);
+    //        backEquip.rectTransform.anchoredPosition = new Vector2(0f, 100f);
+    //        backEquip.rectTransform.localEulerAngles = Vector3.zero;
+    //    }
+    //}
 
     public void showTargetBtnWithColor(Color color)
     {
