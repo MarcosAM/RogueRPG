@@ -296,8 +296,8 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
         alive = false;
         EventManager.DeathOf(this);
         RemoveAllBuffs();
-        regenerationManager.poisened = false;
-        regenerationManager.duration = 0;
+        //regenerationManager.poisened = false;
+        //regenerationManager.duration = 0;
     }
 
     public void revive(int hpRecovered)
