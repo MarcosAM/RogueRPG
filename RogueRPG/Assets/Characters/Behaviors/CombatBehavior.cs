@@ -41,7 +41,8 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
     }
     public virtual void ResumeFromEquipment()
     {
-        character.getHUD().getAnimator().SetBool("Equiped", false);
+        //character.getHUD().getAnimator().SetBool("Equiped", false);
+        character.getAnimator().SetBool("Equiped", false);
         EndTurn();
     }
 

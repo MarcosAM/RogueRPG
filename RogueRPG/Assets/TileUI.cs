@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TileUI : MonoBehaviour, IPlayAnimationByString
+public class TileUI : MonoBehaviour/*, IPlayAnimationByString*/
 {
 
+    //TODO Delete Animator from Prefab
     [SerializeField] private Character combatant;
     [SerializeField] private Slider hpBar;
     [SerializeField] private Slider staminaBar;
@@ -17,13 +18,10 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
     [SerializeField] private Text name;
     private RectTransform rectTransform;
     [SerializeField] RectTransform portraitHandler;
-    Animator animator;
-    IWaitForAnimationByString requester;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        animator = GetComponent<Animator>();
     }
 
     public void Initialize(Battleground.Tile tile)
@@ -96,22 +94,6 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
         setHpNumbers(combatant.getHp(), combatant.getMaxHp());
     }
 
-    public void UseSkillAnimation()
-    {
-        animator.SetTrigger("UseSkill");
-    }
-
-    public void PlayAnimation(IWaitForAnimationByString requester, string trigger)
-    {
-        animator.SetTrigger(trigger);
-        this.requester = requester;
-    }
-
-    void finishedAnimationByString()
-    {
-        requester.ResumeFromAnimation(this);
-    }
-
     public void ShowTargetBtn(Character user, Equip skill)
     {
         targetButton.Appear(user, skill);
@@ -125,10 +107,6 @@ public class TileUI : MonoBehaviour, IPlayAnimationByString
     public RectTransform getRectTransform()
     {
         return rectTransform;
-    }
-    public Animator getAnimator()
-    {
-        return animator;
     }
 
     public void ShowPossibleInitiative(Character activeCharacter, Equip skill)

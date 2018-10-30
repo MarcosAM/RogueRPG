@@ -36,8 +36,10 @@ public class PlayerInputManager : MonoBehaviour
             battleGuide.setText("CHOOSE YOUR TARGET");
             battleGuide.setAnimatorTrigger("PointLeftRight");
             combatBehavior.GetCharacter().changeEquipObject(combatBehavior.GetCharacter().getEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), combatBehavior.GetCharacter().getEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
-            combatBehavior.GetCharacter().getHUD().getAnimator().SetBool("Equiped", true);
-            combatBehavior.GetCharacter().getHUD().getAnimator().SetTrigger("ChangeEquip");
+            //combatBehavior.GetCharacter().getHUD().getAnimator().SetBool("Equiped", true);
+            //combatBehavior.GetCharacter().getHUD().getAnimator().SetTrigger("ChangeEquip");
+            combatBehavior.GetCharacter().getAnimator().SetBool("Equiped", true);
+            combatBehavior.GetCharacter().getAnimator().SetTrigger("ChangeEquip");
             combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedEquip);
             skillPreviewManager.showSkillPreviewsOf(combatBehavior.GetCharacter().getEquips()[equipTogglerManager.GetSelectedEquipIndex()]);
         }
@@ -45,7 +47,8 @@ public class PlayerInputManager : MonoBehaviour
         {
             battleGuide.setText("CHOOSE YOUR EQUIPMENT");
             battleGuide.setAnimatorTrigger("PointDown");
-            combatBehavior.GetCharacter().getHUD().getAnimator().SetBool("Equiped", false);
+            //combatBehavior.GetCharacter().getHUD().getAnimator().SetBool("Equiped", false);
+            combatBehavior.GetCharacter().getAnimator().SetBool("Equiped", false);
             combHUDManager.HideTargetBtns();
             skillPreviewManager.hideSkillPreviews();
         }

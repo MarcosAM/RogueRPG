@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
+public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IPlayAnimationByString
 {
 
     [SerializeField] protected string characterName;
@@ -29,6 +29,8 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
     [SerializeField] Image avatarImg;
     [SerializeField] RectTransform frontHandler;
     [SerializeField] RectTransform backHandler;
+    Animator animator;
+    IWaitForAnimationByString requester;
 
     public event Action OnHUDValuesChange;
     public event Action<int, int, bool> OnHPValuesChange;
@@ -37,6 +39,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
 
     void Awake()
     {
+        animator = GetComponent<Animator>();
         BuffPManager buffPManager = FindObjectOfType<BuffPManager>();
 
         foreach (Stat.Stats stat in Enum.GetValues(typeof(Stat.Stats)))
@@ -104,7 +107,8 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
         {
             skillEffect.OnMissedEffect(this, target);
             if (target.getOccupant() != null)
-                target.getOccupant().getHUD().getAnimator().SetTrigger("Dodge");
+                //target.getOccupant().getHUD().getAnimator().SetTrigger("Dodge");
+                target.getOccupant().getAnimator().SetTrigger("Dodge");
         }
     }
 
@@ -116,7 +120,8 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
         }
         else
         {
-            hud.getAnimator().SetTrigger("Dodge");
+            //hud.getAnimator().SetTrigger("Dodge");
+            animator.SetTrigger("Dodge");
             return false;
         }
     }
@@ -263,7 +268,8 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
                 OnHPValuesChange(hp, damage, wasCritic);
             }
             hp -= damage;
-            hud.getAnimator().SetTrigger("Damage");
+            //hud.getAnimator().SetTrigger("Damage");
+            animator.SetTrigger("Damage");
             if (hp <= 0)
             {
                 Die();
@@ -524,7 +530,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
 
     public void changeEquipObject(Image backEquip, Image frontEquip)
     {
-        //this.hud.changeEquipObject(backEquip, frontEquip);
         foreach (RectTransform child in frontHandler)
         {
             child.SetParent(null);
@@ -560,11 +565,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
         return c;
     }
 
-    public void PlayAnimation(IWaitForAnimationByString requester, string trigger)
-    {
-        hud.PlayAnimation(requester, trigger);
-    }
-
     public Battleground.Tile GetTile() { return movement.GetTile(); }
     public Battleground.Tile[] GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
     public Battleground.Tile[] GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
@@ -597,5 +597,26 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable
     public bool IsDebuffed(Stat.Stats stats)
     {
         return listaStat.Find(s => s.GetStats() == stats).getBuffValue() < 0;
+    }
+
+    public void UseSkillAnimation()
+    {
+        animator.SetTrigger("UseSkill");
+    }
+
+    public void PlayAnimation(IWaitForAnimationByString requester, string trigger)
+    {
+        animator.SetTrigger(trigger);
+        this.requester = requester;
+    }
+
+    public Animator getAnimator()
+    {
+        return animator;
+    }
+
+    void finishedAnimationByString()
+    {
+        requester.ResumeFromAnimation(this);
     }
 }
