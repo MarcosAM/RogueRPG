@@ -39,6 +39,10 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
 
     void Awake()
     {
+        avatarImg = GetComponentInChildren<Image>();
+        RectTransform[] transforms = GetComponentsInChildren<RectTransform>();
+        backHandler = transforms[0];
+        frontHandler = transforms[2];
         animator = GetComponent<Animator>();
         BuffPManager buffPManager = FindObjectOfType<BuffPManager>();
 

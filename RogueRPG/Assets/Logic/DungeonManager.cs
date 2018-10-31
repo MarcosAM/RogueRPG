@@ -13,7 +13,7 @@ public class DungeonManager : MonoBehaviour
     int round;
     int dungeonFloor = 0;
     Battleground battleground;
-    [SerializeField] Character characterPrefab;
+    //[SerializeField] Character characterPrefab;
     [SerializeField] MomentumBar momentumBar;
     float momentum = 0;
     [SerializeField] float maxMomentum;
@@ -29,11 +29,11 @@ public class DungeonManager : MonoBehaviour
         List<Character> pcs = new List<Character>();
         for (int i = 0; i < gameManager.getHeroesStats().Count; i++)
         {
-            Character pc = Instantiate(characterPrefab);
-            pc.setStats(gameManager.getHeroesStats()[i]);
-            pc.setName(gameManager.getHeroesNames()[i]);
-            pcs.Add(pc);
+            Character character = gameManager.CreateCharacter(true, gameManager.getHeroesStats()[i]);
+            character.setName(gameManager.getHeroesNames()[i]);
+            pcs.Add(character);
         }
+
         battleground.ClearAndSetASide(pcs);
         battleground.ClearAndSetASide(gameManager.getEnemiesAtFloor(dungeonFloor));
         foreach (Character hero in battleground.getHeroSide())

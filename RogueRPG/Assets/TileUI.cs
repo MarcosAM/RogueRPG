@@ -39,7 +39,7 @@ public class TileUI : MonoBehaviour/*, IPlayAnimationByString*/
         {
             combatant = tile.getOccupant();
             combatant.transform.SetParent(portraitHandler);
-            combatant.transform.localPosition = new Vector3(0, 40);
+            combatant.transform.localPosition = new Vector3(0, -50);
             hpBar.gameObject.SetActive(true);
             name.gameObject.SetActive(true);
             name.text = combatant.getName();
