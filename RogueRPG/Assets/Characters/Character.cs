@@ -22,14 +22,14 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     public Equip[] equips = new Equip[5];
     protected Equip momentumSkill;
 
-    [SerializeField] protected Image portrait;
+    //[SerializeField] protected Image portrait;
     protected TileUI hud;
     protected RegenerationAndPoisonManager regenerationManager;
 
-    [SerializeField] Image avatarImg;
-    [SerializeField] RectTransform frontHandler;
-    [SerializeField] RectTransform backHandler;
-    Animator animator;
+    [SerializeField] protected Image avatarImg;
+    [SerializeField] protected RectTransform frontHandler;
+    [SerializeField] protected RectTransform backHandler;
+    protected Animator animator;
     IWaitForAnimationByString requester;
 
     public event Action OnHUDValuesChange;
@@ -52,7 +52,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         }
         movement = GetComponent<IMovable>();
         movement.Initialize(this);
-        avatarImg.sprite = portrait.sprite;
+        //avatarImg.sprite = portrait.sprite;
     }
 
     public void StartTurn()
@@ -465,7 +465,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
 
     public virtual bool IsPlayable() { return true; }
     public bool isAlive() { return alive; }
-    public Image getPortrait() { return portrait; }
+    public Image GetAvatarImg() { return avatarImg; }
 
     public float getDelayCountdown() { return delayCountdown; }
 

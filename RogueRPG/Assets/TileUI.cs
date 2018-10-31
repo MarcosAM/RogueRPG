@@ -63,6 +63,10 @@ public class TileUI : MonoBehaviour/*, IPlayAnimationByString*/
     {
         if (combatant != null)
         {
+            foreach (Transform transform in portraitHandler.transform)
+            {
+                transform.SetParent(null);
+            }
             combatant.OnHUDValuesChange -= Refresh;
             combatant.OnHPValuesChange -= HPFeedback;
             combatant = null;

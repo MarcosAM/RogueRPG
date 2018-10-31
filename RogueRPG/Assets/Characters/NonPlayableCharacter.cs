@@ -7,7 +7,7 @@ public class NonPlayableCharacter : Character
     protected override void FillStats()
     {
         base.FillStats();
-        portrait = stats.getPortrait();
+        avatarImg.sprite = stats.getPortrait().sprite;
     }
 
     public override bool IsPlayable()
