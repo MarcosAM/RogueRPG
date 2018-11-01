@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Revive")]
 public class SRevive : Skill
 {
-    public override void UniqueEffect(Character user, Battleground.Tile tile)
+    public override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
         if (tile.getOccupant() != null)
@@ -17,13 +17,13 @@ public class SRevive : Skill
         }
     }
 
-    public override void OnHitEffect(Character user, Battleground.Tile tile)
+    public override void OnHitEffect(Character user, Tile tile)
     {
         base.OnHitEffect(user, tile);
 
     }
 
-    public override void OnMissedEffect(Character user, Battleground.Tile tile)
+    public override void OnMissedEffect(Character user, Tile tile)
     {
         base.OnMissedEffect(user, tile);
     }

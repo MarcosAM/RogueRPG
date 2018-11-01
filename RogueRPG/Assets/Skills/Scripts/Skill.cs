@@ -25,10 +25,10 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     protected bool momentum = false;
     protected int targetsLeft;
     protected Character currentUser;
-    protected Battleground.Tile currentTargetTile;
+    protected Tile currentTargetTile;
     protected IWaitForSkill requester;
 
-    public virtual void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester, bool momentum)
+    public virtual void StartSkill(Character user, Tile tile, IWaitForSkill requester, bool momentum)
     {
         this.momentum = momentum;
         this.requester = requester;
@@ -61,22 +61,22 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         //else
         //{
         //    targetsLeft = currentTargetTile.GetAlliesTiles().Length;
-        //    foreach (Battleground.Tile t in currentTargetTile.GetAlliesTiles())
+        //    foreach (Tile t in currentTargetTile.GetAlliesTiles())
         //    {
         //        EffectAnimation(t);
         //        UniqueEffect(currentUser, t);
         //    }
         //}
-        List<Battleground.Tile> tiles = FindObjectOfType<Battleground>().GetTiles().FindAll(t => WillBeAffected(currentUser, currentTargetTile, t));
+        List<Tile> tiles = FindObjectOfType<Battleground>().GetTiles().FindAll(t => WillBeAffected(currentUser, currentTargetTile, t));
         targetsLeft = tiles.Count;
-        foreach (Battleground.Tile tile in tiles)
+        foreach (Tile tile in tiles)
         {
             EffectAnimation(tile);
             UniqueEffect(currentUser, tile);
         }
     }
 
-    public void EffectAnimation(Battleground.Tile tile)
+    public void EffectAnimation(Tile tile)
     {
         SkillAnimation skillAnimation = Instantiate(animationPrefab);
         skillAnimation.transform.SetParent(FindObjectOfType<Canvas>().transform, false);
@@ -119,7 +119,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         return attack < ProbabilityToHit(currentUser, currentTargetTile, target.GetTile());
     }
 
-    public float ProbabilityToHit(Character user, Battleground.Tile target, Battleground.Tile tile)
+    public float ProbabilityToHit(Character user, Tile target, Tile tile)
     {
         float distanceInfluence;
         if (type == Skill.Type.Melee)
@@ -188,7 +188,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
     }
 
-    public virtual bool WillBeAffected(Character user, Battleground.Tile target, Battleground.Tile tile)
+    public virtual bool WillBeAffected(Character user, Tile target, Tile tile)
     {
         if (target == tile)
         {
@@ -277,9 +277,9 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     public string GetDescription() { return description; }
     public Source GetSource() { return source; }
     public bool DoesTargetDead() { return hitsDead; }
-    public virtual void UniqueEffect(Character user, Battleground.Tile tile) { }
-    public virtual void OnHitEffect(Character user, Battleground.Tile tile) { }
-    public virtual void OnMissedEffect(Character user, Battleground.Tile tile) { }
+    public virtual void UniqueEffect(Character user, Tile tile) { }
+    public virtual void OnHitEffect(Character user, Tile tile) { }
+    public virtual void OnMissedEffect(Character user, Tile tile) { }
     public int GetRange() { return range; }
     public Type GetSkillType() { return type; }
     public Kind GetKind() { return kind; }

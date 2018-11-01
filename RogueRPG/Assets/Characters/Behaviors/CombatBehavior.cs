@@ -6,7 +6,7 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
 {
     [SerializeField] protected Character character;
     protected Equip choosedEquip;
-    protected Battleground.Tile targetTile;
+    protected Tile targetTile;
     protected bool[] availableEquips;
 
     public virtual void StartTurn()
@@ -23,7 +23,7 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
             choosedEquip.UseEquipmentOn(character, targetTile, this, false);
         }
     }
-    public virtual void UseEquip(int equip, Battleground.Tile target, bool momentum)
+    public virtual void UseEquip(int equip, Tile target, bool momentum)
     {
         availableEquips[equip] = false;
         character.getEquips()[equip].UseEquipmentOn(character, target, this, momentum);
@@ -54,8 +54,8 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
     public Character GetCharacter() { return character; }
     public Equip GetChoosedEquip() { return choosedEquip; }
     public void SetChoosedEquip(Equip skill) { this.choosedEquip = skill; }
-    public void SetTargetTile(Battleground.Tile tile) { this.targetTile = tile; }
-    public Battleground.Tile GetTargetTile() { return targetTile; }
+    public void SetTargetTile(Tile tile) { this.targetTile = tile; }
+    public Tile GetTargetTile() { return targetTile; }
     public bool IsEquipAvailable(int index)
     {
         if (index == availableEquips.Length - 1)
@@ -94,8 +94,8 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
 //} else {
 //	UseSkill ();
 //}
-//		Battleground.Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
-//		Battleground.Tile[] tempEnemiesTiles = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles ();
+//		Tile[] tempHeroesTiles = DungeonManager.getInstance ().getBattleground ().getHeroesTiles ();
+//		Tile[] tempEnemiesTiles = DungeonManager.getInstance ().getBattleground ().getEnemiesTiles ();
 //
 //		int maxIndex = character.getPosition() + choosedSkill.getMeleeEffect().getRange();
 //		if (maxIndex >= tempHeroesTiles.Length)
@@ -187,8 +187,8 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
 //			}
 //		}
 
-//Battleground.Tile[] tempPCTiles = character.GetEnemiesTiles();
-//Battleground.Tile[] tempNPCTiles = character.GetAlliesTiles();
+//Tile[] tempPCTiles = character.GetEnemiesTiles();
+//Tile[] tempNPCTiles = character.GetAlliesTiles();
 //Equip choosedEquip = character.getUsableEquips()[Random.RandomRange(0,character.getUsableEquips().Count)];
 
 //targetTile = tempPCTiles[character.getPosition()];

@@ -10,7 +10,7 @@ public class SAssault : Skill, IWaitForSkill
     [SerializeField] protected Skill secondEffect;
     bool alreadyDidFirst = false;
 
-    public override void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester, bool momentum)
+    public override void StartSkill(Character user, Tile tile, IWaitForSkill requester, bool momentum)
     {
         this.momentum = momentum;
         this.requester = requester;
@@ -20,7 +20,7 @@ public class SAssault : Skill, IWaitForSkill
         firstEffect.StartSkill(user, tile, this, momentum);
     }
 
-    public override bool WillBeAffected(Character user, Battleground.Tile target, Battleground.Tile tile)
+    public override bool WillBeAffected(Character user, Tile target, Tile tile)
     {
         if (firstEffect.WillBeAffected(user, DungeonManager.getInstance().getBattleground().getMyEnemiesTiles(target.isFromHero())[target.GetRow()], tile) || secondEffect.WillBeAffected(user, target, tile))
         {

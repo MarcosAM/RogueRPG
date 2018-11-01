@@ -8,18 +8,18 @@ public class SEEscudada : Skill
     [SerializeField] Stat.Intensity intensity;
     [SerializeField] int duration;
 
-    public override void UniqueEffect(Character user, Battleground.Tile tile)
+    public override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
         //		if (tile.getOccupant ())
         user.TryToHitWith(tile, this);
     }
 
-    public override void OnHitEffect(Character user, Battleground.Tile tile)
+    public override void OnHitEffect(Character user, Tile tile)
     {
         base.OnHitEffect(user, tile);
         user.HitWith(tile.getOccupant(), value, this);
-        Battleground.Tile[] heroesTiles = DungeonManager.getInstance().getBattleground().getHeroesTiles();
+        Tile[] heroesTiles = DungeonManager.getInstance().getBattleground().getHeroesTiles();
         if (user.getPosition() - 1 >= 0)
         {
             if (heroesTiles[user.getPosition() - 1].getOccupant() != null)
@@ -36,7 +36,7 @@ public class SEEscudada : Skill
         }
     }
 
-    public override void OnMissedEffect(Character user, Battleground.Tile tile)
+    public override void OnMissedEffect(Character user, Tile tile)
     {
         base.OnMissedEffect(user, tile);
     }

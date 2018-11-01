@@ -101,7 +101,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         }
     }
 
-    public void TryToHitWith(Battleground.Tile target, Skill skillEffect)
+    public void TryToHitWith(Tile target, Skill skillEffect)
     {
         if (getPrecisionOfSkillEffect(target, skillEffect) >= UnityEngine.Random.value)
         {
@@ -149,7 +149,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         }
     }
 
-    public bool CanIHitWith(Battleground.Tile target, Skill skillEffect)
+    public bool CanIHitWith(Tile target, Skill skillEffect)
     {
         if (skillEffect.GetSkillType() == Skill.Type.Ranged)
         {
@@ -214,7 +214,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         }
     }
 
-    public float getPrecisionOfSkillEffect(Battleground.Tile target, Skill skill)
+    public float getPrecisionOfSkillEffect(Tile target, Skill skill)
     {
         if (CanIHitWith(target, skill))
         {
@@ -238,7 +238,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         return getDistanceInfluenceOnPrecision(target.getPosition(), skill);
     }
 
-    public float getDistanceInfluenceOnPrecision(Battleground.Tile target, Skill skill)
+    public float getDistanceInfluenceOnPrecision(Tile target, Skill skill)
     {
         return getDistanceInfluenceOnPrecision(target.GetRow(), skill);
     }
@@ -569,9 +569,9 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         return c;
     }
 
-    public Battleground.Tile GetTile() { return movement.GetTile(); }
-    public Battleground.Tile[] GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
-    public Battleground.Tile[] GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
+    public Tile GetTile() { return movement.GetTile(); }
+    public Tile[] GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
+    public Tile[] GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
 
     public bool IsMomentumEquip(Equip equip)
     {

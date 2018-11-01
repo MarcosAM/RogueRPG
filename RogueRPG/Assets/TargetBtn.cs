@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
 {
 
-    Battleground.Tile tile;
+    Tile tile;
     public Image image;
     [SerializeField] RectTransform hitPreview;
 
@@ -19,7 +19,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         //		image = GetComponent<Image> ();
     }
 
-    public void setTile(Battleground.Tile tile)
+    public void setTile(Tile tile)
     {
         this.tile = tile;
     }
@@ -96,7 +96,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
-    public void CheckIfAffected(Battleground.Tile target, Equip choosedSkill, Character user)
+    public void CheckIfAffected(Tile target, Equip choosedSkill, Character user)
     {
         Skill skill;
         if (target.isFromHero() == user.IsPlayable())
@@ -175,7 +175,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         CombHUDManager.getInstance().OnTargetBtnHoverExit(this);
     }
 
-    public Battleground.Tile getTile() { return tile; }
+    public Tile getTile() { return tile; }
 
     void OnEnable()
     {

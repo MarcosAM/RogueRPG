@@ -14,7 +14,7 @@ public class CombHUDManager : MonoBehaviour
         MakeItASingleton();
     }
 
-    public void ShowCombatants(List<Battleground.Tile> tiles)
+    public void ShowCombatants(List<Tile> tiles)
     {
         foreach (TileUI tileUI in tileUIs)
         {
@@ -60,7 +60,7 @@ public class CombHUDManager : MonoBehaviour
     }
 
 
-    public void onTargetBtnPressed(Battleground.Tile targetTile)
+    public void onTargetBtnPressed(Tile targetTile)
     {
         FindObjectOfType<PlayerInputManager>().ReturnEquipAndTarget(targetTile);
     }
@@ -70,7 +70,7 @@ public class CombHUDManager : MonoBehaviour
         FindObjectOfType<PlayerInputManager>().HoverTargetBtnEnter(targetBtn);
     }
 
-    public void PreviewTargets(Character user, Equip selectedEquip, Battleground.Tile target)
+    public void PreviewTargets(Character user, Equip selectedEquip, Tile target)
     {
         foreach (TileUI tileUI in tileUIs)
         {

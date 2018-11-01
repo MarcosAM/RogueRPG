@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Battleground : MonoBehaviour
 {
-    List<Tile> tiles = new List<Tile>();
+    [SerializeField] List<Tile> tiles = new List<Tile>();
     CombHUDManager cHUDManager;
 
     void Awake()
@@ -119,11 +119,11 @@ public class Battleground : MonoBehaviour
         {
             if (i < tiles.Capacity / 2)
             {
-                tiles.Add(new Tile(i, false, this));
+                tiles[i].Initialize(i, false, this);
             }
             else
             {
-                tiles.Add(new Tile(i, true, this));
+                tiles[i].Initialize(i, true, this);
             }
         }
     }
@@ -148,45 +148,5 @@ public class Battleground : MonoBehaviour
     public Tile[] GetAliveOpponents(Character character)
     {
         return character.IsPlayable() ? GetAliveNPCTiles() : GetAlivePCTiles();
-    }
-
-    public class Tile
-    {
-        [SerializeField] Character occupant;
-        int index;
-        bool fromHero;
-        Battleground battleground;
-        Tile[] side;
-        Tile[] otherSide;
-
-        public bool IsOccupied()
-        {
-            if (occupant != null)
-            {
-                return occupant.isAlive() ? true : false;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        public bool IsYourCharacter(Character character) { return character == occupant ? true : false; }
-        public Tile(int index, bool fromHero, Battleground battleground)
-        {
-            this.index = index;
-            this.fromHero = fromHero;
-            this.battleground = battleground;
-        }
-        public void setOccupant(Character occupant) { this.occupant = occupant; }
-        public Character getOccupant() { return occupant; }
-        public int GetRow() { return index % (battleground.tiles.Count / 2); }
-        public Vector2 getLocalPosition()
-        {
-            return FindObjectOfType<CombHUDManager>().GetTileUIs()[index].getRectTransform().localPosition;
-        }
-        public bool isFromHero() { return fromHero; }
-        public Tile[] GetAlliesTiles() { return fromHero ? battleground.getHeroesTiles() : battleground.getEnemiesTiles(); }
-        public Tile[] GetEnemiesTiles() { return fromHero ? battleground.getEnemiesTiles() : battleground.getHeroesTiles(); }
-        public int GetIndex() { return index; }
     }
 }

@@ -10,7 +10,7 @@ public class SAtk : Skill
     int dmg;
     List<int> damages = new List<int>();
 
-    public override void StartSkill(Character user, Battleground.Tile tile, IWaitForSkill requester, bool momentum)
+    public override void StartSkill(Character user, Tile tile, IWaitForSkill requester, bool momentum)
     {
 
         //base.StartSkill(user, tile, requester);
@@ -24,7 +24,7 @@ public class SAtk : Skill
         PlayCastSkillAnimation();
     }
 
-    public override void UniqueEffect(Character user, Battleground.Tile tile)
+    public override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
         if (tile.getOccupant())
@@ -74,12 +74,12 @@ public class SAtk : Skill
         return true;
     }
 
-    public override void OnHitEffect(Character user, Battleground.Tile tile)
+    public override void OnHitEffect(Character user, Tile tile)
     {
         base.OnHitEffect(user, tile);
     }
 
-    public override void OnMissedEffect(Character user, Battleground.Tile tile)
+    public override void OnMissedEffect(Character user, Tile tile)
     {
         base.OnMissedEffect(user, tile);
     }

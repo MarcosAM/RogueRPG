@@ -32,7 +32,7 @@ public class CharacterMovement : MonoBehaviour, IMovable
         return battleground.GetRow(character);
     }
 
-    public Battleground.Tile GetTile()
+    public Tile GetTile()
     {
         if (battleground == null)
         {

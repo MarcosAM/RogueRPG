@@ -24,7 +24,7 @@ public class TileUI : MonoBehaviour/*, IPlayAnimationByString*/
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(Battleground.Tile tile)
+    public void Initialize(Tile tile)
     {
         if (tile.isFromHero())
         {
@@ -124,7 +124,7 @@ public class TileUI : MonoBehaviour/*, IPlayAnimationByString*/
         targetButton.Show(color);
     }
 
-    public void CheckIfAffected(Battleground.Tile target, Equip choosedSkill, Character user)
+    public void CheckIfAffected(Tile target, Equip choosedSkill, Character user)
     {
         targetButton.CheckIfAffected(target, choosedSkill, user);
     }

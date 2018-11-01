@@ -9,7 +9,7 @@ public class EventManager : MonoBehaviour {
 	public static event Action<Equip> OnPlayerChoosedSkill;
 	public static event Action OnClickedSkillBtn;
 //	public static event Action<Character> OnPlayerChoosedTarget;
-	public static event Action<Battleground.Tile> OnPlayerChoosedTarget2;
+	public static event Action<Tile> OnPlayerChoosedTarget2;
 	public static event Action OnClickedTargetBtn;
 	public static event Action<Character,Equip> OnShowTargetsOf;
 	public static event Action<Equip> OnShowTargetsOf2;
@@ -57,7 +57,7 @@ public class EventManager : MonoBehaviour {
 //			OnPlayerChoosedTarget(c);
 //	}
 
-	public static void ChooseTarget(Battleground.Tile tile){
+	public static void ChooseTarget(Tile tile){
 		if (OnClickedTargetBtn != null)
 			OnClickedTargetBtn();
 		if(OnPlayerChoosedTarget2 != null)

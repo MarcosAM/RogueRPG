@@ -126,6 +126,7 @@
     <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
     <Compile Include="Assets\StartUI.cs" />
     <Compile Include="Assets\TargetBtn.cs" />
+    <Compile Include="Assets\Tile.cs" />
     <Compile Include="Assets\TileUI.cs" />
     <Compile Include="Assets\UI\BattleGuide.cs" />
     <Compile Include="Assets\UI\EquipToggle.cs" />

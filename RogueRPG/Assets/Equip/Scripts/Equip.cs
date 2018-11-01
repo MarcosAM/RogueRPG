@@ -17,14 +17,14 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
     protected Image frontEquip;
     protected IWaitForEquipment requester;
 
-    public void UseEquipmentOn(Character user, Battleground.Tile tile, IWaitForEquipment requester, bool momentum)
+    public void UseEquipmentOn(Character user, Tile tile, IWaitForEquipment requester, bool momentum)
     {
         user.changeEquipObject(GetBackEquip(), GetFrontEquip());
         this.requester = requester;
         AppropriateSkill(user, tile).StartSkill(user, tile, this, user.IsMomentumEquip(this));
     }
 
-    public Skill AppropriateSkill(Character user, Battleground.Tile target)
+    public Skill AppropriateSkill(Character user, Tile target)
     {
         if (target.isFromHero() == user.IsPlayable())
         {
@@ -55,9 +55,9 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
         requester.ResumeFromEquipment();
     }
 
-    public virtual Battleground.Tile GetBestTarget(Character user)
+    public virtual Tile GetBestTarget(Character user)
     {
-        Battleground.Tile[] possibleTargets = DungeonManager.getInstance().getBattleground().GetAliveOpponents(user);
+        Tile[] possibleTargets = DungeonManager.getInstance().getBattleground().GetAliveOpponents(user);
         return possibleTargets[Random.Range(0, possibleTargets.Length)];
     }
 

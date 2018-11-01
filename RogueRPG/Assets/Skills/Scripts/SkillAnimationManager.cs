@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class SkillAnimationManager : MonoBehaviour {
 
 	protected Character user;
-	protected Battleground.Tile targetTile;
+	protected Tile targetTile;
 	protected Skill requester;
 
-	public virtual void start(Skill requester, Battleground.Tile targetTile){}
+	public virtual void start(Skill requester, Tile targetTile){}
 }

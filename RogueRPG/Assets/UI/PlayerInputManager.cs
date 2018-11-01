@@ -54,7 +54,7 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    public void ReturnEquipAndTarget(Battleground.Tile target)
+    public void ReturnEquipAndTarget(Tile target)
     {
         battleGuide.gameObject.SetActive(false);
         combHUDManager.HideTargetBtns();

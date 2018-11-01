@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Equip/Charge")]
 public class ChargeEquip : Equip
 {
-    public override Battleground.Tile GetBestTarget(Character user)
+    public override Tile GetBestTarget(Character user)
     {
 
         if (selfSkill is SBuff)
@@ -21,7 +21,7 @@ public class ChargeEquip : Equip
             }
         }
 
-        List<Battleground.Tile> aliveOpponentTiles = DungeonManager.getInstance().getBattleground().GetTiles().FindAll(t => t.isFromHero() != user.IsPlayable() && t.IsOccupied());
+        List<Tile> aliveOpponentTiles = DungeonManager.getInstance().getBattleground().GetTiles().FindAll(t => t.isFromHero() != user.IsPlayable() && t.IsOccupied());
         if (aliveOpponentTiles.Exists(t => Mathf.Abs(t.GetRow() - user.GetTile().GetRow()) <= meleeSkill.GetRange()))
         {
             aliveOpponentTiles.RemoveAll(t => Mathf.Abs(t.GetRow() - user.GetTile().GetRow()) > meleeSkill.GetRange());
@@ -29,7 +29,7 @@ public class ChargeEquip : Equip
         }
 
 
-        List<Battleground.Tile> alliedTiles = DungeonManager.getInstance().getBattleground().GetTiles().FindAll(t => t.isFromHero() == user.IsPlayable() && !t.IsOccupied());
+        List<Tile> alliedTiles = DungeonManager.getInstance().getBattleground().GetTiles().FindAll(t => t.isFromHero() == user.IsPlayable() && !t.IsOccupied());
 
         alliedTiles.Sort((t1, t2) => GetSmallerDistance(t1, aliveOpponentTiles) - GetSmallerDistance(t2, aliveOpponentTiles));
         alliedTiles.RemoveAll(t => Mathf.Abs(t.GetRow() - user.GetTile().GetRow()) > alliesSkill.GetRange());
@@ -39,7 +39,7 @@ public class ChargeEquip : Equip
             return user.GetTile();
     }
 
-    int GetSmallerDistance(Battleground.Tile tile, List<Battleground.Tile> tiles)
+    int GetSmallerDistance(Tile tile, List<Tile> tiles)
     {
         tiles.Sort((t1, t2) => Mathf.Abs(tile.GetRow() - t1.GetRow()) - Mathf.Abs(tile.GetRow() - t2.GetRow()));
         return Mathf.Abs(tile.GetRow() - tiles[0].GetRow());
