@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 101
+  controlID: 109
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -256,8 +256,8 @@ MonoBehaviour:
     y: 0
     width: 277
     height: 675
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 71}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -368,20 +368,20 @@ MonoBehaviour:
     height: 383
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ee2dffff
-    m_LastClickedID: -53778
-    m_ExpandedIDs: 582bffff762cffffea2dffffee2dffff5431ffff44dfffff1afcffff00000000a82d0000d8350000
+    m_SelectedIDs: 4ae0fdff
+    m_LastClickedID: -139190
+    m_ExpandedIDs: 30e0fdff4ae0fdff4ce1fdff50e1fdff44e2fdff48e2fdff2ae6fdff5e14feff6214feffc817feff98a8feffb2a8feff64aafeff68aafeff42affeffb6dbfeffa4b7ffffbac4ffff9ae1ffff1afcffff00000000883100007a470000064f000092560000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: TileUI (1)
-      m_OriginalName: TileUI (1)
+      m_Name: HPNumbers (1)
+      m_OriginalName: HPNumbers (1)
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -54150
+      m_UserData: -139230
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -420,14 +420,14 @@ MonoBehaviour:
     width: 729
     height: 383
   m_SceneLighting: 1
-  lastFramingTime: 1061.2744390152357
+  lastFramingTime: 3989.4934090338174
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 369.46375, y: 243.35999, z: 0}
+    m_Target: {x: 595, y: 360.32, z: 0}
     speed: 2
-    m_Value: {x: 369.46375, y: 243.35999, z: 0}
+    m_Value: {x: 595, y: 360.32, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -454,14 +454,14 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 536.6722
+    m_Target: 102.45975
     speed: 2
-    m_Value: 536.6722
+    m_Value: 102.45975
   m_Ortho:
     m_Target: 1
     speed: 2
     m_Value: 1
-  m_LastSceneViewRotation: {x: 0.21573389, y: -0.6976035, z: 0.23451987, w: 0.6417233}
+  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -548,7 +548,7 @@ MonoBehaviour:
     width: 1087
     height: 250
   m_SearchFilter:
-    m_NameFilter: batt
+    m_NameFilter: 
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -559,18 +559,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/Characters
   m_ViewMode: 1
   m_StartGridSize: 58
   m_LastFolders:
-  - Assets
+  - Assets/Characters
   m_LastFoldersGridSize: 58
   m_LastProjectPath: C:\Users\ADVANCE\Documents\_Marcos\Unity\Repos\RogueRPG\RogueRPG
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
+    m_SelectedIDs: 1e270000
+    m_LastClickedID: 10014
     m_ExpandedIDs: 00000000a0260000a6260000f42600001e270000342800007828000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -626,8 +626,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: cc26000048280000502a0000ea3c0000102800003e59000000000000982700004e280000
+    m_HadKeyboardFocusLastEvent: 0
+    m_ExpandedInstanceIDs: cc26000048280000502a0000ea3c0000102800003e59000000000000982700004e28000050280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -677,9 +677,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 576
+    y: 496
     width: 1087
-    height: 170
+    height: 250
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52

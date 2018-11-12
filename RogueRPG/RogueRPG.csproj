@@ -82,6 +82,7 @@
     <Compile Include="Assets\Battleground.cs" />
     <Compile Include="Assets\Characters\Behaviors\CombatBehavior.cs" />
     <Compile Include="Assets\Characters\Character.cs" />
+    <Compile Include="Assets\Characters\CharacterHUD.cs" />
     <Compile Include="Assets\Characters\CharacterMovement.cs" />
     <Compile Include="Assets\Characters\CStats\StandartStats.cs" />
     <Compile Include="Assets\Characters\HPStat.cs" />

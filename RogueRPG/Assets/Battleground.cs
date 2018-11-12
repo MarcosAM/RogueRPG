@@ -125,6 +125,7 @@ public class Battleground : MonoBehaviour
 
     public void ClearAndSetASide(List<Character> side)
     {
+        print(side.Count);
         bool sideIsPlayers = false;
         int sideSize = side.Count;
         for (int i = 0; i < side.Count; i++)
@@ -136,11 +137,6 @@ public class Battleground : MonoBehaviour
         }
 
         List<Tile> availableTiles = tiles.FindAll(t => t.IsEnabled());
-
-        for (int i = 0; i < availableTiles.Count; i++)
-        {
-            print(i + " " + availableTiles[i].GetIndex());
-        }
 
         if (sideIsPlayers)
         {

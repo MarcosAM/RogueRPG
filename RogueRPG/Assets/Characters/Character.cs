@@ -56,6 +56,9 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         }
         movement = GetComponent<IMovable>();
         movement.Initialize(this);
+        if (GetComponentInChildren<CharacterHUD>() == null)
+            print("Não achei!");
+
         //avatarImg.sprite = portrait.sprite;
     }
 
@@ -376,6 +379,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         this.GetStat(Stat.Stats.Defm).setStatBase(defm);
         this.maxHp = hp;
         this.hp = maxHp;
+        GetComponentInChildren<CharacterHUD>().SetCharacter(this);
     }
 
     public void refresh()
@@ -476,6 +480,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     public void setName(string name)
     {
         this.characterName = name;
+        RefreshHUD();
     }
     public void setHUD(TileUI combatantHUD) { hud = combatantHUD; }
     public TileUI getHUD() { return hud; }
