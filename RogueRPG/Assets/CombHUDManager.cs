@@ -41,13 +41,13 @@ public class CombHUDManager : MonoBehaviour
 
         for (int i = 0; i < tiles.Count; i++)
         {
-            //if (tiles[i].IsEnabled())
-            //{
+            if (tiles[i].IsEnabled())
+            {
                 tileUIs[i].gameObject.SetActive(true);
                 tileUIs[i].Initialize(tiles[i]);
                 if (tiles[i].getOccupant() != null)
                     tiles[i].getOccupant().setHUD(tileUIs[i]);
-            //}
+            }
         }
     }
 

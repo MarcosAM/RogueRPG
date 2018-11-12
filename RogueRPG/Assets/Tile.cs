@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour
     [SerializeField] Character occupant;
     int index;
     bool fromHero;
-    bool enabled;
+    [SerializeField] bool enabled;
     Battleground battleground;
     Tile[] side;
     Tile[] otherSide;

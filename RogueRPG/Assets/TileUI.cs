@@ -18,10 +18,12 @@ public class TileUI : MonoBehaviour/*, IPlayAnimationByString*/
     [SerializeField] private Text name;
     private RectTransform rectTransform;
     [SerializeField] RectTransform portraitHandler;
+    Tile tile;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        tile = GetComponent<Tile>();
     }
 
     public void Initialize(Tile tile)
@@ -100,7 +102,7 @@ public class TileUI : MonoBehaviour/*, IPlayAnimationByString*/
 
     public void ShowTargetBtn(Character user, Equip skill)
     {
-        if (enabled)
+        if (tile.IsEnabled())
             targetButton.Appear(user, skill);
     }
 
@@ -127,7 +129,7 @@ public class TileUI : MonoBehaviour/*, IPlayAnimationByString*/
 
     public void CheckIfAffected(Tile target, Equip choosedSkill, Character user)
     {
-        if (enabled)
+        if (tile.IsEnabled())
             targetButton.CheckIfAffected(target, choosedSkill, user);
     }
 
