@@ -7,6 +7,7 @@ public class Tile : MonoBehaviour
     [SerializeField] Character occupant;
     int index;
     bool fromHero;
+    bool enabled;
     Battleground battleground;
     Tile[] side;
     Tile[] otherSide;
@@ -23,11 +24,12 @@ public class Tile : MonoBehaviour
         }
     }
     public bool IsYourCharacter(Character character) { return character == occupant ? true : false; }
-    public void Initialize(int index, bool fromHero, Battleground battleground)
+    public void Initialize(int index, bool fromHero, Battleground battleground, bool enabled)
     {
         this.index = index;
         this.fromHero = fromHero;
         this.battleground = battleground;
+        this.enabled = enabled;
     }
     public void setOccupant(Character occupant) { this.occupant = occupant; }
     public Character getOccupant() { return occupant; }
@@ -40,4 +42,5 @@ public class Tile : MonoBehaviour
     public Tile[] GetAlliesTiles() { return fromHero ? battleground.getHeroesTiles() : battleground.getEnemiesTiles(); }
     public Tile[] GetEnemiesTiles() { return fromHero ? battleground.getEnemiesTiles() : battleground.getHeroesTiles(); }
     public int GetIndex() { return index; }
+    public bool IsEnabled() { return enabled; }
 }

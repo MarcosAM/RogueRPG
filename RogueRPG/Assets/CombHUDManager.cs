@@ -14,6 +14,23 @@ public class CombHUDManager : MonoBehaviour
         MakeItASingleton();
     }
 
+    //public void ShowCombatants(List<Tile> tiles)
+    //{
+    //    foreach (TileUI tileUI in tileUIs)
+    //    {
+    //        tileUI.Deinitialize();
+    //        tileUI.gameObject.SetActive(false);
+    //    }
+
+    //    for (int i = 0; i < tiles.Count; i++)
+    //    {
+    //        tileUIs[i].gameObject.SetActive(true);
+    //        tileUIs[i].Initialize(tiles[i]);
+    //        if (tiles[i].getOccupant() != null)
+    //            tiles[i].getOccupant().setHUD(tileUIs[i]);
+    //    }
+    //}
+
     public void ShowCombatants(List<Tile> tiles)
     {
         foreach (TileUI tileUI in tileUIs)
@@ -24,10 +41,13 @@ public class CombHUDManager : MonoBehaviour
 
         for (int i = 0; i < tiles.Count; i++)
         {
-            tileUIs[i].gameObject.SetActive(true);
-            tileUIs[i].Initialize(tiles[i]);
-            if (tiles[i].getOccupant() != null)
-                tiles[i].getOccupant().setHUD(tileUIs[i]);
+            //if (tiles[i].IsEnabled())
+            //{
+                tileUIs[i].gameObject.SetActive(true);
+                tileUIs[i].Initialize(tiles[i]);
+                if (tiles[i].getOccupant() != null)
+                    tiles[i].getOccupant().setHUD(tileUIs[i]);
+            //}
         }
     }
 

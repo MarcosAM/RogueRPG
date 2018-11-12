@@ -4,14 +4,51 @@ using UnityEngine;
 
 public class Battleground : MonoBehaviour
 {
+    public enum BattlegroundSize { Normal, Big, Large }
     [SerializeField] List<Tile> tiles = new List<Tile>();
+    BattlegroundSize size = BattlegroundSize.Normal;
+
     CombHUDManager cHUDManager;
 
     void Awake()
     {
         cHUDManager = FindObjectOfType<CombHUDManager>();
-        tiles.Capacity = 8;
-        CreateTiles();
+        tiles.Capacity = 12;
+        InitializeTiles();
+    }
+
+    void InitializeTiles()
+    {
+        bool isTileEnabled;
+        for (int i = 0; i < tiles.Capacity; i++)
+        {
+            switch (size)
+            {
+                case BattlegroundSize.Normal:
+                    if (i % 6 > 0 && i % 6 < 5)
+                        isTileEnabled = true;
+                    else
+                        isTileEnabled = false;
+                    break;
+                case BattlegroundSize.Big:
+                    if (i % 6 > 0 && i % 6 <= 5)
+                        isTileEnabled = true;
+                    else
+                        isTileEnabled = false;
+                    break;
+                default:
+                    isTileEnabled = true;
+                    break;
+            }
+            if (i < tiles.Capacity / 2)
+            {
+                tiles[i].Initialize(i, false, this, isTileEnabled);
+            }
+            else
+            {
+                tiles[i].Initialize(i, true, this, isTileEnabled);
+            }
+        }
     }
 
     public void MoveCharacterTo(Character character, int position)
@@ -97,33 +134,26 @@ public class Battleground : MonoBehaviour
                 sideIsPlayers = side[i].IsPlayable();
             }
         }
+
+        List<Tile> availableTiles = tiles.FindAll(t => t.IsEnabled());
+
+        for (int i = 0; i < availableTiles.Count; i++)
+        {
+            print(i + " " + availableTiles[i].GetIndex());
+        }
+
         if (sideIsPlayers)
         {
             for (int i = 0; i < side.Count; i++)
             {
-                tiles[i + tiles.Count / 2].setOccupant(side[i]);
+                availableTiles[i + availableTiles.Count / 2].setOccupant(side[i]);
             }
         }
         else
         {
             for (int i = 0; i < side.Count; i++)
             {
-                tiles[i].setOccupant(side[i]);
-            }
-        }
-    }
-
-    void CreateTiles()
-    {
-        for (int i = 0; i < tiles.Capacity; i++)
-        {
-            if (i < tiles.Capacity / 2)
-            {
-                tiles[i].Initialize(i, false, this);
-            }
-            else
-            {
-                tiles[i].Initialize(i, true, this);
+                availableTiles[i].setOccupant(side[i]);
             }
         }
     }

@@ -100,7 +100,8 @@ public class TileUI : MonoBehaviour/*, IPlayAnimationByString*/
 
     public void ShowTargetBtn(Character user, Equip skill)
     {
-        targetButton.Appear(user, skill);
+        if (enabled)
+            targetButton.Appear(user, skill);
     }
 
     public void HideTargetBtn()
@@ -126,7 +127,8 @@ public class TileUI : MonoBehaviour/*, IPlayAnimationByString*/
 
     public void CheckIfAffected(Tile target, Equip choosedSkill, Character user)
     {
-        targetButton.CheckIfAffected(target, choosedSkill, user);
+        if (enabled)
+            targetButton.CheckIfAffected(target, choosedSkill, user);
     }
 
     void OnDisable()
