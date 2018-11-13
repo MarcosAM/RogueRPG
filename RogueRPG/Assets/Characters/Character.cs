@@ -56,10 +56,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         }
         movement = GetComponent<IMovable>();
         movement.Initialize(this);
-        if (GetComponentInChildren<CharacterHUD>() == null)
-            print("Não achei!");
-
-        //avatarImg.sprite = portrait.sprite;
     }
 
     public void StartTurn()
@@ -500,7 +496,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
             if (poisened)
             {
                 owner.loseHpBy(Mathf.RoundToInt(owner.getMaxHp() * 0.1f), false);
-                print("WORK!");
             }
             else
             {

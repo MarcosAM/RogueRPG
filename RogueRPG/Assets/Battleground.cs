@@ -125,7 +125,6 @@ public class Battleground : MonoBehaviour
 
     public void ClearAndSetASide(List<Character> side)
     {
-        print(side.Count);
         bool sideIsPlayers = false;
         int sideSize = side.Count;
         for (int i = 0; i < side.Count; i++)

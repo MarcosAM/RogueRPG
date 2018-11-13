@@ -90,7 +90,6 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
 //	}
 //}
 //if (targetTile == null) {
-//	print ("Fuck!");
 //} else {
 //	UseSkill ();
 //}

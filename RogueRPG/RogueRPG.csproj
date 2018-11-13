@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AnimatedSlider.cs" />
     <Compile Include="Assets\Battleground.cs" />
     <Compile Include="Assets\Characters\Behaviors\CombatBehavior.cs" />
     <Compile Include="Assets\Characters\Character.cs" />

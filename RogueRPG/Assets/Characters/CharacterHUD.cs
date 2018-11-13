@@ -7,14 +7,14 @@ public class CharacterHUD : MonoBehaviour
 {
 
     Character character;
-    Slider hpSlider;
+    AnimatedSlider hpSlider;
     [SerializeField] Text hpText;
     [SerializeField] private DamageFB damageFbPrefab;
     [SerializeField] private Text nameText;
 
     void Awake()
     {
-        hpSlider = GetComponentInChildren<Slider>();
+        hpSlider = GetComponentInChildren<AnimatedSlider>();
     }
 
     public void SetCharacter(Character character)
@@ -41,7 +41,7 @@ public class CharacterHUD : MonoBehaviour
     void SetHpBar(float v)
     {
         if (v >= 0 && v <= 1)
-            hpSlider.value = v;
+            hpSlider.Value = v;
     }
 
     void SetHpNumbers(float hp, float maxHp)
