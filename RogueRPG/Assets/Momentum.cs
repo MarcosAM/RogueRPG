@@ -5,27 +5,31 @@ using UnityEngine.UI;
 
 public class Momentum : MonoBehaviour
 {
+    //TODO Método para contar a cada turno que passa que talvez tenha que descer o momentum
+    //TODO Delete the currentDisplayedAmount
+    //TODO Enemies can flee to enabled tiles
 
-    float targetAmount = 0;
-    float maxAmount = 100;
+    Slider slider;
     [SerializeField] float fillSpeed;
     bool filling = false;
-    Slider slider;
+    float tempValue;
+
     int currentMomentumDowntime = 0;
-    int maxMomentumDowntime = 4;
+    [SerializeField] int maxMomentumDowntime = 4;
 
     void Awake()
     {
         slider = GetComponent<Slider>();
+        tempValue = slider.value;
     }
 
-    public void SetTargetAmount(float value)
+    public void AddMomentum(float value)
     {
-        targetAmount += value;
-        if (targetAmount > maxAmount)
-            targetAmount = maxAmount;
-        if (targetAmount < 0)
-            targetAmount = 0;
+        tempValue += value;
+        if (tempValue > slider.maxValue)
+            tempValue = slider.maxValue;
+        if (tempValue < slider.minValue)
+            tempValue = slider.minValue;
         if (!filling)
         {
             StartCoroutine(AnimateSlider());
@@ -35,12 +39,11 @@ public class Momentum : MonoBehaviour
     IEnumerator AnimateSlider()
     {
         filling = true;
-        float currentDisplayedAmount = slider.value * maxAmount;
-        //TODO Delete the currentDisplayedAmount 
-        while (currentDisplayedAmount != targetAmount)
+        Debug.Log(slider.value);
+        while (slider.value != tempValue)
         {
-            currentDisplayedAmount = Mathf.MoveTowards(currentDisplayedAmount, targetAmount, Time.deltaTime * fillSpeed);
-            slider.value = currentDisplayedAmount / maxAmount;
+            slider.value = Mathf.MoveTowards(slider.value, tempValue, Time.deltaTime * fillSpeed);
+            Debug.Log(slider.value);
             yield return new WaitForSeconds(0);
         }
 
@@ -61,12 +64,10 @@ public class Momentum : MonoBehaviour
         }
     }
 
-    public bool IsMomentumFull() { return slider.value == slider.maxValue; }
-
     public void OnMomentumSkillUsed()
     {
-        SetTargetAmount(-maxAmount / 2);
+        AddMomentum(-slider.maxValue / 2);
     }
 
-    //TODO Método para contar a cada turno que passa que talvez tenha que descer o momentum
+    public bool IsMomentumFull() { return slider.value == slider.maxValue; }
 }

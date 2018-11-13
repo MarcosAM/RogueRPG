@@ -61,9 +61,9 @@ public class SAtk : Skill
             if (sum / damages.Count > 0)
             {
                 if (currentUser.IsPlayable())
-                    FindObjectOfType<Momentum>().SetTargetAmount((sum / damages.Count) * 2);
+                    FindObjectOfType<Momentum>().AddMomentum(((sum / damages.Count) * 2) / 100);
                 else
-                    FindObjectOfType<Momentum>().SetTargetAmount(-(sum / damages.Count));
+                    FindObjectOfType<Momentum>().AddMomentum((-(sum / damages.Count)) / 100);
             }
         }
         base.EndSkill();
