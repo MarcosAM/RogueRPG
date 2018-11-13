@@ -61,9 +61,9 @@ public class SAtk : Skill
             if (sum / damages.Count > 0)
             {
                 if (currentUser.IsPlayable())
-                    DungeonManager.getInstance().AddMomentum((sum / damages.Count) * 2);
+                    FindObjectOfType<Momentum>().SetTargetAmount((sum / damages.Count) * 2);
                 else
-                    DungeonManager.getInstance().AddMomentum(-(sum / damages.Count));
+                    FindObjectOfType<Momentum>().SetTargetAmount(-(sum / damages.Count));
             }
         }
         base.EndSkill();

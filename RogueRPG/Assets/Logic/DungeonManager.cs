@@ -13,19 +13,13 @@ public class DungeonManager : MonoBehaviour
     int round;
     int dungeonFloor = 0;
     Battleground battleground;
-    //[SerializeField] Character characterPrefab;
-    [SerializeField] MomentumBar momentumBar;
-    float momentum = 0;
-    [SerializeField] float maxMomentum;
-    int currentMomentumDowntime = 0;
-    int maxMomentumDowntime = 4;
 
     void Start()
     {
-        MakeItASingleton();
-        momentumBar.Initialize(maxMomentum);
         battleground = GetComponent<Battleground>();
         GameManager gameManager = GameManager.getInstance();
+        MakeItASingleton();
+
         List<Character> pcs = new List<Character>();
         for (int i = 0; i < gameManager.getHeroesStats().Count; i++)
         {
@@ -55,54 +49,22 @@ public class DungeonManager : MonoBehaviour
         TryToStartTurn();
     }
 
-    void TryToStartTurn()
+    void MakeItASingleton()
     {
-        if (initiativeOrder.Count > 0)
+        if (instance == null)
         {
-            initiativeOrder[0].getBehavior().StartTurn();
+            instance = this;
         }
         else
         {
-            StartCoroutine(WaitForNonDelayedCharacter());
+            Destroy(gameObject);
         }
     }
 
-    //TODO Definir uma variável de quanto em quanto eu recupero o delay
-    IEnumerator WaitForNonDelayedCharacter()
+
+    void TryToStartTurn()
     {
-        bool WaitingForNonDelayedCharacter = true;
-        while (WaitingForNonDelayedCharacter)
-        {
-
-            for (int i = 0; i < battleground.getHeroSide().Count; i++)
-            {
-                if (battleground.getHeroSide()[i] != null)
-                {
-                    battleground.getHeroSide()[i].RecoverFromDelayBy(0.1f);
-                    if (!battleground.getHeroSide()[i].IsDelayed())
-                    {
-                        ResumeBattleAfterDelayWith(battleground.getHeroSide()[i]);
-                        WaitingForNonDelayedCharacter = false;
-                        yield break;
-                    }
-                }
-            }
-
-            for (int i = 0; i < battleground.getEnemySide().Count; i++)
-            {
-                if (battleground.getEnemySide()[i] != null)
-                {
-                    battleground.getEnemySide()[i].RecoverFromDelayBy(0.1f);
-                    if (!battleground.getEnemySide()[i].IsDelayed())
-                    {
-                        ResumeBattleAfterDelayWith(battleground.getEnemySide()[i]);
-                        WaitingForNonDelayedCharacter = false;
-                        yield break;
-                    }
-                }
-            }
-            yield return new WaitForSeconds(0.1f);
-        }
+        initiativeOrder[0].getBehavior().StartTurn();
     }
 
     void NextTurn()
@@ -133,12 +95,6 @@ public class DungeonManager : MonoBehaviour
     {
         initiative.Add(initiative[0]);
         initiative.RemoveAt(0);
-    }
-
-    void ResumeBattleAfterDelayWith(Character combatant)
-    {
-        initiativeOrder.Add(combatant);
-        TryToStartTurn();
     }
 
     void DeleteFromInitiative(Character combatant)
@@ -209,79 +165,10 @@ public class DungeonManager : MonoBehaviour
         return 0;
     }
 
-    void MakeItASingleton()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public static DungeonManager getInstance() { return instance; }
     public Battleground getBattleground() { return battleground; }
     public List<Character> getInitiativeOrder() { return initiativeOrder; }
     public int getRound() { return round; }
-
-    public bool ShouldMomentumStop()
-    {
-        currentMomentumDowntime++;
-        if (currentMomentumDowntime >= maxMomentumDowntime)
-        {
-            currentMomentumDowntime = 0;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public void ManageMomentum()
-    {
-        if (momentum >= maxMomentum)
-        {
-            if (ShouldMomentumStop())
-            {
-                AddMomentum(-70);
-            }
-        }
-        else
-        {
-            AddMomentum(-10 / initiativeOrder.Count);
-        }
-    }
-    public void AddMomentum(float amount)
-    {
-        momentum += amount;
-        momentumBar.changeMomentumBy(amount);
-        if (momentum > maxMomentum)
-            momentum = maxMomentum;
-        if (momentum < 0)
-            momentum = 0;
-    }
-    public bool IsMomentumFull()
-    {
-        if (momentum >= maxMomentum)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public void OnMomentumSkillUsed()
-    {
-        if (momentum != maxMomentum / 2)
-        {
-            AddMomentum(-(momentum - maxMomentum / 2));
-        }
-    }
 
     void OnEnable()
     {
@@ -294,12 +181,3 @@ public class DungeonManager : MonoBehaviour
         EventManager.OnDeathOf -= DeleteFromInitiative;
     }
 }
-
-//	IEnumerator RechargeEnergy (){
-//		while (WaitingForNonDelayedCharacter){
-//			EventManager.RechargeEnergy(0.1f);
-//			yield return new WaitForSeconds(0.1f);
-//		}
-//	}
-//		EventManager.OnRechargedEnergy += AddToInitiative;
-//		EventManager.OnRechargedEnergy -= AddToInitiative;

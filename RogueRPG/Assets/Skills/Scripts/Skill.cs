@@ -103,7 +103,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     {
         if (!(requester is Skill) && momentum)
         {
-            DungeonManager.getInstance().OnMomentumSkillUsed();
+            FindObjectOfType<Momentum>().OnMomentumSkillUsed();
             this.momentum = false;
         }
         requester.resumeFromSkill();
