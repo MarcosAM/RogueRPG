@@ -19,7 +19,7 @@ public class SEEscudada : Skill
     {
         base.OnHitEffect(user, tile);
         user.HitWith(tile.getOccupant(), value, this);
-        Tile[] heroesTiles = DungeonManager.getInstance().getBattleground().getHeroesTiles();
+        Tile[] heroesTiles = DungeonManager.getInstance().getBattleground().GetHeroesTiles();
         if (user.getPosition() - 1 >= 0)
         {
             if (heroesTiles[user.getPosition() - 1].getOccupant() != null)

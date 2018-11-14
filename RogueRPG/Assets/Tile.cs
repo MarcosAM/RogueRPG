@@ -39,8 +39,8 @@ public class Tile : MonoBehaviour
         return FindObjectOfType<CombHUDManager>().GetTileUIs()[index].getRectTransform().localPosition;
     }
     public bool isFromHero() { return fromHero; }
-    public Tile[] GetAlliesTiles() { return fromHero ? battleground.getHeroesTiles() : battleground.getEnemiesTiles(); }
-    public Tile[] GetEnemiesTiles() { return fromHero ? battleground.getEnemiesTiles() : battleground.getHeroesTiles(); }
+    public Tile[] GetAlliesTiles() { return fromHero ? battleground.GetHeroesTiles() : battleground.GetEnemiesTiles(); }
+    public Tile[] GetEnemiesTiles() { return fromHero ? battleground.GetEnemiesTiles() : battleground.GetHeroesTiles(); }
     public int GetIndex() { return index; }
     public bool IsEnabled() { return enabled; }
 }

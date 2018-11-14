@@ -61,7 +61,6 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-
     void TryToStartTurn()
     {
         initiativeOrder[0].getBehavior().StartTurn();

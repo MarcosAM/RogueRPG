@@ -103,24 +103,24 @@ public class Battleground : MonoBehaviour
         return characters;
     }
 
-    public Tile[] getHeroesTiles()
+    public Tile[] GetHeroesTiles()
     {
-        return tiles.FindAll(t => t.isFromHero()).ToArray();
+        return tiles.FindAll(t => t.isFromHero() && t.IsEnabled()).ToArray();
     }
 
-    public Tile[] getEnemiesTiles()
+    public Tile[] GetEnemiesTiles()
     {
-        return tiles.FindAll(t => !t.isFromHero()).ToArray();
+        return tiles.FindAll(t => !t.isFromHero() && t.IsEnabled()).ToArray();
     }
 
-    public Tile[] getMySideTiles(bool side)
+    public Tile[] GetMySideTiles(bool side)
     {
-        return side ? getHeroesTiles() : getEnemiesTiles();
+        return side ? GetHeroesTiles() : GetEnemiesTiles();
     }
 
-    public Tile[] getMyEnemiesTiles(bool side)
+    public Tile[] GetMyEnemiesTiles(bool side)
     {
-        return getMySideTiles(!side);
+        return GetMySideTiles(!side);
     }
 
     public void ClearAndSetASide(List<Character> side)
@@ -168,6 +168,7 @@ public class Battleground : MonoBehaviour
         return tiles.FindAll(t => t.getOccupant() != null ? !t.getOccupant().IsPlayable() && t.getOccupant().isAlive() : false).ToArray();
     }
 
+    public List<Tile> GetEnabledTiles() { return tiles.FindAll(t => t.IsEnabled()); }
     public List<Tile> GetTiles() { return tiles; }
 
     public Tile[] GetAliveOpponents(Character character)
