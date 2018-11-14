@@ -9,12 +9,12 @@ public class TileUI : MonoBehaviour
     [SerializeField] private Character combatant;
     [SerializeField] private TargetBtn targetButton;
     private RectTransform rectTransform;
-    [SerializeField] RectTransform portraitHandler;
+    //[SerializeField] RectTransform portraitHandler;
     Tile tile;
 
     void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
+        //rectTransform = GetComponent<RectTransform>();
         tile = GetComponent<Tile>();
     }
 
@@ -22,15 +22,15 @@ public class TileUI : MonoBehaviour
     {
         this.combatant = null;
 
-        if (!tile.isFromHero())
-        {
-            portraitHandler.localScale = new Vector3(-1, 1, 1);
-        }
+        //if (!tile.isFromHero())
+        //{
+        //    portraitHandler.localScale = new Vector3(-1, 1, 1);
+        //}
         if (tile.getOccupant() != null)
         {
             combatant = tile.getOccupant();
-            combatant.transform.SetParent(portraitHandler);
-            combatant.transform.localPosition = new Vector3(0, -50);
+            //combatant.transform.SetParent(portraitHandler);
+            //combatant.transform.localPosition = new Vector3(0, -50);
         }
         else
         {
@@ -45,10 +45,10 @@ public class TileUI : MonoBehaviour
     {
         if (combatant != null)
         {
-            foreach (Transform transform in portraitHandler.transform)
-            {
-                transform.SetParent(null);
-            }
+            //foreach (Transform transform in portraitHandler.transform)
+            //{
+            //    transform.SetParent(null);
+            //}
             combatant = null;
         }
     }

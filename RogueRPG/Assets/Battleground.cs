@@ -59,8 +59,8 @@ public class Battleground : MonoBehaviour
         {
             newPosition = position + tiles.Count / 2;
         }
-        tiles[oldPosition].setOccupant(tiles[newPosition].getOccupant());
-        tiles[newPosition].setOccupant(character);
+        tiles[oldPosition].SetOccupant(tiles[newPosition].getOccupant());
+        tiles[newPosition].SetOccupant(character);
         ShowCharactersToThePlayer();
     }
 
@@ -136,14 +136,14 @@ public class Battleground : MonoBehaviour
         {
             for (int i = 0; i < side.Count; i++)
             {
-                availableTiles[i + availableTiles.Count / 2].setOccupant(side[i]);
+                availableTiles[i + availableTiles.Count / 2].SetOccupant(side[i]);
             }
         }
         else
         {
             for (int i = 0; i < side.Count; i++)
             {
-                availableTiles[i].setOccupant(side[i]);
+                availableTiles[i].SetOccupant(side[i]);
             }
         }
     }
