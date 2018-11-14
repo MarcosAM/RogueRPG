@@ -74,14 +74,9 @@ public class Battleground : MonoBehaviour
         return tiles.Find(t => t.getOccupant() == character).GetRow() % (tiles.Count / 2);
     }
 
-    public int HowManyHeroes()
+    public int HowManyCharacters(bool alignment)
     {
-        return tiles.FindAll(t => t.getOccupant() != null ? t.getOccupant().IsPlayable() : false).Count;
-    }
-
-    public int HowManyEnemies()
-    {
-        return tiles.FindAll(t => t.getOccupant() != null ? !t.getOccupant().IsPlayable() : false).Count;
+        return tiles.FindAll(t => t.getOccupant() != null ? t.getOccupant().IsPlayable() == alignment : false).Count;
     }
 
     public List<Character> getHeroSide()

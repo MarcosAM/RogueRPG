@@ -142,7 +142,7 @@ public class DungeonManager : MonoBehaviour
                 }
             }
         }
-        if (countdown == battleground.HowManyHeroes())
+        if (countdown == battleground.HowManyCharacters(true))
         {
             return -1;
         }
@@ -157,7 +157,7 @@ public class DungeonManager : MonoBehaviour
                 }
             }
         }
-        if (countdown == battleground.HowManyEnemies())
+        if (countdown == battleground.HowManyCharacters(false))
         {
             return 1;
         }
