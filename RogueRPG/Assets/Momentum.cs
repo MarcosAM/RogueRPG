@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Momentum : MonoBehaviour
 {
     //TODO Método para contar a cada turno que passa que talvez tenha que descer o momentum
-    //TODO Enemies can flee to enabled tiles
 
     AnimatedSlider animatedSlider;
     public float Value
