@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
+public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
     Tile tile;
     public Image image;
+    Button button;
     [SerializeField] RectTransform hitPreview;
 
     void Awake()
@@ -142,7 +143,7 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
         image.color = color;
     }
 
-    override public void Disappear()
+    public void Disappear()
     {
         button.interactable = false;
         image.gameObject.SetActive(false);

@@ -91,7 +91,6 @@
     <Compile Include="Assets\Characters\NonPlayableCharacter.cs" />
     <Compile Include="Assets\Characters\PlayableCharacter.cs" />
     <Compile Include="Assets\Characters\Stat.cs" />
-    <Compile Include="Assets\CombatBtn.cs" />
     <Compile Include="Assets\CombHUDManager.cs" />
     <Compile Include="Assets\DudeDontDie.cs" />
     <Compile Include="Assets\Equip\Scripts\ChargeEquip.cs" />
@@ -129,7 +128,6 @@
     <Compile Include="Assets\StartUI.cs" />
     <Compile Include="Assets\TargetBtn.cs" />
     <Compile Include="Assets\Tile.cs" />
-    <Compile Include="Assets\TileUI.cs" />
     <Compile Include="Assets\UI\BattleGuide.cs" />
     <Compile Include="Assets\UI\EquipToggle.cs" />
     <Compile Include="Assets\UI\EquipToggleManager.cs" />

@@ -23,7 +23,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     protected Equip momentumSkill;
 
     //[SerializeField] protected Image portrait;
-    protected TileUI hud;
+    //protected TileUI hud;
     protected RegenerationAndPoisonManager regenerationManager;
 
     [SerializeField] protected Image avatarImg;
@@ -478,8 +478,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         this.characterName = name;
         RefreshHUD();
     }
-    public void setHUD(TileUI combatantHUD) { hud = combatantHUD; }
-    public TileUI getHUD() { return hud; }
+
     public CombatBehavior getBehavior() { return combatBehavior; }
     public IMovable getMovement() { return movement; }
     public int getPosition() { return movement.getPosition(); }
