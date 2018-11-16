@@ -9,7 +9,8 @@ public class SMove : Skill
     public override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
-        user.getMovement().MoveTo(tile.GetRow());
+        Debug.Log("Chegou aqui! Vou ter que andar para ");
+        tile.SetOccupant(user);
     }
 
     public override void OnHitEffect(Character user, Tile tile)

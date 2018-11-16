@@ -52,21 +52,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     void Effect()
     {
-        //if (singleTarget)
-        //{
-        //    EffectAnimation(currentTargetTile);
-        //    UniqueEffect(currentUser, currentTargetTile);
-        //    return;
-        //}
-        //else
-        //{
-        //    targetsLeft = currentTargetTile.GetAlliesTiles().Length;
-        //    foreach (Tile t in currentTargetTile.GetAlliesTiles())
-        //    {
-        //        EffectAnimation(t);
-        //        UniqueEffect(currentUser, t);
-        //    }
-        //}
         List<Tile> tiles = FindObjectOfType<Battleground>().GetEnabledTiles().FindAll(t => WillBeAffected(currentUser, currentTargetTile, t));
         targetsLeft = tiles.Count;
         foreach (Tile tile in tiles)

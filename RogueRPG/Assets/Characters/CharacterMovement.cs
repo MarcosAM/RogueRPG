@@ -10,12 +10,13 @@ public class CharacterMovement : MonoBehaviour, IMovable
 
     public void MoveTo(int destination)
     {
-        if (battleground == null)
-        {
-            battleground = FindObjectOfType<Battleground>();
-            //battleground.MoveCharacterTo(character, destination);
-        }
-        battleground.MoveCharacterTo(character, destination);
+        //if (battleground == null)
+        //{
+        //    battleground = FindObjectOfType<Battleground>();
+        //    //battleground.MoveCharacterTo(character, destination);
+        //}
+        //battleground.MoveCharacterTo(character, destination);
+        print("EI! Não era pra você ter vindo aqui");
     }
 
     public void Initialize(Character character)

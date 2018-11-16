@@ -31,38 +31,65 @@ public class Tile : MonoBehaviour
         this.fromHero = fromHero;
         this.battleground = battleground;
         this.enabled = enabled;
-    }
-    public void SetOccupant(Character occupant)
-    {
-        if (this.occupant != null)
-        {
-            foreach (Transform transform in portraitHandler.transform)
-            {
-                transform.SetParent(null);
-            }
-        }
         if (!fromHero)
         {
             portraitHandler.localScale = new Vector3(-1, 1, 1);
         }
+    }
+    public void SetOccupant(Character occupant)
+    {
+        if (occupant != null)
+        {
+            if (occupant.IsPlayable() != fromHero)
+            {
+                print("Cheguei aqui!");
+                battleground.GetTiles().Find(t => t.isFromHero() != fromHero && t.GetRow() == GetRow()).SetOccupant(occupant) ;
+                //battleground.ShowCharactersToThePlayer();
+                return;
+            }
+        }
+        //if (occupant.IsPlayable() == fromHero)
+        //{
+
+        //if (this.occupant != null)
+        //{
+            foreach (Transform transform in portraitHandler.transform)
+            {
+                transform.SetParent(null);
+            }
+            if (occupant != null)
+            {
+                Tile oldTile = occupant.GetTile();
+                if (oldTile != null)
+                {
+                    occupant.GetTile().SetOccupant(null);
+                    oldTile.SetOccupant(this.occupant);
+                }
+            }
+        //}
+
         this.occupant = occupant;
         if (occupant != null)
         {
             this.occupant.transform.SetParent(portraitHandler);
             this.occupant.transform.localPosition = new Vector3(0, 0);
         }
-        //this.occupant = occupant;
+        battleground.ShowCharactersToThePlayer();
+        //}
+        //else
+        //{
+        //}
     }
     public Character getOccupant() { return occupant; }
     public int GetRow() { return index % (battleground.GetTiles().Count / 2); }
     public Vector2 getLocalPosition()
     {
         return transform.localPosition;
-        //return FindObjectOfType<CombHUDManager>().GetTileUIs()[index].getRectTransform().localPosition;
     }
     public bool isFromHero() { return fromHero; }
     public Tile[] GetAlliesTiles() { return fromHero ? battleground.GetHeroesTiles() : battleground.GetEnemiesTiles(); }
     public Tile[] GetEnemiesTiles() { return fromHero ? battleground.GetEnemiesTiles() : battleground.GetHeroesTiles(); }
     public int GetIndex() { return index; }
     public bool IsEnabled() { return enabled; }
+    public Battleground GetBattleground() { return battleground; }
 }

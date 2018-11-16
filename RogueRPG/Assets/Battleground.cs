@@ -51,18 +51,18 @@ public class Battleground : MonoBehaviour
         }
     }
 
-    public void MoveCharacterTo(Character character, int position)
-    {
-        int oldPosition = character.IsPlayable() ? character.GetTile().GetRow() + tiles.Count / 2 : character.GetTile().GetIndex();
-        int newPosition = position;
-        if (character.IsPlayable())
-        {
-            newPosition = position + tiles.Count / 2;
-        }
-        tiles[oldPosition].SetOccupant(tiles[newPosition].getOccupant());
-        tiles[newPosition].SetOccupant(character);
-        ShowCharactersToThePlayer();
-    }
+    //public void MoveCharacterTo(Character character, int position)
+    //{
+    //    int oldPosition = character.IsPlayable() ? character.GetTile().GetRow() + tiles.Count / 2 : character.GetTile().GetIndex();
+    //    int newPosition = position;
+    //    if (character.IsPlayable())
+    //    {
+    //        newPosition = position + tiles.Count / 2;
+    //    }
+    //    tiles[oldPosition].SetOccupant(tiles[newPosition].getOccupant());
+    //    tiles[newPosition].SetOccupant(character);
+    //    ShowCharactersToThePlayer();
+    //}
 
     public void ShowCharactersToThePlayer()
     {

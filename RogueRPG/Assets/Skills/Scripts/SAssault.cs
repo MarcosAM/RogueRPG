@@ -22,7 +22,11 @@ public class SAssault : Skill, IWaitForSkill
 
     public override bool WillBeAffected(Character user, Tile target, Tile tile)
     {
-        if (firstEffect.WillBeAffected(user, DungeonManager.getInstance().getBattleground().GetMyEnemiesTiles(target.isFromHero())[target.GetRow()], tile) || secondEffect.WillBeAffected(user, target, tile))
+        //if (firstEffect.WillBeAffected(user, DungeonManager.getInstance().getBattleground().GetMyEnemiesTiles(target.isFromHero())[target.GetRow()], tile) || secondEffect.WillBeAffected(user, target, tile))
+        //{
+        //    return true;
+        //}
+        if (firstEffect.WillBeAffected(user, target.GetBattleground().GetTiles().Find(t => t.isFromHero() != target.isFromHero() && t.GetRow() == target.GetRow()), tile) || secondEffect.WillBeAffected(user, target, tile))
         {
             return true;
         }
