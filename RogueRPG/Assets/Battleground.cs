@@ -64,10 +64,10 @@ public class Battleground : MonoBehaviour
     //    ShowCharactersToThePlayer();
     //}
 
-    public void ShowCharactersToThePlayer()
-    {
-        cHUDManager.ShowCombatants(tiles);
-    }
+    //public void ShowCharactersToThePlayer()
+    //{
+    //    cHUDManager.ShowCombatants(tiles);
+    //}
 
     public int GetRow(Character character)
     {

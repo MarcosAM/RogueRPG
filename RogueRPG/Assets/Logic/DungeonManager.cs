@@ -44,7 +44,7 @@ public class DungeonManager : MonoBehaviour
         {
             character.refresh();
         }
-        battleground.ShowCharactersToThePlayer();
+        //battleground.ShowCharactersToThePlayer();
         round = 0;
         TryToStartTurn();
     }
@@ -114,7 +114,7 @@ public class DungeonManager : MonoBehaviour
         {
             AdvanceInitiative(initiativeOrder);
             battleground.ClearAndSetASide(gameManager.getEnemiesAtFloor(dungeonFloor));
-            battleground.ShowCharactersToThePlayer();
+            //battleground.ShowCharactersToThePlayer();
             foreach (Character character in battleground.getEnemySide())
             {
                 if (character != null)

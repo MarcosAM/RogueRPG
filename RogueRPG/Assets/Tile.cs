@@ -42,31 +42,24 @@ public class Tile : MonoBehaviour
         {
             if (occupant.IsPlayable() != fromHero)
             {
-                print("Cheguei aqui!");
-                battleground.GetTiles().Find(t => t.isFromHero() != fromHero && t.GetRow() == GetRow()).SetOccupant(occupant) ;
-                //battleground.ShowCharactersToThePlayer();
+                battleground.GetTiles().Find(t => t.isFromHero() != fromHero && t.GetRow() == GetRow()).SetOccupant(occupant);
                 return;
             }
         }
-        //if (occupant.IsPlayable() == fromHero)
-        //{
 
-        //if (this.occupant != null)
-        //{
-            foreach (Transform transform in portraitHandler.transform)
+        foreach (Transform transform in portraitHandler.transform)
+        {
+            transform.SetParent(null);
+        }
+        if (occupant != null)
+        {
+            Tile oldTile = occupant.GetTile();
+            if (oldTile != null)
             {
-                transform.SetParent(null);
+                occupant.GetTile().SetOccupant(null);
+                oldTile.SetOccupant(this.occupant);
             }
-            if (occupant != null)
-            {
-                Tile oldTile = occupant.GetTile();
-                if (oldTile != null)
-                {
-                    occupant.GetTile().SetOccupant(null);
-                    oldTile.SetOccupant(this.occupant);
-                }
-            }
-        //}
+        }
 
         this.occupant = occupant;
         if (occupant != null)
@@ -74,11 +67,7 @@ public class Tile : MonoBehaviour
             this.occupant.transform.SetParent(portraitHandler);
             this.occupant.transform.localPosition = new Vector3(0, 0);
         }
-        battleground.ShowCharactersToThePlayer();
-        //}
-        //else
-        //{
-        //}
+        //battleground.ShowCharactersToThePlayer();
     }
     public Character getOccupant() { return occupant; }
     public int GetRow() { return index % (battleground.GetTiles().Count / 2); }
