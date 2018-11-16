@@ -51,24 +51,6 @@ public class Battleground : MonoBehaviour
         }
     }
 
-    //public void MoveCharacterTo(Character character, int position)
-    //{
-    //    int oldPosition = character.IsPlayable() ? character.GetTile().GetRow() + tiles.Count / 2 : character.GetTile().GetIndex();
-    //    int newPosition = position;
-    //    if (character.IsPlayable())
-    //    {
-    //        newPosition = position + tiles.Count / 2;
-    //    }
-    //    tiles[oldPosition].SetOccupant(tiles[newPosition].getOccupant());
-    //    tiles[newPosition].SetOccupant(character);
-    //    ShowCharactersToThePlayer();
-    //}
-
-    //public void ShowCharactersToThePlayer()
-    //{
-    //    cHUDManager.ShowCombatants(tiles);
-    //}
-
     public int GetRow(Character character)
     {
         return tiles.Find(t => t.getOccupant() == character).GetRow() % (tiles.Count / 2);
@@ -169,5 +151,33 @@ public class Battleground : MonoBehaviour
     public Tile[] GetAliveOpponents(Character character)
     {
         return character.IsPlayable() ? GetAliveNPCTiles() : GetAlivePCTiles();
+    }
+
+    public void SetSize(Battleground.BattlegroundSize size)
+    {
+        for (int i = 0; i < tiles.Capacity; i++)
+        {
+            switch (size)
+            {
+                case BattlegroundSize.Normal:
+                    if (i % 6 > 0 && i % 6 < 5)
+                        tiles[i].SetEnabled(true);
+                    else
+                        tiles[i].SetEnabled(false);
+                    break;
+                case BattlegroundSize.Big:
+                    if (i % 6 > 0 && i % 6 <= 5)
+                        tiles[i].SetEnabled(true);
+                    else
+                    {
+                        print("Mais um falso");
+                        tiles[i].SetEnabled(false);
+                    }
+                    break;
+                default:
+                    tiles[i].SetEnabled(true);
+                    break;
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour
     [SerializeField] Character occupant;
     int index;
     bool fromHero;
-    [SerializeField] bool enabled;
+    [SerializeField] bool available;
     Battleground battleground;
     Tile[] side;
     Tile[] otherSide;
@@ -30,7 +30,7 @@ public class Tile : MonoBehaviour
         this.index = index;
         this.fromHero = fromHero;
         this.battleground = battleground;
-        this.enabled = enabled;
+        this.available = enabled;
         if (!fromHero)
         {
             portraitHandler.localScale = new Vector3(-1, 1, 1);
@@ -79,6 +79,44 @@ public class Tile : MonoBehaviour
     public Tile[] GetAlliesTiles() { return fromHero ? battleground.GetHeroesTiles() : battleground.GetEnemiesTiles(); }
     public Tile[] GetEnemiesTiles() { return fromHero ? battleground.GetEnemiesTiles() : battleground.GetHeroesTiles(); }
     public int GetIndex() { return index; }
-    public bool IsEnabled() { return enabled; }
+    public bool IsEnabled() { return available; }
     public Battleground GetBattleground() { return battleground; }
+
+    public void SetEnabled(bool enabled)
+    {
+        if (!enabled && this.available != enabled)
+        {
+            if (occupant == null)
+            {
+                this.available = enabled;
+            }
+            else
+            {
+                List<Character> characters = new List<Character>();
+                var mySide = battleground.GetMySideTiles(fromHero);
+                foreach (Tile tile in mySide)
+                {
+                    characters.Add(tile.getOccupant());
+                    tile.SetOccupant(null);
+                }
+                this.available = enabled;
+                for (int i = 0; i < characters.Count; i++)
+                {
+                    if (characters[i] != null && !mySide[i].IsEnabled())
+                    {
+                        characters.RemoveAt(characters.FindIndex(c => c == null));
+                        break;
+                    }
+                }
+                for (int i = 0; i < battleground.GetMySideTiles(fromHero).Length; i++)
+                {
+                    battleground.GetMySideTiles(fromHero)[i].SetOccupant(characters[i]);
+                }
+            }
+        }
+        else
+        {
+            this.available = enabled;
+        }
+    }
 }
