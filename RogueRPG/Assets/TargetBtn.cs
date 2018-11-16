@@ -13,15 +13,10 @@ public class TargetBtn : CombatBtn, IPointerEnterHandler, IPointerExitHandler
 
     void Awake()
     {
+        tile = GetComponentInParent<Tile>();
         button = GetComponent<Button>();
         Disappear();
         button.onClick.AddListener(onClick);
-        //		image = GetComponent<Image> ();
-    }
-
-    public void setTile(Tile tile)
-    {
-        this.tile = tile;
     }
 
     void onClick()

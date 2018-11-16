@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class CombHUDManager : MonoBehaviour
 {
-    [SerializeField] List<TileUI> tileUIs = new List<TileUI>();
+    //[SerializeField] List<TileUI> tileUIs = new List<TileUI>();
+    [SerializeField] List<TargetBtn> targetBtns = new List<TargetBtn>();
 
     static CombHUDManager instance = null;
 
@@ -65,17 +66,17 @@ public class CombHUDManager : MonoBehaviour
 
     public void ShowTargetBtns(Character user, Equip choosedSkill)
     {
-        foreach (TileUI tileUI in tileUIs)
+        foreach (TargetBtn targetBtn in targetBtns)
         {
-            tileUI.ShowTargetBtn(user, choosedSkill);
+            targetBtn.Appear(user, choosedSkill);
         }
     }
 
     public void HideTargetBtns()
     {
-        foreach (TileUI tileUI in tileUIs)
+        foreach (TargetBtn targetBtn in targetBtns)
         {
-            tileUI.HideTargetBtn();
+            targetBtn.Disappear();
         }
     }
 
@@ -92,9 +93,9 @@ public class CombHUDManager : MonoBehaviour
 
     public void PreviewTargets(Character user, Equip selectedEquip, Tile target)
     {
-        foreach (TileUI tileUI in tileUIs)
+        foreach (TargetBtn targetBtn in targetBtns)
         {
-            tileUI.CheckIfAffected(target, selectedEquip, user);
+            targetBtn.CheckIfAffected(target, selectedEquip, user);
         }
     }
 
@@ -105,5 +106,5 @@ public class CombHUDManager : MonoBehaviour
 
     public static CombHUDManager getInstance() { return instance; }
 
-    public List<TileUI> GetTileUIs() { return tileUIs; }
+    //public List<TileUI> GetTileUIs() { return tileUIs; }
 }
