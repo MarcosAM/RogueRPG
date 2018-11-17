@@ -57,13 +57,13 @@ public class Battleground : MonoBehaviour
             switch (Size)
             {
                 case BattlegroundSize.Normal:
-                    if (i % 6 > 0 && i % 6 < 5)
+                    if (i % (tiles.Capacity / 2) > 0 && i % (tiles.Capacity / 2) < 5)
                         isTileEnabled = true;
                     else
                         isTileEnabled = false;
                     break;
                 case BattlegroundSize.Big:
-                    if (i % 6 > 0 && i % 6 <= 5)
+                    if (i % (tiles.Capacity / 2) > 0 && i % (tiles.Capacity / 2) <= 5)
                         isTileEnabled = true;
                     else
                         isTileEnabled = false;
@@ -83,29 +83,9 @@ public class Battleground : MonoBehaviour
         }
     }
 
-    public int HowManyCharacters(bool alignment)
-    {
-        return tiles.FindAll(t => t.getOccupant() != null ? t.getOccupant().IsPlayable() == alignment : false).Count;
-    }
-
-    public List<Character> getHeroSide()
-    {
-        List<Character> characters = new List<Character>();
-        for (int i = tiles.Count / 2; i < tiles.Count; i++)
-        {
-            characters.Add(tiles[i].getOccupant());
-        }
-        return characters;
-    }
-    public List<Character> getEnemySide()
-    {
-        List<Character> characters = new List<Character>();
-        for (int i = 0; i < tiles.Count / 2; i++)
-        {
-            characters.Add(tiles[i].getOccupant());
-        }
-        return characters;
-    }
+    List<Character> GetAllTilesOccupants() { return tiles.ConvertAll(t => t.getOccupant()); }
+    List<Character> GetCharacters() { return GetAllTilesOccupants().FindAll(c => c != null); }
+    public List<Character> GetAliveCharactersFrom(bool alingment) { return GetCharacters().FindAll(c => c.IsPlayable() == alingment && c.isAlive()); }
 
     public Tile[] GetHeroesTiles()
     {

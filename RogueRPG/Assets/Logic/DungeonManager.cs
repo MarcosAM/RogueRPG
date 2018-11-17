@@ -30,22 +30,17 @@ public class DungeonManager : MonoBehaviour
 
         battleground.ClearAndSetASide(pcs);
         battleground.ClearAndSetASide(gameManager.getEnemiesAtFloor(dungeonFloor));
-        foreach (Character hero in battleground.getHeroSide())
-        {
-            if (hero != null)
-                initiativeOrder.Add(hero);
-        }
-        foreach (Character enemy in battleground.getEnemySide())
-        {
-            if (enemy != null)
-                initiativeOrder.Add(enemy);
-        }
+
+        AddToInitiative(battleground.GetAliveCharactersFrom(true));
+        AddToInitiative(battleground.GetAliveCharactersFrom(false));
+
         foreach (Character character in initiativeOrder)
         {
             character.refresh();
         }
-        print("Nós vamos para um battlegroun " + gameManager.GetBattlegroundSize(dungeonFloor));
+
         battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
+
         round = 0;
         TryToStartTurn();
     }
@@ -102,9 +97,19 @@ public class DungeonManager : MonoBehaviour
         initiativeOrder.Remove(combatant);
     }
 
-    public void addToInitiative(Character character)
+    public void AddToInitiative(Character character)
     {
-        initiativeOrder.Add(character);
+        if (character != null)
+            initiativeOrder.Add(character);
+    }
+
+    void AddToInitiative(List<Character> characters)
+    {
+        foreach (Character hero in characters)
+        {
+            if (hero != null)
+                initiativeOrder.Add(hero);
+        }
     }
 
     void EndBattleAndCheckIfDungeonEnded()
@@ -117,12 +122,8 @@ public class DungeonManager : MonoBehaviour
             battleground.ClearAndSetASide(gameManager.getEnemiesAtFloor(dungeonFloor));
             battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
 
-            //battleground.ShowCharactersToThePlayer();
-            foreach (Character character in battleground.getEnemySide())
-            {
-                if (character != null)
-                    initiativeOrder.Add(character);
-            }
+            AddToInitiative(battleground.GetAliveCharactersFrom(false));
+
             round++;
             TryToStartTurn();
         }
@@ -134,36 +135,10 @@ public class DungeonManager : MonoBehaviour
 
     int DidOnePartyLost()
     {
-        int countdown = 0;
-        for (int i = 0; i < battleground.getHeroSide().Count; i++)
-        {
-            if (battleground.getHeroSide()[i] != null)
-            {
-                if (!battleground.getHeroSide()[i].isAlive())
-                {
-                    countdown++;
-                }
-            }
-        }
-        if (countdown == battleground.HowManyCharacters(true))
-        {
+        if (battleground.GetAlivePCTiles().Length <= 0)
             return -1;
-        }
-        countdown = 0;
-        for (int i = 0; i < battleground.getEnemySide().Count; i++)
-        {
-            if (battleground.getEnemySide()[i] != null)
-            {
-                if (!battleground.getEnemySide()[i].isAlive())
-                {
-                    countdown++;
-                }
-            }
-        }
-        if (countdown == battleground.HowManyCharacters(false))
-        {
+        if (battleground.GetAliveNPCTiles().Length <= 0)
             return 1;
-        }
         return 0;
     }
 

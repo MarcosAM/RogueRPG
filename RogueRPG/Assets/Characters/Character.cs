@@ -313,7 +313,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     {
         alive = true;
         Heal(hpRecovered);
-        DungeonManager.getInstance().addToInitiative(this);
+        DungeonManager.getInstance().AddToInitiative(this);
         RefreshHUD();
     }
 
