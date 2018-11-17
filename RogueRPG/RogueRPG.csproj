@@ -89,7 +89,6 @@
     <Compile Include="Assets\Characters\NonPlayableCharacter.cs" />
     <Compile Include="Assets\Characters\PlayableCharacter.cs" />
     <Compile Include="Assets\Characters\Stat.cs" />
-    <Compile Include="Assets\CombHUDManager.cs" />
     <Compile Include="Assets\Equip\Scripts\ChargeEquip.cs" />
     <Compile Include="Assets\Equip\Scripts\Equip.cs" />
     <Compile Include="Assets\Equip\Scripts\RangedEquip.cs" />
@@ -111,6 +110,9 @@
     <Compile Include="Assets\Quests\Quest.cs" />
     <Compile Include="Assets\Skills\Scripts\SAssault.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtk.cs" />
+    <Compile Include="Assets\Skills\Scripts\SAtkA.cs" />
+    <Compile Include="Assets\Skills\Scripts\SAtkR.cs" />
+    <Compile Include="Assets\Skills\Scripts\SAtkRA.cs" />
     <Compile Include="Assets\Skills\Scripts\SBuff.cs" />
     <Compile Include="Assets\Skills\Scripts\SEEscudada.cs" />
     <Compile Include="Assets\Skills\Scripts\SHeal.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
     <Compile Include="Assets\StartUI.cs" />
     <Compile Include="Assets\TargetBtn.cs" />
+    <Compile Include="Assets\TargetBtnsManager.cs" />
     <Compile Include="Assets\Tile.cs" />
     <Compile Include="Assets\UI\BattleGuide.cs" />
     <Compile Include="Assets\UI\EquipToggle.cs" />

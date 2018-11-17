@@ -41,11 +41,11 @@ public class Battleground : MonoBehaviour
         }
     }
 
-    CombHUDManager cHUDManager;
+    TargetBtnsManager cHUDManager;
 
     void Awake()
     {
-        cHUDManager = FindObjectOfType<CombHUDManager>();
+        cHUDManager = FindObjectOfType<TargetBtnsManager>();
         tiles = GetComponentsInChildren<Tile>().OfType<Tile>().ToList();
         tiles.Capacity = tiles.Count;
     }

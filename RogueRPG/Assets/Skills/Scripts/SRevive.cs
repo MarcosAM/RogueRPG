@@ -16,15 +16,4 @@ public class SRevive : Skill
             }
         }
     }
-
-    public override void OnHitEffect(Character user, Tile tile)
-    {
-        base.OnHitEffect(user, tile);
-
-    }
-
-    public override void OnMissedEffect(Character user, Tile tile)
-    {
-        base.OnMissedEffect(user, tile);
-    }
 }

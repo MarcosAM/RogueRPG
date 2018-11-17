@@ -46,15 +46,4 @@ public class SEEscudada : SAtk
             }
         }
     }
-
-    public override void OnHitEffect(Character user, Tile tile)
-    {
-        base.OnHitEffect(user, tile);
-        //user.HitWith(tile.GetCharacter(), value, this);
-    }
-
-    public override void OnMissedEffect(Character user, Tile tile)
-    {
-        base.OnMissedEffect(user, tile);
-    }
 }

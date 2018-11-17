@@ -10,7 +10,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     [SerializeField] protected string characterName;
     protected int hp;
     protected int maxHp;
-    //protected float delayCountdown = 0;
     [SerializeField] protected bool alive = true;
 
     //TODO provavelmente é melhor que isso só tenha para NonPlayable Characters

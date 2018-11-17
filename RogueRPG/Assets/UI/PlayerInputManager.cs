@@ -8,14 +8,14 @@ public class PlayerInputManager : MonoBehaviour
 
     private CombatBehavior combatBehavior;
     private EquipToggleManager equipTogglerManager;
-    private CombHUDManager combHUDManager;
+    private TargetBtnsManager combHUDManager;
     private SkillPreviewManager skillPreviewManager;
     private BattleGuide battleGuide;
 
     void Awake()
     {
         equipTogglerManager = FindObjectOfType<EquipToggleManager>();
-        combHUDManager = FindObjectOfType<CombHUDManager>();
+        combHUDManager = FindObjectOfType<TargetBtnsManager>();
         skillPreviewManager = FindObjectOfType<SkillPreviewManager>();
         battleGuide = FindObjectOfType<BattleGuide>();
         equipTogglerManager.HideEquipToggles();

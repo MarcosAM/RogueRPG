@@ -22,7 +22,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     void onClick()
     {
-        CombHUDManager.getInstance().onTargetBtnPressed(tile);
+        TargetBtnsManager.GetInstance().OnTargetBtnPressed(tile);
     }
 
     public void Appear(Character user, Equip skill)
@@ -132,8 +132,10 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             {
                 image.gameObject.SetActive(true);
                 button.interactable = true;
-                if (skill.HasHitPreview() && tile.CharacterIsAlive())
-                    ShowHitPreview(skill.ProbabilityToHit(user, target, tile));
+                if (skill is SAtk && tile.CharacterIsAlive())
+                    ShowHitPreview(((SAtk)skill).ProbabilityToHit(user, target, tile));
+                //if (skill.HasHitPreview() && tile.CharacterIsAlive())
+                //    ShowHitPreview(skill.ProbabilityToHit(user, target, tile));
             }
             else
             {
@@ -177,13 +179,13 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         if (tile.IsAvailable())
-            CombHUDManager.getInstance().OnTargetBtnHoverEnter(this);
+            TargetBtnsManager.GetInstance().OnTargetBtnHoverEnter(this);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         if (tile.IsAvailable())
-            CombHUDManager.getInstance().OnTargetBtnHoverExit(this);
+            TargetBtnsManager.GetInstance().OnTargetBtnHoverExit(this);
     }
 
     public Tile getTile() { return tile; }

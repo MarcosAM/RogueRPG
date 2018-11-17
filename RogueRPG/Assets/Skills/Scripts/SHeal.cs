@@ -11,14 +11,4 @@ public class SHeal : Skill
         if (tile.GetCharacter() != null)
             tile.GetCharacter().Heal(Mathf.RoundToInt(value + user.GetStatValue(Stat.Stats.Atkm)));
     }
-
-    public override void OnHitEffect(Character user, Tile tile)
-    {
-        base.OnHitEffect(user, tile);
-    }
-
-    public override void OnMissedEffect(Character user, Tile tile)
-    {
-        base.OnMissedEffect(user, tile);
-    }
 }

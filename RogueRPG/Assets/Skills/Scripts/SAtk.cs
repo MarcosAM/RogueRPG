@@ -71,13 +71,27 @@ public class SAtk : Skill
         return true;
     }
 
-    public override void OnHitEffect(Character user, Tile tile)
+
+
+
+
+
+
+    protected virtual float GetHit() { return Random.value; }
+
+    protected virtual bool DidIHit(Character target, float attack) { return attack < ProbabilityToHit(currentUser, currentTargetTile, target.GetTile()); }
+
+    public virtual float ProbabilityToHit(Character user, Tile target, Tile tile)
     {
-        base.OnHitEffect(user, tile);
+        return tile.CharacterIsAlive() ? precision + user.GetStatValue(Stat.Stats.Precision) - tile.GetCharacter().GetStatValue(Stat.Stats.Dodge) : 0f;
     }
 
-    public override void OnMissedEffect(Character user, Tile tile)
+    protected virtual float GetDamage(int skillDamage)
     {
-        base.OnMissedEffect(user, tile);
+        return source == Source.Physical ? (currentUser.GetStatValue(Stat.Stats.Atk) + skillDamage) * Random.Range(1f, 1.2f) : (currentUser.GetStatValue(Stat.Stats.Atkm) + skillDamage) * Random.Range(1f, 1.2f);
     }
+
+    protected virtual int Damage(Character user, int skillDamage, bool wasCritic) { return user.takeDamage(skillDamage, source, wasCritic); }
+
+    protected virtual bool WasCritic() { return source == Source.Physical ? Random.value <= critic + currentUser.GetStatValue(Stat.Stats.Critic) && critic > 0 : false; }
 }

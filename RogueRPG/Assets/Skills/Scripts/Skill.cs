@@ -70,192 +70,146 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     public void ResumeFromAnimation()
     {
-        //if (singleTarget)
-        //{
-        //    EndSkill();
-        //}
-        //else
-        //{
         targetsLeft--;
         if (targetsLeft <= 0)
         {
             EndSkill();
         }
-        //}
     }
 
     public virtual void EndSkill()
     {
         if (!(requester is Skill) && momentum)
         {
-            //FindObjectOfType<Momentum>().OnMomentumSkillUsed();
             this.momentum = false;
         }
         requester.resumeFromSkill();
     }
 
-    protected float GetHit()
-    {
-        return Random.value;
-    }
-
-    protected bool DidIHit(Character target, float attack)
-    {
-        return attack < ProbabilityToHit(currentUser, currentTargetTile, target.GetTile());
-    }
-
-    public float ProbabilityToHit(Character user, Tile target, Tile tile)
-    {
-        float distanceInfluence;
-        if (type == Skill.Type.Melee)
-        {
-            distanceInfluence = 0;
-        }
-        else
-        {
-            if (singleTarget)
-            {
-                if (Mathf.Abs(user.getPosition() - target.GetRow()) <= range)
-                {
-                    distanceInfluence = 0;
-                }
-                else
-                {
-                    distanceInfluence = Mathf.Abs(user.getPosition() - target.GetRow()) * 0.1f;
-                }
-            }
-            else
-            {
-                if (Mathf.Abs(target.GetRow() - tile.GetRow()) <= range)
-                {
-                    distanceInfluence = 0;
-                }
-                else
-                {
-                    distanceInfluence = Mathf.Abs(target.GetRow() - tile.GetRow()) * 0.1f;
-                }
-            }
-        }
-        if (tile.CharacterIsAlive())
-        {
-            return precision + user.GetStatValue(Stat.Stats.Precision) - distanceInfluence - tile.GetCharacter().GetStatValue(Stat.Stats.Dodge);
-        }
-        else
-            return 0f;
-    }
-
-    protected float GetDamage(int skillDamage)
-    {
-        if (source == Source.Physical)
-        {
-            return (currentUser.GetStatValue(Stat.Stats.Atk) + skillDamage) * Random.Range(1f, 1.2f);
-        }
-        else
-        {
-            return (currentUser.GetStatValue(Stat.Stats.Atkm) + skillDamage) * Random.Range(1f, 1.2f);
-        }
-    }
-
-    protected int Damage(Character user, int skillDamage, bool wasCritic)
-    {
-        return user.takeDamage(skillDamage, source, wasCritic);
-    }
-
-    protected bool WasCritic()
-    {
-        if (Random.value <= critic + currentUser.GetStatValue(Stat.Stats.Critic) && critic > 0 && source == Source.Physical)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    //public float ProbabilityToHit(Character user, Tile target, Tile tile)
+    //{
+    //    float distanceInfluence;
+    //    if (type == Skill.Type.Melee)
+    //    {
+    //        distanceInfluence = 0;
+    //    }
+    //    else
+    //    {
+    //        if (singleTarget)
+    //        {
+    //            if (Mathf.Abs(user.getPosition() - target.GetRow()) <= range)
+    //            {
+    //                distanceInfluence = 0;
+    //            }
+    //            else
+    //            {
+    //                distanceInfluence = Mathf.Abs(user.getPosition() - target.GetRow()) * 0.1f;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            if (Mathf.Abs(target.GetRow() - tile.GetRow()) <= range)
+    //            {
+    //                distanceInfluence = 0;
+    //            }
+    //            else
+    //            {
+    //                distanceInfluence = Mathf.Abs(target.GetRow() - tile.GetRow()) * 0.1f;
+    //            }
+    //        }
+    //    }
+    //    if (tile.CharacterIsAlive())
+    //    {
+    //        return precision + user.GetStatValue(Stat.Stats.Precision) - distanceInfluence - tile.GetCharacter().GetStatValue(Stat.Stats.Dodge);
+    //    }
+    //    else
+    //        return 0f;
+    //}
 
     public virtual bool WillBeAffected(Character user, Tile target, Tile tile)
     {
-        if (target == tile)
-        {
-            if (tile.CharacterIsAlive())
-            {
-                return true;
-            }
-            else
-            {
-                if ((type == Type.Ranged && !singleTarget) || (kind == Kind.Movement && Mathf.Abs(user.getPosition() - tile.GetRow()) <= range))
-                    return true;
-                else
-                    return false;
-            }
-        }
-        else
-        {
-            if (singleTarget)
-            {
-                return false;
-            }
-            else
-            {
-                if (type == Type.Melee)
-                {
-                    if (Mathf.Abs(target.GetRow() - tile.GetRow()) <= range)
-                    {
-                        if (target.GetSide() == tile.GetSide())
-                        {
-                            if (tile.GetCharacter() != null)
-                            {
-                                if (tile.GetCharacter().isAlive() || hitsDead)
-                                {
-                                    return true;
-                                }
-                                else
-                                {
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    if (target.GetSide() == tile.GetSide())
-                    {
-                        if (tile.GetCharacter() != null)
-                        {
-                            if (tile.GetCharacter().isAlive() || hitsDead)
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
+        return target == tile;
+        //if (target == tile)
+        //{
+        //    if (tile.CharacterIsAlive())
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        if ((type == Type.Ranged && !singleTarget) || (kind == Kind.Movement && Mathf.Abs(user.getPosition() - tile.GetRow()) <= range))
+        //            return true;
+        //        else
+        //            return false;
+        //    }
+        //}
+        //else
+        //{
+        //    if (singleTarget)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        if (type == Type.Melee)
+        //        {
+        //            if (Mathf.Abs(target.GetRow() - tile.GetRow()) <= range)
+        //            {
+        //                if (target.GetSide() == tile.GetSide())
+        //                {
+        //                    if (tile.GetCharacter() != null)
+        //                    {
+        //                        if (tile.GetCharacter().isAlive() || hitsDead)
+        //                        {
+        //                            return true;
+        //                        }
+        //                        else
+        //                        {
+        //                            return false;
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        return false;
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    return false;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (target.GetSide() == tile.GetSide())
+        //            {
+        //                if (tile.GetCharacter() != null)
+        //                {
+        //                    if (tile.GetCharacter().isAlive() || hitsDead)
+        //                    {
+        //                        return true;
+        //                    }
+        //                    else
+        //                    {
+        //                        return false;
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    return false;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //}
     }
 
     public string GetSkillName() { return sName; }
@@ -263,8 +217,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     public Source GetSource() { return source; }
     public bool DoesTargetDead() { return hitsDead; }
     public virtual void UniqueEffect(Character user, Tile tile) { }
-    public virtual void OnHitEffect(Character user, Tile tile) { }
-    public virtual void OnMissedEffect(Character user, Tile tile) { }
     public int GetRange() { return range; }
     public Type GetSkillType() { return type; }
     public Kind GetKind() { return kind; }
