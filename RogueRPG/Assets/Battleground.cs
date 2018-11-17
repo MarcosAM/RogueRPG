@@ -7,6 +7,38 @@ public class Battleground : MonoBehaviour
     public enum BattlegroundSize { Normal, Big, Large }
     [SerializeField] List<Tile> tiles = new List<Tile>();
     BattlegroundSize size = BattlegroundSize.Normal;
+    public BattlegroundSize Size
+    {
+        get
+        {
+            return size;
+        }
+        set
+        {
+            this.size = value;
+            for (int i = 0; i < tiles.Capacity; i++)
+            {
+                switch (this.size)
+                {
+                    case BattlegroundSize.Normal:
+                        if (i % 6 > 0 && i % 6 < 5)
+                            tiles[i].SetEnabled(true);
+                        else
+                            tiles[i].SetEnabled(false);
+                        break;
+                    case BattlegroundSize.Big:
+                        if (i % 6 > 0 && i % 6 <= 5)
+                            tiles[i].SetEnabled(true);
+                        else
+                            tiles[i].SetEnabled(false);
+                        break;
+                    default:
+                        tiles[i].SetEnabled(true);
+                        break;
+                }
+            }
+        }
+    }
 
     CombHUDManager cHUDManager;
 
@@ -22,7 +54,7 @@ public class Battleground : MonoBehaviour
         bool isTileEnabled;
         for (int i = 0; i < tiles.Capacity; i++)
         {
-            switch (size)
+            switch (Size)
             {
                 case BattlegroundSize.Normal:
                     if (i % 6 > 0 && i % 6 < 5)
@@ -49,11 +81,6 @@ public class Battleground : MonoBehaviour
                 tiles[i].Initialize(i, true, this, isTileEnabled);
             }
         }
-    }
-
-    public int GetRow(Character character)
-    {
-        return tiles.Find(t => t.getOccupant() == character).GetRow() % (tiles.Count / 2);
     }
 
     public int HowManyCharacters(bool alignment)
@@ -151,33 +178,5 @@ public class Battleground : MonoBehaviour
     public Tile[] GetAliveOpponents(Character character)
     {
         return character.IsPlayable() ? GetAliveNPCTiles() : GetAlivePCTiles();
-    }
-
-    public void SetSize(Battleground.BattlegroundSize size)
-    {
-        for (int i = 0; i < tiles.Capacity; i++)
-        {
-            switch (size)
-            {
-                case BattlegroundSize.Normal:
-                    if (i % 6 > 0 && i % 6 < 5)
-                        tiles[i].SetEnabled(true);
-                    else
-                        tiles[i].SetEnabled(false);
-                    break;
-                case BattlegroundSize.Big:
-                    if (i % 6 > 0 && i % 6 <= 5)
-                        tiles[i].SetEnabled(true);
-                    else
-                    {
-                        print("Mais um falso");
-                        tiles[i].SetEnabled(false);
-                    }
-                    break;
-                default:
-                    tiles[i].SetEnabled(true);
-                    break;
-            }
-        }
     }
 }

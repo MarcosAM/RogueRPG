@@ -45,7 +45,7 @@ public class DungeonManager : MonoBehaviour
             character.refresh();
         }
         print("Nós vamos para um battlegroun " + gameManager.GetBattlegroundSize(dungeonFloor));
-        battleground.SetSize(gameManager.GetBattlegroundSize(dungeonFloor));
+        battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
         round = 0;
         TryToStartTurn();
     }
@@ -115,7 +115,7 @@ public class DungeonManager : MonoBehaviour
         {
             AdvanceInitiative(initiativeOrder);
             battleground.ClearAndSetASide(gameManager.getEnemiesAtFloor(dungeonFloor));
-            battleground.SetSize(gameManager.GetBattlegroundSize(dungeonFloor));
+            battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
 
             //battleground.ShowCharactersToThePlayer();
             foreach (Character character in battleground.getEnemySide())

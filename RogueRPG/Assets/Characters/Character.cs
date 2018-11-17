@@ -17,7 +17,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     [SerializeField] protected StandartStats stats;
     protected List<Stat> listaStat = new List<Stat>();
     protected CombatBehavior combatBehavior;
-    [SerializeField] protected IMovable movement;
+    //[SerializeField] protected CharacterMovement movement;
 
     public Equip[] equips = new Equip[5];
     protected Equip momentumSkill;
@@ -54,8 +54,8 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         {
             FillStats();
         }
-        movement = GetComponent<IMovable>();
-        movement.Initialize(this);
+        //movement = GetComponent<CharacterMovement>();
+        //movement.Initialize(this);
     }
 
     public void StartTurn()
@@ -480,8 +480,11 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     }
 
     public CombatBehavior getBehavior() { return combatBehavior; }
-    public IMovable getMovement() { return movement; }
-    public int getPosition() { return movement.getPosition(); }
+
+    public int getPosition()
+    {
+        return GetComponentInParent<Transform>().gameObject.GetComponentInParent<Tile>().GetRow();
+    }
 
     protected class RegenerationAndPoisonManager
     {
@@ -568,7 +571,11 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         return c;
     }
 
-    public Tile GetTile() { return movement.GetTile(); }
+    public Tile GetTile()
+    {
+        return GetComponentInParent<Transform>().gameObject.GetComponentInParent<Tile>();
+        //return movement.GetTile();
+    }
     public Tile[] GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
     public Tile[] GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
 
