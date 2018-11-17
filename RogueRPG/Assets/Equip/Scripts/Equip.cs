@@ -26,7 +26,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
 
     public Skill AppropriateSkill(Character user, Tile target)
     {
-        if (target.isFromHero() == user.IsPlayable())
+        if (target.GetSide() == user.IsPlayable())
         {
             if (target.GetRow() == user.getPosition())
             {
@@ -39,7 +39,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
         }
         else
         {
-            if ((Mathf.Abs(target.GetRow() - user.getPosition()) <= meleeSkill.GetRange()) && target.getOccupant() != null)
+            if ((Mathf.Abs(target.GetRow() - user.getPosition()) <= meleeSkill.GetRange()) && target.GetCharacter() != null)
             {
                 return meleeSkill;
             }

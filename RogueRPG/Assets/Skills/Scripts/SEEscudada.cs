@@ -18,20 +18,20 @@ public class SEEscudada : Skill
     public override void OnHitEffect(Character user, Tile tile)
     {
         base.OnHitEffect(user, tile);
-        user.HitWith(tile.getOccupant(), value, this);
+        user.HitWith(tile.GetCharacter(), value, this);
         var heroesTiles = DungeonManager.getInstance().getBattleground().GetAvailableTilesFrom(true);
         if (user.getPosition() - 1 >= 0)
         {
-            if (heroesTiles[user.getPosition() - 1].getOccupant() != null)
+            if (heroesTiles[user.getPosition() - 1].GetCharacter() != null)
             {
-                heroesTiles[user.getPosition() - 1].getOccupant().BuffIt(Stat.Stats.Def, intensity, duration);
+                heroesTiles[user.getPosition() - 1].GetCharacter().BuffIt(Stat.Stats.Def, intensity, duration);
             }
         }
         if (user.getPosition() + 1 <= 4)
         {
-            if (heroesTiles[user.getPosition() + 1].getOccupant() != null)
+            if (heroesTiles[user.getPosition() + 1].GetCharacter() != null)
             {
-                heroesTiles[user.getPosition() + 1].getOccupant().BuffIt(Stat.Stats.Def, intensity, duration);
+                heroesTiles[user.getPosition() + 1].GetCharacter().BuffIt(Stat.Stats.Def, intensity, duration);
             }
         }
     }

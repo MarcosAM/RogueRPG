@@ -8,11 +8,11 @@ public class SRevive : Skill
     public override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
-        if (tile.getOccupant() != null)
+        if (tile.GetCharacter() != null)
         {
-            if (!tile.getOccupant().isAlive())
+            if (!tile.GetCharacter().isAlive())
             {
-                tile.getOccupant().revive(Mathf.RoundToInt(tile.getOccupant().getMaxHp() * value));
+                tile.GetCharacter().revive(Mathf.RoundToInt(tile.GetCharacter().getMaxHp() * value));
             }
         }
     }

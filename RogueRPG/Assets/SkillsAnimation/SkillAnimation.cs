@@ -16,13 +16,13 @@ public class SkillAnimation : MonoBehaviour, IPlaySkillAnimation {
 	}
 
 	public void PlayAnimation (Equip skill, Tile tile){
-		rectTransform.localPosition = tile.getLocalPosition () + new Vector2(0,20);
+		rectTransform.localPosition = tile.GetLocalPosition () + new Vector2(0,20);
 		mySkill = skill;
 		animator.SetTrigger ("play");
 	}
 
 	public void PlayAnimation (Skill skillEffect, Tile tile){
-		rectTransform.localPosition = tile.getLocalPosition () + new Vector2(0,50);
+		rectTransform.localPosition = tile.GetLocalPosition () + new Vector2(0,50);
 		mySkillEffect = skillEffect;
 		animator.SetTrigger ("play");
 	}

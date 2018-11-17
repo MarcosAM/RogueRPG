@@ -10,7 +10,7 @@ public class SMove : Skill
     {
         base.UniqueEffect(user, tile);
         Debug.Log("Chegou aqui! Vou ter que andar para ");
-        tile.SetOccupant(user);
+        tile.SetCharacter(user);
     }
 
     public override void OnHitEffect(Character user, Tile tile)

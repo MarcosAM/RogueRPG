@@ -26,7 +26,7 @@ public class SAssault : Skill, IWaitForSkill
         //{
         //    return true;
         //}
-        if (firstEffect.WillBeAffected(user, target.GetBattleground().GetTiles().Find(t => t.isFromHero() != target.isFromHero() && t.GetRow() == target.GetRow()), tile) || secondEffect.WillBeAffected(user, target, tile))
+        if (firstEffect.WillBeAffected(user, FindObjectOfType<Battleground>().GetTiles().Find(t => t.GetSide() != target.GetSide() && t.GetRow() == target.GetRow()), tile) || secondEffect.WillBeAffected(user, target, tile))
         {
             return true;
         }

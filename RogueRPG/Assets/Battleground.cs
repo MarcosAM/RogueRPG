@@ -23,18 +23,18 @@ public class Battleground : MonoBehaviour
                 {
                     case BattlegroundSize.Normal:
                         if (i % 6 > 0 && i % 6 < 5)
-                            tiles[i].SetEnabled(true);
+                            tiles[i].SetAvailable(true);
                         else
-                            tiles[i].SetEnabled(false);
+                            tiles[i].SetAvailable(false);
                         break;
                     case BattlegroundSize.Big:
                         if (i % 6 > 0 && i % 6 <= 5)
-                            tiles[i].SetEnabled(true);
+                            tiles[i].SetAvailable(true);
                         else
-                            tiles[i].SetEnabled(false);
+                            tiles[i].SetAvailable(false);
                         break;
                     default:
-                        tiles[i].SetEnabled(true);
+                        tiles[i].SetAvailable(true);
                         break;
                 }
             }
@@ -62,29 +62,29 @@ public class Battleground : MonoBehaviour
             }
         }
 
-        List<Tile> availableTiles = tiles.FindAll(t => t.IsEnabled());
+        List<Tile> availableTiles = tiles.FindAll(t => t.IsAvailable());
 
         if (sideIsPlayers)
         {
             for (int i = 0; i < side.Count; i++)
             {
-                availableTiles[i + availableTiles.Count / 2].SetOccupant(side[i]);
+                availableTiles[i + availableTiles.Count / 2].SetCharacter(side[i]);
             }
         }
         else
         {
             for (int i = 0; i < side.Count; i++)
             {
-                availableTiles[i].SetOccupant(side[i]);
+                availableTiles[i].SetCharacter(side[i]);
             }
         }
     }
 
     public List<Tile> GetTiles() { return tiles; }
-    public List<Tile> GetAvailableTiles() { return tiles.FindAll(t => t.IsEnabled()); }
-    public List<Tile> GetAvailableTilesFrom(bool side) { return tiles.FindAll(t => t.isFromHero() == side && t.IsEnabled()); }
-    public List<Tile> GetTilesFromAliveCharactersOf(bool side) { return tiles.FindAll(t => t.getOccupant() != null ? t.getOccupant().IsPlayable() == side && t.getOccupant().isAlive() : false); }
+    public List<Tile> GetAvailableTiles() { return tiles.FindAll(t => t.IsAvailable()); }
+    public List<Tile> GetAvailableTilesFrom(bool side) { return tiles.FindAll(t => t.GetSide() == side && t.IsAvailable()); }
+    public List<Tile> GetTilesFromAliveCharactersOf(bool side) { return tiles.FindAll(t => t.GetCharacter() != null ? t.GetCharacter().IsPlayable() == side && t.GetCharacter().isAlive() : false); }
 
-    List<Character> GetAllTilesOccupants() { return tiles.ConvertAll(t => t.getOccupant()); }
+    List<Character> GetAllTilesOccupants() { return tiles.ConvertAll(t => t.GetCharacter()); }
     public List<Character> GetAliveCharactersFrom(bool side) { return GetAllTilesOccupants().FindAll(c => c != null ? c.IsPlayable() == side : false); }
 }

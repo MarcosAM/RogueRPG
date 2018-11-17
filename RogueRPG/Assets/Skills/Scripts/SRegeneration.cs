@@ -16,7 +16,7 @@ public class SRegeneration : Skill
     public override void OnHitEffect(Character user, Tile tile)
     {
         base.OnHitEffect(user, tile);
-        tile.getOccupant().startGeneration(Mathf.RoundToInt(value));
+        tile.GetCharacter().startGeneration(Mathf.RoundToInt(value));
     }
 
     public override void OnMissedEffect(Character user, Tile tile)

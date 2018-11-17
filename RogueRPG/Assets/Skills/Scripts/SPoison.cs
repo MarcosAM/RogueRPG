@@ -9,8 +9,8 @@ public class SPoison : Skill
     public override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
-        if(tile.getOccupant() != null)
-            tile.getOccupant().getPoisoned();
+        if(tile.GetCharacter() != null)
+            tile.GetCharacter().getPoisoned();
     }
 
     public override void OnHitEffect(Character user, Tile tile)

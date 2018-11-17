@@ -27,11 +27,11 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void Appear(Character user, Equip skill)
     {
-        if (tile.IsEnabled())
+        if (tile.IsAvailable())
         {
             HideHitPreview();
             Skill skillEffect;
-            if (tile.isFromHero() == user.IsPlayable())
+            if (tile.GetSide() == user.IsPlayable())
             {
                 if (tile.GetRow() == user.getPosition())
                 {
@@ -46,7 +46,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             }
             else
             {
-                if ((Mathf.Abs(tile.GetRow() - user.getPosition()) <= skill.GetMeleeEffect().GetRange()) && tile.getOccupant() != null)
+                if ((Mathf.Abs(tile.GetRow() - user.getPosition()) <= skill.GetMeleeEffect().GetRange()) && tile.GetCharacter() != null)
                 {
                     skillEffect = skill.GetMeleeEffect();
                     image.color = new Color(0.925f, 0.258f, 0.258f, 1);
@@ -58,9 +58,9 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 }
             }
 
-            if (tile.getOccupant() != null)
+            if (tile.GetCharacter() != null)
             {
-                if (tile.getOccupant().isAlive() || (!tile.getOccupant().isAlive() && skillEffect.DoesTargetDead()))
+                if (tile.GetCharacter().isAlive() || (!tile.GetCharacter().isAlive() && skillEffect.DoesTargetDead()))
                 {
                     image.gameObject.SetActive(true);
                     button.interactable = true;
@@ -98,10 +98,10 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void CheckIfAffected(Tile target, Equip choosedSkill, Character user)
     {
-        if (tile.IsEnabled())
+        if (tile.IsAvailable())
         {
             Skill skill;
-            if (target.isFromHero() == user.IsPlayable())
+            if (target.GetSide() == user.IsPlayable())
             {
                 if (target.GetRow() == user.getPosition())
                 {
@@ -116,7 +116,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             }
             else
             {
-                if ((Mathf.Abs(target.GetRow() - user.getPosition()) <= choosedSkill.GetMeleeEffect().GetRange()) && target.getOccupant() != null)
+                if ((Mathf.Abs(target.GetRow() - user.getPosition()) <= choosedSkill.GetMeleeEffect().GetRange()) && target.GetCharacter() != null)
                 {
                     skill = choosedSkill.GetMeleeEffect();
                     image.color = new Color(0.925f, 0.258f, 0.258f, 1);
@@ -145,7 +145,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void Show(Color color)
     {
-        if (tile.IsEnabled())
+        if (tile.IsAvailable())
         {
             image.gameObject.SetActive(true);
             button.interactable = false;
@@ -162,7 +162,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     void ShowHitPreview(float hit)
     {
-        if (tile.IsEnabled())
+        if (tile.IsAvailable())
         {
             hitPreview.gameObject.SetActive(true);
             hitPreview.GetComponentInChildren<Text>().text = (hit * 100f).ToString() + "%";
@@ -176,13 +176,13 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (tile.IsEnabled())
+        if (tile.IsAvailable())
             CombHUDManager.getInstance().OnTargetBtnHoverEnter(this);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        if (tile.IsEnabled())
+        if (tile.IsAvailable())
             CombHUDManager.getInstance().OnTargetBtnHoverExit(this);
     }
 

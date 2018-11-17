@@ -41,7 +41,7 @@ public class Stat
             if (this.buffDuration < buffDuration)
                 this.buffDuration = buffDuration;
         }
-        buffHUD.PlayAt(character, stats, this.intensity, character.GetTile().getLocalPosition());
+        buffHUD.PlayAt(character, stats, this.intensity, character.GetTile().GetLocalPosition());
         //		TODO atualizar a interface para mostrar esse bonus
     }
 

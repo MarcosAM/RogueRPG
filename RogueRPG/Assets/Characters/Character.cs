@@ -109,9 +109,9 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         else
         {
             skillEffect.OnMissedEffect(this, target);
-            if (target.getOccupant() != null)
+            if (target.GetCharacter() != null)
                 //target.getOccupant().getHUD().getAnimator().SetTrigger("Dodge");
-                target.getOccupant().getAnimator().SetTrigger("Dodge");
+                target.GetCharacter().getAnimator().SetTrigger("Dodge");
         }
     }
 
@@ -217,9 +217,9 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     {
         if (CanIHitWith(target, skill))
         {
-            if (target.getOccupant() != null)
+            if (target.GetCharacter() != null)
             {
-                return getPrecisionOfSkillEffect(target.getOccupant(), skill);
+                return getPrecisionOfSkillEffect(target.GetCharacter(), skill);
             }
             else
             {

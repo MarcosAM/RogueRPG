@@ -27,17 +27,17 @@ public class SAtk : Skill
     public override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
-        if (tile.getOccupant())
+        if (tile.GetCharacter())
         {
             if (WasCritic())
             {
-                damages.Add(Damage(tile.getOccupant(), dmg, true));
+                damages.Add(Damage(tile.GetCharacter(), dmg, true));
             }
             else
             {
-                if (DidIHit(tile.getOccupant(), hit))
+                if (DidIHit(tile.GetCharacter(), hit))
                 {
-                    damages.Add(Damage(tile.getOccupant(), dmg, false));
+                    damages.Add(Damage(tile.GetCharacter(), dmg, false));
                     Debug.Log("Hit!");
                 }
                 else

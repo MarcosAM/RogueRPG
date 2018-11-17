@@ -15,9 +15,9 @@ public class SBuff : Skill
     public override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
-        if (tile.getOccupant() != null)
+        if (tile.GetCharacter() != null)
         {
-            tile.getOccupant().BuffIt(stat, intensity, duration);
+            tile.GetCharacter().BuffIt(stat, intensity, duration);
             //switch (stat)
             //{
             //    case Stat.Stats.Critic:
