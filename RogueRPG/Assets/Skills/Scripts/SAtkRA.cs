@@ -9,7 +9,7 @@ public class SAtkRA : SAtkR
     {
         if (target == tile)
             return true;
-        return target.GetSide() == tile.GetSide() && tile.CharacterIsAlive();
+        return target.GetSide() == tile.GetSide() /*&& tile.CharacterIsAlive()*/;
     }
 
     public override float ProbabilityToHit(Character user, Tile target, Tile tile)
