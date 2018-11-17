@@ -10,7 +10,8 @@ public class SRegeneration : Skill
     public override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
-        user.TryToHitWith(tile, this);
+        tile.GetCharacter().startGeneration(Mathf.RoundToInt(value));
+        //user.TryToHitWith(tile, this);
     }
 
     public override void OnHitEffect(Character user, Tile tile)

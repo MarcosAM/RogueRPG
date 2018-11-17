@@ -6,14 +6,12 @@ using UnityEngine;
 public class SAtk : Skill
 {
 
-    float hit;
-    int dmg;
-    List<int> damages = new List<int>();
+    protected float hit;
+    protected int dmg;
+    protected List<int> damages = new List<int>();
 
     public override void StartSkill(Character user, Tile tile, IWaitForSkill requester, bool momentum)
     {
-
-        //base.StartSkill(user, tile, requester);
         damages.Clear();
         this.momentum = momentum;
         this.requester = requester;
@@ -26,7 +24,6 @@ public class SAtk : Skill
 
     public override void UniqueEffect(Character user, Tile tile)
     {
-        base.UniqueEffect(user, tile);
         if (tile.GetCharacter())
         {
             if (WasCritic())

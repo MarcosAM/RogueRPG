@@ -10,20 +10,17 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     [SerializeField] protected string characterName;
     protected int hp;
     protected int maxHp;
-    protected float delayCountdown = 0;
+    //protected float delayCountdown = 0;
     [SerializeField] protected bool alive = true;
 
     //TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
     [SerializeField] protected StandartStats stats;
     protected List<Stat> listaStat = new List<Stat>();
     protected CombatBehavior combatBehavior;
-    //[SerializeField] protected CharacterMovement movement;
 
     public Equip[] equips = new Equip[5];
     protected Equip momentumSkill;
 
-    //[SerializeField] protected Image portrait;
-    //protected TileUI hud;
     protected RegenerationAndPoisonManager regenerationManager;
 
     [SerializeField] protected Image avatarImg;
@@ -54,8 +51,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         {
             FillStats();
         }
-        //movement = GetComponent<CharacterMovement>();
-        //movement.Initialize(this);
     }
 
     public void StartTurn()
@@ -83,100 +78,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
             OnMyTurnEnds();
         }
         EventManager.EndedTurn();
-    }
-
-    public void HitWith(Character target, float attack, Skill skill)
-    {
-        if (skill.GetSource() == Skill.Source.Physical)
-        {
-            if (skill.GetCritic() + GetStatValue(Stat.Stats.Critic) >= UnityEngine.Random.value)
-                target.loseHpBy(Mathf.RoundToInt((attack + GetStatValue(Stat.Stats.Atk)) * 1.5f), true);
-            else
-                target.loseHpBy(Mathf.RoundToInt((attack + GetStatValue(Stat.Stats.Atk)) * UnityEngine.Random.Range(1f, 1.2f) - target.GetStatValue(Stat.Stats.Def)), false);
-        }
-        else
-        {
-            target.loseHpBy(Mathf.RoundToInt((attack + GetStatValue(Stat.Stats.Atkm)) * UnityEngine.Random.Range(1f, 1.2f) - target.GetStatValue(Stat.Stats.Defm)), false);
-        }
-    }
-
-    public void TryToHitWith(Tile target, Skill skillEffect)
-    {
-        if (getPrecisionOfSkillEffect(target, skillEffect) >= UnityEngine.Random.value)
-        {
-            skillEffect.OnHitEffect(this, target);
-        }
-        else
-        {
-            skillEffect.OnMissedEffect(this, target);
-            if (target.GetCharacter() != null)
-                //target.getOccupant().getHUD().getAnimator().SetTrigger("Dodge");
-                target.GetCharacter().getAnimator().SetTrigger("Dodge");
-        }
-    }
-
-    public bool DidIHitYou(float attackValue)
-    {
-        if (attackValue + GetStatValue(Stat.Stats.Dodge) < 0)
-        {
-            return true;
-        }
-        else
-        {
-            //hud.getAnimator().SetTrigger("Dodge");
-            animator.SetTrigger("Dodge");
-            return false;
-        }
-    }
-
-    public bool CanIHitWith(Character target, Skill skillEffect)
-    {
-        if (skillEffect.GetSkillType() == Skill.Type.Ranged)
-        {
-            return true;
-        }
-        else
-        {
-            if (Mathf.Abs(target.getPosition() - getPosition()) <= skillEffect.GetRange())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
-
-    public bool CanIHitWith(Tile target, Skill skillEffect)
-    {
-        if (skillEffect.GetSkillType() == Skill.Type.Ranged)
-        {
-            return true;
-        }
-        else
-        {
-            if (Mathf.Abs(target.GetRow() - getPosition()) <= skillEffect.GetRange())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
-
-    public float getPrecisionOfSkillEffect(Character target, Skill skill)
-    {
-        if (CanIHitWith(target, skill))
-        {
-            return skill.GetPrecision() + GetStatValue(Stat.Stats.Precision) + getDistanceInfluenceOnPrecision(target, skill) - target.GetStatValue(Stat.Stats.Dodge);
-        }
-        else
-        {
-            return -1;
-        }
     }
 
     public bool didIHitYouWith(float precision)
@@ -210,55 +111,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         {
             loseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm)), false);
             return Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm));
-        }
-    }
-
-    public float getPrecisionOfSkillEffect(Tile target, Skill skill)
-    {
-        if (CanIHitWith(target, skill))
-        {
-            if (target.GetCharacter() != null)
-            {
-                return getPrecisionOfSkillEffect(target.GetCharacter(), skill);
-            }
-            else
-            {
-                return -1;
-            }
-        }
-        else
-        {
-            return -1;
-        }
-    }
-
-    public float getDistanceInfluenceOnPrecision(Character target, Skill skill)
-    {
-        return getDistanceInfluenceOnPrecision(target.getPosition(), skill);
-    }
-
-    public float getDistanceInfluenceOnPrecision(Tile target, Skill skill)
-    {
-        return getDistanceInfluenceOnPrecision(target.GetRow(), skill);
-    }
-
-    public float getDistanceInfluenceOnPrecision(int targetPosition, Skill skill)
-    {
-        if (skill.GetSkillType() == Skill.Type.Melee)
-        {
-            return 0f;
-        }
-        else
-        {
-            float distanceInfluenceOnPrecision = skill.GetRange() - Mathf.Abs(getPosition() - targetPosition) * 0.1f;
-            if (distanceInfluenceOnPrecision > 0)
-            {
-                return 0;
-            }
-            else
-            {
-                return distanceInfluenceOnPrecision;
-            }
         }
     }
 
@@ -301,7 +153,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     public void Die()
     {
         hp = 0;
-        delayCountdown = 0;
+        //delayCountdown = 0;
         alive = false;
         EventManager.DeathOf(this);
         RemoveAllBuffs();
@@ -315,32 +167,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         Heal(hpRecovered);
         DungeonManager.getInstance().AddToInitiative(this);
         RefreshHUD();
-    }
-
-    public void DelayBy(float amount)
-    {
-        delayCountdown -= amount;
-        RefreshHUD();
-    }
-
-    public void RecoverFromDelayBy(float amount)
-    {
-        if (alive)
-        {
-            delayCountdown += amount;
-            RefreshHUD();
-        }
-    }
-    public bool IsDelayed()
-    {
-        if (delayCountdown >= 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
     }
 
     void RefreshHUD()
@@ -381,7 +207,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     public void refresh()
     {
         RemoveAllBuffs();
-        delayCountdown = 0;
+        //delayCountdown = 0;
         hp = maxHp;
     }
 
@@ -439,7 +265,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         return usableSkills;
     }
     public float getHp() { return hp; }
-    public float getEnergy() { return delayCountdown; }
+    //public float getEnergy() { return delayCountdown; }
     public float getMaxHp() { return maxHp; }
     public string getName() { return characterName; }
 
@@ -471,7 +297,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     public bool isAlive() { return alive; }
     public Image GetAvatarImg() { return avatarImg; }
 
-    public float getDelayCountdown() { return delayCountdown; }
+    //public float getDelayCountdown() { return delayCountdown; }
 
     public void setName(string name)
     {
