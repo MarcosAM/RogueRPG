@@ -60,7 +60,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
             if (tile.GetCharacter() != null)
             {
-                if (tile.GetCharacter().isAlive() || (!tile.GetCharacter().isAlive() && skillEffect.DoesTargetDead()))
+                if (tile.GetCharacter().isAlive())
                 {
                     image.gameObject.SetActive(true);
                     button.interactable = true;
@@ -73,7 +73,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             }
             else
             {
-                if (skillEffect.GetSkillType() == Skill.Type.Ranged && !skillEffect.IsSingleTarget())
+                if (skillEffect is SAtkRA)
                 {
                     image.gameObject.SetActive(true);
                     button.interactable = true;
@@ -83,7 +83,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                     image.gameObject.SetActive(false);
                     button.interactable = false;
                 }
-                if (skillEffect.GetKind() == Skill.Kind.Movement)
+                if (skillEffect is SMove)
                 {
                     if (Mathf.Abs(tile.GetRow() - user.getPosition()) <= skillEffect.GetRange())
                     {

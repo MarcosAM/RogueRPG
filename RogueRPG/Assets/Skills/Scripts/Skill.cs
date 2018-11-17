@@ -4,20 +4,14 @@ using UnityEngine;
 
 public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWaitForAnimation
 {
-    public enum Type { Melee, Ranged }
     public enum Source { Physical, Magic };
-    public enum Kind { Offensive, Heal, Buff, Debuff, Movement };
 
     [SerializeField] protected string sName;
-    [SerializeField] protected Type type;
     [SerializeField] protected Source source;
-    [SerializeField] protected Kind kind;
     [SerializeField] protected float value;
     [SerializeField] protected float precision;
     [SerializeField] protected float critic;
     [SerializeField] protected int range;
-    [SerializeField] protected bool singleTarget;
-    [SerializeField] protected bool hitsDead;
     [SerializeField] protected string description;
     [SerializeField] protected string castSkillAnimationTrigger;
     [SerializeField] protected float momentumValue;
@@ -91,13 +85,9 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     public string GetSkillName() { return sName; }
     public string GetDescription() { return description; }
     public Source GetSource() { return source; }
-    public bool DoesTargetDead() { return hitsDead; }
     public virtual void UniqueEffect(Character user, Tile tile) { }
     public int GetRange() { return range; }
-    public Type GetSkillType() { return type; }
-    public Kind GetKind() { return kind; }
     public float GetCritic() { return critic; }
     public float GetPrecision() { return precision; }
-    public bool IsSingleTarget() { return singleTarget; }
     public virtual bool HasHitPreview() { return false; }
 }
