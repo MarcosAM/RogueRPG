@@ -57,8 +57,8 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
 
     public virtual Tile GetBestTarget(Character user)
     {
-        Tile[] possibleTargets = DungeonManager.getInstance().getBattleground().GetAliveOpponents(user);
-        return possibleTargets[Random.Range(0, possibleTargets.Length)];
+        var possibleTargets = DungeonManager.getInstance().getBattleground().GetTilesFromAliveCharactersOf(!user.IsPlayable());
+        return possibleTargets[Random.Range(0, possibleTargets.Count)];
     }
 
     public string GetEquipName() { return eName; }

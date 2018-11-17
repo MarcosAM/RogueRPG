@@ -83,31 +83,7 @@ public class Battleground : MonoBehaviour
         }
     }
 
-    List<Character> GetAllTilesOccupants() { return tiles.ConvertAll(t => t.getOccupant()); }
-    List<Character> GetCharacters() { return GetAllTilesOccupants().FindAll(c => c != null); }
-    public List<Character> GetAliveCharactersFrom(bool alingment) { return GetCharacters().FindAll(c => c.IsPlayable() == alingment && c.isAlive()); }
-
-    public Tile[] GetHeroesTiles()
-    {
-        return tiles.FindAll(t => t.isFromHero() && t.IsEnabled()).ToArray();
-    }
-
-    public Tile[] GetEnemiesTiles()
-    {
-        return tiles.FindAll(t => !t.isFromHero() && t.IsEnabled()).ToArray();
-    }
-
-    public Tile[] GetMySideTiles(bool side)
-    {
-        return side ? GetHeroesTiles() : GetEnemiesTiles();
-    }
-
-    public Tile[] GetMyEnemiesTiles(bool side)
-    {
-        return GetMySideTiles(!side);
-    }
-
-    public void ClearAndSetASide(List<Character> side)
+    public void SetAvailableSide(List<Character> side)
     {
         bool sideIsPlayers = false;
         int sideSize = side.Count;
@@ -137,26 +113,11 @@ public class Battleground : MonoBehaviour
         }
     }
 
-    public Tile GetTile(Character character)
-    {
-        return tiles.Find(t => t.getOccupant() == character);
-    }
-
-    public Tile[] GetAlivePCTiles()
-    {
-        return tiles.FindAll(t => t.getOccupant() != null ? t.getOccupant().IsPlayable() && t.getOccupant().isAlive() : false).ToArray();
-    }
-
-    public Tile[] GetAliveNPCTiles()
-    {
-        return tiles.FindAll(t => t.getOccupant() != null ? !t.getOccupant().IsPlayable() && t.getOccupant().isAlive() : false).ToArray();
-    }
-
-    public List<Tile> GetEnabledTiles() { return tiles.FindAll(t => t.IsEnabled()); }
     public List<Tile> GetTiles() { return tiles; }
+    public List<Tile> GetAvailableTiles() { return tiles.FindAll(t => t.IsEnabled()); }
+    public List<Tile> GetAvailableTilesFrom(bool side) { return tiles.FindAll(t => t.isFromHero() == side && t.IsEnabled()); }
+    public List<Tile> GetTilesFromAliveCharactersOf(bool side) { return tiles.FindAll(t => t.getOccupant() != null ? t.getOccupant().IsPlayable() == side && t.getOccupant().isAlive() : false); }
 
-    public Tile[] GetAliveOpponents(Character character)
-    {
-        return character.IsPlayable() ? GetAliveNPCTiles() : GetAlivePCTiles();
-    }
+    List<Character> GetAllTilesOccupants() { return tiles.ConvertAll(t => t.getOccupant()); }
+    public List<Character> GetAliveCharactersFrom(bool side) { return GetAllTilesOccupants().FindAll(c => c != null ? c.IsPlayable() == side : false); }
 }

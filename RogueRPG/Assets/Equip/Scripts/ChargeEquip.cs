@@ -21,7 +21,7 @@ public class ChargeEquip : Equip
             }
         }
 
-        List<Tile> aliveOpponentTiles = DungeonManager.getInstance().getBattleground().GetEnabledTiles().FindAll(t => t.isFromHero() != user.IsPlayable() && t.IsOccupied());
+        List<Tile> aliveOpponentTiles = DungeonManager.getInstance().getBattleground().GetAvailableTiles().FindAll(t => t.isFromHero() != user.IsPlayable() && t.IsOccupied());
         if (aliveOpponentTiles.Exists(t => Mathf.Abs(t.GetRow() - user.GetTile().GetRow()) <= meleeSkill.GetRange()))
         {
             aliveOpponentTiles.RemoveAll(t => Mathf.Abs(t.GetRow() - user.GetTile().GetRow()) > meleeSkill.GetRange());
@@ -29,7 +29,7 @@ public class ChargeEquip : Equip
         }
 
 
-        List<Tile> alliedTiles = DungeonManager.getInstance().getBattleground().GetEnabledTiles().FindAll(t => t.isFromHero() == user.IsPlayable() && !t.IsOccupied());
+        List<Tile> alliedTiles = DungeonManager.getInstance().getBattleground().GetAvailableTiles().FindAll(t => t.isFromHero() == user.IsPlayable() && !t.IsOccupied());
 
         alliedTiles.Sort((t1, t2) => GetSmallerDistance(t1, aliveOpponentTiles) - GetSmallerDistance(t2, aliveOpponentTiles));
         alliedTiles.RemoveAll(t => Mathf.Abs(t.GetRow() - user.GetTile().GetRow()) > alliesSkill.GetRange());

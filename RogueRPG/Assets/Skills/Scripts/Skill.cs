@@ -52,7 +52,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     void Effect()
     {
-        List<Tile> tiles = FindObjectOfType<Battleground>().GetEnabledTiles().FindAll(t => WillBeAffected(currentUser, currentTargetTile, t));
+        List<Tile> tiles = FindObjectOfType<Battleground>().GetAvailableTiles().FindAll(t => WillBeAffected(currentUser, currentTargetTile, t));
         targetsLeft = tiles.Count;
         foreach (Tile tile in tiles)
         {

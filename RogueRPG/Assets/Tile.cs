@@ -76,8 +76,8 @@ public class Tile : MonoBehaviour
         return transform.localPosition;
     }
     public bool isFromHero() { return fromHero; }
-    public Tile[] GetAlliesTiles() { return fromHero ? battleground.GetHeroesTiles() : battleground.GetEnemiesTiles(); }
-    public Tile[] GetEnemiesTiles() { return fromHero ? battleground.GetEnemiesTiles() : battleground.GetHeroesTiles(); }
+    public List<Tile> GetAlliesTiles() { return battleground.GetAvailableTilesFrom(fromHero); }
+    public List<Tile> GetEnemiesTiles() { return battleground.GetAvailableTilesFrom(!fromHero); }
     public int GetIndex() { return index; }
     public bool IsEnabled() { return available; }
     public Battleground GetBattleground() { return battleground; }
@@ -93,7 +93,7 @@ public class Tile : MonoBehaviour
             else
             {
                 List<Character> characters = new List<Character>();
-                var mySide = battleground.GetMySideTiles(fromHero);
+                var mySide = battleground.GetAvailableTilesFrom(fromHero);
                 foreach (Tile tile in mySide)
                 {
                     characters.Add(tile.getOccupant());
@@ -108,9 +108,9 @@ public class Tile : MonoBehaviour
                         break;
                     }
                 }
-                for (int i = 0; i < battleground.GetMySideTiles(fromHero).Length; i++)
+                for (int i = 0; i < battleground.GetAvailableTilesFrom(fromHero).Count; i++)
                 {
-                    battleground.GetMySideTiles(fromHero)[i].SetOccupant(characters[i]);
+                    battleground.GetAvailableTilesFrom(fromHero)[i].SetOccupant(characters[i]);
                 }
             }
         }

@@ -576,8 +576,8 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         return GetComponentInParent<Transform>().gameObject.GetComponentInParent<Tile>();
         //return movement.GetTile();
     }
-    public Tile[] GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
-    public Tile[] GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
+    public List<Tile> GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
+    public List<Tile> GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
 
     public bool IsMomentumEquip(Equip equip)
     {

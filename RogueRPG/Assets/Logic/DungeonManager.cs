@@ -28,8 +28,8 @@ public class DungeonManager : MonoBehaviour
             pcs.Add(character);
         }
 
-        battleground.ClearAndSetASide(pcs);
-        battleground.ClearAndSetASide(gameManager.getEnemiesAtFloor(dungeonFloor));
+        battleground.SetAvailableSide(pcs);
+        battleground.SetAvailableSide(gameManager.getEnemiesAtFloor(dungeonFloor));
 
         AddToInitiative(battleground.GetAliveCharactersFrom(true));
         AddToInitiative(battleground.GetAliveCharactersFrom(false));
@@ -119,7 +119,7 @@ public class DungeonManager : MonoBehaviour
         if (dungeonFloor < gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups().Count)
         {
             AdvanceInitiative(initiativeOrder);
-            battleground.ClearAndSetASide(gameManager.getEnemiesAtFloor(dungeonFloor));
+            battleground.SetAvailableSide(gameManager.getEnemiesAtFloor(dungeonFloor));
             battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
 
             AddToInitiative(battleground.GetAliveCharactersFrom(false));
@@ -135,9 +135,9 @@ public class DungeonManager : MonoBehaviour
 
     int DidOnePartyLost()
     {
-        if (battleground.GetAlivePCTiles().Length <= 0)
+        if (battleground.GetTilesFromAliveCharactersOf(true).Count <= 0)
             return -1;
-        if (battleground.GetAliveNPCTiles().Length <= 0)
+        if (battleground.GetTilesFromAliveCharactersOf(false).Count <= 0)
             return 1;
         return 0;
     }
