@@ -136,7 +136,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
                 }
             }
         }
-        if (tile.IsOccupied())
+        if (tile.CharacterIsAlive())
         {
             return precision + user.GetStatValue(Stat.Stats.Precision) - distanceInfluence - tile.getOccupant().GetStatValue(Stat.Stats.Dodge);
         }
@@ -177,7 +177,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     {
         if (target == tile)
         {
-            if (tile.IsOccupied())
+            if (tile.CharacterIsAlive())
             {
                 return true;
             }

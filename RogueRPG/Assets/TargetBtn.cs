@@ -132,7 +132,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             {
                 image.gameObject.SetActive(true);
                 button.interactable = true;
-                if (skill.HasHitPreview() && tile.IsOccupied())
+                if (skill.HasHitPreview() && tile.CharacterIsAlive())
                     ShowHitPreview(skill.ProbabilityToHit(user, target, tile));
             }
             else

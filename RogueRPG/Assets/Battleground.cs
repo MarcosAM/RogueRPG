@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Battleground : MonoBehaviour
@@ -45,42 +46,8 @@ public class Battleground : MonoBehaviour
     void Awake()
     {
         cHUDManager = FindObjectOfType<CombHUDManager>();
-        tiles.Capacity = 12;
-        InitializeTiles();
-    }
-
-    void InitializeTiles()
-    {
-        bool isTileEnabled;
-        for (int i = 0; i < tiles.Capacity; i++)
-        {
-            switch (Size)
-            {
-                case BattlegroundSize.Normal:
-                    if (i % (tiles.Capacity / 2) > 0 && i % (tiles.Capacity / 2) < 5)
-                        isTileEnabled = true;
-                    else
-                        isTileEnabled = false;
-                    break;
-                case BattlegroundSize.Big:
-                    if (i % (tiles.Capacity / 2) > 0 && i % (tiles.Capacity / 2) <= 5)
-                        isTileEnabled = true;
-                    else
-                        isTileEnabled = false;
-                    break;
-                default:
-                    isTileEnabled = true;
-                    break;
-            }
-            if (i < tiles.Capacity / 2)
-            {
-                tiles[i].Initialize(i, false, this, isTileEnabled);
-            }
-            else
-            {
-                tiles[i].Initialize(i, true, this, isTileEnabled);
-            }
-        }
+        tiles = GetComponentsInChildren<Tile>().OfType<Tile>().ToList();
+        tiles.Capacity = tiles.Count;
     }
 
     public void SetAvailableSide(List<Character> side)

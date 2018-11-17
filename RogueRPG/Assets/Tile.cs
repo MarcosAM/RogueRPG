@@ -4,45 +4,30 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] Character occupant;
-    int index;
-    bool fromHero;
-    [SerializeField] bool available;
+    Character character;
+    [SerializeField] int index;
+    [SerializeField] bool side;
+    bool available = true;
     Battleground battleground;
-    Tile[] side;
-    Tile[] otherSide;
     [SerializeField] RectTransform portraitHandler;
 
-    public bool IsOccupied()
+    void Start()
     {
-        if (occupant != null)
-        {
-            return occupant.isAlive() ? true : false;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    public bool IsYourCharacter(Character character) { return character == occupant ? true : false; }
-    public void Initialize(int index, bool fromHero, Battleground battleground, bool enabled)
-    {
-        this.index = index;
-        this.fromHero = fromHero;
-        this.battleground = battleground;
-        this.available = enabled;
-        if (!fromHero)
-        {
+        this.battleground = GetComponentInParent<Battleground>();
+        this.index = battleground.GetTiles().IndexOf(this);
+        this.side = this.index >= (battleground.GetTiles().Count / 2) ? true : false;
+        if (this.side)
             portraitHandler.localScale = new Vector3(-1, 1, 1);
-        }
     }
+
+    public bool CharacterIsAlive() { return character != null ? character.isAlive() : false; }
     public void SetOccupant(Character occupant)
     {
         if (occupant != null)
         {
-            if (occupant.IsPlayable() != fromHero)
+            if (occupant.IsPlayable() != side)
             {
-                battleground.GetTiles().Find(t => t.isFromHero() != fromHero && t.GetRow() == GetRow()).SetOccupant(occupant);
+                battleground.GetTiles().Find(t => t.isFromHero() != side && t.GetRow() == GetRow()).SetOccupant(occupant);
                 return;
             }
         }
@@ -57,27 +42,27 @@ public class Tile : MonoBehaviour
             if (oldTile != null)
             {
                 occupant.GetTile().SetOccupant(null);
-                oldTile.SetOccupant(this.occupant);
+                oldTile.SetOccupant(this.character);
             }
         }
 
-        this.occupant = occupant;
+        this.character = occupant;
         if (occupant != null)
         {
-            this.occupant.transform.SetParent(portraitHandler);
-            this.occupant.transform.localPosition = new Vector3(0, 0);
+            this.character.transform.SetParent(portraitHandler);
+            this.character.transform.localPosition = new Vector3(0, 0);
         }
         //battleground.ShowCharactersToThePlayer();
     }
-    public Character getOccupant() { return occupant; }
+    public Character getOccupant() { return character; }
     public int GetRow() { return index % (battleground.GetTiles().Count / 2); }
     public Vector2 getLocalPosition()
     {
         return transform.localPosition;
     }
-    public bool isFromHero() { return fromHero; }
-    public List<Tile> GetAlliesTiles() { return battleground.GetAvailableTilesFrom(fromHero); }
-    public List<Tile> GetEnemiesTiles() { return battleground.GetAvailableTilesFrom(!fromHero); }
+    public bool isFromHero() { return side; }
+    public List<Tile> GetAlliesTiles() { return battleground.GetAvailableTilesFrom(side); }
+    public List<Tile> GetEnemiesTiles() { return battleground.GetAvailableTilesFrom(!side); }
     public int GetIndex() { return index; }
     public bool IsEnabled() { return available; }
     public Battleground GetBattleground() { return battleground; }
@@ -86,14 +71,14 @@ public class Tile : MonoBehaviour
     {
         if (!enabled && this.available != enabled)
         {
-            if (occupant == null)
+            if (character == null)
             {
                 this.available = enabled;
             }
             else
             {
                 List<Character> characters = new List<Character>();
-                var mySide = battleground.GetAvailableTilesFrom(fromHero);
+                var mySide = battleground.GetAvailableTilesFrom(side);
                 foreach (Tile tile in mySide)
                 {
                     characters.Add(tile.getOccupant());
@@ -108,9 +93,9 @@ public class Tile : MonoBehaviour
                         break;
                     }
                 }
-                for (int i = 0; i < battleground.GetAvailableTilesFrom(fromHero).Count; i++)
+                for (int i = 0; i < battleground.GetAvailableTilesFrom(side).Count; i++)
                 {
-                    battleground.GetAvailableTilesFrom(fromHero)[i].SetOccupant(characters[i]);
+                    battleground.GetAvailableTilesFrom(side)[i].SetOccupant(characters[i]);
                 }
             }
         }

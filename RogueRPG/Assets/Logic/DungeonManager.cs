@@ -16,7 +16,7 @@ public class DungeonManager : MonoBehaviour
 
     void Start()
     {
-        battleground = GetComponent<Battleground>();
+        battleground = FindObjectOfType<Battleground>();
         GameManager gameManager = GameManager.getInstance();
         MakeItASingleton();
 
