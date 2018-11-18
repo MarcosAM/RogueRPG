@@ -33,7 +33,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             Skill skillEffect;
             if (tile.GetSide() == user.IsPlayable())
             {
-                if (tile.GetRow() == user.getPosition())
+                if (tile.GetRow() == user.GetPosition())
                 {
                     skillEffect = skill.GetSelfEffect();
                     image.color = new Color(0.309f, 0.380f, 0.674f, 1);
@@ -46,7 +46,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             }
             else
             {
-                if ((Mathf.Abs(tile.GetRow() - user.getPosition()) <= skill.GetMeleeEffect().GetRange()) && tile.GetCharacter() != null)
+                if ((Mathf.Abs(tile.GetRow() - user.GetPosition()) <= skill.GetMeleeEffect().GetRange()) && tile.GetCharacter() != null)
                 {
                     skillEffect = skill.GetMeleeEffect();
                     image.color = new Color(0.925f, 0.258f, 0.258f, 1);
@@ -60,7 +60,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
             if (tile.GetCharacter() != null)
             {
-                if (tile.GetCharacter().isAlive())
+                if (tile.GetCharacter().IsAlive())
                 {
                     image.gameObject.SetActive(true);
                     button.interactable = true;
@@ -85,7 +85,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 }
                 if (skillEffect is SMove)
                 {
-                    if (Mathf.Abs(tile.GetRow() - user.getPosition()) <= skillEffect.GetRange())
+                    if (Mathf.Abs(tile.GetRow() - user.GetPosition()) <= skillEffect.GetRange())
                     {
                         image.gameObject.SetActive(true);
                         button.interactable = true;

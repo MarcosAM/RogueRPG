@@ -13,7 +13,7 @@ public class HPStat : Stat
 
     public override void SpendAndCheckIfEnded()
     {
-        character.Heal((int)(character.getMaxHp() * getBuffValue()));
+        character.Heal((int)(character.GetMaxHp() * getBuffValue()));
         base.SpendAndCheckIfEnded();
     }
 }

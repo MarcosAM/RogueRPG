@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         {
             character = gO.gameObject.AddComponent(typeof(NonPlayableCharacter)) as NonPlayableCharacter;
         }
-        character.setStats(standartStats);
+        character.SetStats(standartStats);
         return character;
     }
 }

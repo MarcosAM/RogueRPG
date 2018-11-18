@@ -111,10 +111,11 @@
     <Compile Include="Assets\Skills\Scripts\SAssault.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtk.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtkA.cs" />
+    <Compile Include="Assets\Skills\Scripts\SAtkDebuff.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtkR.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtkRA.cs" />
+    <Compile Include="Assets\Skills\Scripts\SAtkSpread.cs" />
     <Compile Include="Assets\Skills\Scripts\SBuff.cs" />
-    <Compile Include="Assets\Skills\Scripts\SEEscudada.cs" />
     <Compile Include="Assets\Skills\Scripts\SHeal.cs" />
     <Compile Include="Assets\Skills\Scripts\Skill.cs" />
     <Compile Include="Assets\Skills\Scripts\SkillAnimationManager.cs" />

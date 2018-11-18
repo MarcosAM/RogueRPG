@@ -55,7 +55,7 @@ public class Tile : MonoBehaviour
             this.character.transform.localPosition = new Vector3(0, 0);
         }
     }
-    public bool CharacterIsAlive() { return character != null ? character.isAlive() : false; }
+    public bool CharacterIsAlive() { return character != null ? character.IsAlive() : false; }
 
     public int GetIndex() { return index; }
     public int GetRow() { return index % (battleground.GetTiles().Count / 2); }

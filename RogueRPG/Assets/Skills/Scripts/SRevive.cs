@@ -10,9 +10,9 @@ public class SRevive : Skill
         base.UniqueEffect(user, tile);
         if (tile.GetCharacter() != null)
         {
-            if (!tile.GetCharacter().isAlive())
+            if (!tile.GetCharacter().IsAlive())
             {
-                tile.GetCharacter().revive(Mathf.RoundToInt(tile.GetCharacter().getMaxHp() * value));
+                tile.GetCharacter().Revive(Mathf.RoundToInt(tile.GetCharacter().GetMaxHp() * value));
             }
         }
     }

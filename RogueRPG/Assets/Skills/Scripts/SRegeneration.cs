@@ -9,6 +9,6 @@ public class SRegeneration : Skill
 
     protected override void UniqueEffect(Character user, Tile tile)
     {
-        tile.GetCharacter().startGeneration(Mathf.RoundToInt(value));
+        //tile.GetCharacter().startGeneration(Mathf.RoundToInt(value));
     }
 }

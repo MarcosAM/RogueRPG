@@ -8,7 +8,7 @@ public class SPoison : Skill
 
     protected override void UniqueEffect(Character user, Tile tile)
     {
-        if(tile.GetCharacter() != null)
-            tile.GetCharacter().getPoisoned();
+        //if(tile.GetCharacter() != null)
+        //    tile.GetCharacter().getPoisoned();
     }
 }

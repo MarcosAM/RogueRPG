@@ -24,7 +24,7 @@ public class CharacterHUD : MonoBehaviour
         {
             hpText.gameObject.SetActive(false);
         }
-        nameText.text = this.character.getName();
+        nameText.text = this.character.GetName();
         //TODO Desconectar com outros Characters caso já tivesse um, o que é improvável
         this.character.OnHUDValuesChange += Refresh;
         this.character.OnHPValuesChange += HPFeedback;
@@ -52,9 +52,9 @@ public class CharacterHUD : MonoBehaviour
 
     void Refresh()
     {
-        nameText.text = this.character.getName();
-        SetHpBar(character.getHp() / character.getMaxHp());
-        SetHpNumbers(character.getHp(), character.getMaxHp());
+        nameText.text = this.character.GetName();
+        SetHpBar(character.GetHp() / character.GetMaxHp());
+        SetHpNumbers(character.GetHp(), character.GetMaxHp());
     }
 
     void OnEnable()

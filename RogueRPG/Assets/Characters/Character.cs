@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IPlayAnimationByString
+public abstract class Character : MonoBehaviour, IPlayAnimationByString
 {
 
     [SerializeField] protected string characterName;
@@ -19,8 +19,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
 
     public Equip[] equips = new Equip[5];
     protected Equip momentumSkill;
-
-    protected RegenerationAndPoisonManager regenerationManager;
 
     [SerializeField] protected Image avatarImg;
     [SerializeField] protected RectTransform frontHandler;
@@ -60,14 +58,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         }
         SpendBuffs();
         CheckIfSkillsShouldBeRefreshed();
-        if (regenerationManager != null)
-        {
-            regenerationManager.recover();
-        }
-        else
-        {
-
-        }
     }
 
     public void EndTurn()
@@ -79,7 +69,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         EventManager.EndedTurn();
     }
 
-    public bool didIHitYouWith(float precision)
+    public bool DidIHitYouWith(float precision)
     {
         if (precision - GetStatValue(Stat.Stats.Dodge) >= 0)
         {
@@ -91,29 +81,29 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         }
     }
 
-    public int takeDamage(int damage, Skill.Source damageSource, bool wasCritic)
+    public int TakeDamage(int damage, Skill.Source damageSource, bool wasCritic)
     {
         if (damageSource == Skill.Source.Physical)
         {
             if (wasCritic)
             {
-                loseHpBy(Mathf.RoundToInt(damage), true);
+                LoseHpBy(Mathf.RoundToInt(damage), true);
                 return Mathf.RoundToInt(damage);
             }
             else
             {
-                loseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Def)), false);
+                LoseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Def)), false);
                 return Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Def));
             }
         }
         else
         {
-            loseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm)), false);
+            LoseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm)), false);
             return Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm));
         }
     }
 
-    public void loseHpBy(int damage, bool wasCritic)
+    public void LoseHpBy(int damage, bool wasCritic)
     {
         if (damage > 0)
         {
@@ -122,7 +112,6 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
                 OnHPValuesChange(hp, damage, wasCritic);
             }
             hp -= damage;
-            //hud.getAnimator().SetTrigger("Damage");
             animator.SetTrigger("Damage");
             if (hp <= 0)
             {
@@ -152,15 +141,12 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     public void Die()
     {
         hp = 0;
-        //delayCountdown = 0;
         alive = false;
         EventManager.DeathOf(this);
         RemoveAllBuffs();
-        //regenerationManager.poisened = false;
-        //regenerationManager.duration = 0;
     }
 
-    public void revive(int hpRecovered)
+    public void Revive(int hpRecovered)
     {
         alive = true;
         Heal(hpRecovered);
@@ -203,10 +189,9 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         GetComponentInChildren<CharacterHUD>().SetCharacter(this);
     }
 
-    public void refresh()
+    public void Refresh()
     {
         RemoveAllBuffs();
-        //delayCountdown = 0;
         hp = maxHp;
     }
 
@@ -243,15 +228,15 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         listaStat.Find(s => s.GetStats() == stats).BuffIt(intensity, buffDuration);
     }
 
-    public void setStats(StandartStats standartStats)
+    public void SetStats(StandartStats standartStats)
     {
         this.stats = standartStats;
         FillStats();
     }
 
-    public Equip[] getEquips() { return equips; }
-    public Equip getMomentumSkill() { return momentumSkill; }
-    public List<Equip> getUsableEquips()
+    public Equip[] GetEquips() { return equips; }
+    public Equip GetMomentumSkill() { return momentumSkill; }
+    public List<Equip> GetUsableEquips()
     {
         List<Equip> usableSkills = new List<Equip>();
         for (int i = 0; i < equips.Length; i++)
@@ -263,10 +248,9 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         }
         return usableSkills;
     }
-    public float getHp() { return hp; }
-    //public float getEnergy() { return delayCountdown; }
-    public float getMaxHp() { return maxHp; }
-    public string getName() { return characterName; }
+    public float GetHp() { return hp; }
+    public float GetMaxHp() { return maxHp; }
+    public string GetName() { return characterName; }
 
     public float GetStatValue(Stat.Stats stats)
     {
@@ -293,70 +277,20 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
     }
 
     public virtual bool IsPlayable() { return true; }
-    public bool isAlive() { return alive; }
+    public bool IsAlive() { return alive; }
     public Image GetAvatarImg() { return avatarImg; }
 
-    //public float getDelayCountdown() { return delayCountdown; }
-
-    public void setName(string name)
+    public void SetName(string name)
     {
         this.characterName = name;
         RefreshHUD();
     }
 
-    public CombatBehavior getBehavior() { return combatBehavior; }
+    public CombatBehavior GetBehavior() { return combatBehavior; }
 
-    public int getPosition()
+    public int GetPosition()
     {
         return GetComponentInParent<Transform>().gameObject.GetComponentInParent<Tile>().GetRow();
-    }
-
-    protected class RegenerationAndPoisonManager
-    {
-        public int duration = 0;
-        public bool consumable = true;
-        public bool poisened = false;
-        Character owner;
-
-        public void recover()
-        {
-            if (poisened)
-            {
-                owner.loseHpBy(Mathf.RoundToInt(owner.getMaxHp() * 0.1f), false);
-            }
-            else
-            {
-                if (duration > 0 || !consumable)
-                {
-                    owner.Heal(Mathf.RoundToInt(owner.getMaxHp() * 0.1f));
-                    if (consumable)
-                    {
-                        duration--;
-                    }
-                }
-            }
-        }
-
-        public RegenerationAndPoisonManager(Character owner)
-        {
-            this.owner = owner;
-        }
-    }
-
-    public void startGeneration(int duration)
-    {
-        regenerationManager.duration += duration;
-        regenerationManager.poisened = false;
-    }
-    public void startGeneration()
-    {
-        regenerationManager.consumable = false;
-        regenerationManager.poisened = false;
-    }
-    public void getPoisoned()
-    {
-        regenerationManager.duration = 0;
-        regenerationManager.poisened = true;
     }
 
     public void changeEquipObject(Image backEquip, Image frontEquip)
@@ -396,11 +330,7 @@ public abstract class Character : MonoBehaviour, IRegeneratable, IPoisonable, IP
         return c;
     }
 
-    public Tile GetTile()
-    {
-        return GetComponentInParent<Transform>().gameObject.GetComponentInParent<Tile>();
-        //return movement.GetTile();
-    }
+    public Tile GetTile() { return GetComponentInParent<Transform>().gameObject.GetComponentInParent<Tile>(); }
     public List<Tile> GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
     public List<Tile> GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
 

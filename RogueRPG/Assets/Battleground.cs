@@ -83,7 +83,7 @@ public class Battleground : MonoBehaviour
     public List<Tile> GetTiles() { return tiles; }
     public List<Tile> GetAvailableTiles() { return tiles.FindAll(t => t.IsAvailable()); }
     public List<Tile> GetAvailableTilesFrom(bool side) { return tiles.FindAll(t => t.GetSide() == side && t.IsAvailable()); }
-    public List<Tile> GetTilesFromAliveCharactersOf(bool side) { return tiles.FindAll(t => t.GetCharacter() != null ? t.GetCharacter().IsPlayable() == side && t.GetCharacter().isAlive() : false); }
+    public List<Tile> GetTilesFromAliveCharactersOf(bool side) { return tiles.FindAll(t => t.GetCharacter() != null ? t.GetCharacter().IsPlayable() == side && t.GetCharacter().IsAlive() : false); }
 
     List<Character> GetAllTilesOccupants() { return tiles.ConvertAll(t => t.GetCharacter()); }
     public List<Character> GetAliveCharactersFrom(bool side) { return GetAllTilesOccupants().FindAll(c => c != null ? c.IsPlayable() == side : false); }

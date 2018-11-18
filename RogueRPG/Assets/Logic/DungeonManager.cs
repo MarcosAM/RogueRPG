@@ -24,7 +24,7 @@ public class DungeonManager : MonoBehaviour
         for (int i = 0; i < gameManager.getHeroesStats().Count; i++)
         {
             Character character = gameManager.CreateCharacter(true, gameManager.getHeroesStats()[i]);
-            character.setName(gameManager.getHeroesNames()[i]);
+            character.SetName(gameManager.getHeroesNames()[i]);
             pcs.Add(character);
         }
 
@@ -36,7 +36,7 @@ public class DungeonManager : MonoBehaviour
 
         foreach (Character character in initiativeOrder)
         {
-            character.refresh();
+            character.Refresh();
         }
 
         battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
@@ -59,7 +59,7 @@ public class DungeonManager : MonoBehaviour
 
     void TryToStartTurn()
     {
-        initiativeOrder[0].getBehavior().StartTurn();
+        initiativeOrder[0].GetBehavior().StartTurn();
     }
 
     void NextTurn()

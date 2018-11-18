@@ -35,13 +35,13 @@ public class PlayerInputManager : MonoBehaviour
         {
             battleGuide.setText("CHOOSE YOUR TARGET");
             battleGuide.setAnimatorTrigger("PointLeftRight");
-            combatBehavior.GetCharacter().changeEquipObject(combatBehavior.GetCharacter().getEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), combatBehavior.GetCharacter().getEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
+            combatBehavior.GetCharacter().changeEquipObject(combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
             //combatBehavior.GetCharacter().getHUD().getAnimator().SetBool("Equiped", true);
             //combatBehavior.GetCharacter().getHUD().getAnimator().SetTrigger("ChangeEquip");
             combatBehavior.GetCharacter().getAnimator().SetBool("Equiped", true);
             combatBehavior.GetCharacter().getAnimator().SetTrigger("ChangeEquip");
             combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedEquip);
-            skillPreviewManager.showSkillPreviewsOf(combatBehavior.GetCharacter().getEquips()[equipTogglerManager.GetSelectedEquipIndex()]);
+            skillPreviewManager.showSkillPreviewsOf(combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()]);
         }
         else
         {
@@ -80,7 +80,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         get
         {
-            return combatBehavior.GetCharacter().getEquips()[equipTogglerManager.GetSelectedEquipIndex()];
+            return combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()];
         }
     }
 }

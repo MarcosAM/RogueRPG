@@ -15,7 +15,7 @@ public class SMove : Skill
     {
         if (target == tile)
         {
-            return tile.CharacterIsAlive() ? true : Mathf.Abs(user.getPosition() - tile.GetRow()) <= range;
+            return tile.CharacterIsAlive() ? true : Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range;
         }
         else
             return false;

@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Attack")]
 public class SAtk : Skill
 {
-
     protected float hit;
     protected int dmg;
     protected List<int> damages = new List<int>();
@@ -95,7 +94,7 @@ public class SAtk : Skill
         return source == Source.Physical ? (currentUser.GetStatValue(Stat.Stats.Atk) + skillDamage) * Random.Range(1f, 1.2f) : (currentUser.GetStatValue(Stat.Stats.Atkm) + skillDamage) * Random.Range(1f, 1.2f);
     }
 
-    protected virtual int Damage(Character user, int skillDamage, bool wasCritic) { return user.takeDamage(skillDamage, source, wasCritic); }
+    protected virtual int Damage(Character user, int skillDamage, bool wasCritic) { return user.TakeDamage(skillDamage, source, wasCritic); }
 
     protected virtual bool WasCritic() { return source == Source.Physical ? Random.value <= critic + currentUser.GetStatValue(Stat.Stats.Critic) && critic > 0 : false; }
 }

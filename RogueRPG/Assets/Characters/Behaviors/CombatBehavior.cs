@@ -18,7 +18,7 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
             FindObjectOfType<PlayerInputManager>().ShowUIFor(this);
         else
         {
-            choosedEquip = character.getUsableEquips()[Random.Range(0, character.getUsableEquips().Count)];
+            choosedEquip = character.GetUsableEquips()[Random.Range(0, character.GetUsableEquips().Count)];
             targetTile = choosedEquip.GetBestTarget(character);
             choosedEquip.UseEquipmentOn(character, targetTile, this, false);
         }
@@ -26,13 +26,13 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
     public virtual void UseEquip(int equip, Tile target, bool momentum)
     {
         availableEquips[equip] = false;
-        character.getEquips()[equip].UseEquipmentOn(character, target, this, momentum);
+        character.GetEquips()[equip].UseEquipmentOn(character, target, this, momentum);
     }
 
     public void SetCharacter(Character character)
     {
         this.character = character;
-        availableEquips = new bool[character.getEquips().Length];
+        availableEquips = new bool[character.GetEquips().Length];
         for (int i = 0; i < availableEquips.Length; i++)
         {
             availableEquips[i] = true;
