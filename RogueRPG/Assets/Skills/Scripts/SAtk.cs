@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Attack")]
 public class SAtk : Skill
 {
+    //TODO Criar classes para representarem o Ranged atk e o single target..talvez
     protected float hit;
     protected int dmg;
     protected List<int> damages = new List<int>();

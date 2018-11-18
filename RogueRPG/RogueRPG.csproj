@@ -120,8 +120,6 @@
     <Compile Include="Assets\Skills\Scripts\Skill.cs" />
     <Compile Include="Assets\Skills\Scripts\SkillAnimationManager.cs" />
     <Compile Include="Assets\Skills\Scripts\SMove.cs" />
-    <Compile Include="Assets\Skills\Scripts\SPoison.cs" />
-    <Compile Include="Assets\Skills\Scripts\SRegeneration.cs" />
     <Compile Include="Assets\Skills\Scripts\SRevive.cs" />
     <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
     <Compile Include="Assets\StartUI.cs" />
