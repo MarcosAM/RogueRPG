@@ -17,7 +17,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     [SerializeField] protected float momentumValue;
     [SerializeField] protected SkillAnimation animationPrefab;
     protected bool momentum = false;
-    protected int targetsLeft;
     protected Character currentUser;
     protected Tile currentTargetTile;
     protected IWaitForSkill requester;
@@ -46,14 +45,8 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     protected virtual void Effect()
     {
-        //TODO Tirar o Find all de single target skills
-        List<Tile> tiles = FindObjectOfType<Battleground>().GetAvailableTiles().FindAll(t => UniqueEffectWillAffect(currentUser, currentTargetTile, t));
-        targetsLeft = tiles.Count;
-        foreach (Tile tile in tiles)
-        {
-            EffectAnimation(tile);
-            UniqueEffect(currentUser, tile);
-        }
+        EffectAnimation(this.currentTargetTile);
+        UniqueEffect(this.currentUser, this.currentTargetTile);
     }
 
     protected virtual void UniqueEffect(Character user, Tile tile) { }
@@ -65,14 +58,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         skillAnimation.PlayAnimation(this, tile.GetLocalPosition());
     }
 
-    public void ResumeFromAnimation()
-    {
-        targetsLeft--;
-        if (targetsLeft <= 0)
-        {
-            EndSkill();
-        }
-    }
+    public virtual void ResumeFromAnimation() { EndSkill(); }
 
     public virtual void EndSkill()
     {

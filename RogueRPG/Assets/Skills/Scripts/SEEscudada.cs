@@ -9,18 +9,26 @@ public class SEEscudada : SAtk
     [SerializeField] Stat.Intensity intensity;
     [SerializeField] int duration;
     [SerializeField] int secondaryRange;
+    protected int targetsLeft;
 
     protected override void Effect()
     {
-        Tile uniqueEffectTarget = FindObjectOfType<Battleground>().GetAvailableTiles().Find(t => UniqueEffectWillAffect(currentUser, currentTargetTile, t));
         List<Tile> secondaryEffectTargets = FindObjectOfType<Battleground>().GetAvailableTiles().FindAll(t => SecondaryEffectWillAffect(currentUser, currentTargetTile, t));
         targetsLeft = secondaryEffectTargets.Count + 1;
-        EffectAnimation(uniqueEffectTarget);
-        UniqueEffect(currentUser, uniqueEffectTarget);
+        base.Effect();
         foreach (Tile secondaryTile in secondaryEffectTargets)
         {
             EffectAnimation(secondaryTile);
             SecondaryEffect(currentUser, secondaryTile);
+        }
+    }
+
+    public override void ResumeFromAnimation()
+    {
+        targetsLeft--;
+        if (targetsLeft <= 0)
+        {
+            EndSkill();
         }
     }
 

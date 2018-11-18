@@ -5,6 +5,28 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Attack Ranged All")]
 public class SAtkRA : SAtkR
 {
+    protected int targetsLeft;
+
+    protected override void Effect()
+    {
+        List<Tile> tiles = FindObjectOfType<Battleground>().GetAvailableTiles().FindAll(t => UniqueEffectWillAffect(currentUser, currentTargetTile, t));
+        targetsLeft = tiles.Count;
+        foreach (Tile tile in tiles)
+        {
+            EffectAnimation(tile);
+            UniqueEffect(currentUser, tile);
+        }
+    }
+
+    public override void ResumeFromAnimation()
+    {
+        targetsLeft--;
+        if (targetsLeft <= 0)
+        {
+            EndSkill();
+        }
+    }
+
     public override bool UniqueEffectWillAffect(Character user, Tile target, Tile tile)
     {
         if (target == tile)
