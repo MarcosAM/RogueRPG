@@ -6,7 +6,7 @@ using UnityEngine;
 public class SPoison : Skill
 {
 
-    public override void UniqueEffect(Character user, Tile tile)
+    protected override void UniqueEffect(Character user, Tile tile)
     {
         if(tile.GetCharacter() != null)
             tile.GetCharacter().getPoisoned();

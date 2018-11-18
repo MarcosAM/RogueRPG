@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Revive")]
 public class SRevive : Skill
 {
-    public override void UniqueEffect(Character user, Tile tile)
+    protected override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
         if (tile.GetCharacter() != null)

@@ -7,7 +7,7 @@ using UnityEngine;
 public class SRegeneration : Skill
 {
 
-    public override void UniqueEffect(Character user, Tile tile)
+    protected override void UniqueEffect(Character user, Tile tile)
     {
         tile.GetCharacter().startGeneration(Mathf.RoundToInt(value));
     }

@@ -8,7 +8,7 @@ public class SEEscudada : SAtk
     [SerializeField] Stat.Intensity intensity;
     [SerializeField] int duration;
 
-    public override void UniqueEffect(Character user, Tile tile)
+    protected override void UniqueEffect(Character user, Tile tile)
     {
         if (tile.GetCharacter())
         {

@@ -9,7 +9,7 @@ public class SBuff : Skill
     [SerializeField] Stat.Stats stat;
     [SerializeField] Stat.Intensity intensity;
 
-    public override void UniqueEffect(Character user, Tile tile)
+    protected override void UniqueEffect(Character user, Tile tile)
     {
         base.UniqueEffect(user, tile);
         if (tile.GetCharacter() != null)

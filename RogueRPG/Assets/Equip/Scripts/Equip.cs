@@ -114,4 +114,17 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
             return null;
         }
     }
+
+    public Color GetSkillColor(Skill skill)
+    {
+        if (skill == meleeSkill)
+            return new Color(0.925f, 0.258f, 0.258f, 1);
+        if (skill == rangedSkill)
+            return new Color(0.427f, 0.745f, 0.266f, 1);
+        if (skill == selfSkill)
+            return new Color(0.309f, 0.380f, 0.674f, 1);
+        if (skill == alliesSkill)
+            return new Color(0.952f, 0.921f, 0.235f, 1);
+        return Color.black;
+    }
 }

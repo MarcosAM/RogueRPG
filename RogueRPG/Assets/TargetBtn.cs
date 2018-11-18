@@ -17,10 +17,10 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         tile = GetComponentInParent<Tile>();
         button = GetComponent<Button>();
         Disappear();
-        button.onClick.AddListener(onClick);
+        button.onClick.AddListener(OnClick);
     }
 
-    void onClick()
+    void OnClick()
     {
         TargetBtnsManager.GetInstance().OnTargetBtnPressed(tile);
     }
@@ -96,46 +96,56 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     }
 
-    public void CheckIfAffected(Tile target, Equip choosedSkill, Character user)
+    public void CheckIfAffected(Tile target, Equip equip, Character user)
     {
         if (tile.IsAvailable())
         {
-            Skill skill;
-            if (target.GetSide() == user.IsPlayable())
-            {
-                if (target.GetRow() == user.getPosition())
-                {
-                    skill = choosedSkill.GetSelfEffect();
-                    image.color = new Color(0.309f, 0.380f, 0.674f, 1);
-                }
-                else
-                {
-                    skill = choosedSkill.GetAlliesEffect();
-                    image.color = new Color(0.952f, 0.921f, 0.235f, 1);
-                }
-            }
-            else
-            {
-                if ((Mathf.Abs(target.GetRow() - user.getPosition()) <= choosedSkill.GetMeleeEffect().GetRange()) && target.GetCharacter() != null)
-                {
-                    skill = choosedSkill.GetMeleeEffect();
-                    image.color = new Color(0.925f, 0.258f, 0.258f, 1);
-                }
-                else
-                {
-                    skill = choosedSkill.GetRangedEffect();
-                    image.color = new Color(0.427f, 0.745f, 0.266f, 1);
-                }
-            }
+            //Skill skill;
+            //if (target.GetSide() == user.IsPlayable())
+            //{
+            //    if (target.GetRow() == user.getPosition())
+            //    {
+            //        skill = choosedSkill.GetSelfEffect();
+            //        image.color = new Color(0.309f, 0.380f, 0.674f, 1);
+            //    }
+            //    else
+            //    {
+            //        skill = choosedSkill.GetAlliesEffect();
+            //        image.color = new Color(0.952f, 0.921f, 0.235f, 1);
+            //    }
+            //}
+            //else
+            //{
+            //    if ((Mathf.Abs(target.GetRow() - user.getPosition()) <= choosedSkill.GetMeleeEffect().GetRange()) && target.GetCharacter() != null)
+            //    {
+            //        skill = choosedSkill.GetMeleeEffect();
+            //        image.color = new Color(0.925f, 0.258f, 0.258f, 1);
+            //    }
+            //    else
+            //    {
+            //        skill = choosedSkill.GetRangedEffect();
+            //        image.color = new Color(0.427f, 0.745f, 0.266f, 1);
+            //    }
+            //}
 
-            if (skill.WillBeAffected(user, target, tile))
+            //if (skill.WillBeAffected(user, target, tile))
+            //{
+            //    image.gameObject.SetActive(true);
+            //    button.interactable = true;
+            //    if (skill is SAtk && tile.CharacterIsAlive())
+            //        ShowHitPreview(((SAtk)skill).ProbabilityToHit(user, target, tile));
+            //}
+            //else
+            //{
+            //    image.gameObject.SetActive(false);
+            //    button.interactable = false;
+            //}
+            TargetBtnStatus status = equip.AppropriateSkill(user, target).GetTargetBtnStatus(user, target, this.tile, equip);
+            if (status.color != null)
             {
-                image.gameObject.SetActive(true);
-                button.interactable = true;
-                if (skill is SAtk && tile.CharacterIsAlive())
-                    ShowHitPreview(((SAtk)skill).ProbabilityToHit(user, target, tile));
-                //if (skill.HasHitPreview() && tile.CharacterIsAlive())
-                //    ShowHitPreview(skill.ProbabilityToHit(user, target, tile));
+                image.color = (Color)status.color;
+                if (status.probability != null)
+                    ShowHitPreview((float)status.probability);
             }
             else
             {
@@ -189,4 +199,16 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
 
     public Tile getTile() { return tile; }
+
+    public struct TargetBtnStatus
+    {
+        public Color? color;
+        public float? probability;
+
+        public TargetBtnStatus(Color? color = null, float? probability = null)
+        {
+            this.color = color;
+            this.probability = probability;
+        }
+    }
 }

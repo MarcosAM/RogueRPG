@@ -55,7 +55,9 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         }
     }
 
-    public void EffectAnimation(Tile tile)
+    protected virtual void UniqueEffect(Character user, Tile tile) { }
+
+    protected void EffectAnimation(Tile tile)
     {
         SkillAnimation skillAnimation = Instantiate(animationPrefab);
         skillAnimation.transform.SetParent(FindObjectOfType<Canvas>().transform, false);
@@ -81,11 +83,19 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
     }
 
     public virtual bool WillBeAffected(Character user, Tile target, Tile tile) { return target == tile ? tile.CharacterIsAlive() : false; }
+    public virtual TargetBtn.TargetBtnStatus GetTargetBtnStatus(Character user, Tile target, Tile tile, Equip equip)
+    {
+        if (WillBeAffected(user, target, tile))
+        {
+            return new TargetBtn.TargetBtnStatus(equip.GetSkillColor(this));
+        }
+        else
+            return new TargetBtn.TargetBtnStatus();
+    }
 
     public string GetSkillName() { return sName; }
     public string GetDescription() { return description; }
     public Source GetSource() { return source; }
-    public virtual void UniqueEffect(Character user, Tile tile) { }
     public int GetRange() { return range; }
     public float GetCritic() { return critic; }
     public float GetPrecision() { return precision; }

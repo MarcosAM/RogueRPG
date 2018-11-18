@@ -6,7 +6,7 @@ using UnityEngine;
 public class SMove : Skill
 {
 
-    public override void UniqueEffect(Character user, Tile tile)
+    protected override void UniqueEffect(Character user, Tile tile)
     {
         tile.SetCharacter(user);
     }

@@ -22,7 +22,7 @@ public class SAtk : Skill
         PlayCastSkillAnimation();
     }
 
-    public override void UniqueEffect(Character user, Tile tile)
+    protected override void UniqueEffect(Character user, Tile tile)
     {
         if (tile.GetCharacter())
         {
@@ -70,12 +70,6 @@ public class SAtk : Skill
     {
         return true;
     }
-
-
-
-
-
-
 
     protected virtual float GetHit() { return Random.value; }
 
