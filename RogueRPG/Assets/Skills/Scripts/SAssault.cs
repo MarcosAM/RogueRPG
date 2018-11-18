@@ -20,9 +20,9 @@ public class SAssault : Skill, IWaitForSkill
         firstEffect.StartSkill(user, tile, this, momentum);
     }
 
-    public override bool WillBeAffected(Character user, Tile target, Tile tile)
+    public override bool UniqueEffectWillAffect(Character user, Tile target, Tile tile)
     {
-        if (firstEffect.WillBeAffected(user, FindObjectOfType<Battleground>().GetTiles().Find(t => t.GetSide() != target.GetSide() && t.GetRow() == target.GetRow()), tile) || secondEffect.WillBeAffected(user, target, tile))
+        if (firstEffect.UniqueEffectWillAffect(user, FindObjectOfType<Battleground>().GetTiles().Find(t => t.GetSide() != target.GetSide() && t.GetRow() == target.GetRow()), tile) || secondEffect.UniqueEffectWillAffect(user, target, tile))
         {
             return true;
         }

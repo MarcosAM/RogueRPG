@@ -44,9 +44,10 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         Effect();
     }
 
-    void Effect()
+    protected virtual void Effect()
     {
-        List<Tile> tiles = FindObjectOfType<Battleground>().GetAvailableTiles().FindAll(t => WillBeAffected(currentUser, currentTargetTile, t));
+        //TODO Tirar o Find all de single target skills
+        List<Tile> tiles = FindObjectOfType<Battleground>().GetAvailableTiles().FindAll(t => UniqueEffectWillAffect(currentUser, currentTargetTile, t));
         targetsLeft = tiles.Count;
         foreach (Tile tile in tiles)
         {
@@ -82,10 +83,10 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
         requester.resumeFromSkill();
     }
 
-    public virtual bool WillBeAffected(Character user, Tile target, Tile tile) { return target == tile ? tile.CharacterIsAlive() : false; }
+    public virtual bool UniqueEffectWillAffect(Character user, Tile target, Tile tile) { return target == tile ? tile.CharacterIsAlive() : false; }
     public virtual TargetBtn.TargetBtnStatus GetTargetBtnStatus(Character user, Tile target, Tile tile, Equip equip)
     {
-        if (WillBeAffected(user, target, tile))
+        if (UniqueEffectWillAffect(user, target, tile))
         {
             return new TargetBtn.TargetBtnStatus(equip.GetSkillColor(this));
         }

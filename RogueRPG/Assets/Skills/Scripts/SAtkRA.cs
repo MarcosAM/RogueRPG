@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Attack Ranged All")]
 public class SAtkRA : SAtkR
 {
-    public override bool WillBeAffected(Character user, Tile target, Tile tile)
+    public override bool UniqueEffectWillAffect(Character user, Tile target, Tile tile)
     {
         if (target == tile)
             return true;

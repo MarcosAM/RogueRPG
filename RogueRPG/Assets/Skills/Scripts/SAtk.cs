@@ -46,6 +46,16 @@ public class SAtk : Skill
         }
     }
 
+    public override TargetBtn.TargetBtnStatus GetTargetBtnStatus(Character user, Tile target, Tile tile, Equip equip)
+    {
+        if (UniqueEffectWillAffect(user, target, tile))
+        {
+            return new TargetBtn.TargetBtnStatus(equip.GetSkillColor(this), ProbabilityToHit(user, target, tile));
+        }
+        else
+            return new TargetBtn.TargetBtnStatus();
+    }
+
     public override void EndSkill()
     {
         if (!momentum)

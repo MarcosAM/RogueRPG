@@ -11,7 +11,7 @@ public class SMove : Skill
         tile.SetCharacter(user);
     }
 
-    public override bool WillBeAffected(Character user, Tile target, Tile tile)
+    public override bool UniqueEffectWillAffect(Character user, Tile target, Tile tile)
     {
         if (target == tile)
         {

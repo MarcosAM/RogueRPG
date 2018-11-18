@@ -5,45 +5,44 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill Effects/Escudada")]
 public class SEEscudada : SAtk
 {
+    [SerializeField] Stat.Stats stat;
     [SerializeField] Stat.Intensity intensity;
     [SerializeField] int duration;
+    [SerializeField] int secondaryRange;
 
-    protected override void UniqueEffect(Character user, Tile tile)
+    protected override void Effect()
     {
-        if (tile.GetCharacter())
+        Tile uniqueEffectTarget = FindObjectOfType<Battleground>().GetAvailableTiles().Find(t => UniqueEffectWillAffect(currentUser, currentTargetTile, t));
+        List<Tile> secondaryEffectTargets = FindObjectOfType<Battleground>().GetAvailableTiles().FindAll(t => SecondaryEffectWillAffect(currentUser, currentTargetTile, t));
+        targetsLeft = secondaryEffectTargets.Count + 1;
+        EffectAnimation(uniqueEffectTarget);
+        UniqueEffect(currentUser, uniqueEffectTarget);
+        foreach (Tile secondaryTile in secondaryEffectTargets)
         {
-            if (WasCritic())
-            {
-                damages.Add(Damage(tile.GetCharacter(), dmg, true));
-            }
-            else
-            {
-                if (DidIHit(tile.GetCharacter(), hit))
-                {
-                    damages.Add(Damage(tile.GetCharacter(), dmg, false));
-                    var heroesTiles = DungeonManager.getInstance().getBattleground().GetAvailableTilesFrom(true);
-                    if (user.getPosition() - 1 >= 0)
-                    {
-                        if (heroesTiles[user.getPosition() - 1].GetCharacter() != null)
-                        {
-                            heroesTiles[user.getPosition() - 1].GetCharacter().BuffIt(Stat.Stats.Def, intensity, duration);
-                        }
-                    }
-                    if (user.getPosition() + 1 <= 4)
-                    {
-                        if (heroesTiles[user.getPosition() + 1].GetCharacter() != null)
-                        {
-                            heroesTiles[user.getPosition() + 1].GetCharacter().BuffIt(Stat.Stats.Def, intensity, duration);
-                        }
-                    }
-                    Debug.Log("Hit!");
-                }
-                else
-                {
-                    damages.Add(0);
-                    Debug.Log("Missed!");
-                }
-            }
+            EffectAnimation(secondaryTile);
+            SecondaryEffect(currentUser, secondaryTile);
         }
+    }
+
+    protected void SecondaryEffect(Character user, Tile tile)
+    {
+        if (tile.GetCharacter() != null)
+        {
+            tile.GetCharacter().BuffIt(stat, intensity, duration);
+        }
+    }
+
+    public override TargetBtn.TargetBtnStatus GetTargetBtnStatus(Character user, Tile target, Tile tile, Equip equip)
+    {
+        if (UniqueEffectWillAffect(user, target, tile))
+            return new TargetBtn.TargetBtnStatus(equip.GetSkillColor(this), ProbabilityToHit(user, target, tile));
+        if (SecondaryEffectWillAffect(user, target, tile))
+            return new TargetBtn.TargetBtnStatus(new Color(0.952f, 0.921f, 0.235f, 1));
+        return new TargetBtn.TargetBtnStatus();
+    }
+
+    protected bool SecondaryEffectWillAffect(Character user, Tile target, Tile tile)
+    {
+        return user.IsPlayable() == tile.GetSide() ? Mathf.Abs(tile.GetRow() - user.getPosition()) <= secondaryRange && user != tile.GetCharacter() : false;
     }
 }
