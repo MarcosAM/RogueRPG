@@ -108,6 +108,7 @@
     <Compile Include="Assets\Quests\BattleGroups\BattleGroup.cs" />
     <Compile Include="Assets\Quests\Dungeons\Dungeon.cs" />
     <Compile Include="Assets\Quests\Quest.cs" />
+    <Compile Include="Assets\Skills\Scripts\Attacks\Attack.cs" />
     <Compile Include="Assets\Skills\Scripts\SAssault.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtk.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtkA.cs" />
