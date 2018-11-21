@@ -26,11 +26,11 @@ public class TargetBtnsManager : MonoBehaviour
         }
     }
 
-    public void ShowTargetBtns(Character user, Equip choosedSkill)
+    public void ShowTargetBtns(Character user, Skill skill)
     {
         foreach (TargetBtn targetBtn in targetBtns)
         {
-            targetBtn.Appear(user, choosedSkill);
+            targetBtn.Appear(user, skill);
         }
     }
 

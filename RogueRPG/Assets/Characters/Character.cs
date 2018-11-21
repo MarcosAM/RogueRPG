@@ -81,27 +81,27 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         }
     }
 
-    public int TakeDamage(int damage, Skill.Source damageSource, bool wasCritic)
-    {
-        if (damageSource == Skill.Source.Physical)
-        {
-            if (wasCritic)
-            {
-                LoseHpBy(Mathf.RoundToInt(damage), true);
-                return Mathf.RoundToInt(damage);
-            }
-            else
-            {
-                LoseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Def)), false);
-                return Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Def));
-            }
-        }
-        else
-        {
-            LoseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm)), false);
-            return Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm));
-        }
-    }
+    //public int TakeDamage(int damage, Skill.Source damageSource, bool wasCritic)
+    //{
+    //    if (damageSource == Skill.Source.Physical)
+    //    {
+    //        if (wasCritic)
+    //        {
+    //            LoseHpBy(Mathf.RoundToInt(damage), true);
+    //            return Mathf.RoundToInt(damage);
+    //        }
+    //        else
+    //        {
+    //            LoseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Def)), false);
+    //            return Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Def));
+    //        }
+    //    }
+    //    else
+    //    {
+    //        LoseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm)), false);
+    //        return Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm));
+    //    }
+    //}
 
     public void LoseHpBy(int damage, bool wasCritic)
     {

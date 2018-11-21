@@ -60,7 +60,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (skillToggle != null)
         {
-            combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedEquip);
+            combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedSkill);
         }
         else
         {
@@ -88,7 +88,7 @@ public class PlayerInputManager : MonoBehaviour
     public void HoverTargetBtnExit(TargetBtn targetBtn)
     {
         if (equipTogglerManager.AnyToggleOne())
-            combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedEquip);
+            combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedSkill);
     }
 
     public Equip SelectedEquip
@@ -96,6 +96,14 @@ public class PlayerInputManager : MonoBehaviour
         get
         {
             return combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()];
+        }
+    }
+
+    public Skill SelectedSkill
+    {
+        get
+        {
+            return SelectedEquip.GetAllSkillEffects()[skillToggleManager.GetSelectedSkillIndex()];
         }
     }
 }
