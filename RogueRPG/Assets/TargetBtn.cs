@@ -34,6 +34,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             if (skill.IsTargetable(user, tile))
             {
                 image.gameObject.SetActive(true);
+                image.color = Color.gray;
                 button.interactable = true;
             }
             else
@@ -41,138 +42,18 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 image.gameObject.SetActive(false);
                 button.interactable = false;
             }
-            //HideHitPreview();
-            //Skill skillEffect;
-            //if (tile.GetSide() == user.IsPlayable())
-            //{
-            //    if (tile.GetRow() == user.GetPosition())
-            //    {
-            //        skillEffect = skill.GetSelfEffect();
-            //        image.color = new Color(0.309f, 0.380f, 0.674f, 1);
-            //    }
-            //    else
-            //    {
-            //        skillEffect = skill.GetAlliesEffect();
-            //        image.color = new Color(0.952f, 0.921f, 0.235f, 1);
-            //    }
-            //}
-            //else
-            //{
-            //    if ((Mathf.Abs(tile.GetRow() - user.GetPosition()) <= skill.GetMeleeEffect().GetRange()) && tile.GetCharacter() != null)
-            //    {
-            //        skillEffect = skill.GetMeleeEffect();
-            //        image.color = new Color(0.925f, 0.258f, 0.258f, 1);
-            //    }
-            //    else
-            //    {
-            //        skillEffect = skill.GetRangedEffect();
-            //        image.color = new Color(0.427f, 0.745f, 0.266f, 1);
-            //    }
-            //}
-
-            //if (tile.GetCharacter() != null)
-            //{
-            //    if (tile.GetCharacter().IsAlive())
-            //    {
-            //        image.gameObject.SetActive(true);
-            //        button.interactable = true;
-            //    }
-            //    else
-            //    {
-            //        image.gameObject.SetActive(false);
-            //        button.interactable = false;
-            //    }
-            //}
-            //else
-            //{
-            //    if (skillEffect is SAtkRA)
-            //    {
-            //        image.gameObject.SetActive(true);
-            //        button.interactable = true;
-            //    }
-            //    else
-            //    {
-            //        image.gameObject.SetActive(false);
-            //        button.interactable = false;
-            //    }
-            //    if (skillEffect is SMove)
-            //    {
-            //        if (Mathf.Abs(tile.GetRow() - user.GetPosition()) <= skillEffect.GetRange())
-            //        {
-            //            image.gameObject.SetActive(true);
-            //            button.interactable = true;
-            //        }
-            //    }
-            //}
         }
-
     }
 
     public void CheckIfAffected(Tile target, Skill skill, Character user)
     {
         if (tile.IsAvailable())
         {
-            //Skill skill;
-            //if (target.GetSide() == user.IsPlayable())
-            //{
-            //    if (target.GetRow() == user.getPosition())
-            //    {
-            //        skill = choosedSkill.GetSelfEffect();
-            //        image.color = new Color(0.309f, 0.380f, 0.674f, 1);
-            //    }
-            //    else
-            //    {
-            //        skill = choosedSkill.GetAlliesEffect();
-            //        image.color = new Color(0.952f, 0.921f, 0.235f, 1);
-            //    }
-            //}
-            //else
-            //{
-            //    if ((Mathf.Abs(target.GetRow() - user.getPosition()) <= choosedSkill.GetMeleeEffect().GetRange()) && target.GetCharacter() != null)
-            //    {
-            //        skill = choosedSkill.GetMeleeEffect();
-            //        image.color = new Color(0.925f, 0.258f, 0.258f, 1);
-            //    }
-            //    else
-            //    {
-            //        skill = choosedSkill.GetRangedEffect();
-            //        image.color = new Color(0.427f, 0.745f, 0.266f, 1);
-            //    }
-            //}
-
-            //if (skill.WillBeAffected(user, target, tile))
-            //{
-            //    image.gameObject.SetActive(true);
-            //    button.interactable = true;
-            //    if (skill is SAtk && tile.CharacterIsAlive())
-            //        ShowHitPreview(((SAtk)skill).ProbabilityToHit(user, target, tile));
-            //}
-            //else
-            //{
-            //    image.gameObject.SetActive(false);
-            //    button.interactable = false;
-            //}
-            //TargetBtnStatus status = skill.AppropriateSkill(user, target).GetTargetBtnStatus(user, target, this.tile, skill);
-            //if (status.color != null)
-            //{
-            //    image.color = (Color)status.color;
-            //    if (status.probability != null)
-            //        ShowHitPreview((float)status.probability);
-            //}
-            //else
-            //{
-            //    image.gameObject.SetActive(false);
-            //    button.interactable = false;
-            //}
             if (skill.UniqueEffectWillAffect(user, target, tile))
             {
                 image.gameObject.SetActive(true);
                 button.interactable = true;
-            }
-            else
-            {
-                image.gameObject.SetActive(false);
-                button.interactable = false;
+                image.color = Color.black;
             }
         }
     }
