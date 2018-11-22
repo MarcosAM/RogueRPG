@@ -7,9 +7,6 @@ public abstract class Attack : Actions
     [SerializeField]
     [Range(0f, 1f)]
     protected float precision;
-    [SerializeField]
-    [Range(0, 5)]
-    protected int range;
     protected float attack;
     [SerializeField]
     protected Damage damage;

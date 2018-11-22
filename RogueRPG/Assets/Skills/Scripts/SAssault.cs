@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Assault")]
 public class SAssault : Skill, IWaitForSkill
 {
-
     [SerializeField] protected Skill firstEffect;
     [SerializeField] protected Skill secondEffect;
     bool alreadyDidFirst = false;
@@ -51,5 +50,10 @@ public class SAssault : Skill, IWaitForSkill
             return true;
         else
             return false;
+    }
+
+    public override bool IsTargetable(Character user, Tile tile)
+    {
+        throw new System.NotImplementedException();
     }
 }

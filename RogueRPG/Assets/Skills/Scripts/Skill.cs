@@ -16,7 +16,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString/*, IWa
     [SerializeField] protected string castSkillAnimationTrigger;
     [SerializeField] protected float momentumValue;
     [SerializeField] protected SkillAnimation animationPrefab;
-    [SerializeField] protected Actions action;
+    //[SerializeField] protected Actions action;
     protected bool momentum = false;
     protected Character currentUser;
     protected Tile currentTargetTile;
@@ -66,9 +66,15 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString/*, IWa
         requester.resumeFromSkill();
     }
 
-    public bool IsTargetable(Character user, Tile tile) { return action.IsTargetable(user, tile); }
+    public abstract bool IsTargetable(Character user, Tile tile);
+    //public abstract bool IsTargetable(Character user, Tile tile) { return action.IsTargetable(user, tile); }
+
+
     //public virtual bool UniqueEffectWillAffect(Character user, Tile target, Tile tile) { return target == tile ? tile.CharacterIsAlive() : false; }
-    public virtual bool UniqueEffectWillAffect(Character user, Tile target, Tile tile) { return action.WillBeAffected(user, target, tile); }
+    //public virtual bool UniqueEffectWillAffect(Character user, Tile target, Tile tile) { return action.WillBeAffected(user, target, tile); }
+    public abstract bool UniqueEffectWillAffect(Character user, Tile target, Tile tile);
+
+
     public virtual TargetBtn.TargetBtnStatus GetTargetBtnStatus(Character user, Tile target, Tile tile, Equip equip)
     {
         if (UniqueEffectWillAffect(user, target, tile))

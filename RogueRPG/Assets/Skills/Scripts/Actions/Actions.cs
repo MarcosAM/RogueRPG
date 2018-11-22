@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Actions : ScriptableObject
 {
+    [SerializeField]
+    [Range(0, 5)]
+    protected int range;
     public abstract bool IsTargetable(Character user, Tile tile);
     public abstract bool WillBeAffected(Character user, Tile target, Tile tile);
     public abstract void Act(Character user, Tile target, SkillAnimation animationPrefab);

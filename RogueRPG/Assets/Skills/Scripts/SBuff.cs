@@ -5,19 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/Buff or Debuff")]
 public class SBuff : Skill
 {
-    [SerializeField] int duration;
-    [SerializeField] Stat.Stats stat;
-    [SerializeField] Stat.Intensity intensity;
+    [SerializeField] Assist assist;
 
     protected override void UniqueEffect(Character user, Tile tile)
     {
-        base.UniqueEffect(user, tile);
-        if (tile.GetCharacter() != null)
-        {
-            tile.GetCharacter().BuffIt(stat, intensity, duration);
-        }
+        assist.Act(user, tile, animationPrefab);
     }
-
-    public Stat.Stats GetStats() { return stat; }
-    public Stat.Intensity GetIntensity() { return intensity; }
+    public override bool IsTargetable(Character user, Tile tile) { return assist.IsTargetable(user, tile); }
+    public override bool UniqueEffectWillAffect(Character user, Tile target, Tile tile) { return assist.WillBeAffected(user, target, tile); }
+    public Assist GetAssist() { return assist; }
 }

@@ -8,18 +8,18 @@ public class ChargeEquip : Equip
     public override Tile GetBestTarget(Character user)
     {
 
-        if (selfSkill is SBuff)
-        {
-            SBuff buff = (SBuff)selfSkill;
-            if (user.GetBuffIntensity(buff.GetStats()) < buff.GetIntensity() && user.GetBuffIntensity(buff.GetStats()) != Stat.Intensity.None)
-            {
-                return user.GetTile();
-            }
-            else if (Random.value < 0.85 && user.GetBuffIntensity(buff.GetStats()) <= buff.GetIntensity())
-            {
-                return user.GetTile();
-            }
-        }
+        //if (selfSkill is SBuff)
+        //{
+        //    SBuff buff = (SBuff)selfSkill;
+        //    if (user.GetBuffIntensity(buff.GetStats()) < buff.GetIntensity() && user.GetBuffIntensity(buff.GetStats()) != Stat.Intensity.None)
+        //    {
+        //        return user.GetTile();
+        //    }
+        //    else if (Random.value < 0.85 && user.GetBuffIntensity(buff.GetStats()) <= buff.GetIntensity())
+        //    {
+        //        return user.GetTile();
+        //    }
+        //}
 
         List<Tile> aliveOpponentTiles = DungeonManager.getInstance().getBattleground().GetAvailableTiles().FindAll(t => t.GetSide() != user.IsPlayable() && t.CharacterIsAlive());
         if (aliveOpponentTiles.Exists(t => Mathf.Abs(t.GetRow() - user.GetTile().GetRow()) <= meleeSkill.GetRange()))
