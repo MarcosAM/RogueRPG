@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Actions/Assist/Single")]
+[CreateAssetMenu(menuName = "Actions/Assist/Ally")]
 public class AllyAssist : Assist
 {
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range && tile.CharacterIsAlive() && user.IsPlayable() == tile.GetSide() && user != tile.GetCharacter(); }

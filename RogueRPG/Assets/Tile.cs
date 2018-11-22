@@ -56,6 +56,7 @@ public class Tile : MonoBehaviour
         }
     }
     public bool CharacterIsAlive() { return character != null ? character.IsAlive() : false; }
+    public bool CharacterIsKnockOut() { return character != null ? !character.IsAlive() : false; }
 
     public int GetIndex() { return index; }
     public int GetRow() { return index % (battleground.GetTiles().Count / 2); }
