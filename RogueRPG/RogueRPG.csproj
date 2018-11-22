@@ -110,6 +110,7 @@
     <Compile Include="Assets\Quests\Quest.cs" />
     <Compile Include="Assets\Skills\Scripts\Actions\Actions.cs" />
     <Compile Include="Assets\Skills\Scripts\Actions\Attack.cs" />
+    <Compile Include="Assets\Skills\Scripts\Actions\ConeAttack.cs" />
     <Compile Include="Assets\Skills\Scripts\Actions\Damage.cs" />
     <Compile Include="Assets\Skills\Scripts\Actions\MagicalDamage.cs" />
     <Compile Include="Assets\Skills\Scripts\Actions\MeleeAttack.cs" />

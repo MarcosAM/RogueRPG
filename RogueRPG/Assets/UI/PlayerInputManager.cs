@@ -81,13 +81,13 @@ public class PlayerInputManager : MonoBehaviour
 
     public void HoverTargetBtnEnter(TargetBtn targetBtn)
     {
-        if (equipTogglerManager.AnyToggleOne())
-            combHUDManager.PreviewTargets(combatBehavior.GetCharacter(), SelectedEquip, targetBtn.getTile());
+        if (skillToggleManager.AnyToggleOne())
+            combHUDManager.PreviewTargets(combatBehavior.GetCharacter(), SelectedSkill, targetBtn.getTile());
     }
 
     public void HoverTargetBtnExit(TargetBtn targetBtn)
     {
-        if (equipTogglerManager.AnyToggleOne())
+        if (skillToggleManager.AnyToggleOne())
             combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedSkill);
     }
 

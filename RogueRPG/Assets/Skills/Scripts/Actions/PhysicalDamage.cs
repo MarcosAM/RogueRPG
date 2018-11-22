@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Damages/Physical")]
 public class PhysicalDamage : Damage
 {
+    [SerializeField]
+    [Range(0f, 1f)]
+    protected float critic;
     public static float criticIntensifier = 1.5f;
 
     public override void TryToDamage(Character user, Character target, float attack)

@@ -108,7 +108,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     }
 
-    public void CheckIfAffected(Tile target, Equip equip, Character user)
+    public void CheckIfAffected(Tile target, Skill skill, Character user)
     {
         if (tile.IsAvailable())
         {
@@ -152,12 +152,22 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             //    image.gameObject.SetActive(false);
             //    button.interactable = false;
             //}
-            TargetBtnStatus status = equip.AppropriateSkill(user, target).GetTargetBtnStatus(user, target, this.tile, equip);
-            if (status.color != null)
+            //TargetBtnStatus status = skill.AppropriateSkill(user, target).GetTargetBtnStatus(user, target, this.tile, skill);
+            //if (status.color != null)
+            //{
+            //    image.color = (Color)status.color;
+            //    if (status.probability != null)
+            //        ShowHitPreview((float)status.probability);
+            //}
+            //else
+            //{
+            //    image.gameObject.SetActive(false);
+            //    button.interactable = false;
+            //}
+            if (skill.UniqueEffectWillAffect(user, target, tile))
             {
-                image.color = (Color)status.color;
-                if (status.probability != null)
-                    ShowHitPreview((float)status.probability);
+                image.gameObject.SetActive(true);
+                button.interactable = true;
             }
             else
             {

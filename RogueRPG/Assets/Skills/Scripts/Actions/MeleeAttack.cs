@@ -6,11 +6,12 @@ using UnityEngine;
 public class MeleeAttack : Attack
 {
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range && tile.CharacterIsAlive() && user.IsPlayable() != tile.GetSide(); }
-    public override bool WillBeAffected(Character user, Tile target, Tile tile) { return target = tile; }
+    public override bool WillBeAffected(Character user, Tile target, Tile tile) { return target == tile; }
 
-    public override void Act(Character user, Tile target)
+    public override void Act(Character user, Tile target, SkillAnimation skillAnimation)
     {
         GenerateNewAttack(user);
+        EffectAnimation(target, skillAnimation);
         if (target.CharacterIsAlive())
             damage.TryToDamage(user, target.GetCharacter(), attack);
     }

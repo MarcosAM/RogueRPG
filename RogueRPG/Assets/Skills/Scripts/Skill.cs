@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWaitForAnimation
+public abstract class Skill : ScriptableObject, IWaitForAnimationByString/*, IWaitForAnimation*/
 {
     public enum Source { Physical, Magic };
 
@@ -46,20 +46,16 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString, IWait
 
     protected virtual void Effect()
     {
-        EffectAnimation(this.currentTargetTile);
+        //EffectAnimation(this.currentTargetTile);
         UniqueEffect(this.currentUser, this.currentTargetTile);
+        EndSkill();
     }
 
     protected virtual void UniqueEffect(Character user, Tile tile) { }
 
-    protected void EffectAnimation(Tile tile)
-    {
-        SkillAnimation skillAnimation = Instantiate(animationPrefab);
-        skillAnimation.transform.SetParent(FindObjectOfType<Canvas>().transform, false);
-        skillAnimation.PlayAnimation(this, tile.GetLocalPosition());
-    }
 
-    public virtual void ResumeFromAnimation() { EndSkill(); }
+
+    //public virtual void ResumeFromAnimation() { EndSkill(); }
 
     public virtual void EndSkill()
     {

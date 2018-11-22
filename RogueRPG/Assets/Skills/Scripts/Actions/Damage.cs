@@ -5,9 +5,6 @@ using UnityEngine;
 public abstract class Damage : ScriptableObject
 {
     [SerializeField]
-    [Range(0f, 1f)]
-    protected float critic;
-    [SerializeField]
     [Range(1f, 2f)]
     protected float dmgIntensifier;
 

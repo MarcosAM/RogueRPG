@@ -24,7 +24,7 @@ public class SAtk : Skill
 
     protected override void UniqueEffect(Character user, Tile tile)
     {
-        action.Act(user, tile);
+        action.Act(user, tile, animationPrefab);
         //if (tile.GetCharacter())
         //{
         //    if (WasCritic())

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Damages/Magical")]
 public class MagicalDamage : Damage
 {
     public override void TryToDamage(Character user, Character target, float attack)

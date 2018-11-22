@@ -53,11 +53,11 @@ public class TargetBtnsManager : MonoBehaviour
         FindObjectOfType<PlayerInputManager>().HoverTargetBtnEnter(targetBtn);
     }
 
-    public void PreviewTargets(Character user, Equip selectedEquip, Tile target)
+    public void PreviewTargets(Character user, Skill selectedSkill, Tile target)
     {
         foreach (TargetBtn targetBtn in targetBtns)
         {
-            targetBtn.CheckIfAffected(target, selectedEquip, user);
+            targetBtn.CheckIfAffected(target, selectedSkill, user);
         }
     }
 
