@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Damages/Magical and Debuff")]
 public class MDmgAndDebuff : MagicalDamage
 {
     [SerializeField] int duration;

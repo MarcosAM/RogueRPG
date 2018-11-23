@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Skill/Assist and Move")]
 public class SAssistMove : Skill
 {
     [SerializeField]
