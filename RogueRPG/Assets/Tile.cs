@@ -27,7 +27,7 @@ public class Tile : MonoBehaviour
         {
             if (character.IsPlayable() != side)
             {
-                battleground.GetTiles().Find(t => t.GetSide() != side && t.GetRow() == GetRow()).SetCharacter(character);
+                GetTileInFront().SetCharacter(character);
                 return;
             }
         }
@@ -56,8 +56,6 @@ public class Tile : MonoBehaviour
         }
     }
     public bool CharacterIs(bool alive) { return character != null ? character.IsAlive() == alive : false; }
-    //public bool CharacterIsAlive() { return character != null ? character.IsAlive() : false; }
-    //public bool CharacterIsKnockOut() { return character != null ? !character.IsAlive() : false; }
 
     public int GetIndex() { return index; }
     public int GetRow() { return index % (battleground.GetTiles().Count / 2); }
@@ -65,6 +63,7 @@ public class Tile : MonoBehaviour
     public List<Tile> GetAlliesTiles() { return battleground.GetAvailableTilesFrom(side); }
     public List<Tile> GetEnemiesTiles() { return battleground.GetAvailableTilesFrom(!side); }
     public Vector2 GetLocalPosition() { return transform.localPosition; }
+    public Tile GetTileInFront() { return battleground.GetTiles().Find(t => t.GetSide() != side && t.GetRow() == GetRow()); }
 
     public bool IsAvailable() { return available; }
     public void SetAvailable(bool available)

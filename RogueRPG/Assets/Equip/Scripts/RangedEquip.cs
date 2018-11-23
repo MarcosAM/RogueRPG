@@ -15,13 +15,13 @@ public class RangedEquip : Equip
         {
             if (user.IsDebuffed())
             {
-                if (selfSkill is SBuff)
+                if (selfSkill is SAssist)
                 {
-                    if (((SBuff)selfSkill).GetAssist().GetEffect() is BuffEffect)
+                    if (((SAssist)selfSkill).GetAssist().GetEffect() is BuffEffect)
                     {
-                        if (user.IsDebuffed(((BuffEffect)(((SBuff)selfSkill).GetAssist().GetEffect())).GetStats()))
+                        if (user.IsDebuffed(((BuffEffect)(((SAssist)selfSkill).GetAssist().GetEffect())).GetStats()))
                         {
-                            if (user.GetBuffIntensity(((BuffEffect)(((SBuff)selfSkill).GetAssist().GetEffect())).GetStats()) < ((BuffEffect)(((SBuff)selfSkill).GetAssist().GetEffect())).GetIntensity())
+                            if (user.GetBuffIntensity(((BuffEffect)(((SAssist)selfSkill).GetAssist().GetEffect())).GetStats()) < ((BuffEffect)(((SAssist)selfSkill).GetAssist().GetEffect())).GetIntensity())
                             {
                                 return targetTile;
                             }

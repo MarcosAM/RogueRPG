@@ -130,10 +130,12 @@
     <Compile Include="Assets\Skills\Scripts\Effects\HealEffect.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\ReviveEffect.cs" />
     <Compile Include="Assets\Skills\Scripts\Move\Move.cs" />
+    <Compile Include="Assets\Skills\Scripts\SAssist.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtk.cs" />
-    <Compile Include="Assets\Skills\Scripts\SBuff.cs" />
+    <Compile Include="Assets\Skills\Scripts\SAtkSpread.cs" />
     <Compile Include="Assets\Skills\Scripts\Skill.cs" />
     <Compile Include="Assets\Skills\Scripts\SkillAnimationManager.cs" />
+    <Compile Include="Assets\Skills\Scripts\SMoveAtk.cs" />
     <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
     <Compile Include="Assets\StartUI.cs" />
     <Compile Include="Assets\TargetBtn.cs" />

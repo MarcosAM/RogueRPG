@@ -51,9 +51,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString/*, IWa
         EndSkill();
     }
 
-    protected virtual void UniqueEffect(Character user, Tile tile) { }
-
-
+    protected abstract void UniqueEffect(Character user, Tile tile);
 
     //public virtual void ResumeFromAnimation() { EndSkill(); }
 
