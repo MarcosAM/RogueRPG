@@ -14,7 +14,7 @@ public class AuraAssist : AllyAssist
             if (WillBeAffected(user, target, tile))
             {
                 EffectAnimation(target, skillAnimation);
-                if (tile.CharacterIsAlive())
+                if (tile.CharacterIs(AffectKnockOut))
                     effect.Affect(user, target.GetCharacter());
             }
         }

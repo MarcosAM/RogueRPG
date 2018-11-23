@@ -20,7 +20,7 @@ public class ConeAttack : Attack
             if (WillBeAffected(user, target, tile))
             {
                 EffectAnimation(target, skillAnimation);
-                if (tile.CharacterIsAlive())
+                if (tile.CharacterIs(true))
                     damage.TryToDamage(user, tile.GetCharacter(), attack);
             }
         }

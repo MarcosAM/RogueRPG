@@ -16,7 +16,7 @@ public class RainAssist : Assist
             if (WillBeAffected(user, target, tile))
             {
                 EffectAnimation(target, animationPrefab);
-                if (tile.CharacterIsAlive())
+                if (tile.CharacterIs(AffectKnockOut))
                     effect.Affect(user, target.GetCharacter());
             }
         }

@@ -110,12 +110,9 @@
     <Compile Include="Assets\Quests\Quest.cs" />
     <Compile Include="Assets\Skills\Scripts\Actions.cs" />
     <Compile Include="Assets\Skills\Scripts\Assists\AllyAssist.cs" />
-    <Compile Include="Assets\Skills\Scripts\Assists\AllyRevive.cs" />
     <Compile Include="Assets\Skills\Scripts\Assists\Assist.cs" />
     <Compile Include="Assets\Skills\Scripts\Assists\AuraAssist.cs" />
-    <Compile Include="Assets\Skills\Scripts\Assists\AuraRevive.cs" />
     <Compile Include="Assets\Skills\Scripts\Assists\RainAssist.cs" />
-    <Compile Include="Assets\Skills\Scripts\Assists\RainRevive.cs" />
     <Compile Include="Assets\Skills\Scripts\Assists\SelfAssist.cs" />
     <Compile Include="Assets\Skills\Scripts\Attacks\Attack.cs" />
     <Compile Include="Assets\Skills\Scripts\Attacks\BurstAttack.cs" />

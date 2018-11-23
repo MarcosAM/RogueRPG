@@ -7,8 +7,8 @@ public class RangedEquip : Equip
 {
     public override Tile GetBestTarget(Character user)
     {
-        List<Tile> alliedTiles = DungeonManager.getInstance().getBattleground().GetAvailableTiles().FindAll(t => t.GetSide() == user.IsPlayable() && (!t.CharacterIsAlive() || t.GetCharacter() == user));
-        List<Tile> aliveOpponentTiles = DungeonManager.getInstance().getBattleground().GetAvailableTiles().FindAll(t => t.GetSide() != user.IsPlayable() && t.CharacterIsAlive());
+        List<Tile> alliedTiles = DungeonManager.getInstance().getBattleground().GetAvailableTiles().FindAll(t => t.GetSide() == user.IsPlayable() && (!t.CharacterIs(true) || t.GetCharacter() == user));
+        List<Tile> aliveOpponentTiles = DungeonManager.getInstance().getBattleground().GetAvailableTiles().FindAll(t => t.GetSide() != user.IsPlayable() && t.CharacterIs(true));
         alliedTiles.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
         Tile targetTile = alliedTiles.Find(t => Mathf.Abs(t.GetRow() - user.GetPosition()) <= alliesSkill.GetRange());
         if (targetTile == user.GetTile())
