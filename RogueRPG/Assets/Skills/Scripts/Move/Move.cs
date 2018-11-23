@@ -10,5 +10,5 @@ public class Move : Assist
     }
 
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range && user.IsPlayable() != tile.GetSide(); }
-    public override bool WillBeAffected(Character user, Tile target, Tile tile) { return target == tile; }
+    public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
 }

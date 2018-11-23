@@ -13,7 +13,7 @@ public class RainAssist : Assist
     {
         foreach (Tile tile in user.GetAlliesTiles())
         {
-            if (WillBeAffected(user, target, tile))
+            if (WillBeAffected(user.GetTile(), target, tile))
             {
                 EffectAnimation(target, animationPrefab);
                 if (tile.CharacterIs(AffectKnockOut))
@@ -23,5 +23,5 @@ public class RainAssist : Assist
     }
 
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range && user.IsPlayable() == tile.GetSide(); }
-    public override bool WillBeAffected(Character user, Tile target, Tile tile) { return Mathf.Abs(target.GetRow() - tile.GetRow()) <= area && user.IsPlayable() == tile.GetSide(); }
+    public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return Mathf.Abs(target.GetRow() - tile.GetRow()) <= area && user.GetSide() == tile.GetSide(); }
 }

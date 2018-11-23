@@ -12,7 +12,7 @@ public class SAtkSpread : Skill
 
     public override bool IsTargetable(Character user, Tile tile) { return attack.IsTargetable(user, tile); }
 
-    public override bool UniqueEffectWillAffect(Character user, Tile target, Tile tile) { return attack.WillBeAffected(user, target, tile) || assist.WillBeAffected(user, target, tile); }
+    public override bool UniqueEffectWillAffect(Character user, Tile target, Tile tile) { return attack.WillBeAffected(user.GetTile(), target, tile) || assist.WillBeAffected(user.GetTile(), target, tile); }
 
     protected override void UniqueEffect(Character user, Tile tile)
     {

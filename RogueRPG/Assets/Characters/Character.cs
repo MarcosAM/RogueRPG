@@ -26,6 +26,8 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     protected Animator animator;
     IWaitForAnimationByString requester;
 
+    Tile tile;
+
     public event Action OnHUDValuesChange;
     public event Action<int, int, bool> OnHPValuesChange;
     public event Action OnMyTurnStarts;
@@ -330,7 +332,8 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         return c;
     }
 
-    public Tile GetTile() { return GetComponentInParent<Transform>().gameObject.GetComponentInParent<Tile>(); }
+    public Tile GetTile() { return tile; }
+    public void SetTile(Tile tile) { this.tile = tile; }
     public List<Tile> GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
     public List<Tile> GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
 

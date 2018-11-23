@@ -13,7 +13,7 @@ public class SMoveAtk : Skill
 
     public override bool UniqueEffectWillAffect(Character user, Tile target, Tile tile)
     {
-        return move.WillBeAffected(user, target, tile) || attack.WillBeAffected(user, target.GetTileInFront(), tile);
+        return move.WillBeAffected(user.GetTile(), target, tile) || attack.WillBeAffected(target, target.GetTileInFront(), tile);
     }
 
     protected override void UniqueEffect(Character user, Tile tile)

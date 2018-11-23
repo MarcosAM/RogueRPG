@@ -48,6 +48,8 @@ public class Tile : MonoBehaviour
         }
 
         this.character = character;
+        if (this.character != null)
+            this.character.SetTile(this);
 
         if (character != null)
         {

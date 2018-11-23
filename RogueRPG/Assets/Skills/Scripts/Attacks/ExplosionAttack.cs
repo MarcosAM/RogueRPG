@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Actions/Attacks/Explosion")]
 public class ExplosionAttack : ConeAttack
 {
-    public override bool WillBeAffected(Character user, Tile target, Tile tile) { return Mathf.Abs(target.GetRow() - tile.GetRow()) <= area; }
+    public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return Mathf.Abs(target.GetRow() - tile.GetRow()) <= area; }
 
     public override void Act(Character user, Tile target, SkillAnimation skillAnimation)
     {
@@ -13,7 +13,7 @@ public class ExplosionAttack : ConeAttack
 
         foreach (Tile tile in FindObjectOfType<Battleground>().GetAvailableTiles())
         {
-            if (WillBeAffected(user, target, tile))
+            if (WillBeAffected(user.GetTile(), target, tile))
             {
                 EffectAnimation(target, skillAnimation);
                 if (tile.CharacterIs(true))

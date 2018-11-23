@@ -13,5 +13,5 @@ public class SelfAssist : Assist
 
     public override bool IsTargetable(Character user, Tile tile) { return user == tile.GetCharacter(); }
 
-    public override bool WillBeAffected(Character user, Tile target, Tile tile) { return target == tile; }
+    public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
 }

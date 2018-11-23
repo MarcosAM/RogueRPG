@@ -9,7 +9,7 @@ public class ConeAttack : Attack
     [Range(1, 5)]
     protected int area;
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range && user.IsPlayable() != tile.GetSide(); }
-    public override bool WillBeAffected(Character user, Tile target, Tile tile) { return Mathf.Abs(target.GetRow() - tile.GetRow()) <= area && user.IsPlayable() != tile.GetSide(); }
+    public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return Mathf.Abs(target.GetRow() - tile.GetRow()) <= area && user.GetSide() != tile.GetSide(); }
 
     public override void Act(Character user, Tile target, SkillAnimation skillAnimation)
     {
@@ -17,7 +17,7 @@ public class ConeAttack : Attack
 
         foreach (Tile tile in target.GetAlliesTiles())
         {
-            if (WillBeAffected(user, target, tile))
+            if (WillBeAffected(user.GetTile(), target, tile))
             {
                 EffectAnimation(target, skillAnimation);
                 if (tile.CharacterIs(true))
