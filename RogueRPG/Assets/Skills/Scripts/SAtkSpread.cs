@@ -17,6 +17,6 @@ public class SAtkSpread : Skill
     protected override void UniqueEffect(Character user, Tile tile)
     {
         attack.Act(user, tile, animationPrefab);
-        assist.Act(user, tile, animationPrefab);
+        assist.Act(user, user.GetTile(), animationPrefab);
     }
 }

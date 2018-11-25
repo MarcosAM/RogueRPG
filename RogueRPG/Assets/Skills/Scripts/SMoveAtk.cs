@@ -20,6 +20,6 @@ public class SMoveAtk : Skill
     protected override void UniqueEffect(Character user, Tile tile)
     {
         move.Act(user, tile, animationPrefab);
-        attack.Act(user, tile, animationPrefab);
+        attack.Act(user, tile.GetTileInFront(), animationPrefab);
     }
 }
