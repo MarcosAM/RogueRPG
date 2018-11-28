@@ -30,4 +30,12 @@ public class PhysicalDamage : Damage
             }
         }
     }
+
+    public override int SortBestTargets(Character user, Character c1, Character c2)
+    {
+        if (user.GetStatValue(Stat.Stats.Critic) > 0.4f)
+            return (int)(c2.GetStatValue(Stat.Stats.Def) - c1.GetStatValue(Stat.Stats.Def));
+        else
+            return (int)(c1.GetStatValue(Stat.Stats.Def) - c2.GetStatValue(Stat.Stats.Def));
+    }
 }

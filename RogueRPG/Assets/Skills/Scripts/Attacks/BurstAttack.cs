@@ -21,4 +21,16 @@ public class BurstAttack : Attack
             }
         }
     }
+
+    public override TurnSugestion GetTurnSugestion(Character user)
+    {
+        List<Tile> enemies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(!user.IsPlayable());
+        List<Tile> allies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(user.IsPlayable());
+        enemies.RemoveAll(t => !IsTargetable(user, t));
+        allies.RemoveAll(t => !IsTargetable(user, t));
+        if (enemies.Count > 0)
+            return new TurnSugestion(TurnSugestion.maxProbability - allies.Count, enemies[0].GetIndex());
+        else
+            return new TurnSugestion(0);
+    }
 }

@@ -20,4 +20,10 @@ public class Debuff : Damage
             Debug.Log("Missed!");
         }
     }
+
+    public override int SortBestTargets(Character user, Character c1, Character c2)
+    {
+        //TODO ao menos estender a duração do debuff se o cara já tiver debuffado ou algo assim...
+        return c1.GetBuffIntensity(stat) - c2.GetBuffIntensity(stat);
+    }
 }

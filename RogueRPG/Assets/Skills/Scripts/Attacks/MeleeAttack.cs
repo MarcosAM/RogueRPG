@@ -15,4 +15,20 @@ public class MeleeAttack : Attack
         if (target.CharacterIs(true))
             damage.TryToDamage(user, target.GetCharacter(), attack);
     }
+
+    public override TurnSugestion GetTurnSugestion(Character user)
+    {
+        List<Tile> enemies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(!user.IsPlayable());
+        List<Tile> possibleTargets = enemies.FindAll(t => IsTargetable(user, t));
+        if (possibleTargets.Count > 0)
+        {
+            enemies.Sort((t1, t2) => damage.SortBestTargets(user, t1.GetCharacter(), t2.GetCharacter()));
+            Tile target = GetRandomTarget(possibleTargets);
+            return new TurnSugestion(TurnSugestion.maxProbability - enemies.IndexOf(target), target.GetIndex());
+        }
+        else
+        {
+            return new TurnSugestion(0);
+        }
+    }
 }

@@ -14,4 +14,5 @@ public abstract class Damage : ScriptableObject
         hitted = attack > target.GetStatValue(Stat.Stats.Dodge);
     }
     public bool DidItHit() { return hitted; }
+    public abstract int SortBestTargets(Character user, Character c1, Character c2);
 }

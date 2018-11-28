@@ -17,4 +17,22 @@ public abstract class Actions : ScriptableObject
         skillAnimation.transform.SetParent(FindObjectOfType<Canvas>().transform, false);
         skillAnimation.PlayAnimation(tile.GetLocalPosition());
     }
+    public abstract TurnSugestion GetTurnSugestion(Character user);
+    protected Tile GetRandomTarget(List<Tile> possibleTargets)
+    {
+        if (possibleTargets.Count == 1)
+            return possibleTargets[0];
+        else
+        {
+            if (Random.value < 0.65f)
+            {
+                return possibleTargets[0];
+            }
+            else
+            {
+                //TODO test Random.Range(1,1)
+                return possibleTargets[Random.Range(1, possibleTargets.Count - 1)];
+            }
+        }
+    }
 }

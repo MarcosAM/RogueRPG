@@ -387,4 +387,14 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     {
         requester.ResumeFromAnimation(this);
     }
+
+    public float GetSumOfStats()
+    {
+        float f = 0;
+        foreach (Stat stat in listaStat)
+        {
+            f += stat.GetValue();
+        }
+        return f;
+    }
 }

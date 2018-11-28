@@ -17,4 +17,9 @@ public class MagicalDamage : Damage
             Debug.Log("Missed!");
         }
     }
+
+    public override int SortBestTargets(Character user, Character c1, Character c2)
+    {
+        return (int)(c1.GetStatValue(Stat.Stats.Defm) - c2.GetStatValue(Stat.Stats.Defm));
+    }
 }

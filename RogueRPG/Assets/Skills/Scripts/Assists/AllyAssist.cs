@@ -13,4 +13,14 @@ public class AllyAssist : Assist
         EffectAnimation(target, skillAnimation);
         effect.Affect(user, target.GetCharacter());
     }
+
+    public override TurnSugestion GetTurnSugestion(Character user)
+    {
+        List<Tile> allies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(user.IsPlayable());
+        allies.RemoveAll(t => IsTargetable(user, t));
+        allies.RemoveAll(t => !effect.IsLogicalTarget(t));
+        //TODO ver se sortbesttargets vai bugar pq buga com null
+        allies.Sort((t1, t2) => effect.SortBestTargets(user, t1.GetCharacter(), t2.GetCharacter()));
+        //TODO terminar isso aqui
+    }
 }

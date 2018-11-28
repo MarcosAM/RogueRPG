@@ -16,4 +16,12 @@ public class ReviveEffect : HealEffect
             target.Revive((int)(user.GetStatValue(Stat.Stats.Atkm) * healIntensifier));
         }
     }
+    public override int SortBestTargets(Character user, Character c1, Character c2)
+    {
+        return (int)(c2.GetSumOfStats() - c1.GetSumOfStats());
+    }
+    public override bool IsLogicalTarget(Tile tile)
+    {
+        return tile.CharacterIs(false);
+    }
 }
