@@ -16,7 +16,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString/*, IWa
     [SerializeField] protected string castSkillAnimationTrigger;
     [SerializeField] protected float momentumValue;
     [SerializeField] protected SkillAnimation animationPrefab;
-    //[SerializeField] protected Actions action;
     protected bool momentum = false;
     protected Character currentUser;
     protected Tile currentTargetTile;
@@ -74,4 +73,5 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString/*, IWa
     public float GetCritic() { return critic; }
     public float GetPrecision() { return precision; }
     public virtual bool HasHitPreview() { return false; }
+    public abstract TurnSugestion GetTurnSugestion(Character user);
 }

@@ -11,4 +11,9 @@ public class SAssist : Skill
     public override bool IsTargetable(Character user, Tile tile) { return assist.IsTargetable(user, tile); }
     public override bool UniqueEffectWillAffect(Character user, Tile target, Tile tile) { return assist.WillBeAffected(user.GetTile(), target, tile); }
     public Assist GetAssist() { return assist; }
+
+    public override TurnSugestion GetTurnSugestion(Character user)
+    {
+        return assist.GetTurnSugestion(user);
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Actions/Assist/Aura")]
-public class AuraAssist : AllyAssist
+public class AuraAssist : Assist
 {
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range && user.IsPlayable() == tile.GetSide() && user != tile.GetCharacter(); }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return user != tile && user.GetSide() == tile.GetSide() && Mathf.Abs(user.GetRow() - tile.GetRow()) <= range; }
