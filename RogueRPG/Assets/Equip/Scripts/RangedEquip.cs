@@ -29,27 +29,7 @@ public class RangedEquip : Equip
                     }
                 }
             }
-            //if (Random.value < 0.3f)
-            //{
-            //    if (selfSkill is SBuff)
-            //    {
-            //        if (user.GetBuffIntensity(((SBuff)selfSkill).GetStats()) <= ((SBuff)selfSkill).GetIntensity())
-            //            return targetTile;
 
-
-            //        if (((SBuff)selfSkill).GetAssist().GetEffect() is BuffEffect)
-            //        {
-            //            if (user.IsDebuffed(((BuffEffect)(((SBuff)selfSkill).GetAssist().GetEffect())).GetStats()))
-            //            {
-            //                if (user.GetBuffIntensity(((BuffEffect)(((SBuff)selfSkill).GetAssist().GetEffect())).GetStats()) < ((BuffEffect)(((SBuff)selfSkill).GetAssist().GetEffect())).GetIntensity())
-            //                {
-            //                    return targetTile;
-            //                }
-            //            }
-            //        }
-
-            //    }
-            //}
             if (aliveOpponentTiles.Exists(t => Mathf.Abs(user.GetTile().GetRow() - t.GetRow()) > meleeSkill.GetRange()))
             {
                 aliveOpponentTiles.RemoveAll(t => Mathf.Abs(user.GetTile().GetRow() - t.GetRow()) <= meleeSkill.GetRange());
