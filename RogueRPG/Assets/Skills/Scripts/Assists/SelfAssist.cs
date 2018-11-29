@@ -7,11 +7,16 @@ public class SelfAssist : Assist
 {
     public override void Act(Character user, Tile target, SkillAnimation animationPrefab)
     {
-        EffectAnimation(target, animationPrefab);
-        effect.Affect(user, target.GetCharacter());
+        EffectAnimation(user.GetTile(), animationPrefab);
+        effect.Affect(user, user);
     }
 
     public override bool IsTargetable(Character user, Tile tile) { return user == tile.GetCharacter(); }
 
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
+
+    public override TurnSugestion GetTurnSugestion(Character user)
+    {
+        return new TurnSugestion(TurnSugestion.maxProbability - effect.GetComparableValue(user), user.GetTile().GetIndex());
+    }
 }

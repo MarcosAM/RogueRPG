@@ -19,4 +19,17 @@ public class HealEffect : Effects
         //TODO Pensar se é necessário impedir de curar aliados que estão regenerando
         return tile.GetCharacter() ? tile.GetCharacter().GetHp() != tile.GetCharacter().GetHp() : false;
     }
+    public override int GetComparableValue(Character character)
+    {
+        float hpPercentege = character.GetHp() / character.GetMaxHp();
+
+        for (int i = TurnSugestion.maxProbability; i >= TurnSugestion.minProbability; i--)
+        {
+            if (i == 0)
+                return i;
+            if (hpPercentege > 1 - 1 / i)
+                return i;
+        }
+        return 0;
+    }
 }

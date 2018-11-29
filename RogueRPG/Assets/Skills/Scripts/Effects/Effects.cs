@@ -10,4 +10,5 @@ public abstract class Effects : ScriptableObject
     //TODO ponderar colocar isso em attack tbm
     //TODO Só para eu não me esquecer, considerar dodge e precisão também nos attacks....Isso vai ser hard!
     public abstract bool IsLogicalTarget(Tile tile);
+    public abstract int GetComparableValue(Character character);
 }

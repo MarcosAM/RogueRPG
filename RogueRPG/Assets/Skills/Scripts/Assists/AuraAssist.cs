@@ -19,4 +19,16 @@ public class AuraAssist : AllyAssist
             }
         }
     }
+
+    public override TurnSugestion GetTurnSugestion(Character user)
+    {
+        List<Tile> allies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(user.IsPlayable());
+        List<Tile> possibleTargets = allies.FindAll(t => IsTargetable(user, t));
+        if (possibleTargets.Count > 0)
+        {
+            return new TurnSugestion(TurnSugestion.maxProbability - (allies.Count - possibleTargets.Count), possibleTargets[0].GetIndex());
+        }
+        else
+            return new TurnSugestion(0);
+    }
 }

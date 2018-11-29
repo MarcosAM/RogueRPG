@@ -23,6 +23,7 @@ public class MeleeAttack : Attack
         if (possibleTargets.Count > 0)
         {
             enemies.Sort((t1, t2) => damage.SortBestTargets(user, t1.GetCharacter(), t2.GetCharacter()));
+            possibleTargets.Sort((t1, t2) => damage.SortBestTargets(user, t1.GetCharacter(), t2.GetCharacter()));
             Tile target = GetRandomTarget(possibleTargets);
             return new TurnSugestion(TurnSugestion.maxProbability - enemies.IndexOf(target), target.GetIndex());
         }

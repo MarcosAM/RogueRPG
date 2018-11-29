@@ -18,12 +18,33 @@ public class BuffEffect : Effects
 
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
-        return c1.GetBuffIntensity(stat) - c2.GetBuffIntensity(stat);
+        return GetComparableValue(c1) - GetComparableValue(c2);
     }
 
     public override bool IsLogicalTarget(Tile tile)
     {
         //TODO filosofar se eu deveria impedir de dar Regeneration para inimigos com full hp
         return tile.GetCharacter() ? tile.GetCharacter().GetBuffIntensity(stat) < intensity : false;
+    }
+
+    public override int GetComparableValue(Character character)
+    {
+        if (!character)
+            return 6;
+        Stat.Intensity intensity = character.GetBuffIntensity(this.stat);
+        if (intensity < this.intensity)
+        {
+            if (intensity == Stat.Intensity.None)
+                return 3;
+            else
+            {
+                if ((int)intensity % 2 == 0)
+                    return intensity == this.intensity ? 2 : 4;
+                else
+                    return 1;
+            }
+        }
+        else
+            return 5;
     }
 }

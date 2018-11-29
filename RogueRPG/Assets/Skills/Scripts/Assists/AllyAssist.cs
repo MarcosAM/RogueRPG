@@ -17,10 +17,16 @@ public class AllyAssist : Assist
     public override TurnSugestion GetTurnSugestion(Character user)
     {
         List<Tile> allies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(user.IsPlayable());
-        allies.RemoveAll(t => IsTargetable(user, t));
-        allies.RemoveAll(t => !effect.IsLogicalTarget(t));
-        //TODO ver se sortbesttargets vai bugar pq buga com null
-        allies.Sort((t1, t2) => effect.SortBestTargets(user, t1.GetCharacter(), t2.GetCharacter()));
-        //TODO terminar isso aqui
+        List<Tile> possibleTargets = allies.FindAll(t => IsTargetable(user, t) && effect.IsLogicalTarget(t));
+        //TODO ver debuff. Talvez dar uma ênfase nos que já estão debuff e com nível igual. Idk
+        if (possibleTargets.Count > 0)
+        {
+            allies.Sort((t1, t2) => effect.SortBestTargets(user, t1.GetCharacter(), t2.GetCharacter()));
+            possibleTargets.Sort((t1, t2) => effect.SortBestTargets(user, t1.GetCharacter(), t2.GetCharacter()));
+            Tile target = GetRandomTarget(possibleTargets);
+            return new TurnSugestion(TurnSugestion.maxProbability - allies.IndexOf(target), target.GetIndex());
+        }
+        else
+            return new TurnSugestion(0);
     }
 }

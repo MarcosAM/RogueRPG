@@ -24,4 +24,11 @@ public class ReviveEffect : HealEffect
     {
         return tile.CharacterIs(false);
     }
+    public override int GetComparableValue(Character character)
+    {
+        if (character.IsAlive())
+            return TurnSugestion.minProbability;
+        else
+            return TurnSugestion.maxProbability;
+    }
 }
