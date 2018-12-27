@@ -22,4 +22,19 @@ public class SMoveAtk : Skill
         move.Act(user, tile, animationPrefab);
         attack.Act(user, tile.GetTileInFront(), animationPrefab);
     }
+
+    public override TurnSugestion GetTurnSugestion(Character user)
+    {
+        List<Tile> enemies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(!user.IsPlayable());
+        List<Tile> possibleTargets = FindObjectOfType<Battleground>().GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => IsTargetable(user, t));
+
+        if (possibleTargets.Count > 0)
+        {
+            possibleTargets.Sort((t1, t2) => enemies.FindAll(e => UniqueEffectWillAffect(user, t2, e)).Count - enemies.FindAll(e => UniqueEffectWillAffect(user, t1, e)).Count);
+
+            return new TurnSugestion(TurnSugestion.maxProbability - (enemies.Count - enemies.FindAll(e => UniqueEffectWillAffect(user, possibleTargets[0], e)).Count), possibleTargets[0].GetIndex());
+        }
+
+        return new TurnSugestion(0);
+    }
 }
