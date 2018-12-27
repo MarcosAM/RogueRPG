@@ -17,11 +17,9 @@ public class RainAssist : Assist
         {
             if (WillBeAffected(user.GetTile(), target, tile))
             {
-                Debug.Log(tile.name);
                 EffectAnimation(target, animationPrefab);
                 if (tile.CharacterIs(!AffectKnockOut))
                 {
-                    Debug.Log("LOL");
                     effect.Affect(user, tile.GetCharacter());
                 }
             }

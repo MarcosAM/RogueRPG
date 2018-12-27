@@ -28,20 +28,19 @@ public class SAssistMove : Skill
         }
     }
 
-    //public override TurnSugestion GetTurnSugestion(Character user)
-    //{
-    //    List<Tile> alliesTiles = FindObjectOfType<Battleground>().GetAvailableTilesFrom(user.IsPlayable());
-    //    List<Tile> targetableTiles = alliesTiles.FindAll(t => IsTargetable(user, t));
-    //    targetableTiles.RemoveAll();
-    //    targetableTiles.RemoveAll(t => alliesTiles.FindAll(t2 => UniqueEffectWillAffect(user, t, t2)).Exists(t3 => t3.CharacterIs(true) ? assist.GetEffect().GetComparableValue(t3.GetCharacter()) < 3 : false));
-    //    //List<Tile> possibleTargets = allies.FindAll(t => IsTargetable(user, t) && assist.GetEffect().IsLogicalTarget(t));
-    //    //if (possibleTargets.Count > 0)
-    //    //{
-    //    //    possibleTargets.Sort((t1, t2) => assist.GetEffect().SortBestTargets(user, t1.GetCharacter(), t2.GetCharacter()));
-    //    //    Tile target = possibleTargets[0];
-    //    //    return new TurnSugestion(TurnSugestion.maxProbability - allies.IndexOf(target), target.GetIndex());
-    //    //}
-    //    //else
-    //    //    return new TurnSugestion(0);
-    //}
+    public override TurnSugestion GetTurnSugestion(Character user)
+    {
+        List<Tile> alliesTiles = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(user.IsPlayable());
+        alliesTiles.RemoveAll(t => assist.GetEffect().GetComparableValue(t.GetCharacter()) < 0);
+        if (alliesTiles.Count > 0)
+        {
+            List<Tile> targetableTiles = FindObjectOfType<Battleground>().GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => IsTargetable(user, t));
+            if (targetableTiles.Count > 0)
+            {
+                targetableTiles.Sort((t1, t2) => alliesTiles.FindAll(a => UniqueEffectWillAffect(user, t2, a)).Count - alliesTiles.FindAll(a => UniqueEffectWillAffect(user, t1, a)).Count);
+                return new TurnSugestion(TurnSugestion.maxProbability - (alliesTiles.Count - alliesTiles.FindAll(a => UniqueEffectWillAffect(user,targetableTiles[0],a)).Count), targetableTiles[0].GetIndex());
+            }
+        }
+        return new TurnSugestion(0);
+    }
 }
