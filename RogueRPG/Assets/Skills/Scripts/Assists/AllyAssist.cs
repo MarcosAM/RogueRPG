@@ -14,9 +14,9 @@ public class AllyAssist : Assist
         effect.Affect(user, target.GetCharacter());
     }
 
-    public override TurnSugestion GetTurnSugestion(Character user)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        List<Tile> allies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(user.IsPlayable());
+        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
         List<Tile> possibleTargets = allies.FindAll(t => IsTargetable(user, t) && effect.IsLogicalTarget(t));
         //TODO ver debuff. Talvez dar uma ênfase nos que já estão debuff e com nível igual. Idk
         if (possibleTargets.Count > 0)

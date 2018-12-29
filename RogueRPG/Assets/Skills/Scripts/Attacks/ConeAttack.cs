@@ -28,9 +28,9 @@ public class ConeAttack : Attack
         }
     }
 
-    public override TurnSugestion GetTurnSugestion(Character user)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        List<Tile> enemies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(!user.IsPlayable());
+        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
         List<Tile> possibleTargets = enemies.FindAll(t => IsTargetable(user, t));
         if (possibleTargets.Count > 0)
         {

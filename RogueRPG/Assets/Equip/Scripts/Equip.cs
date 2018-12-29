@@ -21,15 +21,75 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
     {
         user.changeEquipObject(GetBackEquip(), GetFrontEquip());
         this.requester = requester;
-        //AppropriateSkill(user, tile).StartSkill(user, tile, this, user.IsMomentumEquip(this));
-        GetAllSkillEffects()[skill].StartSkill(user, tile, this, user.IsMomentumEquip(this));
+        GetAllSkills()[skill].StartSkill(user, tile, this, user.IsMomentumEquip(this));
     }
 
-    public void UseEquipmentOn(Character user, Tile tile, IWaitForEquipment requester, bool momentum)
+    //public void UseEquipmentOn(Character user, Tile tile, IWaitForEquipment requester, bool momentum)
+    //{
+    //    user.changeEquipObject(GetBackEquip(), GetFrontEquip());
+    //    this.requester = requester;
+    //    AppropriateSkill(user, tile).StartSkill(user, tile, this, user.IsMomentumEquip(this));
+    //}
+
+    //TODO
+
+    //public void UseEquipment(Character user, IWaitForEquipment requester, bool momentum)
+    //{
+    //    this.requester = requester;
+        
+
+    //    //var battleground = FindObjectOfType<Battleground>();
+    //    //var allTiles = battleground.GetTiles();
+    //    //Job job = new Job(GetAllSkills(), allTiles, this, user, requester, momentum,battleground);
+    //    //job.Start();
+
+    //    //var skills = GetAllSkills();
+    //    //var turnSugestions = new List<TurnSugestion>();
+    //    //var probabilities = new List<int>();
+
+    //    //for (int i = 0; i < skills.Count; i++)
+    //    //{
+    //    //    turnSugestions.Add(skills[i].GetTurnSugestion(user));
+    //    //    Debug.Log("Cheguei!");
+
+    //    //    for (int j = 0; i < turnSugestions[i].probability; j++)
+    //    //    {
+    //    //        probabilities.Add(i);
+    //    //    }
+    //    //}
+
+    //    //var index = probabilities[Random.Range(0, probabilities.Count)];
+    //    //var allTiles = FindObjectOfType<Battleground>().GetTiles();
+
+    //    //UseEquipmentOn(user, allTiles[(int)turnSugestions[index].targetPosition], requester, momentum, index);
+    //}
+
+    public IEnumerator ThinkAboutStuff(Character user, bool momentum, IWaitForEquipment requester)
     {
-        user.changeEquipObject(GetBackEquip(), GetFrontEquip());
-        this.requester = requester;
-        AppropriateSkill(user, tile).StartSkill(user, tile, this, user.IsMomentumEquip(this));
+        var skills = GetAllSkills();
+        var turnSugestions = new List<TurnSugestion>();
+        var probabilities = new List<int>();
+        var battleground = FindObjectOfType<Battleground>();
+        yield return null;
+        Debug.Log("Cheguei!");
+
+        for (int i = 0; i < skills.Count; i++)
+        {
+            turnSugestions.Add(skills[i].GetTurnSugestion(user, battleground));
+            yield return null;
+            Debug.Log("Cheguei! Depois de Add ");
+            for (int j = 0; j < turnSugestions[i].probability; j++)
+            {
+                probabilities.Add(i);
+                yield return null;
+                Debug.Log("Cheguei! Depois de Aumentar");
+            }
+        }
+
+        var index = probabilities[Random.Range(0, probabilities.Count)];
+        var allTiles = battleground.GetTiles();
+
+        UseEquipmentOn(user, allTiles[(int)turnSugestions[index].targetPosition], requester, momentum, index);
     }
 
     public Skill AppropriateSkill(Character user, Tile target)
@@ -79,7 +139,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
     public Skill GetSelfEffect() { return selfSkill; }
     public Skill GetRangedEffect() { return rangedSkill; }
     public Skill GetAlliesEffect() { return alliesSkill; }
-    public List<Skill> GetAllSkillEffects()
+    public List<Skill> GetAllSkills()
     {
         List<Skill> allSkillEffects = new List<Skill>();
         if (meleeSkill != null)

@@ -17,8 +17,8 @@ public class SAtk : Skill
         attack.Act(user, tile, animationPrefab);
     }
 
-    public override TurnSugestion GetTurnSugestion(Character user)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        return attack.GetTurnSugestion(user);
+        return attack.GetTurnSugestion(user, battleground);
     }
 }

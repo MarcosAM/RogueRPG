@@ -103,7 +103,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         get
         {
-            return SelectedEquip.GetAllSkillEffects()[skillToggleManager.GetSelectedSkillIndex()];
+            return SelectedEquip.GetAllSkills()[skillToggleManager.GetSelectedSkillIndex()];
         }
     }
 }

@@ -42,7 +42,7 @@ public class SkillToggleManager : MonoBehaviour
         print(skillToggles.Count);
         for (int i = 0; i < skillToggles.Count; i++)
         {
-            skillToggles[i].getText().text = equip.GetAllSkillEffects()[i].GetSkillName();
+            skillToggles[i].getText().text = equip.GetAllSkills()[i].GetSkillName();
         }
     }
 

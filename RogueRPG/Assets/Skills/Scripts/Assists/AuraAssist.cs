@@ -20,9 +20,9 @@ public class AuraAssist : Assist
         }
     }
 
-    public override TurnSugestion GetTurnSugestion(Character user)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        List<Tile> allies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(user.IsPlayable());
+        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
         List<Tile> possibleTargets = allies.FindAll(t => IsTargetable(user, t));
         if (possibleTargets.Count > 0)
         {

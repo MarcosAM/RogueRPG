@@ -20,8 +20,8 @@ public class SAtkSpread : Skill
         assist.Act(user, user.GetTile(), animationPrefab);
     }
 
-    public override TurnSugestion GetTurnSugestion(Character user)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        return new TurnSugestion(assist.GetTurnSugestion(user).probability, attack.GetTurnSugestion(user).targetPosition);
+        return new TurnSugestion(assist.GetTurnSugestion(user,battleground).probability, attack.GetTurnSugestion(user, battleground).targetPosition);
     }
 }

@@ -142,6 +142,8 @@
     <Compile Include="Assets\StartUI.cs" />
     <Compile Include="Assets\TargetBtn.cs" />
     <Compile Include="Assets\TargetBtnsManager.cs" />
+    <Compile Include="Assets\Thread Handler\Job.cs" />
+    <Compile Include="Assets\Thread Handler\ThreadedJob.cs" />
     <Compile Include="Assets\Tile.cs" />
     <Compile Include="Assets\UI\BattleGuide.cs" />
     <Compile Include="Assets\UI\EquipToggle.cs" />

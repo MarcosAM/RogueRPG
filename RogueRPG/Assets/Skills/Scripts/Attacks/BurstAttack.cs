@@ -22,10 +22,10 @@ public class BurstAttack : Attack
         }
     }
 
-    public override TurnSugestion GetTurnSugestion(Character user)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        List<Tile> enemies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(!user.IsPlayable());
-        List<Tile> allies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(user.IsPlayable());
+        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
+        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
         enemies.RemoveAll(t => !IsTargetable(user, t));
         allies.RemoveAll(t => !IsTargetable(user, t));
         if (enemies.Count > 0)

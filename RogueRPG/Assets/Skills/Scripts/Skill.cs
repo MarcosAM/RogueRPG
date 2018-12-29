@@ -73,5 +73,5 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString/*, IWa
     public float GetCritic() { return critic; }
     public float GetPrecision() { return precision; }
     public virtual bool HasHitPreview() { return false; }
-    public abstract TurnSugestion GetTurnSugestion(Character user);
+    public abstract TurnSugestion GetTurnSugestion(Character user, Battleground battleground);
 }

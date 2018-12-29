@@ -23,10 +23,10 @@ public class SMoveAtk : Skill
         attack.Act(user, tile.GetTileInFront(), animationPrefab);
     }
 
-    public override TurnSugestion GetTurnSugestion(Character user)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        List<Tile> enemies = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(!user.IsPlayable());
-        List<Tile> possibleTargets = FindObjectOfType<Battleground>().GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => IsTargetable(user, t));
+        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
+        List<Tile> possibleTargets = battleground.GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => IsTargetable(user, t));
 
         if (possibleTargets.Count > 0)
         {

@@ -12,12 +12,12 @@ public class Move : Actions
 
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range && user.IsPlayable() == tile.GetSide(); }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
-    public override TurnSugestion GetTurnSugestion(Character user)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        List<Tile> alliesTiles = DungeonManager.getInstance().getBattleground().GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => !t.CharacterIs(true) ? IsTargetable(user, t) : t.GetCharacter() == user);
+        List<Tile> alliesTiles = battleground.GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => !t.CharacterIs(true) ? IsTargetable(user, t) : t.GetCharacter() == user);
         if (alliesTiles.Count > 0)
         {
-            List<Tile> aliveOpponentTiles = DungeonManager.getInstance().getBattleground().GetTilesFromAliveCharactersOf(user.IsPlayable());
+            List<Tile> aliveOpponentTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
             if (user.GetStatValue(Stat.Stats.Def) > DungeonManager.getInstance().GetDefAvg())
             {
                 alliesTiles.Sort((t1, t2) => GetBetterTile(t2, t1, aliveOpponentTiles));

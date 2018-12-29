@@ -28,13 +28,13 @@ public class SAssistMove : Skill
         }
     }
 
-    public override TurnSugestion GetTurnSugestion(Character user)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        List<Tile> alliesTiles = FindObjectOfType<Battleground>().GetTilesFromAliveCharactersOf(user.IsPlayable());
+        List<Tile> alliesTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
         alliesTiles.RemoveAll(t => assist.GetEffect().GetComparableValue(t.GetCharacter()) < 0);
         if (alliesTiles.Count > 0)
         {
-            List<Tile> targetableTiles = FindObjectOfType<Battleground>().GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => IsTargetable(user, t));
+            List<Tile> targetableTiles = battleground.GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => IsTargetable(user, t));
             if (targetableTiles.Count > 0)
             {
                 targetableTiles.Sort((t1, t2) => alliesTiles.FindAll(a => UniqueEffectWillAffect(user, t2, a)).Count - alliesTiles.FindAll(a => UniqueEffectWillAffect(user, t1, a)).Count);

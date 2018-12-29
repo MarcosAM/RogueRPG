@@ -15,7 +15,7 @@ public class SelfAssist : Assist
 
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
 
-    public override TurnSugestion GetTurnSugestion(Character user)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
         return new TurnSugestion(TurnSugestion.maxProbability - effect.GetComparableValue(user), user.GetTile().GetIndex());
     }

@@ -20,9 +20,13 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
         {
             choosedEquip = character.GetUsableEquips()[Random.Range(0, character.GetUsableEquips().Count)];
             //TODO Define target and skill
-            targetTile = choosedEquip.GetBestTarget(character);
+            //targetTile = choosedEquip.GetBestTarget(character);
             //TODO rever isso aqui
-            choosedEquip.UseEquipmentOn(character, targetTile, this, false);
+            //choosedEquip.UseEquipmentOn(character, targetTile, this, false);
+
+            //TODO Está sempre como se fosse momentum false
+            StartCoroutine(choosedEquip.ThinkAboutStuff(character,false,this));
+            //choosedEquip.UseEquipment(character, this, false);
         }
     }
     public virtual void UseEquip(int equip, Tile target, bool momentum, int skill)
