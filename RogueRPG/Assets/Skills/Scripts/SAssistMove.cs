@@ -30,6 +30,15 @@ public class SAssistMove : Skill
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
+        TurnSugestion tsToAssist = GetTurnSugestionForAssisting(user, battleground);
+        TurnSugestion tsToMove = move.GetTurnSugestion(user, battleground);
+
+        Debug.Log("Prioridade de Assist and Move para Assistir é: " + tsToAssist.probability + " e para mover: " + tsToMove.probability);
+        return tsToAssist.probability > tsToMove.probability ? tsToAssist : tsToMove;
+    }
+
+    TurnSugestion GetTurnSugestionForAssisting(Character user, Battleground battleground)
+    {
         //TODO Só está pegando tiles de usuários vivos, vai ser inútil em uma skill de ressucitar
         List<Tile> alliesTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
         alliesTiles.RemoveAll(t => assist.GetEffect().GetComparableValue(t.GetCharacter()) < 0);
@@ -54,9 +63,6 @@ public class SAssistMove : Skill
                 Debug.Log("A probabilidade de " + user.GetName() + " usar uma skill de Assist and Move é: " + probability);
                 return new TurnSugestion(probability, targetableTiles[0].GetIndex());
                 //Teste
-
-                //Debug.Log("A probabilidade de " + user.GetName() + " usar uma skill de Assist and Move é: " + (TurnSugestion.maxProbability - (alliesTiles.Count - alliesTiles.FindAll(a => UniqueEffectWillAffect(user, targetableTiles[0], a)).Count)));
-                //return new TurnSugestion(TurnSugestion.maxProbability - (alliesTiles.Count - alliesTiles.FindAll(a => UniqueEffectWillAffect(user, targetableTiles[0], a)).Count), targetableTiles[0].GetIndex());
             }
         }
 
