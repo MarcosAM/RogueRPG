@@ -22,7 +22,7 @@ public class PlayerInputManager : MonoBehaviour
         equipTogglerManager.HideEquipToggles();
         //skillPreviewManager.hideSkillPreviews();
         skillToggleManager = FindObjectOfType<SkillToggleManager>();
-        skillToggleManager.HideSkillToggles();
+        skillToggleManager.HideSkillToggleMananger();
     }
 
     public void ShowUIFor(CombatBehavior combatBehavior)
@@ -52,7 +52,7 @@ public class PlayerInputManager : MonoBehaviour
             combatBehavior.GetCharacter().getAnimator().SetBool("Equiped", false);
             //combHUDManager.HideTargetBtns();
             //skillPreviewManager.hideSkillPreviews();
-            FindObjectOfType<SkillToggleManager>().HideSkillToggles();
+            FindObjectOfType<SkillToggleManager>().HideSkillToggleMananger();
         }
     }
 

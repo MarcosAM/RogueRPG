@@ -39,9 +39,16 @@ public class SkillToggleManager : MonoBehaviour
     public void ShowSkillTogglesFor(Equip equip)
     {
         gameObject.SetActive(true);
-        print(skillToggles.Count);
-        for (int i = 0; i < skillToggles.Count; i++)
+        //for (int i = 0; i < skillToggles.Count; i++)
+        //{
+        //    skillToggles[i].getText().text = equip.GetAllSkills()[i].GetSkillName();
+        //}
+
+        HideSkillToggles();
+
+        for (int i = 0; i < equip.GetAllSkills().Count; i++)
         {
+            skillToggles[i].gameObject.SetActive(true);
             skillToggles[i].getText().text = equip.GetAllSkills()[i].GetSkillName();
         }
     }
@@ -58,8 +65,16 @@ public class SkillToggleManager : MonoBehaviour
         return 1;
     }
 
-    public void HideSkillToggles()
+    public void HideSkillToggleMananger()
     {
         gameObject.SetActive(false);
+    }
+
+    void HideSkillToggles()
+    {
+        foreach (SkillToggle skillToggle in skillToggles)
+        {
+            skillToggle.gameObject.SetActive(false);
+        }
     }
 }

@@ -57,15 +57,15 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString/*, IWa
     }
     public abstract bool IsTargetable(Character user, Tile tile);
     public abstract bool UniqueEffectWillAffect(Character user, Tile target, Tile tile);
-    public virtual TargetBtn.TargetBtnStatus GetTargetBtnStatus(Character user, Tile target, Tile tile, Equip equip)
-    {
-        if (UniqueEffectWillAffect(user, target, tile))
-        {
-            return new TargetBtn.TargetBtnStatus(equip.GetSkillColor(this));
-        }
-        else
-            return new TargetBtn.TargetBtnStatus();
-    }
+    //public virtual TargetBtn.TargetBtnStatus GetTargetBtnStatus(Character user, Tile target, Tile tile, Equip equip)
+    //{
+    //    if (UniqueEffectWillAffect(user, target, tile))
+    //    {
+    //        return new TargetBtn.TargetBtnStatus(equip.GetSkillColor(this));
+    //    }
+    //    else
+    //        return new TargetBtn.TargetBtnStatus();
+    //}
     public string GetSkillName() { return sName; }
     public string GetDescription() { return description; }
     public Source GetSource() { return source; }
