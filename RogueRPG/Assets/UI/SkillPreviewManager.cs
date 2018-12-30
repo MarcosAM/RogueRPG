@@ -23,10 +23,10 @@ public class SkillPreviewManager : MonoBehaviour
 
         HideSkillPreviews();
 
-        for (int i = 0; i < equip.GetAllSkills().Count; i++)
+        for (int i = 0; i < equip.GetSkills().Count; i++)
         {
             skillPreviews[i].gameObject.SetActive(true);
-            skillPreviews[i].getText().text = equip.GetAllSkills()[i].GetSkillName();
+            skillPreviews[i].getText().text = equip.GetSkills()[i].GetSkillName();
         }
     }
 

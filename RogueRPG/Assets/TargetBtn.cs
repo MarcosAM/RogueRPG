@@ -11,6 +11,7 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public Image image;
     Button button;
     [SerializeField] RectTransform hitPreview;
+    bool isClickable = false;
 
     void Awake()
     {
@@ -36,11 +37,13 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 image.gameObject.SetActive(true);
                 image.color = Color.gray;
                 button.interactable = true;
+                isClickable = true;
             }
             else
             {
                 image.gameObject.SetActive(false);
                 button.interactable = false;
+                isClickable = false;
             }
         }
     }
@@ -91,27 +94,15 @@ public class TargetBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (tile.IsAvailable())
+        if (tile.IsAvailable() && isClickable)
             TargetBtnsManager.GetInstance().OnTargetBtnHoverEnter(this);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        if (tile.IsAvailable())
+        if (tile.IsAvailable() && isClickable)
             TargetBtnsManager.GetInstance().OnTargetBtnHoverExit(this);
     }
 
     public Tile getTile() { return tile; }
-
-    public struct TargetBtnStatus
-    {
-        public Color? color;
-        public float? probability;
-
-        public TargetBtnStatus(Color? color = null, float? probability = null)
-        {
-            this.color = color;
-            this.probability = probability;
-        }
-    }
 }

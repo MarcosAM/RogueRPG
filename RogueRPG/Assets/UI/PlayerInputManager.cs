@@ -9,7 +9,6 @@ public class PlayerInputManager : MonoBehaviour
     private CombatBehavior combatBehavior;
     private EquipToggleManager equipTogglerManager;
     private TargetBtnsManager combHUDManager;
-    //private SkillPreviewManager skillPreviewManager;
     SkillToggleManager skillToggleManager;
     private BattleGuide battleGuide;
 
@@ -17,10 +16,8 @@ public class PlayerInputManager : MonoBehaviour
     {
         equipTogglerManager = FindObjectOfType<EquipToggleManager>();
         combHUDManager = FindObjectOfType<TargetBtnsManager>();
-        //skillPreviewManager = FindObjectOfType<SkillPreviewManager>();
         battleGuide = FindObjectOfType<BattleGuide>();
         equipTogglerManager.HideEquipToggles();
-        //skillPreviewManager.hideSkillPreviews();
         skillToggleManager = FindObjectOfType<SkillToggleManager>();
         skillToggleManager.HideSkillToggleMananger();
     }
@@ -41,8 +38,6 @@ public class PlayerInputManager : MonoBehaviour
             combatBehavior.GetCharacter().changeEquipObject(combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
             combatBehavior.GetCharacter().getAnimator().SetBool("Equiped", true);
             combatBehavior.GetCharacter().getAnimator().SetTrigger("ChangeEquip");
-            //combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedEquip);
-            //skillPreviewManager.showSkillPreviewsOf(combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()]);
             skillToggleManager.ShowSkillTogglesFor(SelectedEquip);
         }
         else
@@ -50,8 +45,6 @@ public class PlayerInputManager : MonoBehaviour
             battleGuide.setText("CHOOSE YOUR EQUIPMENT");
             battleGuide.setAnimatorTrigger("PointDown");
             combatBehavior.GetCharacter().getAnimator().SetBool("Equiped", false);
-            //combHUDManager.HideTargetBtns();
-            //skillPreviewManager.hideSkillPreviews();
             FindObjectOfType<SkillToggleManager>().HideSkillToggleMananger();
         }
     }
@@ -66,7 +59,6 @@ public class PlayerInputManager : MonoBehaviour
         {
             combHUDManager.HideTargetBtns();
         }
-        //skillPreviewManager.showSkillPreviewsOf(combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()]);
     }
 
     public void ReturnEquipAndTarget(Tile target)
@@ -103,7 +95,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         get
         {
-            return SelectedEquip.GetAllSkills()[skillToggleManager.GetSelectedSkillIndex()];
+            return SelectedEquip.GetSkills()[skillToggleManager.GetSelectedSkillIndex()];
         }
     }
 }
