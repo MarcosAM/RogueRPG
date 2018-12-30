@@ -44,7 +44,7 @@ public class BuffEffect : Effects
                     return 1;
             }
         }
-        else
-            return 5;
+
+        return 5;
     }
 }

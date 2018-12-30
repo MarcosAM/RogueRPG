@@ -30,17 +30,37 @@ public class SAssistMove : Skill
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
+        //TODO Só está pegando tiles de usuários vivos, vai ser inútil em uma skill de ressucitar
         List<Tile> alliesTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
         alliesTiles.RemoveAll(t => assist.GetEffect().GetComparableValue(t.GetCharacter()) < 0);
+
         if (alliesTiles.Count > 0)
         {
             List<Tile> targetableTiles = battleground.GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => IsTargetable(user, t));
+
             if (targetableTiles.Count > 0)
             {
                 targetableTiles.Sort((t1, t2) => alliesTiles.FindAll(a => UniqueEffectWillAffect(user, t2, a)).Count - alliesTiles.FindAll(a => UniqueEffectWillAffect(user, t1, a)).Count);
-                return new TurnSugestion(TurnSugestion.maxProbability - (alliesTiles.Count - alliesTiles.FindAll(a => UniqueEffectWillAffect(user,targetableTiles[0],a)).Count), targetableTiles[0].GetIndex());
+
+                //Teste
+                var willBeAffected = alliesTiles.FindAll(a => UniqueEffectWillAffect(user, targetableTiles[0], a));
+                var allValues = 0;
+                foreach (Tile ally in willBeAffected)
+                {
+                    allValues += assist.GetEffect().GetComparableValue(ally.GetCharacter());
+                }
+                var probability = TurnSugestion.maxProbability - allValues / willBeAffected.Count;
+
+                Debug.Log("A probabilidade de " + user.GetName() + " usar uma skill de Assist and Move é: " + probability);
+                return new TurnSugestion(probability, targetableTiles[0].GetIndex());
+                //Teste
+
+                //Debug.Log("A probabilidade de " + user.GetName() + " usar uma skill de Assist and Move é: " + (TurnSugestion.maxProbability - (alliesTiles.Count - alliesTiles.FindAll(a => UniqueEffectWillAffect(user, targetableTiles[0], a)).Count)));
+                //return new TurnSugestion(TurnSugestion.maxProbability - (alliesTiles.Count - alliesTiles.FindAll(a => UniqueEffectWillAffect(user, targetableTiles[0], a)).Count), targetableTiles[0].GetIndex());
             }
         }
+
+        Debug.Log("Não faz sentido para " + user.GetName() + " usar uma skill de Assist and Move.");
         return new TurnSugestion(0);
     }
 }

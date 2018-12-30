@@ -20,16 +20,18 @@ public class MeleeAttack : Attack
     {
         List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
         List<Tile> possibleTargets = enemies.FindAll(t => IsTargetable(user, t));
+
         if (possibleTargets.Count > 0)
         {
             enemies.Sort((t1, t2) => damage.SortBestTargets(user, t1.GetCharacter(), t2.GetCharacter()));
             possibleTargets.Sort((t1, t2) => damage.SortBestTargets(user, t1.GetCharacter(), t2.GetCharacter()));
             Tile target = GetRandomTarget(possibleTargets);
+
+            Debug.Log(" A probabilidade de " + user.GetName() + " usar um Melee Attack é: " + (TurnSugestion.maxProbability - enemies.IndexOf(target)) + ". E deveria acetar a casa: " + target.GetIndex());
             return new TurnSugestion(TurnSugestion.maxProbability - enemies.IndexOf(target), target.GetIndex());
         }
-        else
-        {
-            return new TurnSugestion(0);
-        }
+
+        Debug.Log("Usar uma skill de Melee Attack não faz sentido para " + user.GetName());
+        return new TurnSugestion(0);
     }
 }

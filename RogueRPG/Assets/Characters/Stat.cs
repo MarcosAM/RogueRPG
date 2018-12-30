@@ -30,7 +30,6 @@ public class Stat
 
     public void BuffIt(Intensity intensity, int buffDuration)
     {
-        Debug.Log(character.GetName());
         if (intensity > this.intensity)
         {
             this.intensity = intensity;

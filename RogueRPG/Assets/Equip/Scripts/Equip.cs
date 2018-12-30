@@ -26,24 +26,34 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
 
     public void UseEquipment(Character user, IWaitForEquipment requester, bool momentum)
     {
-        var skills = GetSkills();
         var turnSugestions = new List<TurnSugestion>();
         var probabilities = new List<int>();
-        var battleground = FindObjectOfType<Battleground>();
 
         for (int i = 0; i < skills.Count; i++)
         {
-            turnSugestions.Add(skills[i].GetTurnSugestion(user, battleground));
+            turnSugestions.Add(skills[i].GetTurnSugestion(user, Battleground.GetInstance()));
             for (int j = 0; j < turnSugestions[i].probability; j++)
             {
                 probabilities.Add(i);
             }
         }
 
-        var index = probabilities[Random.Range(0, probabilities.Count)];
-        var allTiles = battleground.GetTiles();
+        //TODO Substituir pelo comentário abaixo
+        var r = Random.Range(0, probabilities.Count);
+        var index = probabilities[r];
+        //TODO Substituir pelo comentário abaixo
+        //var index = probabilities[Random.Range(0, probabilities.Count)];
 
-        UseEquipmentOn(user, allTiles[(int)turnSugestions[index].targetPosition], requester, momentum, index);
+        //TODO Deletar isso aqui depois
+        var probabilitiesString = "As probabilidades são: ";
+        foreach (int probability in probabilities)
+        {
+            probabilitiesString += probability + ", ";
+        }
+        Debug.Log(probabilitiesString + ". Mas eu escolhi: " + index + " graças a: " + r);
+        //TODO Deletável ^^^^
+
+        UseEquipmentOn(user, Battleground.GetInstance().GetTiles()[(int)turnSugestions[index].targetPosition], requester, momentum, index);
     }
 
     public void resumeFromSkill()
@@ -51,16 +61,13 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
         requester.ResumeFromEquipment();
     }
 
+    public List<Skill> GetSkills() { return skills; }
     public string GetEquipName() { return eName; }
     public int GetHp() { return hp; }
     public int GetAtk() { return atk; }
     public int GetAtkm() { return atkm; }
     public int GetDef() { return def; }
     public int GetDefm() { return defm; }
-    public List<Skill> GetSkills()
-    {
-        return skills;
-    }
     public Image GetBackEquip()
     {
         if (backEquipPrefab != null)

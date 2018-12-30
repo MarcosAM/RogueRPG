@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Battleground : MonoBehaviour
 {
+    static Battleground instance;
+
     public enum BattlegroundSize { Normal, Big, Large }
     [SerializeField] List<Tile> tiles = new List<Tile>();
     BattlegroundSize size = BattlegroundSize.Normal;
@@ -41,11 +43,8 @@ public class Battleground : MonoBehaviour
         }
     }
 
-    TargetBtnsManager cHUDManager;
-
     void Awake()
     {
-        cHUDManager = FindObjectOfType<TargetBtnsManager>();
         tiles = GetComponentsInChildren<Tile>().OfType<Tile>().ToList();
         tiles.Capacity = tiles.Count;
     }
@@ -87,4 +86,14 @@ public class Battleground : MonoBehaviour
 
     List<Character> GetAllTilesOccupants() { return tiles.ConvertAll(t => t.GetCharacter()); }
     public List<Character> GetAliveCharactersFrom(bool side) { return GetAllTilesOccupants().FindAll(c => c != null ? c.IsPlayable() == side : false); }
+
+    public static Battleground GetInstance()
+    {
+        if(instance == null)
+        {
+            instance = FindObjectOfType<Battleground>();
+        }
+
+        return instance;
+    }
 }
