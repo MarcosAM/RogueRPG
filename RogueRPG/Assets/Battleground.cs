@@ -25,18 +25,18 @@ public class Battleground : MonoBehaviour
                 {
                     case BattlegroundSize.Normal:
                         if (i % 6 > 0 && i % 6 < 5)
-                            tiles[i].SetAvailable(true);
+                            tiles[i].SetA(true);
                         else
-                            tiles[i].SetAvailable(false);
+                            tiles[i].SetA(false);
                         break;
                     case BattlegroundSize.Big:
                         if (i % 6 > 0 && i % 6 <= 5)
-                            tiles[i].SetAvailable(true);
+                            tiles[i].SetA(true);
                         else
-                            tiles[i].SetAvailable(false);
+                            tiles[i].SetA(false);
                         break;
                     default:
-                        tiles[i].SetAvailable(true);
+                        tiles[i].SetA(true);
                         break;
                 }
             }
@@ -67,14 +67,16 @@ public class Battleground : MonoBehaviour
         {
             for (int i = 0; i < side.Count; i++)
             {
-                availableTiles[i + availableTiles.Count / 2].SetCharacter(side[i]);
+                //TODO Isso provavelmente vai dar merda
+                availableTiles[i + availableTiles.Count / 2].SetC(side[i]);
             }
         }
         else
         {
             for (int i = 0; i < side.Count; i++)
             {
-                availableTiles[i].SetCharacter(side[i]);
+                //TODO Isso provavelmente vai dar merda
+                availableTiles[i].SetC(side[i]);
             }
         }
     }
@@ -89,7 +91,7 @@ public class Battleground : MonoBehaviour
 
     public static Battleground GetInstance()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = FindObjectOfType<Battleground>();
         }

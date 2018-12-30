@@ -7,7 +7,8 @@ public class Move : Actions
 {
     public override void Act(Character user, Tile target, SkillAnimation animationPrefab)
     {
-        target.SetCharacter(user);
+        //target.SetCharacter(user);
+        target.MoveCharacter(user);
     }
 
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range && user.IsPlayable() == tile.GetSide(); }
