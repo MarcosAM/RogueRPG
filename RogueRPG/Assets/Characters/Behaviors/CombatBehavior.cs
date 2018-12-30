@@ -25,8 +25,8 @@ public class CombatBehavior : MonoBehaviour, IWaitForEquipment
             //choosedEquip.UseEquipmentOn(character, targetTile, this, false);
 
             //TODO Está sempre como se fosse momentum false
-            StartCoroutine(choosedEquip.ThinkAboutStuff(character,false,this));
-            //choosedEquip.UseEquipment(character, this, false);
+            //StartCoroutine(choosedEquip.ThinkAboutStuff(character,false,this));
+            choosedEquip.UseEquipment(character, this, false);
         }
     }
     public virtual void UseEquip(int equip, Tile target, bool momentum, int skill)
