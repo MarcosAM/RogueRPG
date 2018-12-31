@@ -16,11 +16,12 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     [SerializeField] protected StandartStats stats;
     protected List<Stat> listaStat = new List<Stat>();
     protected CombatBehavior combatBehavior;
+    protected int level = 0;
 
     public Archetypes.Archetype Archetype { get; set; }
 
     public Equip[] equips = new Equip[5];
-    protected Equip momentumSkill;
+    //protected Equip momentumSkill;
 
     [SerializeField] protected Image avatarImg;
     [SerializeField] protected RectTransform frontHandler;
@@ -192,6 +193,11 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         this.hp = maxHp;
         GetComponentInChildren<CharacterHUD>().SetCharacter(this);
         Archetype = Archetypes.GetArchetype(equips);
+        foreach (var equip in equips)
+        {
+            level += equip.GetLevel();
+        }
+        equips[equips.Length - 1] = Archetypes.GetMomentumEquip(Archetype, level);
     }
 
     public void Refresh()
@@ -240,7 +246,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     }
 
     public Equip[] GetEquips() { return equips; }
-    public Equip GetMomentumSkill() { return momentumSkill; }
+    //public Equip GetMomentumSkill() { return momentumSkill; }
     public List<Equip> GetUsableEquips()
     {
         List<Equip> usableSkills = new List<Equip>();

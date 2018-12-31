@@ -1,10 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public static class Archetypes
+public class Archetypes : MonoBehaviour
 {
+    [SerializeField] protected Equip momentumEquip;
+    static Archetypes instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public enum Archetype { None, Supporter, Disabler, Offensive, MInfantry, Infantry, Protector, Brute, Agressive }
 
@@ -38,4 +44,8 @@ public static class Archetypes
         return archetype;
     }
 
+    public static Equip GetMomentumEquip(Archetype archetype, int level)
+    {
+        return instance.momentumEquip;
+    }
 }
