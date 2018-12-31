@@ -17,6 +17,8 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     protected List<Stat> listaStat = new List<Stat>();
     protected CombatBehavior combatBehavior;
 
+    public Archetypes.Archetype Archetype { get; set; }
+
     public Equip[] equips = new Equip[5];
     protected Equip momentumSkill;
 
@@ -166,7 +168,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     protected virtual void FillStats()
     {
-        equips = stats.getSkills();
+        equips = stats.GetEquips();
         combatBehavior = GetComponent<CombatBehavior>();
         combatBehavior.SetCharacter(this);
         int hp = 0;
@@ -189,6 +191,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         this.maxHp = hp;
         this.hp = maxHp;
         GetComponentInChildren<CharacterHUD>().SetCharacter(this);
+        Archetype = Archetypes.GetArchetype(equips);
     }
 
     public void Refresh()

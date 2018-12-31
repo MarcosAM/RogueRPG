@@ -19,7 +19,7 @@ public class StandartStats : ScriptableObject {
 	public int getDefm() {return defm;}
 	public int getHp() {return hp;}
 	public float getStamina() {return stamina;}
-	public Equip[] getSkills() {return skills;}
+	public Equip[] GetEquips() {return skills;}
 	public Equip getMomentumSkill() {return momentumSkill;}
 	public Image getPortrait () {return portrait;}
 }

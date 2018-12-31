@@ -10,6 +10,10 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
     [SerializeField] protected List<Skill> skills;
     [SerializeField] protected int hp, atk, atkm, def, defm;
 
+    [Range(1, 10)]
+    [SerializeField] protected int level;
+    [SerializeField] protected Archetypes.Archetype archetype;
+
     [SerializeField] protected Image backEquipPrefab;
     [SerializeField] protected Image frontEquipPrefab;
     protected Image backEquip;
@@ -98,4 +102,6 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
             return null;
         }
     }
+    public Archetypes.Archetype GetArchetype() { return archetype; }
+    public int GetLevel() { return level; }
 }
