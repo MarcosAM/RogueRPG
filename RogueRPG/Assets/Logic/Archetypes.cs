@@ -12,7 +12,7 @@ public class Archetypes : MonoBehaviour
         instance = this;
     }
 
-    public enum Archetype { None, Supporter, Disabler, Offensive, MInfantry, Infantry, Protector, Brute, Agressive }
+    public enum Archetype { None, Supporter, Disabler, Offensive, MInfantry, Infantry, Brute, Agressive }
 
     public static Archetype GetArchetype(Equip[] equips)
     {

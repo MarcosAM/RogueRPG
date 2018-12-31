@@ -7,7 +7,6 @@ public class Move : Actions
 {
     public override void Act(Character user, Tile target, SkillAnimation animationPrefab)
     {
-        //target.SetCharacter(user);
         target.MoveCharacter(user);
     }
 
@@ -15,21 +14,53 @@ public class Move : Actions
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        List<Tile> alliesTiles = battleground.GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => !t.CharacterIs(true) ? IsTargetable(user, t) : t.GetCharacter() == user);
-        if (alliesTiles.Count > 0)
+        if (user.Archetype == Archetypes.Archetype.Brute && user.GetTile().GetTileInFront().GetCharacter())
+            return new TurnSugestion(0);
+
+        var targetables = battleground.GetAvailableTilesFrom(user.IsPlayable());
+
+        switch (user.Archetype)
         {
-            List<Tile> aliveOpponentTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
-            if (user.GetStatValue(Stat.Stats.Def) > DungeonManager.getInstance().GetDefAvg())
-            {
-                alliesTiles.Sort((t1, t2) => GetBetterTile(t2, t1, aliveOpponentTiles));
-            }
-            else
-            {
-                alliesTiles.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
-            }
-            if (alliesTiles[0] != user.GetTile())
-                return new TurnSugestion(1, alliesTiles[0].GetIndex());
+            case Archetypes.Archetype.Brute:
+            case Archetypes.Archetype.Agressive:
+                targetables.FindAll(t => FilterForBrutesAndAgressives(user, t));
+                break;
+            case Archetypes.Archetype.Infantry:
+            case Archetypes.Archetype.MInfantry:
+                targetables.FindAll(t => FilterForInfantry(user, t));
+                break;
+            case Archetypes.Archetype.Offensive:
+                targetables.FindAll(t => FilterForOffensive(user, t));
+                break;
+            default:
+                targetables.FindAll(t => FilterForNoneToDisablers(user, t));
+                break;
         }
+
+        if (targetables.Count > 0)
+        {
+            //TODO definir melhor como eles vão se locomover, levando em consideração ignorar espaços menos valiosos ao que já estão. Eu posso fazer isso no próprio filter lá embaixo talvez
+            List<Tile> aliveOpponentTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
+            switch (user.Archetype)
+            {
+                case Archetypes.Archetype.Agressive:
+                case Archetypes.Archetype.Brute:
+                    targetables.Sort((t2, t1) => GetBetterTile(t1, t2, aliveOpponentTiles));
+                    break;
+                case Archetypes.Archetype.Infantry:
+                    targetables.Sort((t1, t2) => SortForInfantry(t1, t2, Stat.Stats.Atk));
+                    break;
+                case Archetypes.Archetype.MInfantry:
+                    targetables.Sort((t1, t2) => SortForInfantry(t1, t2, Stat.Stats.Atkm));
+                    break;
+                default:
+                    targetables.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
+                    break;
+            }
+            if (targetables[0] != user.GetTile())
+                return new TurnSugestion(1, targetables[0].GetIndex());
+        }
+
         return new TurnSugestion(0);
     }
 
@@ -59,4 +90,40 @@ public class Move : Actions
             return tile2Value - tile1Value;
         }
     }
+
+
+    bool FilterForNoneToDisablers(Character user, Tile tile)
+    {
+        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : tile.GetCharacter() == user;
+    }
+
+    bool FilterForOffensive(Character user, Tile tile)
+    {
+        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : tile.GetCharacter() == user || tile.GetCharacter().Archetype >= Archetypes.Archetype.MInfantry;
+    }
+
+    bool FilterForInfantry(Character user, Tile tile)
+    {
+        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : tile.GetCharacter() == user || tile.GetCharacter().Archetype < Archetypes.Archetype.MInfantry;
+    }
+
+    bool FilterForBrutesAndAgressives(Character user, Tile tile)
+    {
+        return IsTargetable(user, tile);
+    }
+
+    int SortForInfantry(Tile tile1, Tile tile2, Stat.Stats stats)
+    {
+        var tile1Atk = 0;
+        var tile2Atk = 0;
+
+        if (tile1.GetCharacter())
+            tile1Atk = (int)tile1.GetCharacter().GetStatValue(stats);
+
+        if (tile2.GetCharacter())
+            tile2Atk = (int)tile2.GetCharacter().GetStatValue(stats);
+
+        return tile2Atk - tile1Atk;
+    }
+
 }
