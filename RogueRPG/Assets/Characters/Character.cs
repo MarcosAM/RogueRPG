@@ -34,8 +34,6 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public event Action OnHUDValuesChange;
     public event Action<int, int, bool> OnHPValuesChange;
-    public event Action OnMyTurnStarts;
-    public event Action OnMyTurnEnds;
 
     void Awake()
     {
@@ -58,20 +56,12 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public void StartTurn()
     {
-        if (OnMyTurnStarts != null)
-        {
-            OnMyTurnStarts();
-        }
         SpendBuffs();
         CheckIfSkillsShouldBeRefreshed();
     }
 
     public void EndTurn()
     {
-        if (OnMyTurnEnds != null)
-        {
-            OnMyTurnEnds();
-        }
         EventManager.EndedTurn();
     }
 
