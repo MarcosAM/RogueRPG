@@ -125,10 +125,10 @@ public class Move : Actions
         var tile2Atk = 0;
 
         if (tile1.GetCharacter())
-            tile1Atk = (int)tile1.GetCharacter().GetAttributes().GetStatValue(stats);
+            tile1Atk = (int)tile1.GetCharacter().GetAttributes().GetAttributeValue(stats);
 
         if (tile2.GetCharacter())
-            tile2Atk = (int)tile2.GetCharacter().GetAttributes().GetStatValue(stats);
+            tile2Atk = (int)tile2.GetCharacter().GetAttributes().GetAttributeValue(stats);
 
         return tile2Atk - tile1Atk;
     }

@@ -28,6 +28,10 @@ public class Attributes : MonoBehaviour
         }
     }
 
+
+
+
+
     public void LoseHpBy(int damage, bool wasCritic)
     {
 
@@ -86,6 +90,14 @@ public class Attributes : MonoBehaviour
         RefreshHUD();
     }
 
+    public bool IsAlive() { return alive; }
+
+    public void AddToMaxHp(int value)
+    {
+        this.maxHp += value;
+        this.hp = this.maxHp;
+    }
+
     public void RefreshHUD()
     {
         if (OnHUDValuesChange != null)
@@ -93,6 +105,39 @@ public class Attributes : MonoBehaviour
             OnHUDValuesChange();
         }
     }
+
+
+
+
+    Attribute GetAttribute(Attribute.Stats stats) { return listStat.Find(s => s.GetStats() == stats); }
+    public float GetAttributeValue(Attribute.Stats stats) { return GetAttribute(stats).GetValue(); }
+
+    public float GetAtkValue() { return GetAttributeValue(Attribute.Stats.Atk); }
+    public float GetAtkmValue() { return GetAttributeValue(Attribute.Stats.Atkm); }
+    public float GetDefValue() { return GetAttributeValue(Attribute.Stats.Def); }
+    public float GetDefmValue() { return GetAttributeValue(Attribute.Stats.Defm); }
+    public float GetCriticValue() { return GetAttributeValue(Attribute.Stats.Critic); }
+    public float GetDodgeValue() { return GetAttributeValue(Attribute.Stats.Dodge); }
+    public float GetPrecisionValue() { return GetAttributeValue(Attribute.Stats.Precision); }
+
+    public float GetHp() { return hp; }
+    public float GetMaxHp() { return maxHp; }
+
+    public void UpdateAttributes(Equip[] equips)
+    {
+        foreach (var equip in equips)
+        {
+            GetAttribute(Attribute.Stats.Atk).AddToStatBase(equip.GetAtk());
+            GetAttribute(Attribute.Stats.Atkm).AddToStatBase(equip.GetAtkm());
+            GetAttribute(Attribute.Stats.Def).AddToStatBase(equip.GetDef());
+            GetAttribute(Attribute.Stats.Defm).AddToStatBase(equip.GetDefm());
+
+            AddToMaxHp(equip.GetHp());
+        }
+    }
+
+
+
 
     public void Refresh()
     {
@@ -121,35 +166,6 @@ public class Attributes : MonoBehaviour
         listStat.Find(s => s.GetStats() == stats).BuffIt(intensity, buffDuration);
     }
 
-    public float GetHp() { return hp; }
-    public float GetMaxHp() { return maxHp; }
-
-    public float GetStatValue(Attribute.Stats stats)
-    {
-        if (listStat.Exists(s => s.GetStats() == stats))
-        {
-            return listStat.Find(s => s.GetStats() == stats).GetValue();
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-    public Attribute GetStat(Attribute.Stats stats)
-    {
-        if (listStat.Exists(s => s.GetStats() == stats))
-        {
-            return listStat.Find(s => s.GetStats() == stats);
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    public bool IsAlive() { return alive; }
-
     public bool IsBuffed(Attribute.Stats stats)
     {
         return listStat.Find(s => s.GetStats() == stats).getBuffValue() > 0;
@@ -176,10 +192,4 @@ public class Attributes : MonoBehaviour
     }
 
     public Momentum GetMomentum() { return momentum; }
-
-    public void AddToMaxHp(int value)
-    {
-        this.maxHp += value;
-        this.hp = this.maxHp;
-    }
 }

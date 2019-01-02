@@ -10,11 +10,11 @@ public class MagicalDamage : Damage
         base.TryToDamage(user, target, attack);
         if (hitted)
         {
-            target.GetAttributes().LoseHpBy((int)(user.GetAttributes().GetStatValue(Attribute.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetStatValue(Attribute.Stats.Defm)), false);
+            target.GetAttributes().LoseHpBy((int)(user.GetAttributes().GetAtkmValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefmValue()), false);
         }
         else
         {
-            user.GetAttributes().GetMomentum().Value += user.IsPlayable() ? -Mathf.Abs(user.GetAttributes().GetStatValue(Attribute.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetStatValue(Attribute.Stats.Defm)) / 100 : Mathf.Abs(user.GetAttributes().GetStatValue(Attribute.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetStatValue(Attribute.Stats.Defm)) / 100;
+            user.GetAttributes().GetMomentum().Value += user.IsPlayable() ? -Mathf.Abs(user.GetAttributes().GetAtkmValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefmValue()) / 100 : Mathf.Abs(user.GetAttributes().GetAtkmValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefmValue()) / 100;
             Debug.Log("Missed!");
         }
     }
@@ -22,8 +22,8 @@ public class MagicalDamage : Damage
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
         if (user.GetInventory().Archetype == Archetypes.Archetype.MInfantry)
-            return (int)(c2.GetAttributes().GetStatValue(Attribute.Stats.Atkm) - c1.GetAttributes().GetStatValue(Attribute.Stats.Atkm));
+            return (int)(c2.GetAttributes().GetAtkmValue() - c1.GetAttributes().GetAtkmValue());
 
-        return (int)(c1.GetAttributes().GetStatValue(Attribute.Stats.Defm) - c2.GetAttributes().GetStatValue(Attribute.Stats.Defm));
+        return (int)(c1.GetAttributes().GetDefmValue() - c2.GetAttributes().GetDefmValue());
     }
 }

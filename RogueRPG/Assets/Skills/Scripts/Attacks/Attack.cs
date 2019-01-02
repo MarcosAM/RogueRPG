@@ -13,6 +13,6 @@ public abstract class Attack : Actions
 
     protected void GenerateNewAttack(Character user)
     {
-        attack = user.GetAttributes().GetStatValue(Attribute.Stats.Precision) + precision - Random.value;
+        attack = user.GetAttributes().GetPrecisionValue() + precision - Random.value;
     }
 }

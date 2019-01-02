@@ -11,9 +11,9 @@ public class ReviveEffect : HealEffect
 
     public override void Affect(Character user, Character target)
     {
-        if (precision + user.GetAttributes().GetStatValue(Attribute.Stats.Precision) > Random.value)
+        if (precision + user.GetAttributes().GetPrecisionValue() > Random.value)
         {
-            target.GetAttributes().Revive((int)(user.GetAttributes().GetStatValue(Attribute.Stats.Atkm) * healIntensifier));
+            target.GetAttributes().Revive((int)(user.GetAttributes().GetAtkmValue() * healIntensifier));
         }
     }
     public override int SortBestTargets(Character user, Character c1, Character c2)

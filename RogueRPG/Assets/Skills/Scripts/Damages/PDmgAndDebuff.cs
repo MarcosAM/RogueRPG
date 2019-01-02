@@ -24,7 +24,7 @@ public class PDmgAndDebuff : PhysicalDamage
             case Attribute.Stats.Atkm:
             case Attribute.Stats.Def:
             case Attribute.Stats.Defm:
-                return (int)(c2.GetAttributes().GetStatValue(stat) - c1.GetAttributes().GetStatValue(stat));
+                return (int)(c2.GetAttributes().GetAttributeValue(stat) - c1.GetAttributes().GetAttributeValue(stat));
             default:
                 return c1.GetAttributes().GetBuffIntensity(stat) - c2.GetAttributes().GetBuffIntensity(stat);
         }
