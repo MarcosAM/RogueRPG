@@ -7,7 +7,7 @@ public class BuffParticles : MonoBehaviour
     UIParticleSystem uIParticleSystem;
     ParticleSystem particleSystem;
     public Character Owner { get; set; }
-    public Stat.Stats Stats { get; set; }
+    public Attribute.Stats Stats { get; set; }
 
     void Awake()
     {
@@ -17,7 +17,7 @@ public class BuffParticles : MonoBehaviour
         Stop();
     }
 
-    public void PlayAt(Character character, int intensity, Vector2 position, Sprite sprite, Stat.Stats stats)
+    public void PlayAt(Character character, int intensity, Vector2 position, Sprite sprite, Attribute.Stats stats)
     {
         Owner = character;
         Stats = stats;

@@ -38,7 +38,7 @@ public class DungeonManager : MonoBehaviour
 
         foreach (Character character in initiativeOrder)
         {
-            character.Refresh();
+            character.GetAttributes().Refresh();
         }
 
         battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);

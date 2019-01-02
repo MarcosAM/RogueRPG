@@ -10,11 +10,11 @@ public class MagicalDamage : Damage
         base.TryToDamage(user, target, attack);
         if (hitted)
         {
-            target.LoseHpBy((int)(user.GetStatValue(Stat.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetStatValue(Stat.Stats.Defm)), false);
+            target.GetAttributes().LoseHpBy((int)(user.GetAttributes().GetStatValue(Attribute.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetStatValue(Attribute.Stats.Defm)), false);
         }
         else
         {
-            user.GetMomentum().Value += user.IsPlayable() ? -Mathf.Abs(user.GetStatValue(Stat.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetStatValue(Stat.Stats.Defm)) / 100 : Mathf.Abs(user.GetStatValue(Stat.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetStatValue(Stat.Stats.Defm)) / 100;
+            user.GetAttributes().GetMomentum().Value += user.IsPlayable() ? -Mathf.Abs(user.GetAttributes().GetStatValue(Attribute.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetStatValue(Attribute.Stats.Defm)) / 100 : Mathf.Abs(user.GetAttributes().GetStatValue(Attribute.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetStatValue(Attribute.Stats.Defm)) / 100;
             Debug.Log("Missed!");
         }
     }
@@ -22,8 +22,8 @@ public class MagicalDamage : Damage
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
         if (user.GetInventory().Archetype == Archetypes.Archetype.MInfantry)
-            return (int)(c2.GetStatValue(Stat.Stats.Atkm) - c1.GetStatValue(Stat.Stats.Atkm));
+            return (int)(c2.GetAttributes().GetStatValue(Attribute.Stats.Atkm) - c1.GetAttributes().GetStatValue(Attribute.Stats.Atkm));
 
-        return (int)(c1.GetStatValue(Stat.Stats.Defm) - c2.GetStatValue(Stat.Stats.Defm));
+        return (int)(c1.GetAttributes().GetStatValue(Attribute.Stats.Defm) - c2.GetAttributes().GetStatValue(Attribute.Stats.Defm));
     }
 }

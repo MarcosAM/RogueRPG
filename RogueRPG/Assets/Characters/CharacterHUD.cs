@@ -26,8 +26,8 @@ public class CharacterHUD : MonoBehaviour
         }
         nameText.text = this.character.GetName();
         //TODO Desconectar com outros Characters caso já tivesse um, o que é improvável
-        this.character.OnHUDValuesChange += Refresh;
-        this.character.OnHPValuesChange += HPFeedback;
+        this.character.GetAttributes().OnHUDValuesChange += Refresh;
+        this.character.GetAttributes().OnHPValuesChange += HPFeedback;
         Refresh();
     }
 
@@ -53,16 +53,16 @@ public class CharacterHUD : MonoBehaviour
     void Refresh()
     {
         nameText.text = this.character.GetName();
-        SetHpBar(character.GetHp() / character.GetMaxHp());
-        SetHpNumbers(character.GetHp(), character.GetMaxHp());
+        SetHpBar(character.GetAttributes().GetHp() / character.GetAttributes().GetMaxHp());
+        SetHpNumbers(character.GetAttributes().GetHp(), character.GetAttributes().GetMaxHp());
     }
 
     void OnEnable()
     {
         if (character != null)
         {
-            character.OnHUDValuesChange += Refresh;
-            character.OnHPValuesChange += HPFeedback;
+            character.GetAttributes().OnHUDValuesChange += Refresh;
+            character.GetAttributes().OnHPValuesChange += HPFeedback;
         }
     }
 
@@ -70,8 +70,8 @@ public class CharacterHUD : MonoBehaviour
     {
         if (character != null)
         {
-            character.OnHUDValuesChange -= Refresh;
-            character.OnHPValuesChange -= HPFeedback;
+            character.GetAttributes().OnHUDValuesChange -= Refresh;
+            character.GetAttributes().OnHPValuesChange -= HPFeedback;
         }
     }
 }

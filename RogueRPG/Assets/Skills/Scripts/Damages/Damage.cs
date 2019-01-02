@@ -11,7 +11,7 @@ public abstract class Damage : ScriptableObject
 
     public virtual void TryToDamage(Character user, Character target, float attack)
     {
-        hitted = attack > target.GetStatValue(Stat.Stats.Dodge);
+        hitted = attack > target.GetAttributes().GetStatValue(Attribute.Stats.Dodge);
     }
     public bool DidItHit() { return hitted; }
     public abstract int SortBestTargets(Character user, Character c1, Character c2);

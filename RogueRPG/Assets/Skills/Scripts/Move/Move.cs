@@ -11,7 +11,7 @@ public class Move : Actions
     }
 
     //TODO impedir de clicar em si mesmo
-    public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range && user.IsPlayable() == tile.GetSide(); }
+    public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.IsPlayable() == tile.GetSide(); }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
@@ -52,12 +52,12 @@ public class Move : Actions
                     mySideTiles.Sort((t2, t1) => GetBetterTile(t1, t2, aliveOpponentTiles));
                     break;
                 case Archetypes.Archetype.Infantry:
-                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Stat.Stats.Atk));
-                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Stat.Stats.Atk));
+                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Stats.Atk));
+                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Stats.Atk));
                     break;
                 case Archetypes.Archetype.MInfantry:
-                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Stat.Stats.Atkm));
-                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Stat.Stats.Atkm));
+                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Stats.Atkm));
+                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Stats.Atkm));
                     break;
                 default:
                     targetables.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
@@ -119,16 +119,16 @@ public class Move : Actions
         return IsTargetable(user, tile);
     }
 
-    int SortByStat(Tile tile1, Tile tile2, Stat.Stats stats)
+    int SortByStat(Tile tile1, Tile tile2, Attribute.Stats stats)
     {
         var tile1Atk = 0;
         var tile2Atk = 0;
 
         if (tile1.GetCharacter())
-            tile1Atk = (int)tile1.GetCharacter().GetStatValue(stats);
+            tile1Atk = (int)tile1.GetCharacter().GetAttributes().GetStatValue(stats);
 
         if (tile2.GetCharacter())
-            tile2Atk = (int)tile2.GetCharacter().GetStatValue(stats);
+            tile2Atk = (int)tile2.GetCharacter().GetAttributes().GetStatValue(stats);
 
         return tile2Atk - tile1Atk;
     }

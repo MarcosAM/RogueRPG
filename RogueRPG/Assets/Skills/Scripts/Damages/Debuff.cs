@@ -6,14 +6,14 @@ using UnityEngine;
 public class Debuff : Damage
 {
     [SerializeField] int duration;
-    [SerializeField] Stat.Stats stat;
-    [SerializeField] Stat.Intensity intensity;
+    [SerializeField] Attribute.Stats stat;
+    [SerializeField] Attribute.Intensity intensity;
 
     public override void TryToDamage(Character user, Character target, float attack)
     {
         if (hitted)
         {
-            target.BuffIt(stat, intensity, duration);
+            target.GetAttributes().BuffIt(stat, intensity, duration);
         }
         else
         {
@@ -24,6 +24,6 @@ public class Debuff : Damage
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
         //TODO ao menos estender a duração do debuff se o cara já tiver debuffado ou algo assim...
-        return c1.GetBuffIntensity(stat) - c2.GetBuffIntensity(stat);
+        return c1.GetAttributes().GetBuffIntensity(stat) - c2.GetAttributes().GetBuffIntensity(stat);
     }
 }

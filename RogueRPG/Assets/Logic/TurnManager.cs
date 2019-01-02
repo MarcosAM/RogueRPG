@@ -18,7 +18,7 @@ public class TurnManager : MonoBehaviour, IWaitForEquipment
     {
         this.currentCharacter = character;
 
-        character.SpendBuffs();
+        character.GetAttributes().SpendBuffs();
         character.GetInventory().CheckIfEquipsShouldBeRefreshed();
 
         if (character.IsPlayable())

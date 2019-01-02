@@ -101,14 +101,15 @@ public class Inventory : MonoBehaviour
 
     void InitiateCharacterAttributes(Character character)
     {
+        //TODO Attributes é que deveriam resolver isso!
         foreach (var equip in equips)
         {
-            character.GetStat(Stat.Stats.Atk).AddToStatBase(equip.GetAtk());
-            character.GetStat(Stat.Stats.Atkm).AddToStatBase(equip.GetAtkm());
-            character.GetStat(Stat.Stats.Def).AddToStatBase(equip.GetDef());
-            character.GetStat(Stat.Stats.Defm).AddToStatBase(equip.GetDefm());
+            character.GetAttributes().GetStat(Attribute.Stats.Atk).AddToStatBase(equip.GetAtk());
+            character.GetAttributes().GetStat(Attribute.Stats.Atkm).AddToStatBase(equip.GetAtkm());
+            character.GetAttributes().GetStat(Attribute.Stats.Def).AddToStatBase(equip.GetDef());
+            character.GetAttributes().GetStat(Attribute.Stats.Defm).AddToStatBase(equip.GetDefm());
 
-            character.AddToMaxHp(equip.GetHp());
+            character.GetAttributes().AddToMaxHp(equip.GetHp());
         }
     }
 

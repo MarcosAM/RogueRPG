@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HPStat : Stat
+public class HPStat : Attribute
 {
     public HPStat(Character character, Stats stats, IBuffHUD buffHUD) : base(character, stats, buffHUD)
     {
@@ -13,7 +13,7 @@ public class HPStat : Stat
 
     public override void SpendAndCheckIfEnded()
     {
-        character.Heal((int)(character.GetMaxHp() * getBuffValue()));
+        character.GetAttributes().Heal((int)(character.GetAttributes().GetMaxHp() * getBuffValue()));
         base.SpendAndCheckIfEnded();
     }
 }
