@@ -4,9 +4,5 @@ using UnityEngine;
 
 public class PlayableCharacter : Character
 {
-    //protected override void FillStats()
-    //{
-    //    base.FillStats();
-    //    momentumSkill = stats.getMomentumSkill();
-    //}
+
 }

@@ -42,7 +42,7 @@ public class Momentum : MonoBehaviour
         }
     }
 
-    public void OnMomentumSkillUsed()
+    public void OnMomentumEquipUsed()
     {
         Value -= animatedSlider.slider.maxValue / 2;
     }

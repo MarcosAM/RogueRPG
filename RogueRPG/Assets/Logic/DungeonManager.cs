@@ -13,7 +13,6 @@ public class DungeonManager : MonoBehaviour
     int round;
     int dungeonFloor = 0;
     Battleground battleground;
-    float defAvg;
 
     void Start()
     {
@@ -102,7 +101,6 @@ public class DungeonManager : MonoBehaviour
     {
         if (character != null)
             initiativeOrder.Add(character);
-        defAvg = CurrentDefAvg();
     }
 
     void AddToInitiative(List<Character> characters)
@@ -112,20 +110,7 @@ public class DungeonManager : MonoBehaviour
             if (hero != null)
                 initiativeOrder.Add(hero);
         }
-        defAvg = CurrentDefAvg();
     }
-
-    float CurrentDefAvg()
-    {
-        float defAvg = 0f;
-        foreach (Character character in initiativeOrder)
-        {
-            defAvg += character.GetStatValue(Stat.Stats.Def);
-        }
-        return defAvg / initiativeOrder.Count;
-    }
-
-    public float GetDefAvg() { return defAvg; }
 
     void EndBattleAndCheckIfDungeonEnded()
     {

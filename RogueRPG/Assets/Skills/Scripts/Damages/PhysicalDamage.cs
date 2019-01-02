@@ -26,6 +26,7 @@ public class PhysicalDamage : Damage
             }
             else
             {
+                user.GetMomentum().Value += user.IsPlayable() ? -Mathf.Abs((user.GetStatValue(Stat.Stats.Atk) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetStatValue(Stat.Stats.Def))) / 100 : Mathf.Abs((user.GetStatValue(Stat.Stats.Atk) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetStatValue(Stat.Stats.Def))) / 100;
                 Debug.Log("Missed!");
             }
         }

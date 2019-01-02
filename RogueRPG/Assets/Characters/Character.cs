@@ -21,7 +21,6 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     public Archetypes.Archetype Archetype { get; set; }
 
     public Equip[] equips = new Equip[5];
-    //protected Equip momentumSkill;
 
     [SerializeField] protected Image avatarImg;
     [SerializeField] protected RectTransform frontHandler;
@@ -30,6 +29,8 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     IWaitForAnimationByString requester;
 
     Tile tile;
+
+    Momentum momentum;
 
     public event Action OnHUDValuesChange;
     public event Action<int, int, bool> OnHPValuesChange;
@@ -74,55 +75,28 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         EventManager.EndedTurn();
     }
 
-    public bool DidIHitYouWith(float precision)
-    {
-        if (precision - GetStatValue(Stat.Stats.Dodge) >= 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    //public int TakeDamage(int damage, Skill.Source damageSource, bool wasCritic)
-    //{
-    //    if (damageSource == Skill.Source.Physical)
-    //    {
-    //        if (wasCritic)
-    //        {
-    //            LoseHpBy(Mathf.RoundToInt(damage), true);
-    //            return Mathf.RoundToInt(damage);
-    //        }
-    //        else
-    //        {
-    //            LoseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Def)), false);
-    //            return Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Def));
-    //        }
-    //    }
-    //    else
-    //    {
-    //        LoseHpBy(Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm)), false);
-    //        return Mathf.RoundToInt(damage - GetStatValue(Stat.Stats.Defm));
-    //    }
-    //}
-
     public void LoseHpBy(int damage, bool wasCritic)
     {
+
         if (damage > 0)
         {
             if (OnHPValuesChange != null)
             {
                 OnHPValuesChange(hp, damage, wasCritic);
             }
+
             hp -= damage;
             animator.SetTrigger("Damage");
+
             if (hp <= 0)
             {
                 Die();
             }
         }
+
+        momentum.Value += IsPlayable() ? -(float)damage / 100 : (float)damage / 100;
+        //TODO efeito de defender caso o dano seja menor que zero
+
         RefreshHUD();
     }
 
@@ -198,6 +172,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
             level += equip.GetLevel();
         }
         equips[equips.Length - 1] = Archetypes.GetMomentumEquip(Archetype, level);
+        momentum = FindObjectOfType<Momentum>();
     }
 
     public void Refresh()
@@ -246,7 +221,6 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     }
 
     public Equip[] GetEquips() { return equips; }
-    //public Equip GetMomentumSkill() { return momentumSkill; }
     public List<Equip> GetUsableEquips()
     {
         List<Equip> usableSkills = new List<Equip>();
@@ -397,13 +371,5 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         requester.ResumeFromAnimation(this);
     }
 
-    public float GetSumOfStats()
-    {
-        float f = 0;
-        foreach (Stat stat in listaStat)
-        {
-            f += stat.GetValue();
-        }
-        return f;
-    }
+    public Momentum GetMomentum() { return momentum; }
 }

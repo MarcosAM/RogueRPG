@@ -18,7 +18,7 @@ public class ReviveEffect : HealEffect
     }
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
-        return (int)(c2.GetSumOfStats() - c1.GetSumOfStats());
+        return c2.Archetype - c1.Archetype;
     }
     public override bool IsLogicalTarget(Tile tile)
     {

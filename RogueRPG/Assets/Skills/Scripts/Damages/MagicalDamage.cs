@@ -14,6 +14,7 @@ public class MagicalDamage : Damage
         }
         else
         {
+            user.GetMomentum().Value += user.IsPlayable() ? -Mathf.Abs(user.GetStatValue(Stat.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetStatValue(Stat.Stats.Defm)) / 100 : Mathf.Abs(user.GetStatValue(Stat.Stats.Atkm) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetStatValue(Stat.Stats.Defm)) / 100;
             Debug.Log("Missed!");
         }
     }
