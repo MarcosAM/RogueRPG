@@ -13,10 +13,12 @@ public class DungeonManager : MonoBehaviour
     int round;
     int dungeonFloor = 0;
     Battleground battleground;
+    TurnManager turnManager;
 
     void Start()
     {
         battleground = FindObjectOfType<Battleground>();
+        turnManager = GetComponent<TurnManager>();
         GameManager gameManager = GameManager.getInstance();
         MakeItASingleton();
 
@@ -59,7 +61,7 @@ public class DungeonManager : MonoBehaviour
 
     void TryToStartTurn()
     {
-        initiativeOrder[0].GetBehavior().StartTurn();
+        turnManager.StartTurn(initiativeOrder[0]);
     }
 
     void NextTurn()

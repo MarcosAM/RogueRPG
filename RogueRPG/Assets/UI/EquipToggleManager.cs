@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EquipToggleManager : MonoBehaviour
 {
 
-    private CombatBehavior combatBehavior;
+    private TurnManager combatBehavior;
     [SerializeField] private List<EquipToggle> equipToggles = new List<EquipToggle>();
     private PlayerInputManager playerInputManager;
     private ToggleGroup toggleGroup;
@@ -46,7 +46,7 @@ public class EquipToggleManager : MonoBehaviour
             }
             else
             {
-                if (character.GetBehavior().IsEquipAvailable(i))
+                if (character.IsEquipAvailable(i))
                 {
                     equipToggles[i].getToggle().interactable = true;
                 }

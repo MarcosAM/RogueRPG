@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerInputManager : MonoBehaviour
 {
 
-    private CombatBehavior combatBehavior;
+    private TurnManager combatBehavior;
     private EquipToggleManager equipTogglerManager;
     private TargetBtnsManager combHUDManager;
     SkillToggleManager skillToggleManager;
@@ -22,7 +22,7 @@ public class PlayerInputManager : MonoBehaviour
         skillToggleManager.HideSkillToggleMananger();
     }
 
-    public void ShowUIFor(CombatBehavior combatBehavior)
+    public void ShowUIFor(TurnManager combatBehavior)
     {
         battleGuide.gameObject.SetActive(true);
         this.combatBehavior = combatBehavior;

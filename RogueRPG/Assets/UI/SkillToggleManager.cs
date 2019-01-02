@@ -7,7 +7,7 @@ using System.Linq;
 public class SkillToggleManager : MonoBehaviour
 {
 
-    private CombatBehavior combatBehavior;
+    private TurnManager combatBehavior;
     [SerializeField] private List<SkillToggle> skillToggles = new List<SkillToggle>();
     private PlayerInputManager playerInputManager;
     private ToggleGroup toggleGroup;

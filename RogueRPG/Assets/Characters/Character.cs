@@ -15,12 +15,13 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     //TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
     [SerializeField] protected StandartStats stats;
     protected List<Stat> listaStat = new List<Stat>();
-    protected CombatBehavior combatBehavior;
+    //protected CombatBehavior combatBehavior;
     protected int level = 0;
 
     public Archetypes.Archetype Archetype { get; set; }
 
-    public Equip[] equips = new Equip[5];
+    protected Equip[] equips = new Equip[5];
+    protected bool[] availableEquips;
 
     [SerializeField] protected Image avatarImg;
     [SerializeField] protected RectTransform frontHandler;
@@ -52,17 +53,6 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         {
             FillStats();
         }
-    }
-
-    public void StartTurn()
-    {
-        SpendBuffs();
-        CheckIfSkillsShouldBeRefreshed();
-    }
-
-    public void EndTurn()
-    {
-        EventManager.EndedTurn();
     }
 
     public void LoseHpBy(int damage, bool wasCritic)
@@ -134,8 +124,19 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     protected virtual void FillStats()
     {
         equips = stats.GetEquips();
-        combatBehavior = GetComponent<CombatBehavior>();
-        combatBehavior.SetCharacter(this);
+
+        //TODO Automatizar isso aqui toda vez que se troca os equipamentos
+        availableEquips = new bool[equips.Length];
+        for (int i = 0; i < availableEquips.Length; i++)
+        {
+            availableEquips[i] = true;
+        }
+        availableEquips[availableEquips.Length - 1] = false;
+        //TODO Automatizar isso aqui toda vez que se troca os equipamentos
+
+        //combatBehavior = GetComponent<CombatBehavior>();
+        //combatBehavior.SetCharacter(this);
+
         int hp = 0;
         int atk = 0;
         int atkm = 0;
@@ -187,15 +188,15 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         }
     }
 
-    void CheckIfSkillsShouldBeRefreshed()
+    public void CheckIfSkillsShouldBeRefreshed()
     {
-        if (combatBehavior.AtLeastOneEquipAvailable())
+        if (AtLeastOneEquipAvailable())
         {
             return;
         }
         else
         {
-            combatBehavior.SetEquipsAvailability(true);
+            SetEquipsAvailability(true);
         }
     }
 
@@ -216,7 +217,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         List<Equip> usableSkills = new List<Equip>();
         for (int i = 0; i < equips.Length; i++)
         {
-            if (combatBehavior.IsEquipAvailable(i))
+            if (IsEquipAvailable(i))
             {
                 usableSkills.Add(equips[i]);
             }
@@ -261,7 +262,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         RefreshHUD();
     }
 
-    public CombatBehavior GetBehavior() { return combatBehavior; }
+    //public CombatBehavior GetBehavior() { return combatBehavior; }
 
     public int GetPosition()
     {
@@ -362,4 +363,33 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     }
 
     public Momentum GetMomentum() { return momentum; }
+
+    public bool[] GetAvailableEquips() { return availableEquips; }
+
+    public bool IsEquipAvailable(int index)
+    {
+        if (index == availableEquips.Length - 1)
+        {
+            return FindObjectOfType<Momentum>().IsMomentumFull();
+        }
+        return availableEquips[index];
+    }
+
+    public bool AtLeastOneEquipAvailable()
+    {
+        foreach (bool b in availableEquips)
+        {
+            if (b)
+                return true;
+        }
+        return false;
+    }
+    public void SetEquipsAvailability(bool availability)
+    {
+        for (int i = 0; i < availableEquips.Length; i++)
+        {
+            availableEquips[i] = availability;
+        }
+        availableEquips[availableEquips.Length - 1] = false;
+    }
 }
