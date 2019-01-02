@@ -30,6 +30,7 @@ public class Move : Actions
                 targetables.FindAll(t => FilterForInfantry(user, t));
                 break;
             case Archetypes.Archetype.Offensive:
+            case Archetypes.Archetype.MOffensive:
                 targetables.FindAll(t => FilterForOffensive(user, t));
                 break;
             default:
@@ -39,26 +40,31 @@ public class Move : Actions
 
         if (targetables.Count > 0)
         {
-            //TODO definir melhor como eles vão se locomover, levando em consideração ignorar espaços menos valiosos ao que já estão. Eu posso fazer isso no próprio filter lá embaixo talvez
             List<Tile> aliveOpponentTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
+            var mySideTiles = battleground.GetAvailableTilesFrom(user.IsPlayable());
+
             switch (user.Archetype)
             {
                 case Archetypes.Archetype.Agressive:
                 case Archetypes.Archetype.Brute:
                     targetables.Sort((t2, t1) => GetBetterTile(t1, t2, aliveOpponentTiles));
+                    mySideTiles.Sort((t2, t1) => GetBetterTile(t1, t2, aliveOpponentTiles));
                     break;
                 case Archetypes.Archetype.Infantry:
-                    targetables.Sort((t1, t2) => SortForInfantry(t1, t2, Stat.Stats.Atk));
+                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Stat.Stats.Atk));
+                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Stat.Stats.Atk));
                     break;
                 case Archetypes.Archetype.MInfantry:
-                    targetables.Sort((t1, t2) => SortForInfantry(t1, t2, Stat.Stats.Atkm));
+                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Stat.Stats.Atkm));
+                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Stat.Stats.Atkm));
                     break;
                 default:
                     targetables.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
+                    mySideTiles.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
                     break;
             }
             if (targetables[0] != user.GetTile())
-                return new TurnSugestion(1, targetables[0].GetIndex());
+                return new TurnSugestion(TurnSugestion.maxProbability - mySideTiles.IndexOf(targetables[0]), targetables[0].GetIndex());
         }
 
         return new TurnSugestion(0);
@@ -112,7 +118,7 @@ public class Move : Actions
         return IsTargetable(user, tile);
     }
 
-    int SortForInfantry(Tile tile1, Tile tile2, Stat.Stats stats)
+    int SortByStat(Tile tile1, Tile tile2, Stat.Stats stats)
     {
         var tile1Atk = 0;
         var tile2Atk = 0;

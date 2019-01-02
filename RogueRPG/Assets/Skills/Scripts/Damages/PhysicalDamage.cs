@@ -35,7 +35,13 @@ public class PhysicalDamage : Damage
     {
         if (user.GetStatValue(Stat.Stats.Critic) > 0.4f)
             return (int)(c2.GetStatValue(Stat.Stats.Def) - c1.GetStatValue(Stat.Stats.Def));
-        else
-            return (int)(c1.GetStatValue(Stat.Stats.Def) - c2.GetStatValue(Stat.Stats.Def));
+
+        if (user.Archetype == Archetypes.Archetype.Infantry)
+            return (int)(c2.GetStatValue(Stat.Stats.Atk) - c1.GetStatValue(Stat.Stats.Atk));
+
+        if (user.Archetype == Archetypes.Archetype.MInfantry)
+            return (int)(c2.GetStatValue(Stat.Stats.Atkm) - c1.GetStatValue(Stat.Stats.Atkm));
+
+        return (int)(c1.GetStatValue(Stat.Stats.Def) - c2.GetStatValue(Stat.Stats.Def));
     }
 }
