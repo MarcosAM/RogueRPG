@@ -10,16 +10,17 @@ public class Move : Actions
         target.MoveCharacter(user);
     }
 
+    //TODO impedir de clicar em si mesmo
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetPosition() - tile.GetRow()) <= range && user.IsPlayable() == tile.GetSide(); }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        if (user.Archetype == Archetypes.Archetype.Brute && user.GetTile().GetTileInFront().GetCharacter())
+        if (user.GetInventory().Archetype == Archetypes.Archetype.Brute && user.GetTile().GetTileInFront().GetCharacter())
             return new TurnSugestion(0);
 
         var targetables = battleground.GetAvailableTilesFrom(user.IsPlayable());
 
-        switch (user.Archetype)
+        switch (user.GetInventory().Archetype)
         {
             case Archetypes.Archetype.Brute:
             case Archetypes.Archetype.Agressive:
@@ -43,7 +44,7 @@ public class Move : Actions
             List<Tile> aliveOpponentTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
             var mySideTiles = battleground.GetAvailableTilesFrom(user.IsPlayable());
 
-            switch (user.Archetype)
+            switch (user.GetInventory().Archetype)
             {
                 case Archetypes.Archetype.Agressive:
                 case Archetypes.Archetype.Brute:
@@ -105,12 +106,12 @@ public class Move : Actions
 
     bool FilterForOffensive(Character user, Tile tile)
     {
-        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : tile.GetCharacter() == user || tile.GetCharacter().Archetype >= Archetypes.Archetype.MInfantry;
+        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : tile.GetCharacter() == user || tile.GetCharacter().GetInventory().Archetype >= Archetypes.Archetype.MInfantry;
     }
 
     bool FilterForInfantry(Character user, Tile tile)
     {
-        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : tile.GetCharacter() == user || tile.GetCharacter().Archetype < Archetypes.Archetype.MInfantry;
+        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : tile.GetCharacter() == user || tile.GetCharacter().GetInventory().Archetype < Archetypes.Archetype.MInfantry;
     }
 
     bool FilterForBrutesAndAgressives(Character user, Tile tile)

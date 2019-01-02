@@ -81,11 +81,11 @@
   <ItemGroup>
     <Compile Include="Assets\AnimatedSlider.cs" />
     <Compile Include="Assets\Battleground.cs" />
-    <Compile Include="Assets\Characters\Behaviors\TurnManager.cs" />
     <Compile Include="Assets\Characters\Character.cs" />
     <Compile Include="Assets\Characters\CharacterHUD.cs" />
     <Compile Include="Assets\Characters\CStats\StandartStats.cs" />
     <Compile Include="Assets\Characters\HPStat.cs" />
+    <Compile Include="Assets\Characters\Inventory.cs" />
     <Compile Include="Assets\Characters\NonPlayableCharacter.cs" />
     <Compile Include="Assets\Characters\PlayableCharacter.cs" />
     <Compile Include="Assets\Characters\Stat.cs" />
@@ -106,6 +106,7 @@
     <Compile Include="Assets\Logic\DungeonManager.cs" />
     <Compile Include="Assets\Logic\EventManager.cs" />
     <Compile Include="Assets\Logic\GameManager.cs" />
+    <Compile Include="Assets\Logic\TurnManager.cs" />
     <Compile Include="Assets\Momentum.cs" />
     <Compile Include="Assets\Quests\BattleGroups\BattleGroup.cs" />
     <Compile Include="Assets\Quests\Dungeons\Dungeon.cs" />

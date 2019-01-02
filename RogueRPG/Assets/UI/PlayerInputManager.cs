@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerInputManager : MonoBehaviour
 {
-
-    private TurnManager combatBehavior;
+    Character currentCharacter;
+    TurnManager turnManager;
     private EquipToggleManager equipTogglerManager;
     private TargetBtnsManager combHUDManager;
     SkillToggleManager skillToggleManager;
@@ -17,16 +17,18 @@ public class PlayerInputManager : MonoBehaviour
         equipTogglerManager = FindObjectOfType<EquipToggleManager>();
         combHUDManager = FindObjectOfType<TargetBtnsManager>();
         battleGuide = FindObjectOfType<BattleGuide>();
+        turnManager = FindObjectOfType<TurnManager>();
+
         equipTogglerManager.HideEquipToggles();
         skillToggleManager = FindObjectOfType<SkillToggleManager>();
         skillToggleManager.HideSkillToggleMananger();
     }
 
-    public void ShowUIFor(TurnManager combatBehavior)
+    public void ShowUIFor(Character currentCharacter)
     {
         battleGuide.gameObject.SetActive(true);
-        this.combatBehavior = combatBehavior;
-        equipTogglerManager.ShowEquipTogglesFor(combatBehavior.GetCharacter(), false);
+        this.currentCharacter = currentCharacter;
+        equipTogglerManager.ShowEquipTogglesFor(this.currentCharacter, false);
     }
 
     public void ReportNewSelectedEquipToggle(EquipToggle equipToggle)
@@ -35,16 +37,16 @@ public class PlayerInputManager : MonoBehaviour
         {
             battleGuide.setText("CHOOSE YOUR TARGET");
             battleGuide.setAnimatorTrigger("PointLeftRight");
-            combatBehavior.GetCharacter().changeEquipObject(combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
-            combatBehavior.GetCharacter().getAnimator().SetBool("Equiped", true);
-            combatBehavior.GetCharacter().getAnimator().SetTrigger("ChangeEquip");
+            currentCharacter.changeEquipObject(currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
+            currentCharacter.getAnimator().SetBool("Equiped", true);
+            currentCharacter.getAnimator().SetTrigger("ChangeEquip");
             skillToggleManager.ShowSkillTogglesFor(SelectedEquip);
         }
         else
         {
             battleGuide.setText("CHOOSE YOUR EQUIPMENT");
             battleGuide.setAnimatorTrigger("PointDown");
-            combatBehavior.GetCharacter().getAnimator().SetBool("Equiped", false);
+            currentCharacter.getAnimator().SetBool("Equiped", false);
             FindObjectOfType<SkillToggleManager>().HideSkillToggleMananger();
         }
     }
@@ -53,7 +55,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (skillToggle != null)
         {
-            combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedSkill);
+            combHUDManager.ShowTargetBtns(currentCharacter, SelectedSkill);
         }
         else
         {
@@ -66,7 +68,7 @@ public class PlayerInputManager : MonoBehaviour
         battleGuide.gameObject.SetActive(false);
         combHUDManager.HideTargetBtns();
         //TODO todos os golpes de herois está sendo como momentum
-        combatBehavior.UseEquip(equipTogglerManager.GetSelectedEquipIndex(), target, false, skillToggleManager.GetSelectedSkillIndex());
+        turnManager.UseEquip(equipTogglerManager.GetSelectedEquipIndex(), target, false, skillToggleManager.GetSelectedSkillIndex());
         equipTogglerManager.SetAllEquipTogglesOff();
         equipTogglerManager.HideEquipToggles();
     }
@@ -74,20 +76,20 @@ public class PlayerInputManager : MonoBehaviour
     public void HoverTargetBtnEnter(TargetBtn targetBtn)
     {
         if (skillToggleManager.AnyToggleOne())
-            combHUDManager.PreviewTargets(combatBehavior.GetCharacter(), SelectedSkill, targetBtn.getTile());
+            combHUDManager.PreviewTargets(currentCharacter, SelectedSkill, targetBtn.getTile());
     }
 
     public void HoverTargetBtnExit(TargetBtn targetBtn)
     {
         if (skillToggleManager.AnyToggleOne())
-            combHUDManager.ShowTargetBtns(combatBehavior.GetCharacter(), SelectedSkill);
+            combHUDManager.ShowTargetBtns(currentCharacter, SelectedSkill);
     }
 
     public Equip SelectedEquip
     {
         get
         {
-            return combatBehavior.GetCharacter().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()];
+            return currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()];
         }
     }
 

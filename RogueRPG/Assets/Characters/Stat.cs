@@ -46,10 +46,13 @@ public class Stat
         //		TODO atualizar a interface para mostrar esse bonus
     }
 
-    public void setStatBase(float value)
-    {
-        this.statBase = value;
-    }
+    //public void setStatBase(float value)
+    //{
+    //    this.statBase = value;
+    //}
+
+    public void AddToStatBase(float value) { statBase += value; }
+
     public List<float> getBonus() { return bonus; }
     public float getBuffValue()
     {

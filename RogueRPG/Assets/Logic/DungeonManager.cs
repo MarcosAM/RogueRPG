@@ -64,7 +64,7 @@ public class DungeonManager : MonoBehaviour
         turnManager.StartTurn(initiativeOrder[0]);
     }
 
-    void NextTurn()
+    public void NextTurn()
     {
         if (DidOnePartyLost() > 0)
         {
@@ -151,12 +151,10 @@ public class DungeonManager : MonoBehaviour
 
     void OnEnable()
     {
-        EventManager.OnEndedTurn += NextTurn;
         EventManager.OnDeathOf += DeleteFromInitiative;
     }
     void OnDisable()
     {
-        EventManager.OnEndedTurn -= NextTurn;
         EventManager.OnDeathOf -= DeleteFromInitiative;
     }
 }

@@ -14,14 +14,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     //TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
     [SerializeField] protected StandartStats stats;
-    protected List<Stat> listaStat = new List<Stat>();
-    //protected CombatBehavior combatBehavior;
-    protected int level = 0;
-
-    public Archetypes.Archetype Archetype { get; set; }
-
-    protected Equip[] equips = new Equip[5];
-    protected bool[] availableEquips;
+    protected List<Stat> listStat = new List<Stat>();
 
     [SerializeField] protected Image avatarImg;
     [SerializeField] protected RectTransform frontHandler;
@@ -33,11 +26,14 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     Momentum momentum;
 
+    Inventory inventory;
+
     public event Action OnHUDValuesChange;
     public event Action<int, int, bool> OnHPValuesChange;
 
     void Awake()
     {
+        inventory = GetComponent<Inventory>();
         avatarImg = GetComponentInChildren<Image>();
         RectTransform[] transforms = GetComponentsInChildren<RectTransform>();
         backHandler = transforms[0];
@@ -47,7 +43,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
         foreach (Stat.Stats stat in Enum.GetValues(typeof(Stat.Stats)))
         {
-            listaStat.Add(new Stat(this, stat, buffPManager));
+            listStat.Add(new Stat(this, stat, buffPManager));
         }
         if (stats != null)
         {
@@ -123,46 +119,8 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     protected virtual void FillStats()
     {
-        equips = stats.GetEquips();
-
-        //TODO Automatizar isso aqui toda vez que se troca os equipamentos
-        availableEquips = new bool[equips.Length];
-        for (int i = 0; i < availableEquips.Length; i++)
-        {
-            availableEquips[i] = true;
-        }
-        availableEquips[availableEquips.Length - 1] = false;
-        //TODO Automatizar isso aqui toda vez que se troca os equipamentos
-
-        //combatBehavior = GetComponent<CombatBehavior>();
-        //combatBehavior.SetCharacter(this);
-
-        int hp = 0;
-        int atk = 0;
-        int atkm = 0;
-        int def = 0;
-        int defm = 0;
-        foreach (Equip skill in equips)
-        {
-            hp += skill.GetHp();
-            atk += skill.GetAtk();
-            atkm += skill.GetAtkm();
-            def += skill.GetDef();
-            defm += skill.GetDefm();
-        }
-        this.GetStat(Stat.Stats.Atk).setStatBase(atk);
-        this.GetStat(Stat.Stats.Atkm).setStatBase(atkm);
-        this.GetStat(Stat.Stats.Def).setStatBase(def);
-        this.GetStat(Stat.Stats.Defm).setStatBase(defm);
-        this.maxHp = hp;
-        this.hp = maxHp;
+        inventory.SetEquips(this, stats.GetEquips());
         GetComponentInChildren<CharacterHUD>().SetCharacter(this);
-        Archetype = Archetypes.GetArchetype(equips);
-        foreach (var equip in equips)
-        {
-            level += equip.GetLevel();
-        }
-        equips[equips.Length - 1] = Archetypes.GetMomentumEquip(Archetype, level);
         momentum = FindObjectOfType<Momentum>();
     }
 
@@ -174,7 +132,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public void SpendBuffs()
     {
-        foreach (Stat stat in listaStat)
+        foreach (Stat stat in listStat)
         {
             stat.SpendAndCheckIfEnded();
         }
@@ -182,27 +140,15 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     void RemoveAllBuffs()
     {
-        foreach (Stat stat in listaStat)
+        foreach (Stat stat in listStat)
         {
             stat.ResetBuff();
         }
     }
 
-    public void CheckIfSkillsShouldBeRefreshed()
-    {
-        if (AtLeastOneEquipAvailable())
-        {
-            return;
-        }
-        else
-        {
-            SetEquipsAvailability(true);
-        }
-    }
-
     public void BuffIt(Stat.Stats stats, Stat.Intensity intensity, int buffDuration)
     {
-        listaStat.Find(s => s.GetStats() == stats).BuffIt(intensity, buffDuration);
+        listStat.Find(s => s.GetStats() == stats).BuffIt(intensity, buffDuration);
     }
 
     public void SetStats(StandartStats standartStats)
@@ -211,28 +157,17 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         FillStats();
     }
 
-    public Equip[] GetEquips() { return equips; }
-    public List<Equip> GetUsableEquips()
-    {
-        List<Equip> usableSkills = new List<Equip>();
-        for (int i = 0; i < equips.Length; i++)
-        {
-            if (IsEquipAvailable(i))
-            {
-                usableSkills.Add(equips[i]);
-            }
-        }
-        return usableSkills;
-    }
+    //public Equip[] GetEquips() { return equips; }
+
     public float GetHp() { return hp; }
     public float GetMaxHp() { return maxHp; }
     public string GetName() { return characterName; }
 
     public float GetStatValue(Stat.Stats stats)
     {
-        if (listaStat.Exists(s => s.GetStats() == stats))
+        if (listStat.Exists(s => s.GetStats() == stats))
         {
-            return listaStat.Find(s => s.GetStats() == stats).GetValue();
+            return listStat.Find(s => s.GetStats() == stats).GetValue();
         }
         else
         {
@@ -242,9 +177,9 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public Stat GetStat(Stat.Stats stats)
     {
-        if (listaStat.Exists(s => s.GetStats() == stats))
+        if (listStat.Exists(s => s.GetStats() == stats))
         {
-            return listaStat.Find(s => s.GetStats() == stats);
+            return listStat.Find(s => s.GetStats() == stats);
         }
         else
         {
@@ -261,8 +196,6 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         this.characterName = name;
         RefreshHUD();
     }
-
-    //public CombatBehavior GetBehavior() { return combatBehavior; }
 
     public int GetPosition()
     {
@@ -293,52 +226,34 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         }
     }
 
-    public int howManyOf(Equip equip)
-    {
-        int c = 0;
-        for (int i = 0; i < equips.Length; i++)
-        {
-            if (equip == equips[i])
-            {
-                c++;
-            }
-        }
-        return c;
-    }
-
     public Tile GetTile() { return tile; }
     public void SetTile(Tile tile) { this.tile = tile; }
     public List<Tile> GetEnemiesTiles() { return GetTile().GetEnemiesTiles(); }
     public List<Tile> GetAlliesTiles() { return GetTile().GetAlliesTiles(); }
 
-    public bool IsMomentumEquip(Equip equip)
-    {
-        return equip == equips[equips.Length - 1];
-    }
-
     public bool IsBuffed(Stat.Stats stats)
     {
-        return listaStat.Find(s => s.GetStats() == stats).getBuffValue() > 0;
+        return listStat.Find(s => s.GetStats() == stats).getBuffValue() > 0;
     }
 
     public float GetBuffValueOf(Stat.Stats stats)
     {
-        return listaStat.Find(s => s.GetStats() == stats).getBuffValue();
+        return listStat.Find(s => s.GetStats() == stats).getBuffValue();
     }
 
     public Stat.Intensity GetBuffIntensity(Stat.Stats stats)
     {
-        return listaStat.Find(s => s.GetStats() == stats).GetIntensity();
+        return listStat.Find(s => s.GetStats() == stats).GetIntensity();
     }
 
     public bool IsDebuffed()
     {
-        return listaStat.Exists(s => s.getBuffValue() < 0);
+        return listStat.Exists(s => s.getBuffValue() < 0);
     }
 
     public bool IsDebuffed(Stat.Stats stats)
     {
-        return listaStat.Find(s => s.GetStats() == stats).getBuffValue() < 0;
+        return listStat.Find(s => s.GetStats() == stats).getBuffValue() < 0;
     }
 
     public void UseSkillAnimation()
@@ -364,32 +279,10 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public Momentum GetMomentum() { return momentum; }
 
-    public bool[] GetAvailableEquips() { return availableEquips; }
-
-    public bool IsEquipAvailable(int index)
+    public void AddToMaxHp(int value)
     {
-        if (index == availableEquips.Length - 1)
-        {
-            return FindObjectOfType<Momentum>().IsMomentumFull();
-        }
-        return availableEquips[index];
+        this.maxHp += value;
+        this.hp = this.maxHp;
     }
-
-    public bool AtLeastOneEquipAvailable()
-    {
-        foreach (bool b in availableEquips)
-        {
-            if (b)
-                return true;
-        }
-        return false;
-    }
-    public void SetEquipsAvailability(bool availability)
-    {
-        for (int i = 0; i < availableEquips.Length; i++)
-        {
-            availableEquips[i] = availability;
-        }
-        availableEquips[availableEquips.Length - 1] = false;
-    }
+    public Inventory GetInventory() { return inventory; }
 }

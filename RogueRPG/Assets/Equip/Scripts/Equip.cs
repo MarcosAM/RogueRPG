@@ -25,7 +25,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
     {
         user.changeEquipObject(GetBackEquip(), GetFrontEquip());
         this.requester = requester;
-        GetSkills()[skill].StartSkill(user, tile, this, user.IsMomentumEquip(this));
+        GetSkills()[skill].StartSkill(user, tile, this, user.GetInventory().IsMomentumEquip(this));
     }
 
     public void UseEquipment(Character user, IWaitForEquipment requester, bool momentum)

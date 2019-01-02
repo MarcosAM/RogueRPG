@@ -39,14 +39,14 @@ public class EquipToggleManager : MonoBehaviour
         gameObject.SetActive(true);
         for (int i = 0; i < equipToggles.Count; i++)
         {
-            equipToggles[i].getText().text = character.GetEquips()[i].GetEquipName();
+            equipToggles[i].getText().text = character.GetInventory().GetEquips()[i].GetEquipName();
             if (asPreview)
             {
                 equipToggles[i].getToggle().interactable = false;
             }
             else
             {
-                if (character.IsEquipAvailable(i))
+                if (character.GetInventory().IsEquipAvailable(i))
                 {
                     equipToggles[i].getToggle().interactable = true;
                 }
