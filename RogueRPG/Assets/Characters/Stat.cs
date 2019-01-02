@@ -40,6 +40,7 @@ public class Stat
             this.intensity = this.intensity + 2;
             if (this.buffDuration < buffDuration)
                 this.buffDuration = buffDuration;
+            ChangeMomentumByUpping();
         }
         buffHUD.PlayAt(character, stats, this.intensity, character.GetTile().GetLocalPosition());
         //		TODO atualizar a interface para mostrar esse bonus
@@ -85,28 +86,11 @@ public class Stat
 
     public Stats GetStats() { return stats; }
 
-    public const float CRITIC_BUFF_1 = 0.1f;
-    public const float CRITIC_BUFF_2 = 0.3f;
-    public const float CRITIC_BUFF_3 = 0.5f;
-    public const float CRITIC_DEBUFF_1 = -0.1f;
-    public const float CRITIC_DEBUFF_2 = -0.3f;
-    public const float CRITIC_DEBUFF_3 = -0.5f;
-    public const float DODGE_BUFF_1 = 0.1f;
-    public const float DODGE_BUFF_2 = 0.3f;
-    public const float DODGE_BUFF_3 = 0.5f;
-    public const float DODGE_DEBUFF_1 = -0.1f;
-    public const float DODGE_DEBUFF_2 = -0.3f;
-    public const float DODGE_DEBUFF_3 = -0.5f;
-    public const float PRECISION_BUFF_1 = 0.1f;
-    public const float PRECISION_BUFF_2 = 0.3f;
-    public const float PRECISION_BUFF_3 = 0.5f;
-    public const float PRECISION_DEBUFF_1 = -0.1f;
-    public const float PRECISION_DEBUFF_2 = -0.3f;
-    public const float PRECISION_DEBUFF_3 = -0.5f;
-    public const float ATRIBUTE_BUFF_1 = 10;
-    public const float ATRIBUTE_BUFF_2 = 20;
-    public const float ATRIBUTE_BUFF_3 = 30;
-    public const float ATRIBUTE_DEBUFF_1 = -10;
-    public const float ATRIBUTE_DEBUFF_2 = -20;
-    public const float ATRIBUTE_DEBUFF_3 = -30;
+    void ChangeMomentumByUpping()
+    {
+        if (((int)this.intensity) % 2 == 0)
+            character.GetMomentum().Value += character.IsPlayable() ? (float)this.intensity / 100 : -(float)this.intensity / 100;
+        else
+            character.GetMomentum().Value += character.IsPlayable() ? -(float)this.intensity / 100 : (float)this.intensity / 100;
+    }
 }
