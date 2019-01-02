@@ -52,12 +52,12 @@ public class Move : Actions
                     mySideTiles.Sort((t2, t1) => GetBetterTile(t1, t2, aliveOpponentTiles));
                     break;
                 case Archetypes.Archetype.Infantry:
-                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Stats.Atk));
-                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Stats.Atk));
+                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Type.Atk));
+                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Type.Atk));
                     break;
                 case Archetypes.Archetype.MInfantry:
-                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Stats.Atkm));
-                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Stats.Atkm));
+                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Type.Atkm));
+                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Type.Atkm));
                     break;
                 default:
                     targetables.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
@@ -119,7 +119,7 @@ public class Move : Actions
         return IsTargetable(user, tile);
     }
 
-    int SortByStat(Tile tile1, Tile tile2, Attribute.Stats stats)
+    int SortByStat(Tile tile1, Tile tile2, Attribute.Type stats)
     {
         var tile1Atk = 0;
         var tile2Atk = 0;

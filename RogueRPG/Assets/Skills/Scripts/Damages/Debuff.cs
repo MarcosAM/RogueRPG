@@ -6,7 +6,7 @@ using UnityEngine;
 public class Debuff : Damage
 {
     [SerializeField] int duration;
-    [SerializeField] Attribute.Stats stat;
+    [SerializeField] Attribute.Type stat;
     [SerializeField] Attribute.Intensity intensity;
 
     public override void TryToDamage(Character user, Character target, float attack)

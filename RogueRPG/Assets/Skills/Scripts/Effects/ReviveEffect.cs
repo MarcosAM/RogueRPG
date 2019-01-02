@@ -13,7 +13,7 @@ public class ReviveEffect : HealEffect
     {
         if (precision + user.GetAttributes().GetPrecisionValue() > Random.value)
         {
-            target.GetAttributes().Revive((int)(user.GetAttributes().GetAtkmValue() * healIntensifier));
+            target.GetAttributes().GetHp().Revive((int)(user.GetAttributes().GetAtkmValue() * healIntensifier));
         }
     }
     public override int SortBestTargets(Character user, Character c1, Character c2)
@@ -26,7 +26,7 @@ public class ReviveEffect : HealEffect
     }
     public override int GetComparableValue(Character character)
     {
-        if (character.GetAttributes().IsAlive())
+        if (character.GetAttributes().GetHp().IsAlive())
             return TurnSugestion.minProbability;
         else
             return TurnSugestion.maxProbability;

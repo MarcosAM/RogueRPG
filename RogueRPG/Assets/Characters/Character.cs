@@ -61,7 +61,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     public void SetName(string name)
     {
         this.characterName = name;
-        attributes.RefreshHUD();
+        attributes.GetHp().RefreshHUD();
     }
 
     public int GetRow() { return tile.GetRow(); }

@@ -9,10 +9,10 @@ public class HealEffect : Effects
     [Range(1f, 2f)]
     protected float healIntensifier;
 
-    public override void Affect(Character user, Character target) { target.GetAttributes().Heal((int)(user.GetAttributes().GetAtkmValue() * healIntensifier)); }
+    public override void Affect(Character user, Character target) { target.GetAttributes().GetHp().Heal((int)(user.GetAttributes().GetAtkmValue() * healIntensifier)); }
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
-        return (int)(c1.GetAttributes().GetHp() - c2.GetAttributes().GetHp());
+        return (int)(c1.GetAttributes().GetHp().GetValue() - c2.GetAttributes().GetHp().GetValue());
     }
     public override bool IsLogicalTarget(Tile tile)
     {
@@ -21,7 +21,7 @@ public class HealEffect : Effects
     }
     public override int GetComparableValue(Character character)
     {
-        float hpPercentege = character.GetAttributes().GetHp() / character.GetAttributes().GetMaxHp();
+        float hpPercentege = character.GetAttributes().GetHp().GetValue() / character.GetAttributes().GetHp().GetMaxValue();
 
         for (int i = TurnSugestion.maxProbability; i >= TurnSugestion.minProbability; i--)
         {

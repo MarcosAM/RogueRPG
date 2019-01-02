@@ -86,7 +86,7 @@
     <Compile Include="Assets\Characters\Character.cs" />
     <Compile Include="Assets\Characters\CharacterHUD.cs" />
     <Compile Include="Assets\Characters\CStats\StandartStats.cs" />
-    <Compile Include="Assets\Characters\HPStat.cs" />
+    <Compile Include="Assets\Characters\Hp.cs" />
     <Compile Include="Assets\Characters\Inventory.cs" />
     <Compile Include="Assets\Characters\NonPlayableCharacter.cs" />
     <Compile Include="Assets\Characters\PlayableCharacter.cs" />

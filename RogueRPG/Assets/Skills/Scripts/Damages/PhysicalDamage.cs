@@ -15,14 +15,14 @@ public class PhysicalDamage : Damage
         base.TryToDamage(user, target, attack);
         if (Random.value < critic + user.GetAttributes().GetCriticValue())
         {
-            target.GetAttributes().LoseHpBy((int)(user.GetAttributes().GetAtkValue() * criticIntensifier * dmgIntensifier - target.GetAttributes().GetDefValue()), true);
+            target.GetAttributes().GetHp().LoseHpBy((int)(user.GetAttributes().GetAtkValue() * criticIntensifier * dmgIntensifier - target.GetAttributes().GetDefValue()), true);
             hitted = true;
         }
         else
         {
             if (hitted)
             {
-                target.GetAttributes().LoseHpBy((int)(user.GetAttributes().GetAtkValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefValue()), false);
+                target.GetAttributes().GetHp().LoseHpBy((int)(user.GetAttributes().GetAtkValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefValue()), false);
             }
             else
             {

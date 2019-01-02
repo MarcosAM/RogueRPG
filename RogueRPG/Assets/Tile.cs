@@ -75,7 +75,7 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public bool CharacterIs(bool alive) { return character != null ? character.GetAttributes().IsAlive() == alive : false; }
+    public bool CharacterIs(bool alive) { return character != null ? character.GetAttributes().GetHp().IsAlive() == alive : false; }
 
     public int GetIndex() { return index; }
     public int GetRow() { return index % (battleground.GetTiles().Count / 2); }

@@ -18,7 +18,7 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
         buffsParticles[0].transform.SetParent(transform);
     }
 
-    public void PlayAt(Character character, Attribute.Stats stats, Attribute.Intensity intensity, Vector2 position)
+    public void PlayAt(Character character, Attribute.Type stats, Attribute.Intensity intensity, Vector2 position)
     {
         Sprite sprite;
         if (((int)intensity) % 2 == 0)
@@ -43,7 +43,7 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
         bp.PlayAt(character, (int)intensity, position, sprite, stats);
     }
 
-    public void Stop(Character character, Attribute.Stats stats)
+    public void Stop(Character character, Attribute.Type stats)
     {
         BuffParticles bp = buffsParticles.Find(b => b.Owner == character && b.Stats == stats);
         if (bp != null)

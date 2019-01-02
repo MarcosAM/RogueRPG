@@ -10,7 +10,7 @@ public class MagicalDamage : Damage
         base.TryToDamage(user, target, attack);
         if (hitted)
         {
-            target.GetAttributes().LoseHpBy((int)(user.GetAttributes().GetAtkmValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefmValue()), false);
+            target.GetAttributes().GetHp().LoseHpBy((int)(user.GetAttributes().GetAtkmValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefmValue()), false);
         }
         else
         {

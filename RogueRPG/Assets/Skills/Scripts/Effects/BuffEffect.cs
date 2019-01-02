@@ -6,14 +6,14 @@ using UnityEngine;
 public class BuffEffect : Effects
 {
     [SerializeField] int duration;
-    [SerializeField] Attribute.Stats stat;
+    [SerializeField] Attribute.Type stat;
     [SerializeField] Attribute.Intensity intensity;
 
     public override void Affect(Character user, Character target)
     {
         target.GetAttributes().BuffIt(stat, intensity, duration);
     }
-    public Attribute.Stats GetStats() { return stat; }
+    public Attribute.Type GetStats() { return stat; }
     public Attribute.Intensity GetIntensity() { return intensity; }
 
     public override int SortBestTargets(Character user, Character c1, Character c2)
