@@ -29,10 +29,13 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         inventory = GetComponent<Inventory>();
         attributes = GetComponent<Attributes>();
         attributes.Initialize(this);
-        avatarImg = GetComponentInChildren<Image>();
+
         RectTransform[] transforms = GetComponentsInChildren<RectTransform>();
+
+        avatarImg = GetComponentInChildren<Image>();
         backHandler = transforms[0];
         frontHandler = transforms[2];
+
         animator = GetComponent<Animator>();
 
         if (stats != null)
@@ -61,6 +64,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     public void SetName(string name)
     {
         this.characterName = name;
+        //TODO Está Character HUD não tem uma referência a character então quando da Refresh ela não pega o nome novo
         attributes.GetHp().RefreshHUD();
     }
 
@@ -79,13 +83,13 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         if (frontEquip != null)
         {
             frontEquip.rectTransform.SetParent(frontHandler);
-            frontEquip.rectTransform.anchoredPosition = new Vector2(0f, 100f);
+            frontEquip.rectTransform.anchoredPosition = new Vector2(0f, 0f);
             frontEquip.rectTransform.localEulerAngles = Vector3.zero;
         }
         if (backEquip != null)
         {
             backEquip.rectTransform.SetParent(backHandler);
-            backEquip.rectTransform.anchoredPosition = new Vector2(0f, 100f);
+            backEquip.rectTransform.anchoredPosition = new Vector2(0f, 0f);
             backEquip.rectTransform.localEulerAngles = Vector3.zero;
         }
     }

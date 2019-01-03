@@ -21,13 +21,13 @@ public class CharacterHUD : MonoBehaviour
     public void Initialize(Character character)
     {
         this.hp = character.GetAttributes().GetHp();
-        this.name = character.GetName();
+        this.cName = character.GetName();
 
-        if (character.IsPlayable())
+        if (!character.IsPlayable())
         {
             hpText.gameObject.SetActive(false);
         }
-        nameText.text = this.name;
+        nameText.text = this.cName;
 
         this.hp.OnHUDValuesChange += Refresh;
         this.hp.OnHPValuesChange += HPFeedback;
@@ -56,7 +56,7 @@ public class CharacterHUD : MonoBehaviour
 
     void Refresh()
     {
-        nameText.text = this.name;
+        nameText.text = this.cName;
         SetHpBar(hp.GetValue() / hp.GetMaxValue());
         SetHpNumbers(hp.GetValue(), hp.GetMaxValue());
     }
