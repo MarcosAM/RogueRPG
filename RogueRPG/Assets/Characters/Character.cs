@@ -44,7 +44,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     protected virtual void FillStats()
     {
         inventory.SetEquips(this, stats.GetEquips());
-        GetComponentInChildren<CharacterHUD>().SetCharacter(this);
+        GetComponentInChildren<CharacterHUD>().Initialize(this);
     }
 
     public void SetStats(StandartStats standartStats)
@@ -66,7 +66,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public int GetRow() { return tile.GetRow(); }
 
-    public void changeEquipObject(Image backEquip, Image frontEquip)
+    public void ChangeEquipObject(Image backEquip, Image frontEquip)
     {
         foreach (RectTransform child in frontHandler)
         {
@@ -106,7 +106,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         this.requester = requester;
     }
 
-    public Animator getAnimator()
+    public Animator GetAnimator()
     {
         return animator;
     }

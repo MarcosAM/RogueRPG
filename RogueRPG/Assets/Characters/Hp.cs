@@ -45,7 +45,7 @@ public class Hp : Attribute
             }
 
             currentValue -= damage;
-            character.getAnimator().SetTrigger("Damage");
+            character.GetAnimator().SetTrigger("Damage");
 
             if (currentValue <= 0)
             {

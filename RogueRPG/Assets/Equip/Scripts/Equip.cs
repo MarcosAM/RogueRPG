@@ -23,7 +23,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
 
     public void UseEquipmentOn(Character user, Tile tile, IWaitForEquipment requester, bool momentum, int skill)
     {
-        user.changeEquipObject(GetBackEquip(), GetFrontEquip());
+        user.ChangeEquipObject(GetBackEquip(), GetFrontEquip());
         this.requester = requester;
         GetSkills()[skill].StartSkill(user, tile, this, user.GetInventory().IsMomentumEquip(this));
     }

@@ -37,16 +37,16 @@ public class PlayerInputManager : MonoBehaviour
         {
             battleGuide.setText("CHOOSE YOUR TARGET");
             battleGuide.setAnimatorTrigger("PointLeftRight");
-            currentCharacter.changeEquipObject(currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
-            currentCharacter.getAnimator().SetBool("Equiped", true);
-            currentCharacter.getAnimator().SetTrigger("ChangeEquip");
+            currentCharacter.ChangeEquipObject(currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
+            currentCharacter.GetAnimator().SetBool("Equiped", true);
+            currentCharacter.GetAnimator().SetTrigger("ChangeEquip");
             skillToggleManager.ShowSkillTogglesFor(SelectedEquip);
         }
         else
         {
             battleGuide.setText("CHOOSE YOUR EQUIPMENT");
             battleGuide.setAnimatorTrigger("PointDown");
-            currentCharacter.getAnimator().SetBool("Equiped", false);
+            currentCharacter.GetAnimator().SetBool("Equiped", false);
             FindObjectOfType<SkillToggleManager>().HideSkillToggleMananger();
         }
     }

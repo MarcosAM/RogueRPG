@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class CharacterHUD : MonoBehaviour
 {
+    Hp hp;
+    string cName;
 
-    Character character;
     AnimatedSlider hpSlider;
     [SerializeField] Text hpText;
     [SerializeField] private DamageFB damageFbPrefab;
@@ -17,17 +18,20 @@ public class CharacterHUD : MonoBehaviour
         hpSlider = GetComponentInChildren<AnimatedSlider>();
     }
 
-    public void SetCharacter(Character character)
+    public void Initialize(Character character)
     {
-        this.character = character;
-        if (!this.character.IsPlayable())
+        this.hp = character.GetAttributes().GetHp();
+        this.name = character.GetName();
+
+        if (character.IsPlayable())
         {
             hpText.gameObject.SetActive(false);
         }
-        nameText.text = this.character.GetName();
-        //TODO Desconectar com outros Characters caso já tivesse um, o que é improvável
-        this.character.GetAttributes().GetHp().OnHUDValuesChange += Refresh;
-        this.character.GetAttributes().GetHp().OnHPValuesChange += HPFeedback;
+        nameText.text = this.name;
+
+        this.hp.OnHUDValuesChange += Refresh;
+        this.hp.OnHPValuesChange += HPFeedback;
+
         Refresh();
     }
 
@@ -52,26 +56,26 @@ public class CharacterHUD : MonoBehaviour
 
     void Refresh()
     {
-        nameText.text = this.character.GetName();
-        SetHpBar(character.GetAttributes().GetHp().GetValue() / character.GetAttributes().GetHp().GetMaxValue());
-        SetHpNumbers(character.GetAttributes().GetHp().GetValue(), character.GetAttributes().GetHp().GetMaxValue());
+        nameText.text = this.name;
+        SetHpBar(hp.GetValue() / hp.GetMaxValue());
+        SetHpNumbers(hp.GetValue(), hp.GetMaxValue());
     }
 
     void OnEnable()
     {
-        if (character != null)
+        if (hp != null)
         {
-            character.GetAttributes().GetHp().OnHUDValuesChange += Refresh;
-            character.GetAttributes().GetHp().OnHPValuesChange += HPFeedback;
+            hp.OnHUDValuesChange += Refresh;
+            hp.OnHPValuesChange += HPFeedback;
         }
     }
 
     void OnDisable()
     {
-        if (character != null)
+        if (hp != null)
         {
-            character.GetAttributes().GetHp().OnHUDValuesChange -= Refresh;
-            character.GetAttributes().GetHp().OnHPValuesChange -= HPFeedback;
+            hp.OnHUDValuesChange -= Refresh;
+            hp.OnHPValuesChange -= HPFeedback;
         }
     }
 }

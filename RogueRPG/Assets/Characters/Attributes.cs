@@ -28,9 +28,6 @@ public class Attributes : MonoBehaviour
     }
 
 
-
-
-
     Attribute GetAttribute(Attribute.Type stats) { return listStat.Find(s => s.GetStats() == stats); }
     public float GetAttributeValue(Attribute.Type stats) { return GetAttribute(stats).GetValue(); }
 
@@ -110,4 +107,5 @@ public class Attributes : MonoBehaviour
     }
 
     public Momentum GetMomentum() { return momentum; }
+    public Character GetCharacter() { return character; }
 }
