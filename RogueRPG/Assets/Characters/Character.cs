@@ -83,13 +83,13 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         if (frontEquip != null)
         {
             frontEquip.rectTransform.SetParent(frontHandler);
-            frontEquip.rectTransform.anchoredPosition = new Vector2(0f, 35f);
+            frontEquip.rectTransform.anchoredPosition = new Vector2(0, 0);
             frontEquip.rectTransform.localEulerAngles = Vector3.zero;
         }
         if (backEquip != null)
         {
             backEquip.rectTransform.SetParent(backHandler);
-            backEquip.rectTransform.anchoredPosition = new Vector2(0f, 35f);
+            backEquip.rectTransform.anchoredPosition = new Vector2(0, 0);
             backEquip.rectTransform.localEulerAngles = Vector3.zero;
         }
     }
