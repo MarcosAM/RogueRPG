@@ -16,8 +16,8 @@ public class Tile : MonoBehaviour
         this.battleground = GetComponentInParent<Battleground>();
         this.index = battleground.GetTiles().IndexOf(this);
         this.side = this.index >= (battleground.GetTiles().Count / 2) ? true : false;
-        if (!this.side)
-            portraitHandler.localScale = new Vector3(-1, 1, 1);
+        //if (!this.side)
+        //    portraitHandler.localScale = new Vector3(-1, 1, 1);
     }
 
     public Character GetCharacter() { return character; }
@@ -72,6 +72,16 @@ public class Tile : MonoBehaviour
             this.character.SetTile(this);
             this.character.transform.SetParent(portraitHandler);
             this.character.transform.localPosition = new Vector3(0, 0);
+            if (!this.character.IsPlayable())
+            {
+                //TODO organize all of this. Look for quarteion and vector3 e vector 2
+                this.character.transform.rotation = Quaternion.Euler(0, -180, 0);
+                //this.character.GetComponentsInChildren<Transform>()[1].localScale = new Vector3(-1, 1, -1);
+                print(this.character.GetComponentsInChildren<Transform>()[1].localRotation);
+                //this.character.GetComponentsInChildren<Transform>()[1].localRotation = Quaternion.Euler(0, -180, 0);
+                print(this.character.GetComponentsInChildren<Transform>()[1].localRotation);
+                this.GetCharacter().GetAvatarImg().transform.localScale = new Vector3(-0.8f, 0.8f, -0.8f);
+            }
         }
     }
 

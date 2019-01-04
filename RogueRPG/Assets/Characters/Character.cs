@@ -70,7 +70,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public int GetRow() { return tile.GetRow(); }
 
-    public void ChangeEquipObject(Image backEquip, Image frontEquip)
+    public virtual void ChangeEquipObject(Image backEquip, Image frontEquip)
     {
         foreach (RectTransform child in frontHandler)
         {
