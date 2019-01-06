@@ -15,7 +15,7 @@ public class MagicalDamage : Damage
         else
         {
             user.GetAttributes().GetMomentum().Value += user.IsPlayable() ? -Mathf.Abs(user.GetAttributes().GetAtkmValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefmValue()) / 100 : Mathf.Abs(user.GetAttributes().GetAtkmValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefmValue()) / 100;
-            Debug.Log("Missed!");
+            target.GetAnimator().SetTrigger("Dodge");
         }
     }
 
