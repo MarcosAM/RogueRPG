@@ -77,9 +77,9 @@ public class Tile : MonoBehaviour
                 //TODO organize all of this. Look for quarteion and vector3 e vector 2
                 this.character.transform.rotation = Quaternion.Euler(0, -180, 0);
                 //this.character.GetComponentsInChildren<Transform>()[1].localScale = new Vector3(-1, 1, -1);
-                print(this.character.GetComponentsInChildren<Transform>()[1].localRotation);
+
                 //this.character.GetComponentsInChildren<Transform>()[1].localRotation = Quaternion.Euler(0, -180, 0);
-                print(this.character.GetComponentsInChildren<Transform>()[1].localRotation);
+
                 this.GetCharacter().GetAvatarImg().transform.localScale = new Vector3(-0.8f, 0.8f, -0.8f);
             }
         }

@@ -16,8 +16,9 @@ public class NonPlayableCharacter : Character
     public override void ChangeEquipObject(Image backEquip, Image frontEquip)
     {
         base.ChangeEquipObject(backEquip, frontEquip);
-        backEquip.rectTransform.localScale = new Vector3(-1, 1, 1);
-        frontEquip.rectTransform.localScale = new Vector3(-1, 1, 1);
+        //TODO
+        //backEquip.rectTransform.localScale = new Vector3(-1, 1, 1);
+        //frontEquip.rectTransform.localScale = new Vector3(-1, 1, 1);
     }
 
     public override bool IsPlayable()
