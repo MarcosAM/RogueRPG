@@ -41,7 +41,7 @@ public class Move : Actions
 
         if (targetables.Count > 0)
         {
-            List<Tile> aliveOpponentTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
+            List<Tile> aliveOpponentTiles = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
             var mySideTiles = battleground.GetAvailableTilesFrom(user.IsPlayable());
 
             switch (user.GetInventory().Archetype)
@@ -64,6 +64,13 @@ public class Move : Actions
                     mySideTiles.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
                     break;
             }
+            Debug.Log("Melhores cantos para ir em ordem são:");
+
+            for (int i = 0; i < mySideTiles.Count; i++)
+            {
+                Debug.Log(mySideTiles[i] + ". Índice: " + i);
+            }
+
             if (targetables[0] != user.GetTile())
                 return new TurnSugestion(TurnSugestion.maxProbability - mySideTiles.IndexOf(targetables[0]), targetables[0].GetIndex());
         }
@@ -106,12 +113,12 @@ public class Move : Actions
 
     bool FilterForOffensive(Character user, Tile tile)
     {
-        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : tile.GetCharacter() == user || tile.GetCharacter().GetInventory().Archetype >= Archetypes.Archetype.MInfantry;
+        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : IsTargetable(user, tile) && (tile.GetCharacter() == user || tile.GetCharacter().GetInventory().Archetype >= Archetypes.Archetype.MInfantry);
     }
 
     bool FilterForInfantry(Character user, Tile tile)
     {
-        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : tile.GetCharacter() == user || tile.GetCharacter().GetInventory().Archetype < Archetypes.Archetype.MInfantry;
+        return !tile.CharacterIs(true) ? IsTargetable(user, tile) : IsTargetable(user, tile) && (tile.GetCharacter() == user || tile.GetCharacter().GetInventory().Archetype < Archetypes.Archetype.MInfantry);
     }
 
     bool FilterForBrutesAndAgressives(Character user, Tile tile)
