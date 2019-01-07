@@ -17,8 +17,6 @@ public class TurnManager : MonoBehaviour, IWaitForEquipment
     public virtual void StartTurn(Character character)
     {
         this.currentCharacter = character;
-        print(this.currentCharacter.GetComponentsInChildren<Transform>()[1].localRotation);
-
 
         character.GetAttributes().SpendBuffs();
         character.GetInventory().CheckIfEquipsShouldBeRefreshed();
