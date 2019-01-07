@@ -5,6 +5,7 @@ using UnityEngine;
 public class Archetypes : MonoBehaviour
 {
     [SerializeField] protected Equip momentumEquip;
+    [SerializeField] RuntimeAnimatorController[] animators;
     static Archetypes instance;
 
     private void Awake()
@@ -47,5 +48,13 @@ public class Archetypes : MonoBehaviour
     public static Equip GetMomentumEquip(Archetype archetype, int level)
     {
         return instance.momentumEquip;
+    }
+
+    public static RuntimeAnimatorController GetAnimator(Archetype archetype)
+    {
+        if (archetype > Archetype.MOffensive)
+            return instance.animators[1];
+
+        return instance.animators[0];
     }
 }
