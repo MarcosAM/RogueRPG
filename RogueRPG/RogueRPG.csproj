@@ -77,21 +77,6 @@
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>C:/Program Files/Unity_5_1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
     </Reference>
-    <Reference Include="ProBuilderCore-Unity5">
-      <HintPath>Assets/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
-    </Reference>
-    <Reference Include="ProBuilderMeshOps-Unity5">
-      <HintPath>Assets/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
-    </Reference>
-    <Reference Include="KdTreeLib">
-      <HintPath>Assets/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
-    </Reference>
-    <Reference Include="pb_Stl">
-      <HintPath>Assets/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
-    </Reference>
-    <Reference Include="Poly2Tri">
-      <HintPath>Assets/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AnimatedSlider.cs" />
@@ -157,6 +142,7 @@
     <Compile Include="Assets\Skills\Scripts\SkillAnimationManager.cs" />
     <Compile Include="Assets\Skills\Scripts\SMoveAtk.cs" />
     <Compile Include="Assets\Skills\Scripts\TurnSugestion.cs" />
+    <Compile Include="Assets\SkillsAnimation\ParticleSA.cs" />
     <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
     <Compile Include="Assets\StartUI.cs" />
     <Compile Include="Assets\TargetBtn.cs" />
