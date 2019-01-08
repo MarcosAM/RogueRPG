@@ -11,6 +11,7 @@ public class PlayerInputManager : MonoBehaviour
     private TargetBtnsManager combHUDManager;
     SkillToggleManager skillToggleManager;
     private BattleGuide battleGuide;
+    SkillDescription skillDescription;
 
     void Awake()
     {
@@ -18,7 +19,9 @@ public class PlayerInputManager : MonoBehaviour
         combHUDManager = FindObjectOfType<TargetBtnsManager>();
         battleGuide = FindObjectOfType<BattleGuide>();
         turnManager = FindObjectOfType<TurnManager>();
+        skillDescription = FindObjectOfType<SkillDescription>();
 
+        skillDescription.HideDescription();
         equipTogglerManager.HideEquipToggles();
         skillToggleManager = FindObjectOfType<SkillToggleManager>();
         skillToggleManager.HideSkillToggleMananger();
@@ -54,6 +57,10 @@ public class PlayerInputManager : MonoBehaviour
             battleGuide.setText("CHOOSE YOUR TARGET");
             battleGuide.setAnimatorTrigger("PointLeftRight");
             combHUDManager.ShowTargetBtns(currentCharacter, SelectedSkill);
+            if (skillDescription)
+                skillDescription.UpdateDescription(SelectedSkill.GetDescription());
+            else
+                print("Não tem skill description! o-o");
         }
         else
         {
@@ -63,6 +70,7 @@ public class PlayerInputManager : MonoBehaviour
 
     public void ReturnEquipAndTarget(Tile target)
     {
+        skillDescription.HideDescription();
         battleGuide.gameObject.SetActive(false);
         combHUDManager.HideTargetBtns();
         //TODO todos os golpes de herois está sendo como momentum
