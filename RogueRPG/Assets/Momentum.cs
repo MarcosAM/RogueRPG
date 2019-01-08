@@ -31,15 +31,20 @@ public class Momentum : MonoBehaviour
     public bool ShouldMomentumStop()
     {
         currentMomentumDowntime++;
+
         if (currentMomentumDowntime >= maxMomentumDowntime)
-        {
             currentMomentumDowntime = 0;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+
+        return currentMomentumDowntime >= maxMomentumDowntime;
+        //if (currentMomentumDowntime >= maxMomentumDowntime)
+        //{
+        //    currentMomentumDowntime = 0;
+        //    return true;
+        //}
+        //else
+        //{
+        //    return false;
+        //}
     }
 
     public void OnMomentumEquipUsed()
@@ -47,5 +52,8 @@ public class Momentum : MonoBehaviour
         Value -= animatedSlider.slider.maxValue / 2;
     }
 
-    public bool IsMomentumFull() { return Value == animatedSlider.slider.maxValue; }
+    public bool IsMomentumFull(bool side)
+    {
+        return side ? Value == animatedSlider.slider.maxValue : Value == animatedSlider.slider.minValue;
+    }
 }

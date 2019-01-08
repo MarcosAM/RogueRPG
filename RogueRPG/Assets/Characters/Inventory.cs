@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour
     bool[] availableEquips;
     int level = 0;
     public Archetypes.Archetype Archetype { get; set; }
+    bool side;
 
     public void CheckIfEquipsShouldBeRefreshed()
     {
@@ -27,7 +28,7 @@ public class Inventory : MonoBehaviour
     {
         if (index == availableEquips.Length - 1)
         {
-            return FindObjectOfType<Momentum>().IsMomentumFull();
+            return FindObjectOfType<Momentum>().IsMomentumFull(side);
         }
         return availableEquips[index];
     }
@@ -64,6 +65,7 @@ public class Inventory : MonoBehaviour
 
     public void SetEquips(Character character, Equip[] equips)
     {
+        this.side = character.IsPlayable();
         this.equips = equips;
         InitiateAvailableEquips();
         Archetype = Archetypes.GetArchetype(this.equips);

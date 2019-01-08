@@ -21,13 +21,14 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
 
     protected IWaitForEquipment requester;
 
-    public void UseEquipmentOn(Character user, Tile tile, IWaitForEquipment requester, bool momentum, int skill)
+    public void UseEquipmentOn(Character user, Tile tile, IWaitForEquipment requester, int skill)
     {
         this.requester = requester;
+
         GetSkills()[skill].StartSkill(user, tile, this, user.GetInventory().IsMomentumEquip(this));
     }
 
-    public void UseEquipment(Character user, IWaitForEquipment requester, bool momentum)
+    public void UseEquipment(Character user, IWaitForEquipment requester)
     {
         var turnSugestions = new List<TurnSugestion>();
         var probabilities = new List<int>();
@@ -58,7 +59,7 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
 
         user.ChangeEquipObject(GetBackEquip(), GetFrontEquip());
 
-        UseEquipmentOn(user, Battleground.GetInstance().GetTiles()[(int)turnSugestions[index].targetPosition], requester, momentum, index);
+        UseEquipmentOn(user, Battleground.GetInstance().GetTiles()[(int)turnSugestions[index].targetPosition], requester, index);
     }
 
     public void resumeFromSkill()

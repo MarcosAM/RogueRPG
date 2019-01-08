@@ -73,8 +73,7 @@ public class PlayerInputManager : MonoBehaviour
         skillDescription.HideDescription();
         battleGuide.gameObject.SetActive(false);
         combHUDManager.HideTargetBtns();
-        //TODO todos os golpes de herois está sendo como momentum
-        turnManager.UseEquip(equipTogglerManager.GetSelectedEquipIndex(), target, false, skillToggleManager.GetSelectedSkillIndex());
+        turnManager.UseEquip(equipTogglerManager.GetSelectedEquipIndex(), target, skillToggleManager.GetSelectedSkillIndex());
         equipTogglerManager.SetAllEquipTogglesOff();
         equipTogglerManager.HideEquipToggles();
     }
