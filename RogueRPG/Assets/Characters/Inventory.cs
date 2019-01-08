@@ -102,7 +102,8 @@ public class Inventory : MonoBehaviour
     {
         foreach (var equip in equips)
         {
-            level += equip.GetLevel();
+            if (equip)
+                level += equip.GetLevel();
         }
     }
 }

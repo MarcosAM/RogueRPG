@@ -31,7 +31,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         battleGuide.gameObject.SetActive(true);
         this.currentCharacter = currentCharacter;
-        equipTogglerManager.ShowEquipTogglesFor(this.currentCharacter, false);
+        equipTogglerManager.ShowEquipTogglesFor(this.currentCharacter.GetInventory());
     }
 
     public void ReportNewSelectedEquipToggle(EquipToggle equipToggle)

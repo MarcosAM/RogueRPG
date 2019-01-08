@@ -8,7 +8,7 @@ public class NonPlayableCharacter : Character
     protected override void FillStats()
     {
         base.FillStats();
-        avatarImg.sprite = stats.getPortrait().sprite;
+        avatarImg.sprite = stats.GetPortrait().sprite;
         //transform.localScale = new Vector3(-1, 1, 1);
         //GetComponentsInChildren<Transform>()[1].localScale = new Vector3(-1, 1, 1);
     }

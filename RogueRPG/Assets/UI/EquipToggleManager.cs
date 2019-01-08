@@ -34,27 +34,24 @@ public class EquipToggleManager : MonoBehaviour
         toggleGroup.SetAllTogglesOff();
     }
 
-    public void ShowEquipTogglesFor(Character character, bool asPreview)
+    public void ShowEquipTogglesFor(Inventory inventory)
     {
         gameObject.SetActive(true);
-        for (int i = 0; i < equipToggles.Count; i++)
+
+        int i;
+        for (i = 0; i < inventory.GetEquips().Length - 1; i++)
         {
-            equipToggles[i].getText().text = character.GetInventory().GetEquips()[i].GetEquipName();
-            if (asPreview)
-            {
-                equipToggles[i].getToggle().interactable = false;
-            }
-            else
-            {
-                if (character.GetInventory().IsEquipAvailable(i))
-                {
-                    equipToggles[i].getToggle().interactable = true;
-                }
-                else
-                {
-                    equipToggles[i].getToggle().interactable = false;
-                }
-            }
+            equipToggles[i].gameObject.SetActive(true);
+            equipToggles[i].getText().text = inventory.GetEquips()[i].GetEquipName();
+            equipToggles[i].getToggle().interactable = inventory.IsEquipAvailable(i);
+        }
+
+        equipToggles[equipToggles.Count - 1].getText().text = inventory.GetEquips()[i].GetEquipName();
+        equipToggles[equipToggles.Count - 1].getToggle().interactable = inventory.IsEquipAvailable(i);
+
+        for (var j = i; i < equipToggles.Count - 1; i++)
+        {
+            equipToggles[j].gameObject.SetActive(false);
         }
     }
 
