@@ -37,7 +37,6 @@ public class TurnManager : MonoBehaviour, IWaitForEquipment
 
     public virtual void ResumeFromEquipment()
     {
-        currentCharacter.GetAnimator().SetBool("Equiped", false);
         dungeonManager.NextTurn();
     }
 }

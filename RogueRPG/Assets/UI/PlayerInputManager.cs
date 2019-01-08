@@ -35,18 +35,14 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (equipToggle != null)
         {
-            battleGuide.setText("CHOOSE YOUR TARGET");
-            battleGuide.setAnimatorTrigger("PointLeftRight");
+            battleGuide.setText("CHOOSE YOUR SKILL");
             currentCharacter.ChangeEquipObject(currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
-            currentCharacter.GetAnimator().SetBool("Equiped", true);
-            currentCharacter.GetAnimator().SetTrigger("ChangeEquip");
             skillToggleManager.ShowSkillTogglesFor(SelectedEquip);
         }
         else
         {
             battleGuide.setText("CHOOSE YOUR EQUIPMENT");
             battleGuide.setAnimatorTrigger("PointDown");
-            currentCharacter.GetAnimator().SetBool("Equiped", false);
             FindObjectOfType<SkillToggleManager>().HideSkillToggleMananger();
         }
     }
@@ -55,6 +51,8 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (skillToggle != null)
         {
+            battleGuide.setText("CHOOSE YOUR TARGET");
+            battleGuide.setAnimatorTrigger("PointLeftRight");
             combHUDManager.ShowTargetBtns(currentCharacter, SelectedSkill);
         }
         else

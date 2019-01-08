@@ -73,6 +73,9 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public virtual void ChangeEquipObject(Image backEquip, Image frontEquip)
     {
+
+        animator.SetTrigger("ChangeEquip");
+
         foreach (RectTransform child in frontHandler)
         {
             child.SetParent(null);

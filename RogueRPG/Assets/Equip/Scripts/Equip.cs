@@ -23,7 +23,6 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
 
     public void UseEquipmentOn(Character user, Tile tile, IWaitForEquipment requester, bool momentum, int skill)
     {
-        user.ChangeEquipObject(GetBackEquip(), GetFrontEquip());
         this.requester = requester;
         GetSkills()[skill].StartSkill(user, tile, this, user.GetInventory().IsMomentumEquip(this));
     }
@@ -56,6 +55,8 @@ public abstract class Equip : ScriptableObject, IWaitForSkill
         }
         Debug.Log(probabilitiesString + ". Mas eu escolhi: " + index + " graças a: " + r);
         //TODO Deletável ^^^^
+
+        user.ChangeEquipObject(GetBackEquip(), GetFrontEquip());
 
         UseEquipmentOn(user, Battleground.GetInstance().GetTiles()[(int)turnSugestions[index].targetPosition], requester, momentum, index);
     }

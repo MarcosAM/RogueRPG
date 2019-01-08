@@ -23,15 +23,18 @@ public class CharacterHUD : MonoBehaviour
         this.hp = character.GetAttributes().GetHp();
         this.cName = character.GetName();
 
+        nameText.text = this.cName;
+
+        this.hp.OnHPValuesChange += HPFeedback;
+
         if (!character.IsPlayable())
         {
             hpText.gameObject.SetActive(false);
             hpSlider.gameObject.SetActive(false);
+            return;
         }
-        nameText.text = this.cName;
 
         this.hp.OnHUDValuesChange += Refresh;
-        this.hp.OnHPValuesChange += HPFeedback;
 
         Refresh();
     }
