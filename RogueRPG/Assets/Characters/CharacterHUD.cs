@@ -26,6 +26,7 @@ public class CharacterHUD : MonoBehaviour
         if (!character.IsPlayable())
         {
             hpText.gameObject.SetActive(false);
+            hpSlider.gameObject.SetActive(false);
         }
         nameText.text = this.cName;
 
@@ -38,7 +39,7 @@ public class CharacterHUD : MonoBehaviour
     void HPFeedback(int pastHp, int amountChanged, bool wasCritic)
     {
         DamageFB damageFb = Instantiate(damageFbPrefab);
-        damageFb.transform.SetParent(transform.parent, false);
+        damageFb.transform.SetParent(transform.parent.parent, false);
         damageFb.getRectTransform().localPosition = transform.localPosition + Vector3.right * 50;
         damageFb.Initialize(amountChanged, wasCritic);
     }
