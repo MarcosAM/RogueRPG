@@ -80,6 +80,7 @@ public class Hp : Attribute
 
     public void Die()
     {
+        character.GetAnimator().SetTrigger("Death");
         currentValue = 0;
         alive = false;
         EventManager.DeathOf(character);
