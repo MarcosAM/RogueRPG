@@ -9,7 +9,11 @@ public class HealEffect : Effects
     [Range(1f, 2f)]
     protected float healIntensifier;
 
-    public override void Affect(Character user, Character target) { target.GetAttributes().GetHp().Heal((int)(user.GetAttributes().GetAtkmValue() * healIntensifier)); }
+    public override void Affect(Character user, Character target)
+    {
+        base.Affect(user, target);
+        target.GetAttributes().GetHp().Heal((int)(user.GetAttributes().GetAtkmValue() * healIntensifier));
+    }
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
         return (int)(c1.GetAttributes().GetHp().GetValue() - c2.GetAttributes().GetHp().GetValue());

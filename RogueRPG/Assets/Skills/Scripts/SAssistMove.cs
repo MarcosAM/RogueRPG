@@ -18,13 +18,13 @@ public class SAssistMove : Skill
     {
         if (assist is AuraAssist)
         {
-            move.Act(user, tile, animationPrefab);
-            assist.Act(user, tile, animationPrefab);
+            move.Act(user, tile);
+            assist.Act(user, tile);
         }
         else
         {
-            assist.Act(user, tile, animationPrefab);
-            move.Act(user, tile, animationPrefab);
+            assist.Act(user, tile);
+            move.Act(user, tile);
         }
     }
 

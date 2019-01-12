@@ -5,9 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Actions/Assist/Self")]
 public class SelfAssist : Assist
 {
-    public override void Act(Character user, Tile target, SkillAnimation animationPrefab)
+    public override void Act(Character user, Tile target)
     {
-        EffectAnimation(user.GetTile(), animationPrefab);
         effect.Affect(user, user);
     }
 

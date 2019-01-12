@@ -7,7 +7,7 @@ public class BurstAttack : Attack
 {
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.GetTile() != tile; }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return IsTargetable(user.GetCharacter(), tile); }
-    public override void Act(Character user, Tile target, SkillAnimation skillAnimation)
+    public override void Act(Character user, Tile target)
     {
         GenerateNewAttack(user);
 
@@ -15,7 +15,6 @@ public class BurstAttack : Attack
         {
             if (WillBeAffected(user.GetTile(), target, tile))
             {
-                EffectAnimation(target, skillAnimation);
                 if (tile.CharacterIs(true))
                     damage.TryToDamage(user, tile.GetCharacter(), attack);
             }

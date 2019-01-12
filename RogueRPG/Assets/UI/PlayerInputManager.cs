@@ -10,14 +10,12 @@ public class PlayerInputManager : MonoBehaviour
     private EquipToggleManager equipTogglerManager;
     private TargetBtnsManager combHUDManager;
     SkillToggleManager skillToggleManager;
-    private BattleGuide battleGuide;
     SkillDescription skillDescription;
 
     void Awake()
     {
         equipTogglerManager = FindObjectOfType<EquipToggleManager>();
         combHUDManager = FindObjectOfType<TargetBtnsManager>();
-        battleGuide = FindObjectOfType<BattleGuide>();
         turnManager = FindObjectOfType<TurnManager>();
         skillDescription = FindObjectOfType<SkillDescription>();
 
@@ -29,7 +27,6 @@ public class PlayerInputManager : MonoBehaviour
 
     public void ShowUIFor(Character currentCharacter)
     {
-        battleGuide.gameObject.SetActive(true);
         this.currentCharacter = currentCharacter;
         equipTogglerManager.ShowEquipTogglesFor(this.currentCharacter.GetInventory());
     }
@@ -38,14 +35,11 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (equipToggle != null)
         {
-            battleGuide.setText("CHOOSE YOUR SKILL");
             currentCharacter.ChangeEquipObject(currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
             skillToggleManager.ShowSkillTogglesFor(SelectedEquip);
         }
         else
         {
-            battleGuide.setText("CHOOSE YOUR EQUIPMENT");
-            battleGuide.setAnimatorTrigger("PointDown");
             FindObjectOfType<SkillToggleManager>().HideSkillToggleMananger();
         }
     }
@@ -54,8 +48,6 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (skillToggle != null)
         {
-            battleGuide.setText("CHOOSE YOUR TARGET");
-            battleGuide.setAnimatorTrigger("PointLeftRight");
             combHUDManager.ShowTargetBtns(currentCharacter, SelectedSkill);
             if (skillDescription)
                 skillDescription.UpdateDescription(SelectedSkill.GetDescription());
@@ -71,7 +63,6 @@ public class PlayerInputManager : MonoBehaviour
     public void ReturnEquipAndTarget(Tile target)
     {
         skillDescription.HideDescription();
-        battleGuide.gameObject.SetActive(false);
         combHUDManager.HideTargetBtns();
         turnManager.UseEquip(equipTogglerManager.GetSelectedEquipIndex(), target, skillToggleManager.GetSelectedSkillIndex());
         equipTogglerManager.SetAllEquipTogglesOff();

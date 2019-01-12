@@ -11,6 +11,7 @@ public class ReviveEffect : HealEffect
 
     public override void Affect(Character user, Character target)
     {
+        base.Affect(user, target);
         if (precision + user.GetAttributes().GetPrecisionValue() > Random.value)
         {
             target.GetAttributes().GetHp().Revive((int)(user.GetAttributes().GetAtkmValue() * healIntensifier));

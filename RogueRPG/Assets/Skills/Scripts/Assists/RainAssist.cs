@@ -11,13 +11,12 @@ public class RainAssist : Assist
     [Range(1, 5)]
     protected int area;
 
-    public override void Act(Character user, Tile target, SkillAnimation animationPrefab)
+    public override void Act(Character user, Tile target)
     {
         foreach (Tile tile in user.GetAlliesTiles())
         {
             if (WillBeAffected(user.GetTile(), target, tile))
             {
-                EffectAnimation(target, animationPrefab);
                 if (tile.CharacterIs(!AffectKnockOut))
                 {
                     effect.Affect(user, tile.GetCharacter());

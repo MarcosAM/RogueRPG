@@ -2,28 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Skill : ScriptableObject, IWaitForAnimationByString/*, IWaitForAnimation*/
+public abstract class Skill : ScriptableObject, IWaitForAnimationByString
 {
-    public enum Source { Physical, Magic };
-
     [SerializeField] protected string sName;
-    [SerializeField] protected Source source;
-    [SerializeField] protected float value;
-    [SerializeField] protected float precision;
-    [SerializeField] protected float critic;
-    [SerializeField] protected int range;
     [SerializeField] protected string description;
     [SerializeField] protected string castSkillAnimationTrigger;
-    [SerializeField] protected float momentumValue;
-    [SerializeField] protected SkillAnimation animationPrefab;
-    protected bool momentum = false;
     protected Character currentUser;
     protected Tile currentTargetTile;
     protected IWaitForSkill requester;
 
     public virtual void StartSkill(Character user, Tile tile, IWaitForSkill requester, bool momentum)
     {
-        this.momentum = momentum;
         this.requester = requester;
         this.currentUser = user;
         this.currentTargetTile = tile;
@@ -43,26 +32,13 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString/*, IWa
     protected virtual void Effect()
     {
         UniqueEffect(this.currentUser, this.currentTargetTile);
-        EndSkill();
-    }
-    protected abstract void UniqueEffect(Character user, Tile tile);
-    public virtual void EndSkill()
-    {
-        if (!(requester is Skill) && momentum)
-        {
-            this.momentum = false;
-        }
         requester.resumeFromSkill();
     }
+    protected abstract void UniqueEffect(Character user, Tile tile);
     public abstract bool IsTargetable(Character user, Tile tile);
     public abstract bool UniqueEffectWillAffect(Character user, Tile target, Tile tile);
 
     public string GetSkillName() { return sName; }
     public string GetDescription() { return description; }
-    public Source GetSource() { return source; }
-    public int GetRange() { return range; }
-    public float GetCritic() { return critic; }
-    public float GetPrecision() { return precision; }
-    public virtual bool HasHitPreview() { return false; }
     public abstract TurnSugestion GetTurnSugestion(Character user, Battleground battleground);
 }

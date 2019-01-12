@@ -14,7 +14,7 @@ public class SAtk : Skill
 
     protected override void UniqueEffect(Character user, Tile tile)
     {
-        attack.Act(user, tile, animationPrefab);
+        attack.Act(user, tile);
     }
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)

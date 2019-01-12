@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Actions/Move")]
 public class Move : Actions
 {
-    public override void Act(Character user, Tile target, SkillAnimation animationPrefab)
+    public override void Act(Character user, Tile target)
     {
         target.MoveCharacter(user);
     }
