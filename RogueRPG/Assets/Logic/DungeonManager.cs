@@ -15,6 +15,8 @@ public class DungeonManager : MonoBehaviour
     Battleground battleground;
     TurnManager turnManager;
 
+    WaitForSeconds delayNextTurn = new WaitForSeconds(1.5f);
+
     void Start()
     {
         battleground = FindObjectOfType<Battleground>();
@@ -64,12 +66,13 @@ public class DungeonManager : MonoBehaviour
         turnManager.StartTurn(initiativeOrder[0]);
     }
 
-    public void NextTurn()
+    public IEnumerator NextTurn()
     {
+        yield return delayNextTurn;
         if (DidOnePartyLost() > 0)
         {
             EndBattleAndCheckIfDungeonEnded();
-            return;
+            yield break;
         }
         if (DidOnePartyLost() == 0)
         {
@@ -78,13 +81,13 @@ public class DungeonManager : MonoBehaviour
                 AdvanceInitiative(initiativeOrder);
                 round++;
                 TryToStartTurn();
-                return;
+                yield break;
             }
         }
         if (DidOnePartyLost() < 0)
         {
             SceneManager.LoadScene(3);
-            return;
+            yield break;
         }
     }
 

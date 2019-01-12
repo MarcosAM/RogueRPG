@@ -24,7 +24,7 @@ public class TurnManager : MonoBehaviour, IWaitForEquipment
 
         if (!character.GetAttributes().GetHp().IsAlive())
         {
-            dungeonManager.NextTurn();
+            dungeonManager.StartCoroutine(dungeonManager.NextTurn());
             return;
         }
 
@@ -67,6 +67,7 @@ public class TurnManager : MonoBehaviour, IWaitForEquipment
     {
         if (momentumTurn)
             FindObjectOfType<Momentum>().OnMomentumEquipUsed();
-        dungeonManager.NextTurn();
+        dungeonManager.StartCoroutine(dungeonManager.NextTurn());
+        //TODO eu não sei se é muito seguro isso, talvez possa buggar com várias pessoas pedindo para essa courotine começar
     }
 }
