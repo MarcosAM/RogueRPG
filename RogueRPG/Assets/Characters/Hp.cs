@@ -89,6 +89,7 @@ public class Hp : Attribute
 
     public void Revive(int hpRecovered)
     {
+        character.GetAnimator().SetTrigger("Revive");
         alive = true;
         Heal(hpRecovered);
         DungeonManager.getInstance().AddToInitiative(character);

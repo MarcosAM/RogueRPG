@@ -15,7 +15,7 @@ public class DungeonManager : MonoBehaviour
     Battleground battleground;
     TurnManager turnManager;
 
-    WaitForSeconds delayNextTurn = new WaitForSeconds(1.5f);
+    WaitForSeconds delayNextTurn = new WaitForSeconds(1.8f);
 
     void Start()
     {
