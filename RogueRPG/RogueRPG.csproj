@@ -134,6 +134,7 @@
     <Compile Include="Assets\Skills\Scripts\Effects\HealEffect.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\ReviveEffect.cs" />
     <Compile Include="Assets\Skills\Scripts\Move\Move.cs" />
+    <Compile Include="Assets\Skills\Scripts\Movement.cs" />
     <Compile Include="Assets\Skills\Scripts\SAssist.cs" />
     <Compile Include="Assets\Skills\Scripts\SAssistMove.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtk.cs" />

@@ -24,6 +24,7 @@ public class Attribute
 
     public virtual float GetValue()
     {
+        //return stats <= Type.Defm ? statBase * GetBuffValue() : statBase + GetBuffValue();
         return statBase + GetBuffValue();
     }
 
