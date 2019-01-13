@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Equip : ScriptableObject, IWaitForSkill
+[CreateAssetMenu(menuName = "Equip")]
+public class Equip : ScriptableObject, IWaitForSkill
 {
     [SerializeField] protected string eName;
 

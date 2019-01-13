@@ -90,10 +90,7 @@
     <Compile Include="Assets\Characters\Inventory.cs" />
     <Compile Include="Assets\Characters\NonPlayableCharacter.cs" />
     <Compile Include="Assets\Characters\PlayableCharacter.cs" />
-    <Compile Include="Assets\Equip\Scripts\ChargeEquip.cs" />
     <Compile Include="Assets\Equip\Scripts\Equip.cs" />
-    <Compile Include="Assets\Equip\Scripts\RangedEquip.cs" />
-    <Compile Include="Assets\Equip\Scripts\StandartEquip.cs" />
     <Compile Include="Assets\ExtensionMethods.cs" />
     <Compile Include="Assets\Feedbacks\DamageFB.cs" />
     <Compile Include="Assets\GameOverUI.cs" />
