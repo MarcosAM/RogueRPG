@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
     Equip[] equips;
-    bool[] availableEquips;
+    Dictionary<int, bool> availableEquips;
     int level = 0;
     public Archetypes.Archetype Archetype { get; set; }
     bool side;
@@ -26,7 +27,7 @@ public class Inventory : MonoBehaviour
 
     public bool IsEquipAvailable(int index)
     {
-        if (index == availableEquips.Length - 1)
+        if (index == availableEquips.Count - 1)
         {
             return FindObjectOfType<Momentum>().IsMomentumFull(side);
         }
@@ -35,29 +36,29 @@ public class Inventory : MonoBehaviour
 
     public bool AtLeastOneEquipAvailable()
     {
-        foreach (bool b in availableEquips)
+        for (int i = 0; i < availableEquips.Count; i++)
         {
-            if (b)
+            if (availableEquips[i])
                 return true;
         }
         return false;
     }
 
-    public bool IsMomentumEquip(Equip equip)
+    public bool IsMomentumEquip(int equipIndex)
     {
-        return equip == equips[equips.Length - 1];
+        return equipIndex == equips.Length - 1;
     }
 
     public void SetEquipsAvailability(bool availability)
     {
-        for (int i = 0; i < availableEquips.Length; i++)
+        for (int i = 0; i < availableEquips.Count; i++)
         {
             availableEquips[i] = availability;
         }
-        availableEquips[availableEquips.Length - 1] = false;
+        availableEquips[availableEquips.Count - 1] = false;
     }
 
-    public bool[] GetAvailableEquips() { return availableEquips; }
+    public Dictionary<int, bool> GetAvailableEquips() { return availableEquips; }
 
 
 
@@ -76,29 +77,21 @@ public class Inventory : MonoBehaviour
 
 
 
-    public List<Equip> GetUsableEquips()
+    public List<int> GetUsableEquips()
     {
-        List<Equip> usableSkills = new List<Equip>();
-        for (int i = 0; i < equips.Length; i++)
-        {
-            if (IsEquipAvailable(i))
-            {
-                usableSkills.Add(equips[i]);
-            }
-        }
-        return usableSkills;
+        return availableEquips.Where(e => e.Value).Select(e => e.Key).ToList();
     }
 
 
 
     void InitiateAvailableEquips()
     {
-        availableEquips = new bool[equips.Length];
-        for (int i = 0; i < availableEquips.Length; i++)
+        availableEquips = new Dictionary<int, bool>();
+        for (int i = 0; i < equips.Length; i++)
         {
             availableEquips[i] = true;
         }
-        availableEquips[availableEquips.Length - 1] = false;
+        availableEquips[equips.Length - 1] = false;
     }
     void InitiateLevel()
     {

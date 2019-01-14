@@ -32,33 +32,17 @@ public class TurnManager : MonoBehaviour, IWaitForEquipment
             playerInputManager.ShowUIFor(currentCharacter);
         else
         {
-            var index = Random.Range(0, character.GetInventory().GetUsableEquips().Count);
-            momentumTurn = character.GetInventory().IsMomentumEquip(character.GetInventory().GetUsableEquips()[index]);
-            character.GetInventory().GetUsableEquips()[index].UseEquipment(character, this);
-
+            var index = character.GetInventory().GetUsableEquips()[Random.Range(0, character.GetInventory().GetUsableEquips().Count)];
+            momentumTurn = character.GetInventory().IsMomentumEquip(index);
+            character.GetInventory().GetAvailableEquips()[index] = false;
+            character.GetInventory().GetEquips()[index].UseEquipment(character, this);
             //TODO tem personagem se movendo além do range
             //TODO ter algum tipo de probabilidade ou algo do tipo para sair do momentum. Talvez ter 4 turnos para usar, mas cada golpe ou coisa parecida tem chance de tirar um turno do tempo do momentum.
-
-            //TODO melhorar essa seboseira!
-            var j = 0;
-            for (int i = 0; i < currentCharacter.GetInventory().GetAvailableEquips().Length; i++)
-            {
-                if (currentCharacter.GetInventory().GetAvailableEquips()[i])
-                {
-                    if (j == index)
-                    {
-                        currentCharacter.GetInventory().GetAvailableEquips()[i] = false;
-                        return;
-                    }
-                    j++;
-                }
-            }
         }
     }
     public virtual void UseEquip(int equipIndex, Tile target, int skill)
     {
-        //TODO não pedir o equipamento inteiro, só pedir o número
-        momentumTurn = currentCharacter.GetInventory().IsMomentumEquip(currentCharacter.GetInventory().GetEquips()[equipIndex]);
+        momentumTurn = currentCharacter.GetInventory().IsMomentumEquip(equipIndex);
         currentCharacter.GetInventory().GetAvailableEquips()[equipIndex] = false;
         currentCharacter.GetInventory().GetEquips()[equipIndex].UseEquipmentOn(currentCharacter, target, this, skill);
     }

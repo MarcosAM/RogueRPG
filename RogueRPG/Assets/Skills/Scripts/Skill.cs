@@ -11,7 +11,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString
     protected Tile currentTargetTile;
     protected IWaitForSkill requester;
 
-    public virtual void StartSkill(Character user, Tile tile, IWaitForSkill requester, bool momentum)
+    public virtual void StartSkill(Character user, Tile tile, IWaitForSkill requester)
     {
         this.requester = requester;
         this.currentUser = user;

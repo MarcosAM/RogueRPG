@@ -26,7 +26,7 @@ public class Equip : ScriptableObject, IWaitForSkill
     {
         this.requester = requester;
 
-        GetSkills()[skill].StartSkill(user, tile, this, user.GetInventory().IsMomentumEquip(this));
+        GetSkills()[skill].StartSkill(user, tile, this);
     }
 
     public void UseEquipment(Character user, IWaitForEquipment requester)
@@ -43,24 +43,29 @@ public class Equip : ScriptableObject, IWaitForSkill
             }
         }
 
-        //TODO Substituir pelo comentário abaixo
-        var r = Random.Range(0, probabilities.Count);
-        var index = probabilities[r];
-        //TODO Substituir pelo comentário abaixo
-        //var index = probabilities[Random.Range(0, probabilities.Count)];
-
-        //TODO Deletar isso aqui depois
-        var probabilitiesString = "As probabilidades são: ";
-        foreach (int probability in probabilities)
+        if (probabilities.Count > 0)
         {
-            probabilitiesString += probability + ", ";
+            //TODO Substituir pelo comentário abaixo
+            var r = Random.Range(0, probabilities.Count);
+            var index = probabilities[r];
+            //TODO Substituir pelo comentário abaixo
+            //var index = probabilities[Random.Range(0, probabilities.Count)];
+
+            //TODO Deletar isso aqui depois
+            var probabilitiesString = "As probabilidades são: ";
+            foreach (int probability in probabilities)
+            {
+                probabilitiesString += probability + ", ";
+            }
+            Debug.Log(probabilitiesString + ". Mas eu escolhi: " + index + " graças a: " + r);
+            //TODO Deletável ^^^^
+
+            user.ChangeEquipObject(GetBackEquip(), GetFrontEquip());
+
+            UseEquipmentOn(user, Battleground.GetInstance().GetTiles()[(int)turnSugestions[index].targetPosition], requester, index);
         }
-        Debug.Log(probabilitiesString + ". Mas eu escolhi: " + index + " graças a: " + r);
-        //TODO Deletável ^^^^
-
-        user.ChangeEquipObject(GetBackEquip(), GetFrontEquip());
-
-        UseEquipmentOn(user, Battleground.GetInstance().GetTiles()[(int)turnSugestions[index].targetPosition], requester, index);
+        else
+            resumeFromSkill();
     }
 
     public void resumeFromSkill()
