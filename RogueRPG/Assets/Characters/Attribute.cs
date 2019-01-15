@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attribute
 {
-    public enum Type { Atk, Atkm, Def, Defm, Precision, Dodge, Critic, Hp };
+    public enum Type { Hp, Atk, Atkm, Def, Defm, Precision, Dodge, Critic };
     public enum Intensity { None = 0, SmallDebuff = 1, SmallBuff = 2, MediumDebuff = 3, MediumBuff = 4, HighDebuff = 5, HighBuff = 6 };
 
     protected Character character;
@@ -17,6 +17,8 @@ public class Attribute
 
     public Attribute(Character character, Type stats, IBuffHUD buffHUD)
     {
+        if (stats < Type.Precision)
+            this.statBase = 1;
         this.character = character;
         this.stats = stats;
         this.buffHUD = buffHUD;

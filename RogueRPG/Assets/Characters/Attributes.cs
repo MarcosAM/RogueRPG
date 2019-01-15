@@ -21,10 +21,11 @@ public class Attributes : MonoBehaviour
             if (type == Attribute.Type.Hp)
             {
                 listStat.Add(new Hp(character, type, buffPManager, FindObjectOfType<Momentum>()));
-                break;
+                continue;
             }
             listStat.Add(new Attribute(character, type, buffPManager));
         }
+        print("Eu tenho " + listStat.Count + " atributos");
     }
 
 
@@ -41,13 +42,13 @@ public class Attributes : MonoBehaviour
 
     public void UpdateAttributes(Equip[] equips)
     {
-        foreach (var equip in equips)
+        for (var i = 0; i < equips.Length - 1; i++)
         {
-            GetAttribute(Attribute.Type.Atk).AddToStatBase(equip.GetAtk());
-            GetAttribute(Attribute.Type.Atkm).AddToStatBase(equip.GetAtkm());
-            GetAttribute(Attribute.Type.Def).AddToStatBase(equip.GetDef());
-            GetAttribute(Attribute.Type.Defm).AddToStatBase(equip.GetDefm());
-            GetAttribute(Attribute.Type.Hp).AddToStatBase(equip.GetHp());
+            GetAttribute(Attribute.Type.Atk).AddToStatBase(equips[i].GetAtk());
+            GetAttribute(Attribute.Type.Atkm).AddToStatBase(equips[i].GetAtkm());
+            GetAttribute(Attribute.Type.Def).AddToStatBase(equips[i].GetDef());
+            GetAttribute(Attribute.Type.Defm).AddToStatBase(equips[i].GetDefm());
+            GetAttribute(Attribute.Type.Hp).AddToStatBase(equips[i].GetHp());
         }
     }
 

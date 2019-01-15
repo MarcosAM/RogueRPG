@@ -67,12 +67,19 @@ public class Inventory : MonoBehaviour
     public void SetEquips(Character character, Equip[] equips)
     {
         this.side = character.IsPlayable();
-        this.equips = equips;
+
+        this.equips = new Equip[equips.Length + 1];
+
+        for (var i = 0; i < equips.Length; i++)
+        {
+            this.equips[i] = equips[i];
+        }
+
         InitiateAvailableEquips();
         Archetype = Archetypes.GetArchetype(this.equips);
         InitiateLevel();
-        equips[equips.Length - 1] = Archetypes.GetMomentumEquip(Archetype, level);
-        character.GetAttributes().UpdateAttributes(equips);
+        this.equips[this.equips.Length - 1] = Archetypes.GetMomentumEquip(Archetype, level);
+        character.GetAttributes().UpdateAttributes(this.equips);
     }
 
 
