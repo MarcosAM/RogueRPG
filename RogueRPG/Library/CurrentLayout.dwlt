@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 392}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -43,7 +43,7 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 821
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -106,10 +106,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 771
-  m_MinSize: {x: 681, y: 342}
-  m_MaxSize: {x: 12006, y: 8042}
+  m_MinSize: {x: 683, y: 492}
+  m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 23
+  controlID: 876
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -130,10 +130,10 @@ MonoBehaviour:
     y: 0
     width: 1259
     height: 771
-  m_MinSize: {x: 406, y: 342}
-  m_MaxSize: {x: 8006, y: 8042}
+  m_MinSize: {x: 406, y: 492}
+  m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 24
+  controlID: 877
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 25
+  controlID: 878
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -176,8 +176,8 @@ MonoBehaviour:
     y: 0
     width: 227
     height: 480
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -201,8 +201,8 @@ MonoBehaviour:
     y: 0
     width: 1032
     height: 480
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 14}
@@ -228,16 +228,16 @@ MonoBehaviour:
     y: 480
     width: 1259
     height: 291
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 17}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
   - {fileID: 17}
   - {fileID: 18}
   - {fileID: 19}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -256,8 +256,8 @@ MonoBehaviour:
     y: 0
     width: 277
     height: 771
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 71}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -290,7 +290,7 @@ MonoBehaviour:
     y: 92
     width: 1028
     height: 459
-  m_MaximizeOnPlay: 0
+  m_MaximizeOnPlay: 1
   m_Gizmos: 0
   m_Stats: 0
   m_SelectedSizes: 07000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -368,9 +368,9 @@ MonoBehaviour:
     height: 459
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3a3b0000
-    m_LastClickedID: 15162
-    m_ExpandedIDs: b823ffff2ebfffffd4e1ffff1afcffff00000000
+    m_SelectedIDs: 64280000
+    m_LastClickedID: 0
+    m_ExpandedIDs: 1afcffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -531,18 +531,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Equip/SO/Brute
+    - Assets/Characters/CStats
   m_ViewMode: 1
   m_StartGridSize: 58
   m_LastFolders:
-  - Assets/Equip/SO/Brute
+  - Assets/Characters/CStats
   m_LastFoldersGridSize: 58
   m_LastProjectPath: C:\Users\Marcos\Documents\Repos\RogueRPG\RogueRPG
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 71}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
+    scrollPos: {x: 0, y: 63}
+    m_SelectedIDs: 4a290000
+    m_LastClickedID: 10570
     m_ExpandedIDs: 00000000c8260000cc260000422700007e27000088270000a02800004e29000072290000742c0000762c0000782c000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -571,7 +571,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000c8260000cc260000422700007e27000088270000a02800004e29000072290000742c0000762c0000782c0000
+    m_ExpandedIDs: 00000000c8260000cc260000422700007e27000088270000a02800004e29000072290000742c0000762c0000782c000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -596,9 +596,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 14080000
-    m_LastClickedInstanceID: 2068
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: cc260000502a0000ea3c00003e59000000000000982700004e28000072290000cc280000182900002a2800009c300000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
