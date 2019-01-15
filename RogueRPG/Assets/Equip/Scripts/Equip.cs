@@ -15,10 +15,10 @@ public class Equip : ScriptableObject, IWaitForSkill
     [SerializeField] protected int level;
     [SerializeField] protected Archetypes.Archetype archetype;
 
-    [SerializeField] protected Image backEquipPrefab;
-    [SerializeField] protected Image frontEquipPrefab;
-    protected Image backEquip;
-    protected Image frontEquip;
+    [SerializeField] protected RectTransform backEquipPrefab;
+    [SerializeField] protected RectTransform frontEquipPrefab;
+    //protected RectTransform backEquip;
+    //protected RectTransform frontEquip;
 
     protected IWaitForEquipment requester;
 
@@ -29,7 +29,7 @@ public class Equip : ScriptableObject, IWaitForSkill
         GetSkills()[skill].StartSkill(user, tile, this);
     }
 
-    public void UseEquipment(Character user, IWaitForEquipment requester)
+    public void UseEquipment(Character user, IWaitForEquipment requester, int equipIndex)
     {
         var turnSugestions = new List<TurnSugestion>();
         var probabilities = new List<int>();
@@ -60,7 +60,7 @@ public class Equip : ScriptableObject, IWaitForSkill
             Debug.Log(probabilitiesString + ". Mas eu escolhi: " + index + " graças a: " + r);
             //TODO Deletável ^^^^
 
-            user.ChangeEquipObject(GetBackEquip(), GetFrontEquip());
+            user.ChangeEquipObject(equipIndex);
 
             UseEquipmentOn(user, Battleground.GetInstance().GetTiles()[(int)turnSugestions[index].targetPosition], requester, index);
         }
@@ -80,36 +80,38 @@ public class Equip : ScriptableObject, IWaitForSkill
     public int GetAtkm() { return atkm; }
     public int GetDef() { return def; }
     public int GetDefm() { return defm; }
-    public Image GetBackEquip()
-    {
-        if (backEquipPrefab != null)
-        {
-            if (backEquip == null)
-            {
-                backEquip = Instantiate(backEquipPrefab);
-            }
-            return backEquip;
-        }
-        else
-        {
-            return null;
-        }
-    }
-    public Image GetFrontEquip()
-    {
-        if (frontEquipPrefab != null)
-        {
-            if (frontEquip == null)
-            {
-                frontEquip = Instantiate(frontEquipPrefab);
-            }
-            return frontEquip;
-        }
-        else
-        {
-            return null;
-        }
-    }
+    public RectTransform GetBackEquipPrefab() { return backEquipPrefab; }
+    public RectTransform GetFrontEquipPrefab() { return frontEquipPrefab; }
+    //public RectTransform GetBackEquip()
+    //{
+    //    if (backEquipPrefab != null)
+    //    {
+    //        if (backEquip == null)
+    //        {
+    //            backEquip = Instantiate(backEquipPrefab);
+    //        }
+    //        return backEquip;
+    //    }
+    //    else
+    //    {
+    //        return null;
+    //    }
+    //}
+    //public RectTransform GetFrontEquip()
+    //{
+    //    if (frontEquipPrefab != null)
+    //    {
+    //        if (frontEquip == null)
+    //        {
+    //            frontEquip = Instantiate(frontEquipPrefab);
+    //        }
+    //        return frontEquip;
+    //    }
+    //    else
+    //    {
+    //        return null;
+    //    }
+    //}
     public Archetypes.Archetype GetArchetype() { return archetype; }
     public int GetLevel() { return level; }
 }

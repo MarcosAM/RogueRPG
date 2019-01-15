@@ -35,7 +35,7 @@ public class TurnManager : MonoBehaviour, IWaitForEquipment
             var index = character.GetInventory().GetUsableEquips()[Random.Range(0, character.GetInventory().GetUsableEquips().Count)];
             momentumTurn = character.GetInventory().IsMomentumEquip(index);
             character.GetInventory().GetAvailableEquips()[index] = false;
-            character.GetInventory().GetEquips()[index].UseEquipment(character, this);
+            character.GetInventory().GetEquips()[index].UseEquipment(character, this, index);
             //TODO tem personagem se movendo além do range
             //TODO ter algum tipo de probabilidade ou algo do tipo para sair do momentum. Talvez ter 4 turnos para usar, mas cada golpe ou coisa parecida tem chance de tirar um turno do tempo do momentum.
         }

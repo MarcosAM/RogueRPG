@@ -24,6 +24,8 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     Inventory inventory;
     Attributes attributes;
 
+    RectTransform[,] rectTransforms;
+
     void Awake()
     {
         inventory = GetComponent<Inventory>();
@@ -71,7 +73,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public int GetRow() { return tile.GetRow(); }
 
-    public virtual void ChangeEquipObject(Image backEquip, Image frontEquip)
+    public void ChangeEquipObject(int equipIndex)
     {
 
         animator.SetTrigger("ChangeEquip");
@@ -84,17 +86,18 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         {
             child.SetParent(null);
         }
-        if (frontEquip != null)
+
+        if (rectTransforms[equipIndex, 0] != null)
         {
-            frontEquip.rectTransform.SetParent(frontHandler);
-            frontEquip.rectTransform.anchoredPosition = new Vector2(0, 0);
-            frontEquip.rectTransform.localEulerAngles = Vector3.zero;
+            rectTransforms[equipIndex, 0].SetParent(backHandler);
+            rectTransforms[equipIndex, 0].anchoredPosition = new Vector2(0, 0);
+            rectTransforms[equipIndex, 0].localEulerAngles = Vector3.zero;
         }
-        if (backEquip != null)
+        if (rectTransforms[equipIndex, 1] != null)
         {
-            backEquip.rectTransform.SetParent(backHandler);
-            backEquip.rectTransform.anchoredPosition = new Vector2(0, 0);
-            backEquip.rectTransform.localEulerAngles = Vector3.zero;
+            rectTransforms[equipIndex, 1].SetParent(frontHandler);
+            rectTransforms[equipIndex, 1].anchoredPosition = new Vector2(0, 0);
+            rectTransforms[equipIndex, 1].localEulerAngles = Vector3.zero;
         }
     }
 
@@ -126,4 +129,30 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public Inventory GetInventory() { return inventory; }
     public Attributes GetAttributes() { return attributes; }
+
+    public void CreateEquipsSprites(Equip[] equips)
+    {
+        if (rectTransforms != null)
+        {
+            for (var i = 0; i < equips.Length; i++)
+            {
+                Destroy(rectTransforms[i, 0].gameObject);
+                Destroy(rectTransforms[i, 1].gameObject);
+            }
+        }
+
+        rectTransforms = new RectTransform[equips.Length, 2];
+
+        for (var i = 0; i < equips.Length; i++)
+        {
+            if (equips[i].GetBackEquipPrefab())
+                rectTransforms[i, 0] = Instantiate(equips[i].GetBackEquipPrefab());
+            else
+                rectTransforms[i, 0] = null;
+            if (equips[i].GetFrontEquipPrefab())
+                rectTransforms[i, 1] = Instantiate(equips[i].GetFrontEquipPrefab());
+            else
+                rectTransforms[i, 1] = null;
+        }
+    }
 }

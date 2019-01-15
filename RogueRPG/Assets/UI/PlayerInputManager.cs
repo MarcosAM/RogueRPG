@@ -35,7 +35,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (equipToggle != null)
         {
-            currentCharacter.ChangeEquipObject(currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetBackEquip(), currentCharacter.GetInventory().GetEquips()[equipTogglerManager.GetSelectedEquipIndex()].GetFrontEquip());
+            currentCharacter.ChangeEquipObject(equipTogglerManager.GetSelectedEquipIndex());
             skillToggleManager.ShowSkillTogglesFor(SelectedEquip);
         }
         else

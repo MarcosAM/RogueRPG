@@ -79,6 +79,7 @@ public class Inventory : MonoBehaviour
         Archetype = Archetypes.GetArchetype(this.equips);
         InitiateLevel();
         this.equips[this.equips.Length - 1] = Archetypes.GetMomentumEquip(Archetype, level);
+        character.CreateEquipsSprites(this.equips);
         character.GetAttributes().UpdateAttributes(this.equips);
     }
 
