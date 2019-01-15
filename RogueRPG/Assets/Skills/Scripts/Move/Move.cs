@@ -20,24 +20,26 @@ public class Move : Actions
 
         var targetables = battleground.GetAvailableTilesFrom(user.IsPlayable());
 
+        Debug.Log("Targetables: " + targetables.Count);
         switch (user.GetInventory().Archetype)
         {
             case Archetypes.Archetype.Brute:
             case Archetypes.Archetype.Agressive:
-                targetables.FindAll(t => FilterForBrutesAndAgressives(user, t));
+                targetables.RemoveAll(t => !FilterForBrutesAndAgressives(user, t));
                 break;
             case Archetypes.Archetype.Infantry:
             case Archetypes.Archetype.MInfantry:
-                targetables.FindAll(t => FilterForInfantry(user, t));
+                targetables.RemoveAll(t => !FilterForInfantry(user, t));
                 break;
             case Archetypes.Archetype.Offensive:
             case Archetypes.Archetype.MOffensive:
-                targetables.FindAll(t => FilterForOffensive(user, t));
+                targetables.RemoveAll(t => !FilterForOffensive(user, t));
                 break;
             default:
-                targetables.FindAll(t => FilterForNoneToDisablers(user, t));
+                targetables.RemoveAll(t => !FilterForNoneToDisablers(user, t));
                 break;
         }
+        Debug.Log("Targetables agora é: " + targetables.Count);
 
         if (targetables.Count > 0)
         {
@@ -52,12 +54,12 @@ public class Move : Actions
                     mySideTiles.Sort((t2, t1) => GetBetterTile(t1, t2, aliveOpponentTiles));
                     break;
                 case Archetypes.Archetype.Infantry:
-                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Type.Atk));
-                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Type.Atk));
+                    targetables.Sort((t1, t2) => SortByStat(t1.GetTileInFront(), t2.GetTileInFront(), Attribute.Type.Atk));
+                    mySideTiles.Sort((t1, t2) => SortByStat(t1.GetTileInFront(), t2.GetTileInFront(), Attribute.Type.Atk));
                     break;
                 case Archetypes.Archetype.MInfantry:
-                    targetables.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Type.Atkm));
-                    mySideTiles.Sort((t1, t2) => SortByStat(t1, t2, Attribute.Type.Atkm));
+                    targetables.Sort((t1, t2) => SortByStat(t1.GetTileInFront(), t2.GetTileInFront(), Attribute.Type.Atkm));
+                    mySideTiles.Sort((t1, t2) => SortByStat(t1.GetTileInFront(), t2.GetTileInFront(), Attribute.Type.Atkm));
                     break;
                 default:
                     targetables.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
