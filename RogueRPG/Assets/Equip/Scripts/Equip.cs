@@ -43,6 +43,8 @@ public class Equip : ScriptableObject, IWaitForSkill
             }
         }
 
+        user.ChangeEquipObject(equipIndex);
+
         if (probabilities.Count > 0)
         {
             //TODO Substituir pelo comentário abaixo
@@ -60,12 +62,14 @@ public class Equip : ScriptableObject, IWaitForSkill
             Debug.Log(probabilitiesString + ". Mas eu escolhi: " + index + " graças a: " + r);
             //TODO Deletável ^^^^
 
-            user.ChangeEquipObject(equipIndex);
-
             UseEquipmentOn(user, Battleground.GetInstance().GetTiles()[(int)turnSugestions[index].targetPosition], requester, index);
         }
         else
+        {
+            //TODO se livrar desse requester, pq sempre vai retornar par ao turn manager
+            this.requester = requester;
             resumeFromSkill();
+        }
     }
 
     public void resumeFromSkill()
