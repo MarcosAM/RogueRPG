@@ -13,6 +13,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString
 
     public virtual void StartSkill(Character user, Tile tile, IWaitForSkill requester)
     {
+        SkillName.ShowSkillName(sName);
         this.requester = requester;
         this.currentUser = user;
         this.currentTargetTile = tile;

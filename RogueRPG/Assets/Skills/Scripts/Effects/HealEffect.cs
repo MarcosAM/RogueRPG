@@ -21,7 +21,7 @@ public class HealEffect : Effects
     public override bool IsLogicalTarget(Tile tile)
     {
         //TODO Pensar se é necessário impedir de curar aliados que estão regenerando
-        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetHp() != tile.GetCharacter().GetAttributes().GetHp() : false;
+        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetHp().GetValue() != tile.GetCharacter().GetAttributes().GetHp().GetMaxValue() : false;
     }
     public override int GetComparableValue(Character character)
     {

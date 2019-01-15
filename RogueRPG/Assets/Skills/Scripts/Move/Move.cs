@@ -20,7 +20,6 @@ public class Move : Actions
 
         var targetables = battleground.GetAvailableTilesFrom(user.IsPlayable());
 
-        Debug.Log("Targetables: " + targetables.Count);
         switch (user.GetInventory().Archetype)
         {
             case Archetypes.Archetype.Brute:
@@ -39,41 +38,39 @@ public class Move : Actions
                 targetables.RemoveAll(t => !FilterForNoneToDisablers(user, t));
                 break;
         }
-        Debug.Log("Targetables agora é: " + targetables.Count);
 
         if (targetables.Count > 0)
         {
             List<Tile> aliveOpponentTiles = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
             var mySideTiles = battleground.GetAvailableTilesFrom(user.IsPlayable());
 
+            bool shouldMove;
             switch (user.GetInventory().Archetype)
             {
                 case Archetypes.Archetype.Agressive:
                 case Archetypes.Archetype.Brute:
                     targetables.Sort((t2, t1) => GetBetterTile(t1, t2, aliveOpponentTiles));
                     mySideTiles.Sort((t2, t1) => GetBetterTile(t1, t2, aliveOpponentTiles));
+                    shouldMove = targetables[0] != user.GetTile();
                     break;
                 case Archetypes.Archetype.Infantry:
                     targetables.Sort((t1, t2) => SortByStat(t1.GetTileInFront(), t2.GetTileInFront(), Attribute.Type.Atk));
                     mySideTiles.Sort((t1, t2) => SortByStat(t1.GetTileInFront(), t2.GetTileInFront(), Attribute.Type.Atk));
+                    shouldMove = targetables[0] != user.GetTile();
                     break;
                 case Archetypes.Archetype.MInfantry:
                     targetables.Sort((t1, t2) => SortByStat(t1.GetTileInFront(), t2.GetTileInFront(), Attribute.Type.Atkm));
                     mySideTiles.Sort((t1, t2) => SortByStat(t1.GetTileInFront(), t2.GetTileInFront(), Attribute.Type.Atkm));
+                    shouldMove = targetables[0] != user.GetTile();
                     break;
                 default:
                     targetables.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
                     mySideTiles.Sort((t1, t2) => GetBetterTile(t1, t2, aliveOpponentTiles));
+                    shouldMove = GetBetterTile(targetables[0], user.GetTile(), aliveOpponentTiles) != 0;
                     break;
             }
-            Debug.Log("Melhores cantos para ir em ordem são:");
 
-            for (int i = 0; i < mySideTiles.Count; i++)
-            {
-                Debug.Log(mySideTiles[i] + ". Índice: " + i);
-            }
-
-            if (targetables[0] != user.GetTile())
+            if (shouldMove)
                 return new TurnSugestion(TurnSugestion.maxProbability - mySideTiles.IndexOf(targetables[0]), targetables[0].GetIndex());
         }
 

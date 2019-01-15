@@ -41,7 +41,6 @@ public class Archetypes : MonoBehaviour
                 level = item.Value;
             }
         }
-        print(archetype);
         return archetype;
     }
 

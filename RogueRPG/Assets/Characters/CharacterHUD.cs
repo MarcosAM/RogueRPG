@@ -30,8 +30,7 @@ public class CharacterHUD : MonoBehaviour
         if (!character.IsPlayable())
         {
             hpText.gameObject.SetActive(false);
-            hpSlider.gameObject.SetActive(false);
-            return;
+            nameText.transform.rotation = Quaternion.Euler(0, 180, 90);
         }
 
         this.hp.OnHUDValuesChange += Refresh;
@@ -82,4 +81,6 @@ public class CharacterHUD : MonoBehaviour
             hp.OnHPValuesChange -= HPFeedback;
         }
     }
+
+    public void SetCName(string name) { cName = name; }
 }

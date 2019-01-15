@@ -33,7 +33,6 @@ public class SAssistMove : Skill
         TurnSugestion tsToAssist = GetTurnSugestionForAssisting(user, battleground);
         TurnSugestion tsToMove = move.GetTurnSugestion(user, battleground);
 
-        Debug.Log("Prioridade de Assist and Move para Assistir é: " + tsToAssist.probability + " e para mover: " + tsToMove.probability);
         return tsToAssist.probability > tsToMove.probability ? tsToAssist : tsToMove;
     }
 
@@ -60,13 +59,11 @@ public class SAssistMove : Skill
                 }
                 var probability = TurnSugestion.maxProbability - allValues / willBeAffected.Count;
 
-                Debug.Log("A probabilidade de " + user.GetName() + " usar uma skill de Assist and Move é: " + probability);
                 return new TurnSugestion(probability, targetableTiles[0].GetIndex());
                 //Teste
             }
         }
 
-        Debug.Log("Não faz sentido para " + user.GetName() + " usar uma skill de Assist and Move.");
         return new TurnSugestion(0);
     }
 }

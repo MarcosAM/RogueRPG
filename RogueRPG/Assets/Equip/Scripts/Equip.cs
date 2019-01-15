@@ -67,6 +67,7 @@ public class Equip : ScriptableObject, IWaitForSkill
         else
         {
             //TODO se livrar desse requester, pq sempre vai retornar par ao turn manager
+            SkillName.ShowSkillName("Pass");
             this.requester = requester;
             resumeFromSkill();
         }

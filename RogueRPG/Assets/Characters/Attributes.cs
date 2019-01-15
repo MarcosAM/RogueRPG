@@ -25,7 +25,6 @@ public class Attributes : MonoBehaviour
             }
             listStat.Add(new Attribute(character, type, buffPManager));
         }
-        print("Eu tenho " + listStat.Count + " atributos");
     }
 
 

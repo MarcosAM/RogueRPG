@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
@@ -10,12 +11,14 @@ public class Tile : MonoBehaviour
     bool available = true;
     Battleground battleground;
     [SerializeField] RectTransform portraitHandler;
+    Image shadow;
 
     void Start()
     {
         this.battleground = GetComponentInParent<Battleground>();
         this.index = battleground.GetTiles().IndexOf(this);
         this.side = this.index >= (battleground.GetTiles().Count / 2) ? true : false;
+        this.shadow = GetComponentInChildren<Image>();
         //if (!this.side)
         //    portraitHandler.localScale = new Vector3(-1, 1, 1);
     }
@@ -99,6 +102,9 @@ public class Tile : MonoBehaviour
 
     public void SetA(bool available)
     {
+
+        shadow.gameObject.SetActive(available);
+
         if (!available && this.available != available)
         {
             if (this.character)

@@ -9,8 +9,7 @@ public class NonPlayableCharacter : Character
     {
         base.FillStats();
         avatarImg.sprite = stats.GetPortrait().sprite;
-        //transform.localScale = new Vector3(-1, 1, 1);
-        //GetComponentsInChildren<Transform>()[1].localScale = new Vector3(-1, 1, 1);
+        SetName(stats.GetName());
     }
 
     public override bool IsPlayable()

@@ -67,7 +67,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     public void SetName(string name)
     {
         this.characterName = name;
-        //TODO Está Character HUD não tem uma referência a character então quando da Refresh ela não pega o nome novo
+        GetComponentInChildren<CharacterHUD>().SetCName(name);
         attributes.GetHp().RefreshHUD();
     }
 

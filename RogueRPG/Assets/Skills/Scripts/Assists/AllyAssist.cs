@@ -26,6 +26,9 @@ public class AllyAssist : Assist
             return new TurnSugestion(TurnSugestion.maxProbability - allies.IndexOf(target), target.GetIndex());
         }
         else
+        {
+            Debug.Log("Não faz sentido ajudar");
             return new TurnSugestion(0);
+        }
     }
 }
