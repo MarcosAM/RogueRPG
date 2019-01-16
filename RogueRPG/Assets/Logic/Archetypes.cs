@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class Archetypes : MonoBehaviour
 {
-    [SerializeField] protected Equip momentumEquip;
+    [SerializeField] protected Equip[] supportersEquips;
+    [SerializeField] protected Equip[] disablersEquips;
+    [SerializeField] protected Equip[] mOffensiveEquips;
+    [SerializeField] protected Equip[] offensiveEquips;
+    [SerializeField] protected Equip[] mInfantryEquips;
+    [SerializeField] protected Equip[] infantryEquips;
+    [SerializeField] protected Equip[] bruteEquips;
+    [SerializeField] protected Equip[] agressiveEquips;
+
     [SerializeField] RuntimeAnimatorController[] animators;
     static Archetypes instance;
 
@@ -46,7 +54,54 @@ public class Archetypes : MonoBehaviour
 
     public static Equip GetMomentumEquip(Archetype archetype, int level)
     {
-        return instance.momentumEquip;
+        try
+        {
+            switch (archetype)
+            {
+                case Archetype.None:
+                case Archetype.Supporter:
+                    return instance.supportersEquips[level];
+                case Archetype.Disabler:
+                    return instance.disablersEquips[level];
+                case Archetype.MOffensive:
+                    return instance.mOffensiveEquips[level];
+                case Archetype.Offensive:
+                    return instance.offensiveEquips[level];
+                case Archetype.MInfantry:
+                    return instance.mInfantryEquips[level];
+                case Archetype.Infantry:
+                    return instance.infantryEquips[level];
+                case Archetype.Brute:
+                    return instance.bruteEquips[level];
+                case Archetype.Agressive:
+                    return instance.agressiveEquips[level];
+            }
+        }
+        catch
+        {
+            switch (archetype)
+            {
+                case Archetype.None:
+                case Archetype.Supporter:
+                    return instance.supportersEquips[0];
+                case Archetype.Disabler:
+                    return instance.disablersEquips[0];
+                case Archetype.MOffensive:
+                    return instance.mOffensiveEquips[0];
+                case Archetype.Offensive:
+                    return instance.offensiveEquips[0];
+                case Archetype.MInfantry:
+                    return instance.mInfantryEquips[0];
+                case Archetype.Infantry:
+                    return instance.infantryEquips[0];
+                case Archetype.Brute:
+                    return instance.bruteEquips[0];
+                case Archetype.Agressive:
+                    return instance.agressiveEquips[0];
+            }
+        }
+
+        return instance.supportersEquips[0];
     }
 
     public static RuntimeAnimatorController GetAnimator(Archetype archetype)

@@ -7,7 +7,7 @@ using System.Linq;
 
 public class DungeonManager : MonoBehaviour
 {
-
+    //TODO implement a Give Up Btn
     static DungeonManager instance = null;
     [SerializeField] List<Character> initiativeOrder = new List<Character>();
     int round;

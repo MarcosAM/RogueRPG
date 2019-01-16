@@ -106,7 +106,8 @@ public class Inventory : MonoBehaviour
         foreach (var equip in equips)
         {
             if (equip)
-                level += equip.GetLevel();
+                if (equip.GetLevel() > level)
+                    level = equip.GetLevel();
         }
     }
 }
