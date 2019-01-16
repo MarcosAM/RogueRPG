@@ -8,7 +8,8 @@ public class NonPlayableCharacter : Character
     protected override void FillStats()
     {
         base.FillStats();
-        avatarImg.sprite = stats.GetPortrait().sprite;
+        avatarImg.sprite = stats.GetSprite();
+        avatarImg.color = stats.GetColor();
         SetName(stats.GetName());
     }
 

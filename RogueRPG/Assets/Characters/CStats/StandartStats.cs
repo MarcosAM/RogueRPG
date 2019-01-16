@@ -8,9 +8,11 @@ public class StandartStats : ScriptableObject
 {
     [SerializeField] string name;
     [SerializeField] private Equip[] skills;
-    [SerializeField] private Image portrait;
+    [SerializeField] private Sprite sprite;
+    [SerializeField] private Color color;
 
     public string GetName() { return name; }
     public Equip[] GetEquips() { return skills; }
-    public Image GetPortrait() { return portrait; }
+    public Sprite GetSprite() { return sprite; }
+    public Color GetColor() { return color; }
 }
