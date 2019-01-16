@@ -37,4 +37,6 @@ public class SMoveAtk : Skill
 
         return new TurnSugestion(0);
     }
+
+    public override string GetDescription() { return description + "\n \n" + "Target: " + move.GetTargetDescription() + "\n" + "Effect: Move and " + skillEffect.GetEffectDescription(); }
 }

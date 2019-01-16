@@ -6,15 +6,15 @@ using UnityEngine;
 public class BuffEffect : Effects
 {
     [SerializeField] int duration;
-    [SerializeField] Attribute.Type stat;
+    [SerializeField] Attribute.Type type;
     [SerializeField] Attribute.Intensity intensity;
 
     public override void Affect(Character user, Character target)
     {
         base.Affect(user, target);
-        target.GetAttributes().BuffIt(stat, intensity, duration);
+        target.GetAttributes().BuffIt(type, intensity, duration);
     }
-    public Attribute.Type GetStats() { return stat; }
+    public Attribute.Type GetStats() { return type; }
     public Attribute.Intensity GetIntensity() { return intensity; }
 
     public override int SortBestTargets(Character user, Character c1, Character c2)
@@ -25,14 +25,14 @@ public class BuffEffect : Effects
     public override bool IsLogicalTarget(Tile tile)
     {
         //TODO filosofar se eu deveria impedir de dar Regeneration para inimigos com full hp
-        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetBuffIntensity(stat) < intensity : false;
+        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetBuffIntensity(type) < intensity : false;
     }
 
     public override int GetComparableValue(Character character)
     {
         if (!character)
             return 6;
-        Attribute.Intensity intensity = character.GetAttributes().GetBuffIntensity(this.stat);
+        Attribute.Intensity intensity = character.GetAttributes().GetBuffIntensity(this.type);
         if (intensity < this.intensity)
         {
             if (intensity == Attribute.Intensity.None)
@@ -48,4 +48,6 @@ public class BuffEffect : Effects
 
         return 5;
     }
+
+    public override string GetEffectDescription() { return (intensity + " in " + type); }
 }

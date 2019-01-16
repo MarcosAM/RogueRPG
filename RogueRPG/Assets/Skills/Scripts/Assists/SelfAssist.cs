@@ -18,4 +18,6 @@ public class SelfAssist : Assist
     {
         return new TurnSugestion(TurnSugestion.maxProbability - ((Effects)skillEffect).GetComparableValue(user), user.GetTile().GetIndex());
     }
+
+    public override string GetTargetDescription() { return "Self"; }
 }

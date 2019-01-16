@@ -7,13 +7,13 @@ public class PDmgAndDebuff : PhysicalDamage
 {
     [SerializeField] int duration;
     [SerializeField] Attribute.Type stat;
-    [SerializeField] Attribute.Intensity intensity;
+    [SerializeField] Attribute.Intensity type;
 
     public override void TryToAffect(Character user, Character target, float attack)
     {
         base.TryToAffect(user, target, attack);
         if (hitted)
-            target.GetAttributes().BuffIt(stat, intensity, duration);
+            target.GetAttributes().BuffIt(stat, type, duration);
     }
 
     public override int SortBestTargets(Character user, Character c1, Character c2)
@@ -29,4 +29,6 @@ public class PDmgAndDebuff : PhysicalDamage
                 return c1.GetAttributes().GetBuffIntensity(stat) - c2.GetAttributes().GetBuffIntensity(stat);
         }
     }
+
+    public override string GetEffectDescription() { return ("Physical Damage with Atk x " + dmgIntensifier + " with a natural critic chance of " + critic + " and " + type + " in " + type); }
 }

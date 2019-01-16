@@ -26,4 +26,6 @@ public class SAtkSpread : Skill
     {
         return new TurnSugestion(assist.GetTurnSugestion(user, battleground, assistEffect).probability, attack.GetTurnSugestion(user, battleground, skillEffect).targetPosition);
     }
+
+    public override string GetDescription() { return description + "\n \n" + "Target: " + attack.GetTargetDescription() + "\n" + "Attack Effect: " + skillEffect.GetEffectDescription() + "\n" + "Assist Effect: " + assistEffect.GetEffectDescription(); }
 }

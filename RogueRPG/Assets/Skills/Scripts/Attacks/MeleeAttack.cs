@@ -33,4 +33,6 @@ public class MeleeAttack : Attack
         Debug.Log("Usar uma skill de Melee Attack não faz sentido para " + user.GetName());
         return new TurnSugestion(0);
     }
+
+    public override string GetTargetDescription() { return ("A enemy up to " + range + " tiles"); }
 }

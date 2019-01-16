@@ -41,6 +41,6 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString
     public abstract bool UniqueEffectWillAffect(Character user, Tile target, Tile tile);
 
     public string GetSkillName() { return sName; }
-    public string GetDescription() { return description; }
+    public abstract string GetDescription();
     public abstract TurnSugestion GetTurnSugestion(Character user, Battleground battleground);
 }

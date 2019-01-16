@@ -29,4 +29,6 @@ public class AuraAssist : Assist
         else
             return new TurnSugestion(0);
     }
+
+    public override string GetTargetDescription() { return ("Aura " + range); }
 }

@@ -42,4 +42,8 @@ public abstract class SkillEffect : ScriptableObject
             skillAnimation.PlayAnimation(tile.GetLocalPosition());
         }
     }
+
+
+
+    public abstract string GetEffectDescription();
 }

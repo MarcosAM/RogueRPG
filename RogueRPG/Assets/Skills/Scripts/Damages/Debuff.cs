@@ -6,17 +6,18 @@ using UnityEngine;
 public class Debuff : Damage
 {
     [SerializeField] int duration;
-    [SerializeField] Attribute.Type stat;
+    [SerializeField] Attribute.Type type;
     [SerializeField] Attribute.Intensity intensity;
 
     public override void TryToAffect(Character user, Character target, float attack)
     {
         if (hitted)
         {
-            target.GetAttributes().BuffIt(stat, intensity, duration);
+            target.GetAttributes().BuffIt(type, intensity, duration);
         }
         else
         {
+            //TODO colocar esquiva aqui! A animação no caso, trigger the animation controller
             Debug.Log("Missed!");
         }
     }
@@ -24,6 +25,8 @@ public class Debuff : Damage
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
         //TODO ao menos estender a duração do debuff se o cara já tiver debuffado ou algo assim...
-        return c1.GetAttributes().GetBuffIntensity(stat) - c2.GetAttributes().GetBuffIntensity(stat);
+        return c1.GetAttributes().GetBuffIntensity(type) - c2.GetAttributes().GetBuffIntensity(type);
     }
+
+    public override string GetEffectDescription() { return (intensity + " in " + type); }
 }

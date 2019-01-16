@@ -48,4 +48,6 @@ public class PhysicalDamage : Damage
 
         return (int)(c1.GetAttributes().GetDefValue() - c2.GetAttributes().GetDefValue());
     }
+
+    public override string GetEffectDescription() { return ("Physical Damage with Atk x " + dmgIntensifier + " with a natural critic chance of " + critic); }
 }

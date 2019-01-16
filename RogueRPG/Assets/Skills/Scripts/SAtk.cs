@@ -21,4 +21,6 @@ public class SAtk : Skill
     {
         return attack.GetTurnSugestion(user, battleground, skillEffect);
     }
+
+    public override string GetDescription() { return description + "\n \n" + "Target: " + attack.GetTargetDescription() + "\n" + "Effect: " + skillEffect.GetEffectDescription(); }
 }

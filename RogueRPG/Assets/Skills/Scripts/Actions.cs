@@ -29,4 +29,7 @@ public abstract class Actions : ScriptableObject
             }
         }
     }
+
+    public abstract string GetTargetDescription();
+    public int GetRange() { return range; }
 }

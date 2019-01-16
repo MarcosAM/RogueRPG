@@ -46,4 +46,6 @@ public class RainAssist : Assist
             return new TurnSugestion(0);
         }
     }
+
+    public override string GetTargetDescription() { return ("Line " + (area * 2 + 1) + " up to " + range + " tiles"); }
 }

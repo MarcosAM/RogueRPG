@@ -45,4 +45,7 @@ public class ExplosionAttack : ConeAttack
             return new TurnSugestion(0);
         }
     }
+
+    public override string GetTargetDescription() { return ("Explosion " + area + " up to " + range + " tiles"); }
+
 }

@@ -32,4 +32,6 @@ public class BurstAttack : Attack
         else
             return new TurnSugestion(0);
     }
+
+    public override string GetTargetDescription() { return ("Burst " + range); }
 }

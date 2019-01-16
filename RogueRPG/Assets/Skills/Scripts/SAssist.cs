@@ -16,4 +16,6 @@ public class SAssist : Skill
     {
         return assist.GetTurnSugestion(user, battleground, skillEffect);
     }
+
+    public override string GetDescription() { return description + "\n \n" + "Target: " + assist.GetTargetDescription() + "\n" + "Effect: " + skillEffect.GetEffectDescription(); }
 }

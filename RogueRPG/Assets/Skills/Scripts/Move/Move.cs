@@ -139,4 +139,5 @@ public class Move : Actions
         return tile2Atk - tile1Atk;
     }
 
+    public override string GetTargetDescription() { return "A tile up to " + range + " tiles"; }
 }

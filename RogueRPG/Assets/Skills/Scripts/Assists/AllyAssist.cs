@@ -32,4 +32,6 @@ public class AllyAssist : Assist
             return new TurnSugestion(0);
         }
     }
+
+    public override string GetTargetDescription() { return ("An ally up to " + range + " tiles"); }
 }

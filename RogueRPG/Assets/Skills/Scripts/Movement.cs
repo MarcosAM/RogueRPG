@@ -15,4 +15,6 @@ public class Movement : Skill
     protected override void UniqueEffect(Character user, Tile tile) { move.Act(user, tile, skillEffect); }
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground) { return move.GetTurnSugestion(user, battleground, skillEffect); }
+
+    public override string GetDescription() { return (description + "\n \n" + "Target: " + move.GetTargetDescription()); }
 }

@@ -36,4 +36,6 @@ public class HealEffect : Effects
         }
         return 0;
     }
+
+    public override string GetEffectDescription() { return ("Heal with Atkm x " + healIntensifier); }
 }
