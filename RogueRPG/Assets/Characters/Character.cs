@@ -155,4 +155,18 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
                 rectTransforms[i, 1] = null;
         }
     }
+
+    public void RemoveSelf()
+    {
+        for (var i = 0; i < rectTransforms.Length / 2; i++)
+        {
+            if (rectTransforms[i, 0])
+                Destroy(rectTransforms[i, 0].gameObject);
+            if (rectTransforms[i, 1])
+                Destroy(rectTransforms[i, 1].gameObject);
+        }
+
+        GetTile().SetC(null);
+        Destroy(gameObject);
+    }
 }

@@ -128,6 +128,12 @@ public class DungeonManager : MonoBehaviour
         {
             AdvanceInitiative(initiativeOrder);
 
+            var enemies = FindObjectsOfType<NonPlayableCharacter>();
+            foreach (var enemy in enemies)
+            {
+                enemy.RemoveSelf();
+            }
+
             battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
             battleground.SetAvailableSide(gameManager.getEnemiesAtFloor(dungeonFloor));
 
