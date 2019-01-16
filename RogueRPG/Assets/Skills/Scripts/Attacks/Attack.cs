@@ -8,8 +8,6 @@ public abstract class Attack : Actions
     [Range(0f, 1f)]
     protected float precision;
     protected float attack;
-    [SerializeField]
-    protected Damage damage;
 
     protected void GenerateNewAttack(Character user)
     {

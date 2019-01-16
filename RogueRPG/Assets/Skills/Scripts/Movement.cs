@@ -12,7 +12,7 @@ public class Movement : Skill
 
     public override bool UniqueEffectWillAffect(Character user, Tile target, Tile tile) { return move.WillBeAffected(user.GetTile(), target, tile); }
 
-    protected override void UniqueEffect(Character user, Tile tile) { move.Act(user, tile); }
+    protected override void UniqueEffect(Character user, Tile tile) { move.Act(user, tile, skillEffect); }
 
-    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground) { return move.GetTurnSugestion(user, battleground); }
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground) { return move.GetTurnSugestion(user, battleground, skillEffect); }
 }

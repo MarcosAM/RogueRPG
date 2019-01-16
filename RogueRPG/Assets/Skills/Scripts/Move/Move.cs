@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Actions/Move")]
 public class Move : Actions
 {
-    public override void Act(Character user, Tile target)
+    public override void Act(Character user, Tile target, SkillEffect skillEffect)
     {
         target.MoveCharacter(user);
     }
@@ -13,7 +13,7 @@ public class Move : Actions
     //TODO impedir de clicar em si mesmo
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.IsPlayable() == tile.GetSide(); }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
-    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
         if (user.GetInventory().Archetype == Archetypes.Archetype.Brute && user.GetTile().GetTileInFront().GetCharacter())
             return new TurnSugestion(0);

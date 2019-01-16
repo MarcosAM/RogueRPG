@@ -14,11 +14,11 @@ public class SAtk : Skill
 
     protected override void UniqueEffect(Character user, Tile tile)
     {
-        attack.Act(user, tile);
+        attack.Act(user, tile, skillEffect);
     }
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        return attack.GetTurnSugestion(user, battleground);
+        return attack.GetTurnSugestion(user, battleground, skillEffect);
     }
 }

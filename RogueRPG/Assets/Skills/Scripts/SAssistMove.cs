@@ -9,6 +9,8 @@ public class SAssistMove : Skill
     Assist assist;
     [SerializeField]
     Move move;
+    [SerializeField]
+    Effects effect;
 
     public override bool IsTargetable(Character user, Tile tile) { return move.IsTargetable(user, tile); }
     //TODO rever isso aqui levando em consideração que com aura seria diferente. Pq o efeito acontece depois de se mexer.
@@ -18,20 +20,20 @@ public class SAssistMove : Skill
     {
         if (assist is AuraAssist)
         {
-            move.Act(user, tile);
-            assist.Act(user, tile);
+            move.Act(user, tile, skillEffect);
+            assist.Act(user, tile, skillEffect);
         }
         else
         {
-            assist.Act(user, tile);
-            move.Act(user, tile);
+            assist.Act(user, tile, skillEffect);
+            move.Act(user, tile, skillEffect);
         }
     }
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
         TurnSugestion tsToAssist = GetTurnSugestionForAssisting(user, battleground);
-        TurnSugestion tsToMove = move.GetTurnSugestion(user, battleground);
+        TurnSugestion tsToMove = move.GetTurnSugestion(user, battleground, skillEffect);
 
         return tsToAssist.probability > tsToMove.probability ? tsToAssist : tsToMove;
     }
@@ -40,7 +42,7 @@ public class SAssistMove : Skill
     {
         //TODO Só está pegando tiles de usuários vivos, vai ser inútil em uma skill de ressucitar
         List<Tile> alliesTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
-        alliesTiles.RemoveAll(t => assist.GetEffect().GetComparableValue(t.GetCharacter()) < 0);
+        alliesTiles.RemoveAll(t => effect.GetComparableValue(t.GetCharacter()) < 0);
 
         if (alliesTiles.Count > 0)
         {
@@ -55,7 +57,7 @@ public class SAssistMove : Skill
                 var allValues = 0;
                 foreach (Tile ally in willBeAffected)
                 {
-                    allValues += assist.GetEffect().GetComparableValue(ally.GetCharacter());
+                    allValues += effect.GetComparableValue(ally.GetCharacter());
                 }
                 var probability = TurnSugestion.maxProbability - allValues / willBeAffected.Count;
 

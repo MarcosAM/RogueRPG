@@ -10,9 +10,9 @@ public class PhysicalDamage : Damage
     protected float critic;
     public static float criticIntensifier = 1.5f;
 
-    public override void TryToDamage(Character user, Character target, float attack)
+    public override void TryToAffect(Character user, Character target, float attack)
     {
-        base.TryToDamage(user, target, attack);
+        base.TryToAffect(user, target, attack);
         if (Random.value < critic + user.GetAttributes().GetCriticValue())
         {
             target.GetAttributes().GetHp().LoseHpBy((int)(user.GetAttributes().GetAtkValue() * criticIntensifier * dmgIntensifier - target.GetAttributes().GetDefValue()), true);

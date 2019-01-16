@@ -5,17 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Effects/Revive")]
 public class ReviveEffect : HealEffect
 {
-    [Range(0f, 1f)]
-    [SerializeField]
-    float precision;
-
     public override void Affect(Character user, Character target)
     {
         base.Affect(user, target);
-        if (precision + user.GetAttributes().GetPrecisionValue() > Random.value)
-        {
-            target.GetAttributes().GetHp().Revive((int)(user.GetAttributes().GetAtkmValue() * healIntensifier));
-        }
+        target.GetAttributes().GetHp().Revive((int)(user.GetAttributes().GetAtkmValue() * healIntensifier));
     }
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {

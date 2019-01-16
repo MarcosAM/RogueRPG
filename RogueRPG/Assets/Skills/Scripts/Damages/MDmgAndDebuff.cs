@@ -9,9 +9,9 @@ public class MDmgAndDebuff : MagicalDamage
     [SerializeField] Attribute.Type stat;
     [SerializeField] Attribute.Intensity intensity;
 
-    public override void TryToDamage(Character user, Character target, float attack)
+    public override void TryToAffect(Character user, Character target, float attack)
     {
-        base.TryToDamage(user, target, attack);
+        base.TryToAffect(user, target, attack);
         if (hitted)
             target.GetAttributes().BuffIt(stat, intensity, duration);
     }

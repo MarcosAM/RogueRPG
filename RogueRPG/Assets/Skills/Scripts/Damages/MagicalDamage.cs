@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Damages/Magical")]
 public class MagicalDamage : Damage
 {
-    public override void TryToDamage(Character user, Character target, float attack)
+    public override void TryToAffect(Character user, Character target, float attack)
     {
-        base.TryToDamage(user, target, attack);
+        base.TryToAffect(user, target, attack);
         if (hitted)
         {
             target.GetAttributes().GetHp().LoseHpBy((int)(user.GetAttributes().GetAtkmValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefmValue()), false);

@@ -9,7 +9,7 @@ public class ExplosionAttack : ConeAttack
 {
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return Mathf.Abs(target.GetRow() - tile.GetRow()) <= area; }
 
-    public override void Act(Character user, Tile target)
+    public override void Act(Character user, Tile target, SkillEffect skillEffect)
     {
         GenerateNewAttack(user);
 
@@ -18,12 +18,12 @@ public class ExplosionAttack : ConeAttack
             if (WillBeAffected(user.GetTile(), target, tile))
             {
                 if (tile.CharacterIs(true))
-                    damage.TryToDamage(user, tile.GetCharacter(), attack);
+                    skillEffect.TryToAffect(user, tile.GetCharacter(), attack);
             }
         }
     }
 
-    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
         List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
         List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());

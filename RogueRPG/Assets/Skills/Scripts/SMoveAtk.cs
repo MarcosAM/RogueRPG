@@ -19,8 +19,8 @@ public class SMoveAtk : Skill
 
     protected override void UniqueEffect(Character user, Tile tile)
     {
-        move.Act(user, tile);
-        attack.Act(user, tile.GetTileInFront());
+        move.Act(user, tile, skillEffect);
+        attack.Act(user, tile.GetTileInFront(), skillEffect);
     }
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)

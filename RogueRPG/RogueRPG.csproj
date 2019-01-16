@@ -139,6 +139,7 @@
     <Compile Include="Assets\Skills\Scripts\SAtkSpread.cs" />
     <Compile Include="Assets\Skills\Scripts\Skill.cs" />
     <Compile Include="Assets\Skills\Scripts\SkillAnimationManager.cs" />
+    <Compile Include="Assets\Skills\Scripts\SkillEffect.cs" />
     <Compile Include="Assets\Skills\Scripts\SMoveAtk.cs" />
     <Compile Include="Assets\Skills\Scripts\TurnSugestion.cs" />
     <Compile Include="Assets\SkillsAnimation\ParticleSA.cs" />

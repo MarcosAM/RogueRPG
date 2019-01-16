@@ -9,9 +9,9 @@ public abstract class Actions : ScriptableObject
     protected int range;
     public abstract bool IsTargetable(Character user, Tile tile);
     public abstract bool WillBeAffected(Tile user, Tile target, Tile tile);
-    public abstract void Act(Character user, Tile target);
+    public abstract void Act(Character user, Tile target, SkillEffect skillEffect);
 
-    public abstract TurnSugestion GetTurnSugestion(Character user, Battleground battleground);
+    public abstract TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect);
     protected Tile GetRandomTarget(List<Tile> possibleTargets)
     {
         if (possibleTargets.Count == 1)

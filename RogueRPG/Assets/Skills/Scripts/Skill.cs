@@ -7,6 +7,7 @@ public abstract class Skill : ScriptableObject, IWaitForAnimationByString
     [SerializeField] protected string sName;
     [SerializeField] protected string description;
     [SerializeField] protected string castSkillAnimationTrigger;
+    [SerializeField] protected SkillEffect skillEffect;
     protected Character currentUser;
     protected Tile currentTargetTile;
     protected IWaitForSkill requester;

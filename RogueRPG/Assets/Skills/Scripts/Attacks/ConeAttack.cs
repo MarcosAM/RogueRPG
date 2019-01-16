@@ -13,7 +13,7 @@ public class ConeAttack : Attack
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.IsPlayable() != tile.GetSide(); }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return Mathf.Abs(target.GetRow() - tile.GetRow()) <= area && user.GetSide() != tile.GetSide(); }
 
-    public override void Act(Character user, Tile target)
+    public override void Act(Character user, Tile target, SkillEffect skillEffect)
     {
         GenerateNewAttack(user);
 
@@ -22,12 +22,12 @@ public class ConeAttack : Attack
             if (WillBeAffected(user.GetTile(), target, tile))
             {
                 if (tile.CharacterIs(true))
-                    damage.TryToDamage(user, tile.GetCharacter(), attack);
+                    skillEffect.TryToAffect(user, tile.GetCharacter(), attack);
             }
         }
     }
 
-    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
+    public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
         List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
         List<Tile> possibleTargets = enemies.FindAll(t => IsTargetable(user, t));

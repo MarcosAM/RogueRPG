@@ -9,6 +9,8 @@ public class SAtkSpread : Skill
     Attack attack;
     [SerializeField]
     Assist assist;
+    [SerializeField]
+    SkillEffect assistEffect;
 
     public override bool IsTargetable(Character user, Tile tile) { return attack.IsTargetable(user, tile); }
 
@@ -16,12 +18,12 @@ public class SAtkSpread : Skill
 
     protected override void UniqueEffect(Character user, Tile tile)
     {
-        attack.Act(user, tile);
-        assist.Act(user, user.GetTile());
+        attack.Act(user, tile, skillEffect);
+        assist.Act(user, user.GetTile(), assistEffect);
     }
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        return new TurnSugestion(assist.GetTurnSugestion(user,battleground).probability, attack.GetTurnSugestion(user, battleground).targetPosition);
+        return new TurnSugestion(assist.GetTurnSugestion(user, battleground, assistEffect).probability, attack.GetTurnSugestion(user, battleground, skillEffect).targetPosition);
     }
 }
