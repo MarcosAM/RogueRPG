@@ -27,5 +27,5 @@ public class MagicalDamage : Damage
         return (int)(c1.GetAttributes().GetDefmValue() - c2.GetAttributes().GetDefmValue());
     }
 
-    public override string GetEffectDescription() { return ("Magical Damage with Atkm x " + dmgIntensifier); }
+    public override string GetEffectDescription() { return dmgIntensifier * 100 + "% Magical damage."; }
 }

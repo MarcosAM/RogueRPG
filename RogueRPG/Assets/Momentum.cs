@@ -5,9 +5,15 @@ using UnityEngine.UI;
 
 public class Momentum : MonoBehaviour
 {
-    //TODO Método para contar a cada turno que passa que talvez tenha que descer o momentum
-
     AnimatedSlider animatedSlider;
+    int currentMomentumDowntime = 0;
+    int maxMomentumDowntime = 6;
+
+    void Awake()
+    {
+        animatedSlider = GetComponent<AnimatedSlider>();
+    }
+
     public float Value
     {
         get
@@ -16,40 +22,36 @@ public class Momentum : MonoBehaviour
         }
         set
         {
+            if (IsMomentumFull(true) || IsMomentumFull(false))
+            {
+                if (Random.value % 2 == 0)
+                {
+                    MomentumCountdown();
+                    return;
+                }
+            }
             animatedSlider.Value = value;
         }
     }
 
-    int currentMomentumDowntime = 0;
-    [SerializeField] int maxMomentumDowntime = 4;
-
-    void Awake()
+    public void MomentumCountdown()
     {
-        animatedSlider = GetComponent<AnimatedSlider>();
+        if (IsMomentumFull(true) || IsMomentumFull(false))
+        {
+            currentMomentumDowntime++;
+
+            if (currentMomentumDowntime >= maxMomentumDowntime)
+            {
+                currentMomentumDowntime = 0;
+
+                OnMomentumEquipUsed(Value == animatedSlider.slider.maxValue);
+            }
+        }
     }
 
-    public bool ShouldMomentumStop()
+    public void OnMomentumEquipUsed(bool side)
     {
-        currentMomentumDowntime++;
-
-        if (currentMomentumDowntime >= maxMomentumDowntime)
-            currentMomentumDowntime = 0;
-
-        return currentMomentumDowntime >= maxMomentumDowntime;
-        //if (currentMomentumDowntime >= maxMomentumDowntime)
-        //{
-        //    currentMomentumDowntime = 0;
-        //    return true;
-        //}
-        //else
-        //{
-        //    return false;
-        //}
-    }
-
-    public void OnMomentumEquipUsed()
-    {
-        Value -= animatedSlider.slider.maxValue / 2;
+        Value += side ? -(animatedSlider.slider.maxValue / 1.33334f) : animatedSlider.slider.maxValue / 1.33334f;
     }
 
     public bool IsMomentumFull(bool side)

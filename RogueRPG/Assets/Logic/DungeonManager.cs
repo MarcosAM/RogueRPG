@@ -14,6 +14,7 @@ public class DungeonManager : MonoBehaviour
     int dungeonFloor = 0;
     Battleground battleground;
     TurnManager turnManager;
+    Momentum momentum;
 
     WaitForSeconds delayNextTurn = new WaitForSeconds(1.8f);
 
@@ -22,6 +23,7 @@ public class DungeonManager : MonoBehaviour
         battleground = FindObjectOfType<Battleground>();
         turnManager = GetComponent<TurnManager>();
         GameManager gameManager = GameManager.getInstance();
+        momentum = FindObjectOfType<Momentum>();
         MakeItASingleton();
 
         List<Character> pcs = new List<Character>();
@@ -63,6 +65,7 @@ public class DungeonManager : MonoBehaviour
 
     void TryToStartTurn()
     {
+        momentum.MomentumCountdown();
         turnManager.StartTurn(initiativeOrder[0]);
     }
 
@@ -124,8 +127,9 @@ public class DungeonManager : MonoBehaviour
         if (dungeonFloor < gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups().Count)
         {
             AdvanceInitiative(initiativeOrder);
-            battleground.SetAvailableSide(gameManager.getEnemiesAtFloor(dungeonFloor));
+
             battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
+            battleground.SetAvailableSide(gameManager.getEnemiesAtFloor(dungeonFloor));
 
             AddToInitiative(battleground.GetAliveCharactersFrom(false));
 

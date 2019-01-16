@@ -49,5 +49,5 @@ public class ConeAttack : Attack
         }
     }
 
-    public override string GetTargetDescription() { return ("Line " + (area * 2 + 1) + " up to " + range + " tiles"); }
+    public override string GetTargetDescription() { return "Line " + (area * 2 + 1) + ". Range: " + range + ". Precision: " + precision * 100 + "%"; }
 }

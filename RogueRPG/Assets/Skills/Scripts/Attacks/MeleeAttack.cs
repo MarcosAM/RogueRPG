@@ -34,5 +34,5 @@ public class MeleeAttack : Attack
         return new TurnSugestion(0);
     }
 
-    public override string GetTargetDescription() { return ("A enemy up to " + range + " tiles"); }
+    public override string GetTargetDescription() { return "A enemy. Range: " + range + ". Precision: " + precision * 100 + "%"; }
 }

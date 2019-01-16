@@ -37,6 +37,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             currentCharacter.ChangeEquipObject(equipTogglerManager.GetSelectedEquipIndex());
             skillToggleManager.ShowSkillTogglesFor(SelectedEquip);
+            skillDescription.HideDescription();
         }
         else
         {

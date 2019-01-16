@@ -26,5 +26,5 @@ public class ReviveEffect : HealEffect
             return TurnSugestion.maxProbability;
     }
 
-    public override string GetEffectDescription() { return ("Revive and heal with Atkm x " + healIntensifier); }
+    public override string GetEffectDescription() { return "Revive. Heal: " + healIntensifier * 100 + "% Magical Damage"; }
 }

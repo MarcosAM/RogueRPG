@@ -30,5 +30,5 @@ public class PDmgAndDebuff : PhysicalDamage
         }
     }
 
-    public override string GetEffectDescription() { return ("Physical Damage with Atk x " + dmgIntensifier + " with a natural critic chance of " + critic + " and " + type + " in " + type); }
+    public override string GetEffectDescription() { return (dmgIntensifier * 100 + "% Physical damage. Critic: " + critic * 100 + "%. " + type + ": " + type); }
 }

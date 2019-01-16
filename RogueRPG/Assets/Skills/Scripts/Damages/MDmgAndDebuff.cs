@@ -30,6 +30,6 @@ public class MDmgAndDebuff : MagicalDamage
         }
     }
 
-    public override string GetEffectDescription() { return ("Magical Damage with Atkm x " + dmgIntensifier + " with " + intensity + " in " + type); }
+    public override string GetEffectDescription() { return dmgIntensifier * 100 + "% Magical damage. " + intensity + ": " + type; }
 
 }

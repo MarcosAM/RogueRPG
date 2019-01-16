@@ -21,7 +21,7 @@ public class HealEffect : Effects
     public override bool IsLogicalTarget(Tile tile)
     {
         //TODO Pensar se é necessário impedir de curar aliados que estão regenerando
-        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetHp().GetValue() != tile.GetCharacter().GetAttributes().GetHp().GetMaxValue() : false;
+        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetHp().GetValue() != tile.GetCharacter().GetAttributes().GetHp().GetMaxValue() && tile.CharacterIs(true) : false;
     }
     public override int GetComparableValue(Character character)
     {
@@ -37,5 +37,5 @@ public class HealEffect : Effects
         return 0;
     }
 
-    public override string GetEffectDescription() { return ("Heal with Atkm x " + healIntensifier); }
+    public override string GetEffectDescription() { return "Heal " + healIntensifier * 100 + "% Magical Damage"; }
 }

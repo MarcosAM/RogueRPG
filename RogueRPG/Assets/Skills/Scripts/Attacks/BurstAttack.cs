@@ -33,5 +33,5 @@ public class BurstAttack : Attack
             return new TurnSugestion(0);
     }
 
-    public override string GetTargetDescription() { return ("Burst " + range); }
+    public override string GetTargetDescription() { return "Burst " + range + ". Precision: " + precision * 100 + "%"; }
 }

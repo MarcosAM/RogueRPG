@@ -46,6 +46,6 @@ public class ExplosionAttack : ConeAttack
         }
     }
 
-    public override string GetTargetDescription() { return ("Explosion " + area + " up to " + range + " tiles"); }
+    public override string GetTargetDescription() { return "Explosion " + area + ". Range: " + range + ". Precision: " + precision * 100 + "%"; }
 
 }

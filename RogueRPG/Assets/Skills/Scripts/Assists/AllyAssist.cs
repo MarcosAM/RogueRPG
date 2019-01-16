@@ -33,5 +33,5 @@ public class AllyAssist : Assist
         }
     }
 
-    public override string GetTargetDescription() { return ("An ally up to " + range + " tiles"); }
+    public override string GetTargetDescription() { return "An ally. Range: " + range; }
 }

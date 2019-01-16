@@ -30,5 +30,5 @@ public class AuraAssist : Assist
             return new TurnSugestion(0);
     }
 
-    public override string GetTargetDescription() { return ("Aura " + range); }
+    public override string GetTargetDescription() { return "Aura " + range; }
 }
