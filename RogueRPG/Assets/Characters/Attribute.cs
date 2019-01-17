@@ -13,7 +13,7 @@ public class Attribute
     protected Intensity intensity = Intensity.None;
     protected int buffDuration = 0;
     protected IBuffHUD buffHUD;
-    protected static List<List<float>> buffValues = new List<List<float>> { new List<float> { 0, -10f, 10f, -20f, 20f, -30f, 30f }, new List<float> { 0, -0.1f, 0.1f, -0.3f, 0.3f, -0.5f, 0.5f } };
+    protected static List<List<float>> buffValues = new List<List<float>> { new List<float> { 1f, 0.8f, 1.5f, 0.5f, 1.8f, 0.3f, 2.5f }, new List<float> { 0, -0.1f, 0.1f, -0.3f, 0.3f, -0.5f, 0.5f } };
 
     public Attribute(Character character, Type stats, IBuffHUD buffHUD)
     {
@@ -27,6 +27,9 @@ public class Attribute
     public virtual float GetValue()
     {
         //return stats <= Type.Defm ? statBase * GetBuffValue() : statBase + GetBuffValue();
+        if (stats < Type.Precision)
+            return statBase * GetBuffValue();
+
         return statBase + GetBuffValue();
     }
 

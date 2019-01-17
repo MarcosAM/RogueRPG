@@ -78,7 +78,8 @@ public class Attributes : MonoBehaviour
 
     public void BuffIt(Attribute.Type stats, Attribute.Intensity intensity, int buffDuration)
     {
-        listStat.Find(s => s.GetStats() == stats).BuffIt(intensity, buffDuration);
+        if (GetHp().IsAlive())
+            listStat.Find(s => s.GetStats() == stats).BuffIt(intensity, buffDuration);
     }
 
     public bool IsBuffed(Attribute.Type stats)

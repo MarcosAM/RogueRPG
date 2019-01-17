@@ -54,8 +54,9 @@ public class Move : Actions
                     shouldMove = targetables[0] != user.GetTile();
                     break;
                 case Archetypes.Archetype.Infantry:
-                    targetables.Sort((t1, t2) => SortByStat(t1.GetTileInFront(), t2.GetTileInFront(), Attribute.Type.Atk));
                     mySideTiles.Sort((t1, t2) => SortByStat(t1.GetTileInFront(), t2.GetTileInFront(), Attribute.Type.Atk));
+                    //TODO fazer todo mundo aqui seguir isso!
+                    targetables.Sort((t1, t2) => ClosestToTile(t1, t2, mySideTiles[0]));
                     shouldMove = targetables[0] != user.GetTile();
                     break;
                 case Archetypes.Archetype.MInfantry:
@@ -137,6 +138,11 @@ public class Move : Actions
             tile2Atk = (int)tile2.GetCharacter().GetAttributes().GetAttributeValue(stats);
 
         return tile2Atk - tile1Atk;
+    }
+
+    int ClosestToTile(Tile tile1, Tile tile2, Tile tile)
+    {
+        return CombatRules.GetDistance(tile1, tile) - CombatRules.GetDistance(tile2, tile);
     }
 
     public override string GetTargetDescription() { return "A tile up to " + range + " tile(s)"; }
