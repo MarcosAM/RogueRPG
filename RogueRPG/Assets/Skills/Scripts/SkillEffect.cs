@@ -15,7 +15,10 @@ public abstract class SkillEffect : ScriptableObject
 
     public virtual void Affect(Character user, Character target)
     {
-        EffectAnimation(target.GetTile());
+        if (target)
+            EffectAnimation(target.GetTile());
+        else
+            return;
     }
 
 

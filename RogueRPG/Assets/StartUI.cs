@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartUI : MonoBehaviour {
+public class StartUI : MonoBehaviour
+{
 
-	public void startTutorial(){
-		FindObjectOfType<GameManager>().LoadDungeonScene();
-	}
+    public void StartMission(int index)
+    {
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        gameManager.ChangeSelectedQuest(index);
+        gameManager.LoadDungeonScene();
+    }
+
 }

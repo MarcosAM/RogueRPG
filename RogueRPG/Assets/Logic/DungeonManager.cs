@@ -89,7 +89,7 @@ public class DungeonManager : MonoBehaviour
         }
         if (DidOnePartyLost() < 0)
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(2);
             yield break;
         }
     }

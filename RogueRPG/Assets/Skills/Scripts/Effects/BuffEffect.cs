@@ -12,7 +12,8 @@ public class BuffEffect : Effects
     public override void Affect(Character user, Character target)
     {
         base.Affect(user, target);
-        target.GetAttributes().BuffIt(type, intensity, duration);
+        if (target)
+            target.GetAttributes().BuffIt(type, intensity, duration);
     }
     public Attribute.Type GetStats() { return type; }
     public Attribute.Intensity GetIntensity() { return intensity; }

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
 
     static GameManager instance = null;
+    [SerializeField] Quest[] quests;
     [SerializeField] Quest selectedQuest;
     List<Character> playerCharacters = new List<Character>();
     [SerializeField] GameObject characterPrefab;
@@ -82,5 +83,10 @@ public class GameManager : MonoBehaviour
         }
         character.SetStats(standartStats);
         return character;
+    }
+
+    public void ChangeSelectedQuest(int index)
+    {
+        selectedQuest = quests[index];
     }
 }
