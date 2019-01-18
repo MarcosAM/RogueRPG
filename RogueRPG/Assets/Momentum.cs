@@ -27,8 +27,8 @@ public class Momentum : MonoBehaviour
                 if (Random.value % 2 == 0)
                 {
                     MomentumCountdown();
-                    return;
                 }
+                return;
             }
             animatedSlider.Value = value;
         }
