@@ -24,11 +24,14 @@ public class Momentum : MonoBehaviour
         {
             if (IsMomentumFull(true) || IsMomentumFull(false))
             {
-                if (Random.value % 2 == 0)
+                if (currentMomentumDowntime < maxMomentumDowntime)
                 {
-                    MomentumCountdown();
+                    if (Random.value % 2 == 0)
+                    {
+                        MomentumCountdown();
+                    }
+                    return;
                 }
-                return;
             }
             animatedSlider.Value = value;
         }
@@ -51,6 +54,7 @@ public class Momentum : MonoBehaviour
 
     public void OnMomentumEquipUsed(bool side)
     {
+        currentMomentumDowntime = maxMomentumDowntime;
         Value += side ? -(animatedSlider.slider.maxValue / 1.33334f) : animatedSlider.slider.maxValue / 1.33334f;
     }
 

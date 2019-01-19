@@ -13,14 +13,20 @@ public class Tile : MonoBehaviour
     [SerializeField] RectTransform portraitHandler;
     Image shadow;
 
-    void Start()
+    //void Start()
+    //{
+    //    this.battleground = GetComponentInParent<Battleground>();
+    //    this.index = battleground.GetTiles().IndexOf(this);
+    //    this.side = this.index >= (battleground.GetTiles().Count / 2) ? true : false;
+    //    this.shadow = GetComponentInChildren<Image>();
+    //}
+
+    public void Initialize(Battleground battleground)
     {
-        this.battleground = GetComponentInParent<Battleground>();
+        this.battleground = battleground;
         this.index = battleground.GetTiles().IndexOf(this);
         this.side = this.index >= (battleground.GetTiles().Count / 2) ? true : false;
         this.shadow = GetComponentInChildren<Image>();
-        //if (!this.side)
-        //    portraitHandler.localScale = new Vector3(-1, 1, 1);
     }
 
     public Character GetCharacter() { return character; }
@@ -102,14 +108,26 @@ public class Tile : MonoBehaviour
 
     public void SetA(bool available)
     {
-
-        shadow.gameObject.SetActive(available);
+        //Debug.LogWarning("Iniciou a função");
+        //if (shadow)
+            shadow.gameObject.SetActive(available);
+        //else
+        //    Debug.LogWarning("Achou shadow!");
 
         if (!available && this.available != available)
         {
+            //Debug.LogWarning("Eu tenho available");
             if (this.character)
             {
+                ////Debug.LogWarning("Tenho character");
+                //if (!battleground)
+                //{
+                //    //Debug.Log("Eu não tenho Battleground!");
+                //    battleground = GetComponentInParent<Battleground>();
+                //    //Debug.Log("Agora é para eu ter!");
+                //}
                 List<Tile> availableTilesFromMySide = battleground.GetAvailableTilesFrom(side);
+                //Debug.LogWarning("Eu tenho battleground");
                 List<Character> characters = availableTilesFromMySide.ConvertAll<Character>(t => t.GetCharacter());
 
                 if (availableTilesFromMySide.Count - 1 >= characters.FindAll(c => c).Count)

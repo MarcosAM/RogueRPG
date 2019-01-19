@@ -15,6 +15,7 @@ public class BurstAttack : Attack
         {
             if (WillBeAffected(user.GetTile(), target, tile))
             {
+                skillEffect.EffectAnimation(tile);
                 if (tile.CharacterIs(true))
                     skillEffect.TryToAffect(user, tile.GetCharacter(), attack);
             }

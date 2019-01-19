@@ -13,13 +13,7 @@ public abstract class SkillEffect : ScriptableObject
 
     public abstract int SortBestTargets(Character user, Character c1, Character c2);
 
-    public virtual void Affect(Character user, Character target)
-    {
-        if (target)
-            EffectAnimation(target.GetTile());
-        else
-            return;
-    }
+    public virtual void Affect(Character user, Character target) { }
 
 
 
@@ -27,7 +21,6 @@ public abstract class SkillEffect : ScriptableObject
 
     public virtual void TryToAffect(Character user, Character target, float attack)
     {
-        EffectAnimation(target.GetTile());
         hitted = attack > target.GetAttributes().GetDodgeValue();
     }
     public bool DidItHit() { return hitted; }
@@ -36,7 +29,7 @@ public abstract class SkillEffect : ScriptableObject
 
 
 
-    protected void EffectAnimation(Tile tile)
+    public void EffectAnimation(Tile tile)
     {
         if (skillAnimationPrefab)
         {

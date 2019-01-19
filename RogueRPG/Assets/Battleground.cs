@@ -19,7 +19,7 @@ public class Battleground : MonoBehaviour
         set
         {
             this.size = value;
-            for (int i = 0; i < tiles.Capacity; i++)
+            for (int i = 0; i < tiles.Count; i++)
             {
                 switch (this.size)
                 {
@@ -46,7 +46,11 @@ public class Battleground : MonoBehaviour
     void Awake()
     {
         tiles = GetComponentsInChildren<Tile>().OfType<Tile>().ToList();
-        tiles.Capacity = tiles.Count;
+        foreach (var tile in tiles)
+        {
+            tile.Initialize(this);
+        }
+        //tiles.Capacity = tiles.Count;
     }
 
     public void SetAvailableSide(List<Character> side)

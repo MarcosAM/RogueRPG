@@ -7,7 +7,9 @@ public class SelfAssist : Assist
 {
     public override void Act(Character user, Tile target, SkillEffect skillEffect)
     {
-        skillEffect.Affect(user, user);
+        skillEffect.EffectAnimation(target);
+        if ((skillEffect is ReviveEffect && target.CharacterIs(false)) || (!(skillEffect is ReviveEffect) && target.CharacterIs(true)))
+            skillEffect.Affect(user, user);
     }
 
     public override bool IsTargetable(Character user, Tile tile) { return user == tile.GetCharacter(); }

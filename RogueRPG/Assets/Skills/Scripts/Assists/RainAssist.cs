@@ -17,7 +17,9 @@ public class RainAssist : Assist
         {
             if (WillBeAffected(user.GetTile(), target, tile))
             {
-                skillEffect.Affect(user, tile.GetCharacter());
+                skillEffect.EffectAnimation(tile);
+                if ((skillEffect is ReviveEffect && target.CharacterIs(false)) || (!(skillEffect is ReviveEffect) && target.CharacterIs(true)))
+                    skillEffect.Affect(user, tile.GetCharacter());
             }
         }
     }
@@ -47,5 +49,5 @@ public class RainAssist : Assist
         }
     }
 
-    public override string GetTargetDescription() { return "Line " + (area * 2 + 1) + ". Range: " + range; }
+    public override string GetTargetDescription() { return "Line " + (area * 2 + 1) + ". Range: " + (range + 1); }
 }

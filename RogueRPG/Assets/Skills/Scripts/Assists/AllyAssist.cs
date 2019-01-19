@@ -10,7 +10,9 @@ public class AllyAssist : Assist
 
     public override void Act(Character user, Tile target, SkillEffect skillEffect)
     {
-        skillEffect.Affect(user, target.GetCharacter());
+        skillEffect.EffectAnimation(target);
+        if ((skillEffect is ReviveEffect && target.CharacterIs(false)) || (!(skillEffect is ReviveEffect) && target.CharacterIs(true)))
+            skillEffect.Affect(user, target.GetCharacter());
     }
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
@@ -33,5 +35,5 @@ public class AllyAssist : Assist
         }
     }
 
-    public override string GetTargetDescription() { return "An ally. Range: " + range; }
+    public override string GetTargetDescription() { return "An ally. Range: " + (range + 1); }
 }
