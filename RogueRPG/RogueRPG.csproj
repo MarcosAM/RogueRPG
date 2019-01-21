@@ -102,6 +102,7 @@
     <Compile Include="Assets\Logic\Archetypes.cs" />
     <Compile Include="Assets\Logic\CombatRules.cs" />
     <Compile Include="Assets\Logic\DungeonManager.cs" />
+    <Compile Include="Assets\Logic\EquipDatabase.cs" />
     <Compile Include="Assets\Logic\EventManager.cs" />
     <Compile Include="Assets\Logic\GameManager.cs" />
     <Compile Include="Assets\Logic\TurnManager.cs" />
@@ -147,6 +148,9 @@
     <Compile Include="Assets\StartUI.cs" />
     <Compile Include="Assets\TargetBtn.cs" />
     <Compile Include="Assets\TargetBtnsManager.cs" />
+    <Compile Include="Assets\Test\EquipListItem.cs" />
+    <Compile Include="Assets\Test\InfiniteScroll.cs" />
+    <Compile Include="Assets\Test\Test.cs" />
     <Compile Include="Assets\Tile.cs" />
     <Compile Include="Assets\UI\BattleGuide.cs" />
     <Compile Include="Assets\UI\EquipToggle.cs" />
