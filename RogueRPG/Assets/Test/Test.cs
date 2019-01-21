@@ -8,12 +8,17 @@ using System.Linq;
 public class Test : MonoBehaviour
 {
     InfiniteScroll infiniteScroll;
+    ToggleGroup toggleGroup;
+    [SerializeField] StandartStats attributes1;
+    int selectedEquipIndex = 0;
 
     public Button button;
     public bool flag = true;
 
     void Start()
     {
+        toggleGroup = FindObjectOfType<ToggleGroup>();
+
         infiniteScroll = FindObjectOfType<InfiniteScroll>();
         infiniteScroll.OnFill += OnFillItem;
         infiniteScroll.OnHeight += OnHeightItem;
@@ -27,15 +32,17 @@ public class Test : MonoBehaviour
     {
         if (flag)
         {
-            item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips()[index]);
-            //item.GetComponentInChildren<Text>().text = EquipDatabase.GetAllEquips()[index].GetEquipName();
-            //item.GetComponentInChildren<Image>().sprite = EquipDatabase.GetAllEquips()[index].GetFrontEquipPrefab().GetComponentInChildren<Image>().sprite;
+            if (EquipDatabase.GetAllEquips()[index].GetAmount() > 0)
+                item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips()[index], EquipDatabase.GetAllEquips()[index] == GetSelectedEquip());
+            else
+                item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips()[index].GetArchetype());
         }
         else
         {
-            item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray()[index]);
-            //item.GetComponentInChildren<Text>().text = EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray()[index].GetEquipName();
-            //item.GetComponentInChildren<Image>().sprite = EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray()[index].GetFrontEquipPrefab().GetComponentInChildren<Image>().sprite;
+            if (EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray()[index].GetAmount() > 0)
+                item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray()[index], EquipDatabase.GetAllEquips()[index] == GetSelectedEquip());
+            else
+                item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray()[index].GetArchetype());
         }
     }
 
@@ -54,6 +61,20 @@ public class Test : MonoBehaviour
         else
         {
             infiniteScroll.InitData(EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray().Length);
+        }
+    }
+
+    Equip GetSelectedEquip()
+    {
+        return attributes1.GetEquips()[selectedEquipIndex];
+    }
+
+    public void OnToggleValueChange(int index)
+    {
+        if (selectedEquipIndex != index)
+        {
+            selectedEquipIndex = index;
+            infiniteScroll.UpdateVisible();
         }
     }
 }

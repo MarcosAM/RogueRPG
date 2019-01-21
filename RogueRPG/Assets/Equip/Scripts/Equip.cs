@@ -17,6 +17,7 @@ public class Equip : ScriptableObject, IWaitForSkill
 
     [SerializeField] protected RectTransform backEquipPrefab;
     [SerializeField] protected RectTransform frontEquipPrefab;
+    [SerializeField] protected int amount = 1;
     //protected RectTransform backEquip;
     //protected RectTransform frontEquip;
 
@@ -87,36 +88,7 @@ public class Equip : ScriptableObject, IWaitForSkill
     public int GetDefm() { return defm; }
     public RectTransform GetBackEquipPrefab() { return backEquipPrefab; }
     public RectTransform GetFrontEquipPrefab() { return frontEquipPrefab; }
-    //public RectTransform GetBackEquip()
-    //{
-    //    if (backEquipPrefab != null)
-    //    {
-    //        if (backEquip == null)
-    //        {
-    //            backEquip = Instantiate(backEquipPrefab);
-    //        }
-    //        return backEquip;
-    //    }
-    //    else
-    //    {
-    //        return null;
-    //    }
-    //}
-    //public RectTransform GetFrontEquip()
-    //{
-    //    if (frontEquipPrefab != null)
-    //    {
-    //        if (frontEquip == null)
-    //        {
-    //            frontEquip = Instantiate(frontEquipPrefab);
-    //        }
-    //        return frontEquip;
-    //    }
-    //    else
-    //    {
-    //        return null;
-    //    }
-    //}
     public Archetypes.Archetype GetArchetype() { return archetype; }
     public int GetLevel() { return level; }
+    public int GetAmount() { return amount; }
 }

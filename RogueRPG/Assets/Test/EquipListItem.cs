@@ -12,9 +12,9 @@ public class EquipListItem : MonoBehaviour
     [SerializeField] Text nameTxt;
     [SerializeField] Text attributesTxt;
     [SerializeField] Text[] skillsTxt;
+    string unknown = "???????";
 
-
-    public void Fill(Equip equip)
+    public void Fill(Equip equip, bool equipped)
     {
         nameTxt.text = equip.GetEquipName();
 
@@ -38,6 +38,26 @@ public class EquipListItem : MonoBehaviour
             else
                 skillsTxt[i].text = "-";
         }
+
+        if (equipped)
+        {
+            archetypeIcon.color = Color.yellow;
+        }
+        else
+        {
+            archetypeIcon.color = Color.white;
+        }
     }
 
+    public void Fill(Archetypes.Archetype archetype)
+    {
+
+        nameTxt.text = unknown;
+        attributesTxt.text = unknown;
+        foreach (var skill in skillsTxt)
+        {
+            skill.text = unknown;
+        }
+        archetypeIcon.color = Color.white;
+    }
 }
