@@ -89,4 +89,9 @@ public class GameManager : MonoBehaviour
     {
         selectedQuest = quests[index];
     }
+
+    public StandartStats[] GetParty()
+    {
+        return new StandartStats[2] { pcGuerreiroStats, pcMagoStats };
+    }
 }

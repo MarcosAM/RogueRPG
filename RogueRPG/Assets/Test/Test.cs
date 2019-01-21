@@ -26,6 +26,13 @@ public class Test : MonoBehaviour
         button.onClick.AddListener(OnBtnPress);
 
         infiniteScroll.InitData(EquipDatabase.GetAllEquips().Length);
+
+        var equipListItems = FindObjectsOfType<EquipListItem>();
+        print("Nós temos " + equipListItems.Length);
+        foreach (var equipListItem in equipListItems)
+        {
+            equipListItem.OnBtnPress += OnEquipClicked;
+        }
     }
 
     void OnFillItem(int index, GameObject item)
@@ -75,6 +82,24 @@ public class Test : MonoBehaviour
         {
             selectedEquipIndex = index;
             infiniteScroll.UpdateVisible();
+        }
+    }
+
+    public void OnEquipClicked(Equip equip)
+    {
+        if (equip.GetHowManyLeft() > 0)
+        {
+            attributes1.GetEquips()[selectedEquipIndex] = equip;
+            infiniteScroll.UpdateVisible();
+        }
+    }
+
+    private void OnDisable()
+    {
+        var equipListItems = FindObjectsOfType<EquipListItem>();
+        foreach (var equipListItem in equipListItems)
+        {
+            equipListItem.OnBtnPress += OnEquipClicked;
         }
     }
 }

@@ -12,11 +12,22 @@ public class EquipListItem : MonoBehaviour
     [SerializeField] Text nameTxt;
     [SerializeField] Text attributesTxt;
     [SerializeField] Text[] skillsTxt;
-    string unknown = "???????";
+    [SerializeField] Button mainBtn;
+
+    Equip equip;
+
+    public event Action<Equip> OnBtnPress;
+
+    static string unknown = "???????";
+    static string none = "0";
 
     public void Fill(Equip equip, bool equipped)
     {
+        amountTxt.text = equip.GetHowManyLeft() + "/" + equip.GetAmount();
+
         nameTxt.text = equip.GetEquipName();
+
+        this.equip = equip;
 
         attributesTxt.text = "";
         if (equip.GetHp() != 0)
@@ -42,16 +53,19 @@ public class EquipListItem : MonoBehaviour
         if (equipped)
         {
             archetypeIcon.color = Color.yellow;
+            mainBtn.interactable = false;
         }
         else
         {
+            mainBtn.interactable = true;
             archetypeIcon.color = Color.white;
         }
     }
 
     public void Fill(Archetypes.Archetype archetype)
     {
-
+        amountTxt.text = none;
+        mainBtn.interactable = false;
         nameTxt.text = unknown;
         attributesTxt.text = unknown;
         foreach (var skill in skillsTxt)
@@ -59,5 +73,13 @@ public class EquipListItem : MonoBehaviour
             skill.text = unknown;
         }
         archetypeIcon.color = Color.white;
+    }
+
+    public void BtnPress()
+    {
+        if (OnBtnPress != null)
+        {
+            OnBtnPress(equip);
+        }
     }
 }
