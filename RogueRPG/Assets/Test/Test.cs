@@ -16,6 +16,7 @@ public class Test : MonoBehaviour
 
     [SerializeField] Text[] attributesTxts;
     [SerializeField] InputField[] inputName;
+    [SerializeField] CharacterPreview[] characterPreviews;
 
     public Button button;
     public bool flag = true;
@@ -57,6 +58,11 @@ public class Test : MonoBehaviour
             {
                 inputName[i].interactable = false;
             }
+        }
+
+        for (var i = 0; i < characterPreviews.Length; i++)
+        {
+            characterPreviews[i].gameObject.SetActive(i < party.Length);
         }
 
         RefreshSelectedEquip();
@@ -120,6 +126,7 @@ public class Test : MonoBehaviour
             selectedCharIndex = index / 4;
 
             RefreshSelectedEquip();
+            characterPreviews[selectedCharIndex].SwitchEquip(selectedEquip);
             infiniteScroll.UpdateVisible();
         }
     }
@@ -132,6 +139,7 @@ public class Test : MonoBehaviour
             RefreshSelectedEquip();
             UpdateEquipToggleLabel(selectedEquipIndex + selectedCharIndex * 4, equip.GetEquipName());
             UpdateAttributeText(selectedCharIndex, PartyManager.GetParty()[selectedCharIndex].GetEquips());
+            characterPreviews[selectedCharIndex].ChangeEquipObject(equip);
             infiniteScroll.UpdateVisible();
         }
     }
