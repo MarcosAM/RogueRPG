@@ -13,6 +13,8 @@ public class Test : MonoBehaviour
     int selectedEquipIndex = 0;
     Equip selectedEquip;
 
+    [SerializeField] Text[] attributesTxts;
+
     public Button button;
     public bool flag = true;
 
@@ -20,11 +22,21 @@ public class Test : MonoBehaviour
     {
         var equipToggles = equipToggleGroup.GetComponentsInChildren<Toggle>();
         var partyLenght = PartyManager.GetParty().Length;
-        for (int i = 0; i < equipToggles.Length; i++)
+        for (var i = 0; i < equipToggles.Length; i++)
         {
             //TODO colocar o nome também
             equipToggles[i].interactable = i < partyLenght * 4;
         }
+
+        var party = PartyManager.GetParty();
+        for (var i = 0; i < attributesTxts.Length; i++)
+        {
+            if (i < party.Length)
+                UpdateAttributeText(i, party[i].GetEquips());
+            else
+                UpdateAttributeText(i, null);
+        }
+
 
         RefreshSelectedEquip();
 
@@ -97,6 +109,7 @@ public class Test : MonoBehaviour
         {
             PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
             RefreshSelectedEquip();
+            UpdateAttributeText(selectedCharIndex, PartyManager.GetParty()[selectedCharIndex].GetEquips());
             infiniteScroll.UpdateVisible();
         }
     }
@@ -104,6 +117,31 @@ public class Test : MonoBehaviour
     void RefreshSelectedEquip()
     {
         selectedEquip = PartyManager.GetParty()[selectedCharIndex].GetEquips()[selectedEquipIndex];
+    }
+
+    void UpdateAttributeText(int index, Equip[] equips)
+    {
+        if (equips != null)
+        {
+            var hp = 1;
+            var atk = 1;
+            var atkm = 1;
+            var def = 1;
+            var defm = 1;
+
+            foreach (var equip in equips)
+            {
+                hp += equip.GetHp();
+                atk += equip.GetAtk();
+                atkm += equip.GetAtkm();
+                def += equip.GetDef();
+                defm += equip.GetDefm();
+            }
+
+            attributesTxts[index].text = "HP: " + hp + "\nATK: " + atk + "\nATKM: " + atkm + "\nDEF: " + def + "\nDEFM: " + defm;
+        }
+        else
+            attributesTxts[index].text = "";
     }
 
     private void OnDisable()
