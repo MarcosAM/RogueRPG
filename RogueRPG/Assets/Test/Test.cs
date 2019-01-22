@@ -8,8 +8,7 @@ using System.Linq;
 public class Test : MonoBehaviour
 {
     InfiniteScroll infiniteScroll;
-    [SerializeField] ToggleGroup charToggleGroup;
-    //[SerializeField] StandartStats attributes1;
+    [SerializeField] ToggleGroup equipToggleGroup;
     [SerializeField] int selectedCharIndex = 0;
     int selectedEquipIndex = 0;
     Equip selectedEquip;
@@ -19,12 +18,12 @@ public class Test : MonoBehaviour
 
     void Start()
     {
-        var charToggles = charToggleGroup.GetComponentsInChildren<Toggle>();
+        var equipToggles = equipToggleGroup.GetComponentsInChildren<Toggle>();
         var partyLenght = PartyManager.GetParty().Length;
-        for (int i = 0; i < charToggles.Length; i++)
+        for (int i = 0; i < equipToggles.Length; i++)
         {
             //TODO colocar o nome também
-            charToggles[i].interactable = i < partyLenght;
+            equipToggles[i].interactable = i < partyLenght * 4;
         }
 
         RefreshSelectedEquip();
@@ -80,26 +79,13 @@ public class Test : MonoBehaviour
         }
     }
 
-    //Equip GetSelectedEquip()
-    //{
-    //    return attributes1.GetEquips()[selectedEquipIndex];
-    //}
-
     public void OnEquipToggleValueChange(int index)
     {
-        if (selectedEquipIndex != index)
+        if (selectedEquipIndex != index % 4 || selectedCharIndex != index / 4)
         {
-            selectedEquipIndex = index;
-            RefreshSelectedEquip();
-            infiniteScroll.UpdateVisible();
-        }
-    }
+            selectedEquipIndex = index % 4;
+            selectedCharIndex = index / 4;
 
-    public void OnCharToggleValueChange(int index)
-    {
-        if (selectedCharIndex != index)
-        {
-            selectedCharIndex = index;
             RefreshSelectedEquip();
             infiniteScroll.UpdateVisible();
         }
@@ -111,7 +97,6 @@ public class Test : MonoBehaviour
         {
             PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
             RefreshSelectedEquip();
-            //attributes1.GetEquips()[selectedEquipIndex] = equip;
             infiniteScroll.UpdateVisible();
         }
     }
