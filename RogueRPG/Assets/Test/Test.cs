@@ -62,7 +62,14 @@ public class Test : MonoBehaviour
 
         for (var i = 0; i < characterPreviews.Length; i++)
         {
-            characterPreviews[i].gameObject.SetActive(i < party.Length);
+            if (i < party.Length)
+            {
+                characterPreviews[i].gameObject.SetActive(true);
+
+                characterPreviews[i].CheckIfShouldChangeArchetype(party[i].GetEquips());
+            }
+            else
+                characterPreviews[i].gameObject.SetActive(false);
         }
 
         RefreshSelectedEquip();
@@ -140,6 +147,7 @@ public class Test : MonoBehaviour
             UpdateEquipToggleLabel(selectedEquipIndex + selectedCharIndex * 4, equip.GetEquipName());
             UpdateAttributeText(selectedCharIndex, PartyManager.GetParty()[selectedCharIndex].GetEquips());
             characterPreviews[selectedCharIndex].ChangeEquipObject(equip);
+            characterPreviews[selectedCharIndex].CheckIfShouldChangeArchetype(PartyManager.GetParty()[selectedCharIndex].GetEquips());
             infiniteScroll.UpdateVisible();
         }
     }

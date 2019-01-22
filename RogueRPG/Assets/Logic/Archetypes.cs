@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Archetypes : MonoBehaviour
 {
+    //TODO me lembrar de depois no botão start zerar tudo ao estado normal de jogo
     [SerializeField] protected Equip[] supportersEquips;
     [SerializeField] protected Equip[] disablersEquips;
     [SerializeField] protected Equip[] mOffensiveEquips;
