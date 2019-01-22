@@ -12,6 +12,7 @@ public class Test : MonoBehaviour
     [SerializeField] int selectedCharIndex = 0;
     int selectedEquipIndex = 0;
     Equip selectedEquip;
+    Toggle[] equipToggles;
 
     [SerializeField] Text[] attributesTxts;
 
@@ -20,15 +21,21 @@ public class Test : MonoBehaviour
 
     void Start()
     {
-        var equipToggles = equipToggleGroup.GetComponentsInChildren<Toggle>();
-        var partyLenght = PartyManager.GetParty().Length;
-        for (var i = 0; i < equipToggles.Length; i++)
-        {
-            //TODO colocar o nome também
-            equipToggles[i].interactable = i < partyLenght * 4;
-        }
+        equipToggles = equipToggleGroup.GetComponentsInChildren<Toggle>();
+        //var partyLenght = PartyManager.GetParty().Length;
 
         var party = PartyManager.GetParty();
+        for (var i = 0; i < equipToggles.Length; i++)
+        {
+            if (i < party.Length * 4)
+            {
+                equipToggles[i].interactable = true;
+                UpdateEquipToggleLabel(i, party[i / 4].GetEquips()[i % 4].GetEquipName());
+            }
+            else
+                equipToggles[i].interactable = false;
+        }
+
         for (var i = 0; i < attributesTxts.Length; i++)
         {
             if (i < party.Length)
@@ -109,6 +116,7 @@ public class Test : MonoBehaviour
         {
             PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
             RefreshSelectedEquip();
+            UpdateEquipToggleLabel(selectedEquipIndex + selectedCharIndex * 4, equip.GetEquipName());
             UpdateAttributeText(selectedCharIndex, PartyManager.GetParty()[selectedCharIndex].GetEquips());
             infiniteScroll.UpdateVisible();
         }
@@ -142,6 +150,11 @@ public class Test : MonoBehaviour
         }
         else
             attributesTxts[index].text = "";
+    }
+
+    void UpdateEquipToggleLabel(int index, string equipName)
+    {
+        equipToggles[index].GetComponentInChildren<Text>().text = equipName;
     }
 
     private void OnDisable()
