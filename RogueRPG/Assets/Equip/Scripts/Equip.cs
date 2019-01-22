@@ -18,7 +18,7 @@ public class Equip : ScriptableObject, IWaitForSkill
     [SerializeField] protected RectTransform backEquipPrefab;
     [SerializeField] protected RectTransform frontEquipPrefab;
     [SerializeField] protected int amount = 1;
-    [SerializeField] protected int howManyLeft = 1;
+    protected int howManyLeft = 1;
 
     protected IWaitForEquipment requester;
 

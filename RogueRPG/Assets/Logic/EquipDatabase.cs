@@ -12,6 +12,19 @@ public class EquipDatabase : MonoBehaviour
     {
         instace = this;
         DontDestroyOnLoad(gameObject);
+
+        foreach (var equip in equips)
+        {
+            equip.SetHowManyLeft(equip.GetAmount());
+        }
+
+        foreach (var attribute in PartyManager.GetParty())
+        {
+            foreach (var equip in attribute.GetEquips())
+            {
+                equip.SetHowManyLeft(equip.GetHowManyLeft() - 1);
+            }
+        }
     }
 
     public static Equip GetEquip(int equipIndex) { return instace.equips[equipIndex]; }

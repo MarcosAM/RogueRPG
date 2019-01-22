@@ -103,6 +103,7 @@ public class Test : MonoBehaviour
     {
         if (equip.GetHowManyLeft() > 0)
         {
+            PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
             attributes1.GetEquips()[selectedEquipIndex] = equip;
             infiniteScroll.UpdateVisible();
         }

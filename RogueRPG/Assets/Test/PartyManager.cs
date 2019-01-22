@@ -13,13 +13,21 @@ public class PartyManager : MonoBehaviour
         instance = this;
     }
 
-    public static StandartStats[] GetParty() { return instance.standartStats; }
+    public static StandartStats[] GetParty() { return GetInstance().standartStats; }
 
     public static void EquipPartyMemberWith(int charIndex, int equipIndex, Equip equip)
     {
         equip.SetHowManyLeft(equip.GetHowManyLeft() - 1);
-        instance.standartStats[charIndex].GetEquips()[equipIndex].SetHowManyLeft(equip.GetHowManyLeft() + 1);
+        GetInstance().standartStats[charIndex].GetEquips()[equipIndex].SetHowManyLeft(equip.GetHowManyLeft() + 1);
 
-        instance.standartStats[charIndex].GetEquips()[equipIndex] = equip;
+        GetInstance().standartStats[charIndex].GetEquips()[equipIndex] = equip;
+    }
+
+    static PartyManager GetInstance()
+    {
+        if (!instance)
+            instance = FindObjectOfType<PartyManager>();
+
+        return instance;
     }
 }
