@@ -15,6 +15,7 @@ public class Test : MonoBehaviour
     Toggle[] equipToggles;
 
     [SerializeField] Text[] attributesTxts;
+    [SerializeField] InputField[] inputName;
 
     public Button button;
     public bool flag = true;
@@ -44,6 +45,19 @@ public class Test : MonoBehaviour
                 UpdateAttributeText(i, null);
         }
 
+        for (var i = 0; i < inputName.Length; i++)
+        {
+            if (i < party.Length)
+            {
+                inputName[i].interactable = true;
+
+                inputName[i].text = party[i].GetName();
+            }
+            else
+            {
+                inputName[i].interactable = false;
+            }
+        }
 
         RefreshSelectedEquip();
 
@@ -155,6 +169,11 @@ public class Test : MonoBehaviour
     void UpdateEquipToggleLabel(int index, string equipName)
     {
         equipToggles[index].GetComponentInChildren<Text>().text = equipName;
+    }
+
+    public void SetName(int index)
+    {
+        PartyManager.GetParty()[index].SetName(inputName[index].text);
     }
 
     private void OnDisable()
