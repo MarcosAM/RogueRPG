@@ -8,8 +8,9 @@ using System.Linq;
 public class Test : MonoBehaviour
 {
     InfiniteScroll infiniteScroll;
-    ToggleGroup toggleGroup;
+    [SerializeField] ToggleGroup charToggleGroup;
     [SerializeField] StandartStats attributes1;
+    [SerializeField] int selectedCharIndex = 0;
     int selectedEquipIndex = 0;
 
     public Button button;
@@ -17,7 +18,13 @@ public class Test : MonoBehaviour
 
     void Start()
     {
-        toggleGroup = FindObjectOfType<ToggleGroup>();
+        var charToggles = charToggleGroup.GetComponentsInChildren<Toggle>();
+        var partyLenght = PartyManager.GetParty().Length;
+        for (int i = 0; i < charToggles.Length; i++)
+        {
+            //TODO colocar o nome também
+            charToggles[i].interactable = i < partyLenght;
+        }
 
         infiniteScroll = FindObjectOfType<InfiniteScroll>();
         infiniteScroll.OnFill += OnFillItem;
@@ -28,7 +35,6 @@ public class Test : MonoBehaviour
         infiniteScroll.InitData(EquipDatabase.GetAllEquips().Length);
 
         var equipListItems = FindObjectsOfType<EquipListItem>();
-        print("Nós temos " + equipListItems.Length);
         foreach (var equipListItem in equipListItems)
         {
             equipListItem.OnBtnPress += OnEquipClicked;
@@ -76,12 +82,20 @@ public class Test : MonoBehaviour
         return attributes1.GetEquips()[selectedEquipIndex];
     }
 
-    public void OnToggleValueChange(int index)
+    public void OnEquipToggleValueChange(int index)
     {
         if (selectedEquipIndex != index)
         {
             selectedEquipIndex = index;
             infiniteScroll.UpdateVisible();
+        }
+    }
+
+    public void OnCharToggleValueChange(int index)
+    {
+        if (selectedCharIndex != index)
+        {
+            selectedCharIndex = index;
         }
     }
 

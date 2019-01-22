@@ -18,6 +18,7 @@ public class Equip : ScriptableObject, IWaitForSkill
     [SerializeField] protected RectTransform backEquipPrefab;
     [SerializeField] protected RectTransform frontEquipPrefab;
     [SerializeField] protected int amount = 1;
+    [SerializeField] protected int howManyLeft = 1;
 
     protected IWaitForEquipment requester;
 
@@ -90,21 +91,25 @@ public class Equip : ScriptableObject, IWaitForSkill
     public int GetLevel() { return level; }
     public int GetHowManyLeft()
     {
-        //TODO Reduzir isso aqui. Provavelmente com a adição de uma classe especifica para cuidar da party vai ficar melhor. Pq agora ele tem que fazer coisa demais toda vez que for chamar essa função
-        var party = FindObjectOfType<GameManager>().GetParty();
+        ////TODO Reduzir isso aqui. Provavelmente com a adição de uma classe especifica para cuidar da party vai ficar melhor. Pq agora ele tem que fazer coisa demais toda vez que for chamar essa função
+        //var party = FindObjectOfType<GameManager>().GetParty();
 
-        var used = 0;
+        //var used = 0;
 
-        foreach (var member in party)
-        {
-            foreach (var equip in member.GetEquips())
-            {
-                if (equip == this)
-                    used++;
-            }
-        }
+        //foreach (var member in party)
+        //{
+        //    foreach (var equip in member.GetEquips())
+        //    {
+        //        if (equip == this)
+        //            used++;
+        //    }
+        //}
 
-        return amount - used;
+        //return amount - used;
+        return howManyLeft;
     }
+
+    public void SetHowManyLeft(int amount) { howManyLeft = amount; }
+
     public int GetAmount() { return amount; }
 }
