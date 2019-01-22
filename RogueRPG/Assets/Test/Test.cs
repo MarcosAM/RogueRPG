@@ -9,9 +9,10 @@ public class Test : MonoBehaviour
 {
     InfiniteScroll infiniteScroll;
     [SerializeField] ToggleGroup charToggleGroup;
-    [SerializeField] StandartStats attributes1;
+    //[SerializeField] StandartStats attributes1;
     [SerializeField] int selectedCharIndex = 0;
     int selectedEquipIndex = 0;
+    Equip selectedEquip;
 
     public Button button;
     public bool flag = true;
@@ -25,6 +26,8 @@ public class Test : MonoBehaviour
             //TODO colocar o nome também
             charToggles[i].interactable = i < partyLenght;
         }
+
+        RefreshSelectedEquip();
 
         infiniteScroll = FindObjectOfType<InfiniteScroll>();
         infiniteScroll.OnFill += OnFillItem;
@@ -46,14 +49,14 @@ public class Test : MonoBehaviour
         if (flag)
         {
             if (EquipDatabase.GetAllEquips()[index].GetAmount() > 0)
-                item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips()[index], EquipDatabase.GetAllEquips()[index] == GetSelectedEquip());
+                item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips()[index], EquipDatabase.GetAllEquips()[index] == selectedEquip);
             else
                 item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips()[index].GetArchetype());
         }
         else
         {
             if (EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray()[index].GetAmount() > 0)
-                item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray()[index], EquipDatabase.GetAllEquips()[index] == GetSelectedEquip());
+                item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray()[index], EquipDatabase.GetAllEquips()[index] == selectedEquip);
             else
                 item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips().Where(e => e.GetArchetype() == Archetypes.Archetype.Infantry).ToArray()[index].GetArchetype());
         }
@@ -77,16 +80,17 @@ public class Test : MonoBehaviour
         }
     }
 
-    Equip GetSelectedEquip()
-    {
-        return attributes1.GetEquips()[selectedEquipIndex];
-    }
+    //Equip GetSelectedEquip()
+    //{
+    //    return attributes1.GetEquips()[selectedEquipIndex];
+    //}
 
     public void OnEquipToggleValueChange(int index)
     {
         if (selectedEquipIndex != index)
         {
             selectedEquipIndex = index;
+            RefreshSelectedEquip();
             infiniteScroll.UpdateVisible();
         }
     }
@@ -96,6 +100,8 @@ public class Test : MonoBehaviour
         if (selectedCharIndex != index)
         {
             selectedCharIndex = index;
+            RefreshSelectedEquip();
+            infiniteScroll.UpdateVisible();
         }
     }
 
@@ -104,9 +110,15 @@ public class Test : MonoBehaviour
         if (equip.GetHowManyLeft() > 0)
         {
             PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
-            attributes1.GetEquips()[selectedEquipIndex] = equip;
+            RefreshSelectedEquip();
+            //attributes1.GetEquips()[selectedEquipIndex] = equip;
             infiniteScroll.UpdateVisible();
         }
+    }
+
+    void RefreshSelectedEquip()
+    {
+        selectedEquip = PartyManager.GetParty()[selectedCharIndex].GetEquips()[selectedEquipIndex];
     }
 
     private void OnDisable()
