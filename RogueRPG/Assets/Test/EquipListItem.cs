@@ -11,7 +11,7 @@ public class EquipListItem : MonoBehaviour
     [SerializeField] Image archetypeIcon;
     [SerializeField] Text nameTxt;
     [SerializeField] Text attributesTxt;
-    [SerializeField] Text[] skillsTxt;
+    [SerializeField] SkillListItem[] skillsTxt;
     [SerializeField] Button mainBtn;
 
     Equip equip;
@@ -45,9 +45,9 @@ public class EquipListItem : MonoBehaviour
         for (var i = 0; i < skillsTxt.Length; i++)
         {
             if (i < skills.Count)
-                skillsTxt[i].text = skills[i].GetSkillName();
+                skillsTxt[i].Initialize(skills[i].GetSkillName(), skills[i].GetDescription());
             else
-                skillsTxt[i].text = "-";
+                skillsTxt[i].Initialize("-");
         }
 
         if (equipped)
@@ -70,7 +70,7 @@ public class EquipListItem : MonoBehaviour
         attributesTxt.text = unknown;
         foreach (var skill in skillsTxt)
         {
-            skill.text = unknown;
+            skill.Initialize(unknown);
         }
         archetypeIcon.color = Color.white;
     }
