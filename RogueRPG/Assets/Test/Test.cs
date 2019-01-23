@@ -17,6 +17,7 @@ public class Test : MonoBehaviour
     [SerializeField] Text[] attributesTxts;
     [SerializeField] InputField[] inputName;
     [SerializeField] CharacterPreview[] characterPreviews;
+    [SerializeField] Text[] momentumEquipTxts;
 
     public Button button;
     public bool flag = true;
@@ -70,6 +71,14 @@ public class Test : MonoBehaviour
             }
             else
                 characterPreviews[i].gameObject.SetActive(false);
+        }
+
+        for (var i = 0; i < momentumEquipTxts.Length; i++)
+        {
+            if (i < party.Length)
+            {
+                momentumEquipTxts[i].text = Archetypes.GetMomentumEquipName(party[i].GetEquips());
+            }
         }
 
         RefreshSelectedEquip();
@@ -148,6 +157,7 @@ public class Test : MonoBehaviour
             UpdateAttributeText(selectedCharIndex, PartyManager.GetParty()[selectedCharIndex].GetEquips());
             characterPreviews[selectedCharIndex].ChangeEquipObject(equip);
             characterPreviews[selectedCharIndex].CheckIfShouldChangeArchetype(PartyManager.GetParty()[selectedCharIndex].GetEquips());
+            momentumEquipTxts[selectedCharIndex].text = Archetypes.GetMomentumEquipName(PartyManager.GetParty()[selectedCharIndex].GetEquips());
             infiniteScroll.UpdateVisible();
         }
     }
