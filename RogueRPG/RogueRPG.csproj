@@ -153,6 +153,7 @@
     <Compile Include="Assets\Test\InfiniteScroll.cs" />
     <Compile Include="Assets\Test\PartyManager.cs" />
     <Compile Include="Assets\Test\Test.cs" />
+    <Compile Include="Assets\Test\Tooltip.cs" />
     <Compile Include="Assets\Tile.cs" />
     <Compile Include="Assets\UI\BattleGuide.cs" />
     <Compile Include="Assets\UI\EquipToggle.cs" />
