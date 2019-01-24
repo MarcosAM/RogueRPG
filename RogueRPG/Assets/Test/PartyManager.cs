@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PartyManager : MonoBehaviour
 {
     [SerializeField] StandartStats[] standartStats;
 
     static PartyManager instance;
+
+    public static event Action<int> OnEquipmentChange;
+
+
 
     void Awake()
     {
@@ -21,6 +26,16 @@ public class PartyManager : MonoBehaviour
         GetInstance().standartStats[charIndex].GetEquips()[equipIndex].SetHowManyLeft(equip.GetHowManyLeft() + 1);
 
         GetInstance().standartStats[charIndex].GetEquips()[equipIndex] = equip;
+
+        EquipmentChange(charIndex);
+    }
+
+    static void EquipmentChange(int index)
+    {
+        if (OnEquipmentChange != null)
+        {
+            OnEquipmentChange(index);
+        }
     }
 
     static PartyManager GetInstance()

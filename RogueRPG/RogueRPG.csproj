@@ -148,6 +148,7 @@
     <Compile Include="Assets\StartUI.cs" />
     <Compile Include="Assets\TargetBtn.cs" />
     <Compile Include="Assets\TargetBtnsManager.cs" />
+    <Compile Include="Assets\Test\CharacterListItem.cs" />
     <Compile Include="Assets\Test\CharacterPreview.cs" />
     <Compile Include="Assets\Test\EquipListItem.cs" />
     <Compile Include="Assets\Test\InfiniteScroll.cs" />

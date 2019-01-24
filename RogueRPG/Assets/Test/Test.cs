@@ -14,9 +14,10 @@ public class Test : MonoBehaviour
     Equip selectedEquip;
     Toggle[] equipToggles;
 
-    [SerializeField] Text[] attributesTxts;
-    [SerializeField] InputField[] inputName;
-    [SerializeField] CharacterPreview[] characterPreviews;
+    //[SerializeField] Text[] attributesTxts;
+    //[SerializeField] InputField[] inputName;
+    //[SerializeField] CharacterPreview[] characterPreviews;
+    [SerializeField] CharacterListItem[] characterItens;
     [SerializeField] Text[] momentumEquipTxts;
 
     public Button button;
@@ -25,7 +26,6 @@ public class Test : MonoBehaviour
     void Start()
     {
         equipToggles = equipToggleGroup.GetComponentsInChildren<Toggle>();
-        //var partyLenght = PartyManager.GetParty().Length;
 
         var party = PartyManager.GetParty();
         for (var i = 0; i < equipToggles.Length; i++)
@@ -39,39 +39,47 @@ public class Test : MonoBehaviour
                 equipToggles[i].interactable = false;
         }
 
-        for (var i = 0; i < attributesTxts.Length; i++)
+        for (var i = 0; i < characterItens.Length; i++)
         {
             if (i < party.Length)
-                UpdateAttributeText(i, party[i].GetEquips());
+                characterItens[i].Initialize(party[i], i);
             else
-                UpdateAttributeText(i, null);
+                characterItens[i].Initialize(null, i);
         }
 
-        for (var i = 0; i < inputName.Length; i++)
-        {
-            if (i < party.Length)
-            {
-                inputName[i].interactable = true;
+        //for (var i = 0; i < attributesTxts.Length; i++)
+        //{
+        //    if (i < party.Length)
+        //        UpdateAttributeText(i, party[i].GetEquips());
+        //    else
+        //        UpdateAttributeText(i, null);
+        //}
 
-                inputName[i].text = party[i].GetName();
-            }
-            else
-            {
-                inputName[i].interactable = false;
-            }
-        }
+        //for (var i = 0; i < inputName.Length; i++)
+        //{
+        //    if (i < party.Length)
+        //    {
+        //        inputName[i].interactable = true;
 
-        for (var i = 0; i < characterPreviews.Length; i++)
-        {
-            if (i < party.Length)
-            {
-                characterPreviews[i].gameObject.SetActive(true);
+        //        inputName[i].text = party[i].GetName();
+        //    }
+        //    else
+        //    {
+        //        inputName[i].interactable = false;
+        //    }
+        //}
 
-                characterPreviews[i].CheckIfShouldChangeArchetype(party[i].GetEquips());
-            }
-            else
-                characterPreviews[i].gameObject.SetActive(false);
-        }
+        //for (var i = 0; i < characterPreviews.Length; i++)
+        //{
+        //    if (i < party.Length)
+        //    {
+        //        characterPreviews[i].gameObject.SetActive(true);
+
+        //        characterPreviews[i].CheckIfShouldChangeArchetype(party[i].GetEquips());
+        //    }
+        //    else
+        //        characterPreviews[i].gameObject.SetActive(false);
+        //}
 
         for (var i = 0; i < momentumEquipTxts.Length; i++)
         {
@@ -142,7 +150,7 @@ public class Test : MonoBehaviour
             selectedCharIndex = index / 4;
 
             RefreshSelectedEquip();
-            characterPreviews[selectedCharIndex].SwitchEquip(selectedEquip);
+            characterItens[selectedCharIndex].GetCharacterPreview().SwitchEquip(selectedEquip);
             infiniteScroll.UpdateVisible();
         }
     }
@@ -154,9 +162,9 @@ public class Test : MonoBehaviour
             PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
             RefreshSelectedEquip();
             UpdateEquipToggleLabel(selectedEquipIndex + selectedCharIndex * 4, equip.GetEquipName());
-            UpdateAttributeText(selectedCharIndex, PartyManager.GetParty()[selectedCharIndex].GetEquips());
-            characterPreviews[selectedCharIndex].ChangeEquipObject(equip);
-            characterPreviews[selectedCharIndex].CheckIfShouldChangeArchetype(PartyManager.GetParty()[selectedCharIndex].GetEquips());
+            //UpdateAttributeText(selectedCharIndex, PartyManager.GetParty()[selectedCharIndex].GetEquips());
+            //characterPreviews[selectedCharIndex].ChangeEquipObject(equip);
+            //characterPreviews[selectedCharIndex].CheckIfShouldChangeArchetype(PartyManager.GetParty()[selectedCharIndex].GetEquips());
             momentumEquipTxts[selectedCharIndex].text = Archetypes.GetMomentumEquipName(PartyManager.GetParty()[selectedCharIndex].GetEquips());
             infiniteScroll.UpdateVisible();
         }
@@ -167,39 +175,9 @@ public class Test : MonoBehaviour
         selectedEquip = PartyManager.GetParty()[selectedCharIndex].GetEquips()[selectedEquipIndex];
     }
 
-    void UpdateAttributeText(int index, Equip[] equips)
-    {
-        if (equips != null)
-        {
-            var hp = 1;
-            var atk = 1;
-            var atkm = 1;
-            var def = 1;
-            var defm = 1;
-
-            foreach (var equip in equips)
-            {
-                hp += equip.GetHp();
-                atk += equip.GetAtk();
-                atkm += equip.GetAtkm();
-                def += equip.GetDef();
-                defm += equip.GetDefm();
-            }
-
-            attributesTxts[index].text = "HP: " + hp + "\nATK: " + atk + "\nATKM: " + atkm + "\nDEF: " + def + "\nDEFM: " + defm;
-        }
-        else
-            attributesTxts[index].text = "";
-    }
-
     void UpdateEquipToggleLabel(int index, string equipName)
     {
         equipToggles[index].GetComponentInChildren<Text>().text = equipName;
-    }
-
-    public void SetName(int index)
-    {
-        PartyManager.GetParty()[index].SetName(inputName[index].text);
     }
 
     private void OnDisable()
