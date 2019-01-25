@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(BATTLE_SCENE_INDEX);
     }
 
+    public void LoadScene(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
+    }
+
     void MakeItASingleton()
     {
         if (instance == null)
