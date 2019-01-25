@@ -150,11 +150,11 @@
     <Compile Include="Assets\TargetBtnsManager.cs" />
     <Compile Include="Assets\Test\CharacterListItem.cs" />
     <Compile Include="Assets\Test\CharacterPreview.cs" />
+    <Compile Include="Assets\Test\EquipList.cs" />
     <Compile Include="Assets\Test\EquipListItem.cs" />
     <Compile Include="Assets\Test\InfiniteScroll.cs" />
     <Compile Include="Assets\Test\PartyManager.cs" />
     <Compile Include="Assets\Test\SkillListItem.cs" />
-    <Compile Include="Assets\Test\Test.cs" />
     <Compile Include="Assets\Test\Tooltip.cs" />
     <Compile Include="Assets\Tile.cs" />
     <Compile Include="Assets\UI\BattleGuide.cs" />
