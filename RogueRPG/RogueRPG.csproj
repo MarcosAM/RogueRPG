@@ -167,6 +167,7 @@
     <Compile Include="Assets\UI\SkillPreviewManager.cs" />
     <Compile Include="Assets\UI\SkillToggle.cs" />
     <Compile Include="Assets\UI\SkillToggleManager.cs" />
+    <Compile Include="Assets\UI\StandartToggle.cs" />
     <Compile Include="Assets\UIParticleSystem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,7 +9,7 @@ public class CharacterListItem : MonoBehaviour
     InputField inputField;
     [SerializeField]
     Text text;
-    Toggle[] toggles;
+    StandartToggle[] toggles;
     [SerializeField] Text momentumEquipTxt;
 
     int index;
@@ -18,7 +18,7 @@ public class CharacterListItem : MonoBehaviour
     {
         characterPreview = GetComponentInChildren<CharacterPreview>();
         inputField = GetComponentInChildren<InputField>();
-        toggles = GetComponentsInChildren<Toggle>();
+        toggles = GetComponentsInChildren<StandartToggle>();
     }
 
     public void Initialize(StandartStats characterAttributes, int index)
@@ -38,7 +38,7 @@ public class CharacterListItem : MonoBehaviour
 
             for (var i = 0; i < toggles.Length; i++)
             {
-                if (toggles[i].isOn)
+                if (toggles[i].getToggle().isOn)
                 {
                     var equips = PartyManager.GetParty()[index].GetEquips();
 
@@ -63,8 +63,8 @@ public class CharacterListItem : MonoBehaviour
 
             for (var i = 0; i < toggles.Length; i++)
             {
-                toggles[i].interactable = true;
-                toggles[i].GetComponentInChildren<Text>().text = characterAttributes.GetEquips()[i].GetEquipName();
+                toggles[i].SetInterectable(true);
+                toggles[i].getText().text = characterAttributes.GetEquips()[i].GetEquipName();
             }
 
             momentumEquipTxt.text = Archetypes.GetMomentumEquipName(characterAttributes.GetEquips());
@@ -77,7 +77,7 @@ public class CharacterListItem : MonoBehaviour
 
             for (var i = 0; i < toggles.Length; i++)
             {
-                toggles[i].interactable = false;
+                toggles[i].SetInterectable(false);
             }
 
             momentumEquipTxt.text = "Momentum Equip";

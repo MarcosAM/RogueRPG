@@ -8,6 +8,7 @@ public class SkillToggleManager : MonoBehaviour
 {
 
     private TurnManager combatBehavior;
+    //TODO Talvez não precise ser um serializeField
     [SerializeField] private List<SkillToggle> skillToggles = new List<SkillToggle>();
     private PlayerInputManager playerInputManager;
     private ToggleGroup toggleGroup;
