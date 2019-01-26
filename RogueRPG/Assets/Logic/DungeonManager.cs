@@ -27,10 +27,10 @@ public class DungeonManager : MonoBehaviour
         MakeItASingleton();
 
         List<Character> pcs = new List<Character>();
-        for (int i = 0; i < gameManager.getHeroesStats().Count; i++)
+        for (int i = 0; i < PartyManager.GetParty().Length; i++)
         {
-            Character character = gameManager.CreateCharacter(true, gameManager.getHeroesStats()[i]);
-            character.SetName(gameManager.getHeroesNames()[i]);
+            Character character = gameManager.CreateCharacter(true, PartyManager.GetParty()[i]);
+            //character.SetName(gameManager.getHeroesNames()[i]);
             pcs.Add(character);
         }
 

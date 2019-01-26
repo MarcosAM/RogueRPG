@@ -51,6 +51,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         inventory.SetEquips(this, stats.GetEquips());
         animator.runtimeAnimatorController = Archetypes.GetAnimator(inventory.Archetype);
         GetComponentInChildren<CharacterHUD>().Initialize(this);
+        SetName(stats.GetName());
     }
 
     public void SetStats(StandartStats standartStats)

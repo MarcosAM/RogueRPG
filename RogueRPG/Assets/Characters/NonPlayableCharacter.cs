@@ -10,7 +10,7 @@ public class NonPlayableCharacter : Character
         base.FillStats();
         avatarImg.sprite = stats.GetSprite();
         avatarImg.color = stats.GetColor();
-        SetName(stats.GetName());
+        //SetName(stats.GetName());
     }
 
     public override bool IsPlayable()
