@@ -24,8 +24,8 @@ public class BurstAttack : Attack
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
-        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
-        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
+        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.Playable);
+        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.Playable);
         enemies.RemoveAll(t => !IsTargetable(user, t));
         allies.RemoveAll(t => !IsTargetable(user, t));
         if (enemies.Count > 0)

@@ -11,14 +11,14 @@ public class Move : Actions
     }
 
     //TODO impedir de clicar em si mesmo
-    public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.IsPlayable() == tile.GetSide(); }
+    public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.Playable == tile.GetSide(); }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
         if (user.GetInventory().Archetype == Archetypes.Archetype.Brute && user.GetTile().GetTileInFront().GetCharacter())
             return new TurnSugestion(0);
 
-        var targetables = battleground.GetAvailableTilesFrom(user.IsPlayable());
+        var targetables = battleground.GetAvailableTilesFrom(user.Playable);
 
         switch (user.GetInventory().Archetype)
         {
@@ -41,8 +41,8 @@ public class Move : Actions
 
         if (targetables.Count > 0)
         {
-            List<Tile> aliveOpponentTiles = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
-            var mySideTiles = battleground.GetAvailableTilesFrom(user.IsPlayable());
+            List<Tile> aliveOpponentTiles = battleground.GetTilesFromAliveCharactersOf(!user.Playable);
+            var mySideTiles = battleground.GetAvailableTilesFrom(user.Playable);
 
             bool shouldMove;
             switch (user.GetInventory().Archetype)

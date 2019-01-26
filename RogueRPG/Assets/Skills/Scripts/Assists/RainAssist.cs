@@ -24,12 +24,12 @@ public class RainAssist : Assist
         }
     }
 
-    public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.IsPlayable() == tile.GetSide(); }
+    public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.Playable == tile.GetSide(); }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return Mathf.Abs(target.GetRow() - tile.GetRow()) <= area && user.GetSide() == tile.GetSide(); }
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
-        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
+        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.Playable);
         List<Tile> possibleTargets = allies.FindAll(t => IsTargetable(user, t) && ((Effects)skillEffect).IsLogicalTarget(t));
         if (possibleTargets.Count > 0)
         {

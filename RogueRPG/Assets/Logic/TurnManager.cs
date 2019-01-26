@@ -28,7 +28,7 @@ public class TurnManager : MonoBehaviour, IWaitForEquipment
             return;
         }
 
-        if (character.IsPlayable())
+        if (character.Playable)
             playerInputManager.ShowUIFor(currentCharacter);
         else
         {
@@ -50,7 +50,7 @@ public class TurnManager : MonoBehaviour, IWaitForEquipment
     public virtual void ResumeFromEquipment()
     {
         if (momentumTurn)
-            FindObjectOfType<Momentum>().OnMomentumEquipUsed(currentCharacter.IsPlayable());
+            FindObjectOfType<Momentum>().OnMomentumEquipUsed(currentCharacter.Playable);
         dungeonManager.StartCoroutine(dungeonManager.NextTurn());
         //TODO eu não sei se é muito seguro isso, talvez possa buggar com várias pessoas pedindo para essa courotine começar
     }

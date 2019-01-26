@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StandartStats : ScriptableObject
 {
     [SerializeField] string cName;
+    [SerializeField] bool playable;
     [SerializeField] private Equip[] skills;
     [SerializeField] private Sprite sprite;
     [SerializeField] private Color color;
@@ -16,4 +17,5 @@ public class StandartStats : ScriptableObject
     public Equip[] GetEquips() { return skills; }
     public Sprite GetSprite() { return sprite; }
     public Color GetColor() { return color; }
+    public bool GetPlayable() { return playable; }
 }

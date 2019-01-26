@@ -55,7 +55,7 @@ public class Hp : Attribute
         else
             character.GetAnimator().SetTrigger("Defend");
 
-        momentum.Value += character.IsPlayable() ? -(float)damage / 100 : (float)damage / 100;
+        momentum.Value += character.Playable ? -(float)damage / 100 : (float)damage / 100;
         //TODO efeito de defender caso o dano seja menor que zero
 
         RefreshHUD();

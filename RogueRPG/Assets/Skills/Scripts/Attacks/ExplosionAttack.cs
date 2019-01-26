@@ -26,8 +26,8 @@ public class ExplosionAttack : ConeAttack
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
-        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
-        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
+        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.Playable);
+        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.Playable);
         List<Tile> possibleTargets = enemies.FindAll(t => IsTargetable(user, t));
         if (possibleTargets.Count > 0)
         {

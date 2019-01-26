@@ -61,7 +61,7 @@ public class Battleground : MonoBehaviour
         {
             if (side[i] != null)
             {
-                sideIsPlayers = side[i].IsPlayable();
+                sideIsPlayers = side[i].Playable;
             }
         }
 
@@ -88,10 +88,10 @@ public class Battleground : MonoBehaviour
     public List<Tile> GetTiles() { return tiles; }
     public List<Tile> GetAvailableTiles() { return tiles.FindAll(t => t.IsAvailable()); }
     public List<Tile> GetAvailableTilesFrom(bool side) { return tiles.FindAll(t => t.GetSide() == side && t.IsAvailable()); }
-    public List<Tile> GetTilesFromAliveCharactersOf(bool side) { return tiles.FindAll(t => t.GetCharacter() != null ? t.GetCharacter().IsPlayable() == side && t.GetCharacter().GetAttributes().GetHp().IsAlive() : false); }
+    public List<Tile> GetTilesFromAliveCharactersOf(bool side) { return tiles.FindAll(t => t.GetCharacter() != null ? t.GetCharacter().Playable == side && t.GetCharacter().GetAttributes().GetHp().IsAlive() : false); }
 
     List<Character> GetAllTilesOccupants() { return tiles.ConvertAll(t => t.GetCharacter()); }
-    public List<Character> GetAliveCharactersFrom(bool side) { return GetAllTilesOccupants().FindAll(c => c != null ? c.IsPlayable() == side : false); }
+    public List<Character> GetAliveCharactersFrom(bool side) { return GetAllTilesOccupants().FindAll(c => c != null ? c.Playable == side : false); }
 
     public static Battleground GetInstance()
     {

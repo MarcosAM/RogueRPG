@@ -27,7 +27,7 @@ public class CharacterHUD : MonoBehaviour
 
         this.hp.OnHPValuesChange += HPFeedback;
 
-        if (!character.IsPlayable())
+        if (!character.Playable)
         {
             hpText.gameObject.SetActive(false);
             nameText.transform.rotation = Quaternion.Euler(0, 180, 90);

@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public abstract class Character : MonoBehaviour, IPlayAnimationByString
+public class Character : MonoBehaviour, IPlayAnimationByString
 {
 
-    [SerializeField] protected string characterName;
-
+    protected string characterName;
 
     //TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
     [SerializeField] protected StandartStats stats;
@@ -25,6 +24,8 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     Attributes attributes;
 
     RectTransform[,] rectTransforms;
+
+    public bool Playable { get; set; }
 
     void Awake()
     {
@@ -50,8 +51,11 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
     {
         inventory.SetEquips(this, stats.GetEquips());
         animator.runtimeAnimatorController = Archetypes.GetAnimator(inventory.Archetype);
-        GetComponentInChildren<CharacterHUD>().Initialize(this);
         SetName(stats.GetName());
+        avatarImg.sprite = stats.GetSprite();
+        avatarImg.color = stats.GetColor();
+        Playable = stats.GetPlayable();
+        GetComponentInChildren<CharacterHUD>().Initialize(this);
     }
 
     public void SetStats(StandartStats standartStats)
@@ -62,7 +66,7 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public string GetName() { return characterName; }
 
-    public virtual bool IsPlayable() { return true; }
+    //public virtual bool IsPlayable() { return true; }
     public Image GetAvatarImg() { return avatarImg; }
 
     public void SetName(string name)

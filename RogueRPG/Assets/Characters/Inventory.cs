@@ -66,7 +66,7 @@ public class Inventory : MonoBehaviour
 
     public void SetEquips(Character character, Equip[] equips)
     {
-        this.side = character.IsPlayable();
+        this.side = character.Playable;
 
         this.equips = new Equip[equips.Length + 1];
 

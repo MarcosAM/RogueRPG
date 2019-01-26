@@ -10,7 +10,7 @@ public class ConeAttack : Attack
     [SerializeField]
     [Range(1, 5)]
     protected int area;
-    public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.IsPlayable() != tile.GetSide(); }
+    public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.Playable != tile.GetSide(); }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return Mathf.Abs(target.GetRow() - tile.GetRow()) <= area && user.GetSide() != tile.GetSide(); }
 
     public override void Act(Character user, Tile target, SkillEffect skillEffect)
@@ -30,7 +30,7 @@ public class ConeAttack : Attack
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
-        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
+        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.Playable);
         List<Tile> possibleTargets = enemies.FindAll(t => IsTargetable(user, t));
         if (possibleTargets.Count > 0)
         {

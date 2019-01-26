@@ -33,7 +33,7 @@ public class Tile : MonoBehaviour
 
     public void MoveCharacter(Character character)
     {
-        if (character.IsPlayable() != side)
+        if (character.Playable != side)
         {
             GetTileInFront().MoveCharacter(character);
             return;
@@ -81,7 +81,7 @@ public class Tile : MonoBehaviour
             this.character.SetTile(this);
             this.character.transform.SetParent(portraitHandler);
             this.character.transform.localPosition = new Vector3(0, 0);
-            if (!this.character.IsPlayable())
+            if (!this.character.Playable)
             {
                 //TODO organize all of this. Look for quarteion and vector3 e vector 2
                 this.character.transform.rotation = Quaternion.Euler(0, -180, 0);

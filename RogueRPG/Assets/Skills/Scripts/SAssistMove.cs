@@ -41,12 +41,12 @@ public class SAssistMove : Skill
     TurnSugestion GetTurnSugestionForAssisting(Character user, Battleground battleground)
     {
         //TODO Só está pegando tiles de usuários vivos, vai ser inútil em uma skill de ressucitar
-        List<Tile> alliesTiles = battleground.GetTilesFromAliveCharactersOf(user.IsPlayable());
+        List<Tile> alliesTiles = battleground.GetTilesFromAliveCharactersOf(user.Playable);
         alliesTiles.RemoveAll(t => effect.GetComparableValue(t.GetCharacter()) < 0);
 
         if (alliesTiles.Count > 0)
         {
-            List<Tile> targetableTiles = battleground.GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => IsTargetable(user, t));
+            List<Tile> targetableTiles = battleground.GetAvailableTilesFrom(user.Playable).FindAll(t => IsTargetable(user, t));
 
             if (targetableTiles.Count > 0)
             {

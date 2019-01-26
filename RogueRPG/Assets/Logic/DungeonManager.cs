@@ -9,7 +9,8 @@ public class DungeonManager : MonoBehaviour
 {
     //TODO implement a Give Up Btn
     static DungeonManager instance = null;
-    [SerializeField] List<Character> initiativeOrder = new List<Character>();
+    List<Character> initiativeOrder = new List<Character>();
+    [SerializeField] Character characterPrefab;
     int round;
     int dungeonFloor = 0;
     Battleground battleground;
@@ -29,13 +30,25 @@ public class DungeonManager : MonoBehaviour
         List<Character> pcs = new List<Character>();
         for (int i = 0; i < PartyManager.GetParty().Length; i++)
         {
-            Character character = gameManager.CreateCharacter(true, PartyManager.GetParty()[i]);
+            //Character character = gameManager.CreateCharacter(true, PartyManager.GetParty()[i]);
             //character.SetName(gameManager.getHeroesNames()[i]);
-            pcs.Add(character);
+            //pcs.Add(character);
+            pcs.Add(CreateCharacter(PartyManager.GetParty()[i]));
+        }
+
+        var npcs = new List<Character>();
+        var npcsStats = gameManager.GetEnemiesStats(dungeonFloor);
+
+        foreach (var npcStat in npcsStats)
+        {
+            if (npcStat)
+            {
+                npcs.Add(CreateCharacter(npcStat));
+            }
         }
 
         battleground.SetAvailableSide(pcs);
-        battleground.SetAvailableSide(gameManager.getEnemiesAtFloor(dungeonFloor));
+        battleground.SetAvailableSide(npcs);
 
         AddToInitiative(battleground.GetAliveCharactersFrom(true));
         AddToInitiative(battleground.GetAliveCharactersFrom(false));
@@ -128,14 +141,24 @@ public class DungeonManager : MonoBehaviour
         {
             AdvanceInitiative(initiativeOrder);
 
-            var enemies = FindObjectsOfType<NonPlayableCharacter>();
+            var enemies = FindObjectsOfType<Character>().Where(e => !e.Playable);
             foreach (var enemy in enemies)
             {
                 enemy.RemoveSelf();
             }
 
             battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
-            battleground.SetAvailableSide(gameManager.getEnemiesAtFloor(dungeonFloor));
+
+            var npcs = new List<Character>();
+            var npcsStats = gameManager.GetEnemiesStats(dungeonFloor);
+            foreach (var npcStat in npcsStats)
+            {
+                if (npcStat)
+                {
+                    npcs.Add(CreateCharacter(npcStat));
+                }
+            }
+            battleground.SetAvailableSide(npcs);
 
             AddToInitiative(battleground.GetAliveCharactersFrom(false));
 
@@ -155,6 +178,13 @@ public class DungeonManager : MonoBehaviour
         if (battleground.GetTilesFromAliveCharactersOf(false).Count <= 0)
             return 1;
         return 0;
+    }
+
+    Character CreateCharacter(StandartStats stats)
+    {
+        Character character = Instantiate(characterPrefab);
+        character.SetStats(stats);
+        return character;
     }
 
     public static DungeonManager getInstance() { return instance; }

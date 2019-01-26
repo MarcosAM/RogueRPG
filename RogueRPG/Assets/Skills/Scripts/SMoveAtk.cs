@@ -25,8 +25,8 @@ public class SMoveAtk : Skill
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
-        List<Tile> possibleTargets = battleground.GetAvailableTilesFrom(user.IsPlayable()).FindAll(t => IsTargetable(user, t));
+        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.Playable);
+        List<Tile> possibleTargets = battleground.GetAvailableTilesFrom(user.Playable).FindAll(t => IsTargetable(user, t));
 
         if (possibleTargets.Count > 0)
         {

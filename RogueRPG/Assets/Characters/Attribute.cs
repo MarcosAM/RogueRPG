@@ -91,8 +91,8 @@ public class Attribute
     void ChangeMomentumByUpping()
     {
         if (((int)this.intensity) % 2 == 0)
-            character.GetAttributes().GetMomentum().Value += character.IsPlayable() ? (float)this.intensity / 100 : -(float)this.intensity / 100;
+            character.GetAttributes().GetMomentum().Value += character.Playable ? (float)this.intensity / 100 : -(float)this.intensity / 100;
         else
-            character.GetAttributes().GetMomentum().Value += character.IsPlayable() ? -(float)this.intensity / 100 : (float)this.intensity / 100;
+            character.GetAttributes().GetMomentum().Value += character.Playable ? -(float)this.intensity / 100 : (float)this.intensity / 100;
     }
 }

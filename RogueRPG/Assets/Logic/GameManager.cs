@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Quest[] quests;
     [SerializeField] Quest selectedQuest;
     //List<Character> playerCharacters = new List<Character>();
-    [SerializeField] GameObject characterPrefab;
+    //[SerializeField] GameObject characterPrefab;
     //[SerializeField] StandartStats pcGuerreiroStats;
     //[SerializeField] StandartStats pcMagoStats;
     //[SerializeField] List<StandartStats> pcStats;
@@ -46,21 +46,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public List<Character> getEnemiesAtFloor(int floor)
+    //public List<Character> getEnemiesAtFloor(int floor)
+    //{
+    //    List<Character> characters = new List<Character>();
+    //    foreach (StandartStats stats in selectedQuest.getCurrentDungeon().getBattleGroups()[floor].GetEnemiesStats())
+    //    {
+    //        if (stats == null)
+    //        {
+    //            characters.Add(null);
+    //        }
+    //        else
+    //        {
+    //            characters.Add(CreateCharacter(false, stats));
+    //        }
+    //    }
+    //    return characters;
+    //}
+    public List<StandartStats> GetEnemiesStats(int floor)
     {
-        List<Character> characters = new List<Character>();
-        foreach (StandartStats stats in selectedQuest.getCurrentDungeon().getBattleGroups()[floor].GetEnemiesStats())
-        {
-            if (stats == null)
-            {
-                characters.Add(null);
-            }
-            else
-            {
-                characters.Add(CreateCharacter(false, stats));
-            }
-        }
-        return characters;
+        return selectedQuest.getCurrentDungeon().getBattleGroups()[floor].GetEnemiesStats();
     }
     public Battleground.BattlegroundSize GetBattlegroundSize(int floor)
     {
@@ -74,21 +78,21 @@ public class GameManager : MonoBehaviour
 
     public const int BATTLE_SCENE_INDEX = 1;
 
-    public Character CreateCharacter(bool alignment, StandartStats standartStats)
-    {
-        GameObject gO = Instantiate(characterPrefab);
-        Character character;
-        if (alignment)
-        {
-            character = gO.gameObject.AddComponent(typeof(PlayableCharacter)) as PlayableCharacter;
-        }
-        else
-        {
-            character = gO.gameObject.AddComponent(typeof(NonPlayableCharacter)) as NonPlayableCharacter;
-        }
-        character.SetStats(standartStats);
-        return character;
-    }
+    //public Character CreateCharacter(bool alignment, StandartStats standartStats)
+    //{
+    //    GameObject gO = Instantiate(characterPrefab);
+    //    Character character;
+    //    if (alignment)
+    //    {
+    //        character = gO.gameObject.AddComponent(typeof(PlayableCharacter)) as PlayableCharacter;
+    //    }
+    //    else
+    //    {
+    //        character = gO.gameObject.AddComponent(typeof(NonPlayableCharacter)) as NonPlayableCharacter;
+    //    }
+    //    character.SetStats(standartStats);
+    //    return character;
+    //}
 
     public void ChangeSelectedQuest(int index)
     {

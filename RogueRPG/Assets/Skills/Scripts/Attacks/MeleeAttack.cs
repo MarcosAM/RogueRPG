@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Actions/Attacks/Melee")]
 public class MeleeAttack : Attack
 {
-    public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && tile.CharacterIs(true) && user.IsPlayable() != tile.GetSide(); }
+    public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && tile.CharacterIs(true) && user.Playable != tile.GetSide(); }
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
 
     public override void Act(Character user, Tile target, SkillEffect skillEffect)
@@ -18,7 +18,7 @@ public class MeleeAttack : Attack
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
-        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.IsPlayable());
+        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.Playable);
         List<Tile> possibleTargets = enemies.FindAll(t => IsTargetable(user, t));
 
         if (possibleTargets.Count > 0)
