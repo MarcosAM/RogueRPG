@@ -116,7 +116,6 @@
     <Compile Include="Assets\Momentum.cs" />
     <Compile Include="Assets\Quests\BattleGroups\BattleGroup.cs" />
     <Compile Include="Assets\Quests\Dungeons\Dungeon.cs" />
-    <Compile Include="Assets\Quests\Quest.cs" />
     <Compile Include="Assets\SkillName.cs" />
     <Compile Include="Assets\Skills\Scripts\Actions.cs" />
     <Compile Include="Assets\Skills\Scripts\Assists\AllyAssist.cs" />

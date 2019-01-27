@@ -7,26 +7,13 @@ public class GameManager : MonoBehaviour
 {
 
     static GameManager instance = null;
-    [SerializeField] Quest[] quests;
-    [SerializeField] Quest selectedQuest;
-    //List<Character> playerCharacters = new List<Character>();
-    //[SerializeField] GameObject characterPrefab;
-    //[SerializeField] StandartStats pcGuerreiroStats;
-    //[SerializeField] StandartStats pcMagoStats;
-    //[SerializeField] List<StandartStats> pcStats;
-    //[SerializeField] List<string> pcNames;
+    Dungeon currentDungeon;
 
     void Awake()
     {
         MakeItASingleton();
 
         DontDestroyOnLoad(this);
-    }
-
-    //TODO colocar outra coisa para se responsabilizar por mudar de cenas
-    public void LoadDungeonScene()
-    {
-        SceneManager.LoadScene(BATTLE_SCENE_INDEX);
     }
 
     public void LoadScene(int sceneIndex)
@@ -46,61 +33,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //public List<Character> getEnemiesAtFloor(int floor)
-    //{
-    //    List<Character> characters = new List<Character>();
-    //    foreach (StandartStats stats in selectedQuest.getCurrentDungeon().getBattleGroups()[floor].GetEnemiesStats())
-    //    {
-    //        if (stats == null)
-    //        {
-    //            characters.Add(null);
-    //        }
-    //        else
-    //        {
-    //            characters.Add(CreateCharacter(false, stats));
-    //        }
-    //    }
-    //    return characters;
-    //}
-    public List<StandartStats> GetEnemiesStats(int floor)
-    {
-        return selectedQuest.getCurrentDungeon().getBattleGroups()[floor].GetEnemiesStats();
-    }
-    public Battleground.BattlegroundSize GetBattlegroundSize(int floor)
-    {
-        return selectedQuest.getCurrentDungeon().getBattleGroups()[floor].battlegroundSize;
-    }
-    //public List<StandartStats> getHeroesStats() { return pcStats; }
-    //public List<string> getHeroesNames() { return pcNames; }
-    public Quest getSelectedQuest() { return selectedQuest; }
     public static GameManager getInstance() { return instance; }
-    //public List<Character> getPlayerCharacters() { return playerCharacters; }
 
     public const int BATTLE_SCENE_INDEX = 1;
 
-    //public Character CreateCharacter(bool alignment, StandartStats standartStats)
-    //{
-    //    GameObject gO = Instantiate(characterPrefab);
-    //    Character character;
-    //    if (alignment)
-    //    {
-    //        character = gO.gameObject.AddComponent(typeof(PlayableCharacter)) as PlayableCharacter;
-    //    }
-    //    else
-    //    {
-    //        character = gO.gameObject.AddComponent(typeof(NonPlayableCharacter)) as NonPlayableCharacter;
-    //    }
-    //    character.SetStats(standartStats);
-    //    return character;
-    //}
-
-    public void ChangeSelectedQuest(int index)
+    public void GoToDungeon(Dungeon dungeon)
     {
-        selectedQuest = quests[index];
+        currentDungeon = dungeon;
+
+        SceneManager.LoadScene(BATTLE_SCENE_INDEX);
     }
 
-    //public StandartStats[] GetParty()
-    //{
-    //    return new StandartStats[2] { pcGuerreiroStats, pcMagoStats };
-    //}
+    public Dungeon GetCurrentDungeon() { return currentDungeon; }
 }

@@ -36,8 +36,9 @@ public class DungeonManager : MonoBehaviour
             pcs.Add(CreateCharacter(PartyManager.GetParty()[i]));
         }
 
+        var battleGroup = gameManager.GetCurrentDungeon().GetRandomBattleGroup(dungeonFloor);
         var npcs = new List<Character>();
-        var npcsStats = gameManager.GetEnemiesStats(dungeonFloor);
+        var npcsStats = battleGroup.GetEnemiesStats();
 
         foreach (var npcStat in npcsStats)
         {
@@ -58,7 +59,7 @@ public class DungeonManager : MonoBehaviour
             character.GetAttributes().Refresh();
         }
 
-        battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
+        battleground.Size = battleGroup.GetBattlegroundSize();
 
         round = 0;
         TryToStartTurn();
@@ -137,7 +138,7 @@ public class DungeonManager : MonoBehaviour
     {
         dungeonFloor++;
         GameManager gameManager = GameManager.getInstance();
-        if (dungeonFloor < gameManager.getSelectedQuest().getCurrentDungeon().getBattleGroups().Count)
+        if (dungeonFloor < gameManager.GetCurrentDungeon().GetLevels())
         {
             AdvanceInitiative(initiativeOrder);
 
@@ -147,10 +148,12 @@ public class DungeonManager : MonoBehaviour
                 enemy.RemoveSelf();
             }
 
-            battleground.Size = gameManager.GetBattlegroundSize(dungeonFloor);
+            var battleGroup = gameManager.GetCurrentDungeon().GetRandomBattleGroup(dungeonFloor);
+
+            battleground.Size = battleGroup.GetBattlegroundSize();
 
             var npcs = new List<Character>();
-            var npcsStats = gameManager.GetEnemiesStats(dungeonFloor);
+            var npcsStats = battleGroup.GetEnemiesStats();
             foreach (var npcStat in npcsStats)
             {
                 if (npcStat)
