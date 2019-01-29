@@ -12,27 +12,31 @@ public class PrizeSpinner : MonoBehaviour
     float[] targetAngles;
     [SerializeField] Transform[] spinners;
     Button button;
-    //bool spinning;
     [SerializeField] Text warningText;
     [SerializeField] string warning;
-    [SerializeField] PrizePopUp prizePopUp;
+    PrizePopUp prizePopUp;
 
-    private void Start()
+    private void Awake()
     {
         button = GetComponentInChildren<Button>();
         warningText.transform.parent.gameObject.SetActive(false);
-        Initialize(0, 2);
+        prizePopUp = GetComponentInChildren<PrizePopUp>();
     }
 
     public void Initialize(int charIndex, int dungeonLevel)
     {
-        //TODO alterar para ter equipamentos de nível 0 mesmo 
+        //TODO alterar para ter equipamentos de nível 0 mesmo
+        prizePopUp.gameObject.SetActive(false);
+
         var validEquips = PartyManager.GetParty()[charIndex].GetEquips().Where(e => e.GetLevel() <= dungeonLevel).ToArray();
 
         UpdateSlotsTexts(validEquips);
 
         if (validEquips.Length <= 1)
+        {
             BlockSelf();
+            return;
+        }
 
         var random1 = Random.Range(0, validEquips.Length - 1);
         var random2 = Random.Range(0, validEquips.Length - 1);
@@ -40,6 +44,11 @@ public class PrizeSpinner : MonoBehaviour
         prize = EquipDatabase.UnlockNewEquip(validEquips[random1].GetArchetype(), validEquips[random2].GetArchetype(), validEquips[random1].GetLevel(), validEquips[random2].GetLevel(), dungeonLevel);
 
         PrepareSpinners(new int[] { random1, random2 });
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 
     void PrepareSpinners(int[] stopsIndex)
@@ -90,17 +99,16 @@ public class PrizeSpinner : MonoBehaviour
             yield return null;
         }
 
-        prizePopUp.ShowPrizePopUp(prize.GetFrontEquipPrefab(), prize.GetBackEquipPrefab(), prize.GetEquipName());
+        if (prizePopUp)
+            prizePopUp.ShowPrizePopUp(prize.GetFrontEquipPrefab(), prize.GetBackEquipPrefab(), prize.GetEquipName());
+        else
+            print("Nops!");
     }
 
     public void OnBtnClick()
     {
-        //if (!spinning)
-        //{
-        //    spinning = true;
         button.interactable = false;
         StartCoroutine(Spin());
-        //}
     }
 
     void BlockSelf()

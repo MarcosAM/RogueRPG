@@ -10,7 +10,8 @@ public class PrizePopUp : MonoBehaviour
     private void Awake()
     {
         text = GetComponentInChildren<Text>();
-        gameObject.SetActive(false);
+        if (text)
+            print("Achei!");
     }
 
     public void ShowPrizePopUp(Transform frontEquipPrefab, Transform backEquipPrefab, string equipName)
@@ -30,8 +31,10 @@ public class PrizePopUp : MonoBehaviour
             frontEquip.localPosition = new Vector2(0, 0);
             frontEquip.rotation = Quaternion.Euler(new Vector3(0, 0, 45));
         }
-        text.text = equipName;
-
+        if (text)
+            text.text = equipName;
+        else
+            print("Nops");
         gameObject.SetActive(true);
     }
 }

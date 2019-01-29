@@ -8,6 +8,7 @@ public class Dungeon : ScriptableObject
 
     [SerializeField] List<BattleGroup> battleGroups = new List<BattleGroup>();
     [SerializeField] int levels;
+    [SerializeField] int level;
 
     public List<BattleGroup> getBattleGroups() { return battleGroups; }
 
@@ -27,4 +28,5 @@ public class Dungeon : ScriptableObject
     }
 
     public int GetLevels() { return levels; }
+    public int GetLevel() { return level; }
 }

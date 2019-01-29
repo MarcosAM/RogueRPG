@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class PrizeManager : MonoBehaviour
 {
+    [SerializeField] PrizeSpinner[] prizeSpinners;
 
-    
+    void Start()
+    {
+        var partySize = PartyManager.GetParty().Length;
+        //var dungeonLevel = DungeonManager.GetLastDungeonLevel();
 
-    //private void Start()
-    //{
-    //    var party = PartyManager.GetParty();
-
-    //    foreach (var member in party)
-    //    {
-
-    //    }
-    //}
+        for (var i = 0; i < prizeSpinners.Length; i++)
+        {
+            if (i < partySize)
+                //prizeSpinners[i].Initialize(i, dungeonLevel);
+                prizeSpinners[i].Initialize(i, 2);
+            else
+                prizeSpinners[i].Hide();
+        }
+        Destroy(this);
+    }
 }
