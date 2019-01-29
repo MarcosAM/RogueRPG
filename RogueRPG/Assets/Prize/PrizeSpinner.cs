@@ -18,20 +18,15 @@ public class PrizeSpinner : MonoBehaviour
     [SerializeField] Transform[] spinners;
     Button button;
     bool spinning;
+    [SerializeField] Text warningText;
+    [SerializeField] string warning;
 
     private void Start()
     {
         button = GetComponentInChildren<Button>();
+        warningText.transform.parent.gameObject.SetActive(false);
         Initialize(0, 2);
     }
-
-    //private void Start()
-    //{
-    //    Vector2 direction = target.transform.position - transform.position;
-    //    float angle = Mathf.Atan2(-direction.x, direction.y) * Mathf.Rad2Deg;
-    //    currentVector3 = transform.rotation.eulerAngles;
-    //    targetVector3 = new Vector3(0, 0, angle * 55);
-    //}
 
     public void Initialize(int charIndex, int dungeonLevel)
     {
@@ -40,12 +35,10 @@ public class PrizeSpinner : MonoBehaviour
         //TODO alterar para ter equipamentos de nível 0 mesmo 
         var validEquips = PartyManager.GetParty()[charIndex].GetEquips().Where(e => e.GetLevel() <= dungeonLevel).ToArray();
 
-        if (validEquips.Length <= 1)
-        {
-            //BlockMyself
-        }
-
         UpdateSlotsTexts(validEquips);
+
+        if (validEquips.Length <= 1)
+            BlockSelf();
 
         var random1 = Random.Range(0, validEquips.Length - 1);
         var random2 = Random.Range(0, validEquips.Length - 1);
@@ -91,14 +84,13 @@ public class PrizeSpinner : MonoBehaviour
 
         while (stoppeds.Any(s => !s))
         {
-            print("Teste");
             for (i = 0; i < spinners.Length; i++)
             {
                 currentDirections[i] = Vector3.Slerp(currentDirections[i], targetDirections[i], Time.deltaTime);
                 spinners[i].rotation = Quaternion.Euler(currentDirections[i]);
 
                 if (!stoppeds[i])
-                    stoppeds[i] = currentDirections[i] == targetDirections[i];
+                    stoppeds[i] = Mathf.Abs((currentDirections[i] - targetDirections[i]).z) <= 1;
             }
             yield return null;
         }
@@ -114,26 +106,10 @@ public class PrizeSpinner : MonoBehaviour
         }
     }
 
-    //void Update()
-    //{
-    //    if (spinning)
-    //    {
-    //        transform.Rotate(Vector3.forward, 200 * Time.deltaTime);
-    //    }
-    //    else
-    //    {
-    //        currentVector3 = Vector3.Slerp(currentVector3, targetVector3, 1 * Time.deltaTime);
-    //        transform.rotation = Quaternion.Euler(currentVector3);
-    //    }
-    //}
+    void BlockSelf()
+    {
+        warningText.transform.parent.gameObject.SetActive(true);
+        warningText.text = warning;
+        button.interactable = false;
+    }
 }
-
-//currentDirection1 = spinner1.rotation.eulerAngles;
-//        currentDirection2 = spinner2.rotation.eulerAngles;
-
-//        var direction1 = stops[random1].position - spinner1.position;
-//var direction2 = stops[random2].position - spinner2.position;
-//var angle1 = Mathf.Atan2(-direction1.x, direction1.y) * Mathf.Rad2Deg;
-//var angle2 = Mathf.Atan2(-direction2.x, direction2.y) * Mathf.Rad2Deg;
-//targetDirection1 = new Vector3(0, 0, angle1* 55);
-//targetDirection2 = new Vector3(0, 0, angle2* 55);
