@@ -13,8 +13,10 @@ public class PrizeSpinner : MonoBehaviour
 
     Equip prize;
     [SerializeField] RectTransform[] stops;
-    Vector3[] currentDirections;
-    Vector3[] targetDirections;
+    //Vector3[] currentDirections;
+    //Vector3[] targetDirections;
+    float[] currentAngles;
+    float[] targetAngles;
     [SerializeField] Transform[] spinners;
     Button button;
     bool spinning;
@@ -30,8 +32,6 @@ public class PrizeSpinner : MonoBehaviour
 
     public void Initialize(int charIndex, int dungeonLevel)
     {
-        //TODO pegar target direction
-        //TODO vou ter que filtrar ainda pelo level dos equips e o level da missão
         //TODO alterar para ter equipamentos de nível 0 mesmo 
         var validEquips = PartyManager.GetParty()[charIndex].GetEquips().Where(e => e.GetLevel() <= dungeonLevel).ToArray();
 
@@ -50,15 +50,18 @@ public class PrizeSpinner : MonoBehaviour
 
     void PrepareSpinners(int[] stopsIndex)
     {
-        currentDirections = new Vector3[spinners.Length];
-        targetDirections = new Vector3[spinners.Length];
+        currentAngles = new float[spinners.Length];
+        targetAngles = new float[spinners.Length];
 
         for (var i = 0; i < spinners.Length; i++)
         {
-            currentDirections[i] = spinners[i].rotation.eulerAngles;
+            currentAngles[i] = spinners[i].rotation.eulerAngles.z;
             var direction = stops[stopsIndex[i]].position - spinners[i].position;
-            var angle = Mathf.Atan2(-direction.x, direction.y) * Mathf.Rad2Deg;
-            targetDirections[i] = new Vector3(0, 0, angle * 55);
+            targetAngles[i] = (Mathf.Atan2(-direction.x, direction.y) * Mathf.Rad2Deg) * 55;
+            if (targetAngles[i] == 0)
+                targetAngles[i] = 360 * 55;
+            print(i + "º current angle é: " + currentAngles[i] + " e seu target angle é: " + targetAngles[i]);
+            //targetDirections[i] = new Vector3(0, 0, angle * 55);
         }
     }
 
@@ -86,11 +89,13 @@ public class PrizeSpinner : MonoBehaviour
         {
             for (i = 0; i < spinners.Length; i++)
             {
-                currentDirections[i] = Vector3.Slerp(currentDirections[i], targetDirections[i], Time.deltaTime);
-                spinners[i].rotation = Quaternion.Euler(currentDirections[i]);
+                //currentDirections[i] = Vector3.Slerp(currentDirections[i], targetDirections[i], Time.deltaTime);
+                //spinners[i].rotation = Quaternion.Euler(currentDirections[i]);
+                currentAngles[i] = Mathf.Lerp(currentAngles[i], targetAngles[i], Time.deltaTime);
+                spinners[i].rotation = Quaternion.Euler(0, 0, currentAngles[i]);
 
                 if (!stoppeds[i])
-                    stoppeds[i] = Mathf.Abs((currentDirections[i] - targetDirections[i]).z) <= 1;
+                    stoppeds[i] = targetAngles[i] - currentAngles[i] <= 1;
             }
             yield return null;
         }
