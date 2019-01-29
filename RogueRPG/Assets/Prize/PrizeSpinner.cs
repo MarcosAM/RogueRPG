@@ -6,22 +6,16 @@ using System.Linq;
 
 public class PrizeSpinner : MonoBehaviour
 {
-    public RectTransform target;
-    Quaternion rotation;
-    Vector3 currentVector3;
-    Vector3 targetVector3;
-
     Equip prize;
     [SerializeField] RectTransform[] stops;
-    //Vector3[] currentDirections;
-    //Vector3[] targetDirections;
     float[] currentAngles;
     float[] targetAngles;
     [SerializeField] Transform[] spinners;
     Button button;
-    bool spinning;
+    //bool spinning;
     [SerializeField] Text warningText;
     [SerializeField] string warning;
+    [SerializeField] PrizePopUp prizePopUp;
 
     private void Start()
     {
@@ -60,8 +54,6 @@ public class PrizeSpinner : MonoBehaviour
             targetAngles[i] = (Mathf.Atan2(-direction.x, direction.y) * Mathf.Rad2Deg) * 55;
             if (targetAngles[i] == 0)
                 targetAngles[i] = 360 * 55;
-            print(i + "º current angle é: " + currentAngles[i] + " e seu target angle é: " + targetAngles[i]);
-            //targetDirections[i] = new Vector3(0, 0, angle * 55);
         }
     }
 
@@ -89,26 +81,26 @@ public class PrizeSpinner : MonoBehaviour
         {
             for (i = 0; i < spinners.Length; i++)
             {
-                //currentDirections[i] = Vector3.Slerp(currentDirections[i], targetDirections[i], Time.deltaTime);
-                //spinners[i].rotation = Quaternion.Euler(currentDirections[i]);
                 currentAngles[i] = Mathf.Lerp(currentAngles[i], targetAngles[i], Time.deltaTime);
                 spinners[i].rotation = Quaternion.Euler(0, 0, currentAngles[i]);
 
                 if (!stoppeds[i])
-                    stoppeds[i] = targetAngles[i] - currentAngles[i] <= 1;
+                    stoppeds[i] = Mathf.Abs(targetAngles[i] - currentAngles[i]) <= 1;
             }
             yield return null;
         }
-        print("Parou de rodar, solta o som! O prêmio era " + prize.GetEquipName() + "!!");
+
+        prizePopUp.ShowPrizePopUp(prize.GetFrontEquipPrefab(), prize.GetBackEquipPrefab(), prize.GetEquipName());
     }
 
     public void OnBtnClick()
     {
-        if (!spinning)
-        {
-            spinning = true;
-            StartCoroutine(Spin());
-        }
+        //if (!spinning)
+        //{
+        //    spinning = true;
+        button.interactable = false;
+        StartCoroutine(Spin());
+        //}
     }
 
     void BlockSelf()

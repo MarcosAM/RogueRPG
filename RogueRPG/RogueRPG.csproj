@@ -115,6 +115,7 @@
     <Compile Include="Assets\Logic\TurnManager.cs" />
     <Compile Include="Assets\Momentum.cs" />
     <Compile Include="Assets\Prize\PrizeManager.cs" />
+    <Compile Include="Assets\Prize\PrizePopUp.cs" />
     <Compile Include="Assets\Prize\PrizeSpinner.cs" />
     <Compile Include="Assets\Quests\BattleGroups\BattleGroup.cs" />
     <Compile Include="Assets\Quests\Dungeons\Dungeon.cs" />
