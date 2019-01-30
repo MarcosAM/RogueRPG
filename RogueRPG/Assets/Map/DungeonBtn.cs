@@ -5,20 +5,36 @@ using UnityEngine.UI;
 
 public class DungeonBtn : MonoBehaviour
 {
+    [SerializeField] int index;
     Text dungeonName;
     Text dungeonLevel;
     Button button;
-    [SerializeField]
     Dungeon dungeon;
 
-    private void Awake()
+    void Start()
     {
         gameObject.SetActive(false);
-        Appear();
+        Initialize(GameManager.getInstance().GetDungeon(index));
     }
 
-    public void Appear()
+    public void Initialize(Dungeon dungeon)
     {
+
+        this.dungeon = dungeon;
+
+        switch (this.dungeon.GetState())
+        {
+            case Dungeon.State.Open:
+            case Dungeon.State.Beaten:
+                break;
+            case Dungeon.State.JustDiscovered:
+                //TODO iniciar a animaçãozinha feliz de ter sido acabado de ser descoberta
+                this.dungeon.SetState(Dungeon.State.Open);
+                break;
+            default:
+                return;
+        }
+
         gameObject.SetActive(true);
 
         var texts = GetComponentsInChildren<Text>();

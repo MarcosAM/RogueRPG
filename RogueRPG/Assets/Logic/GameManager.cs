@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     static GameManager instance = null;
     Dungeon currentDungeon;
+    [SerializeField] Dungeon[] dungeons;
 
     void Awake()
     {
@@ -45,4 +46,21 @@ public class GameManager : MonoBehaviour
     }
 
     public Dungeon GetCurrentDungeon() { return currentDungeon; }
+    public Dungeon GetDungeon(int index) { return dungeons[index]; }
+
+    public void UnlockDungeons()
+    {
+        var unlocks = currentDungeon.GetUnlocks();
+
+        foreach (var index in unlocks)
+        {
+            if (index < dungeons.Length)
+            {
+                if (dungeons[index].GetState() == Dungeon.State.Hidden)
+                    dungeons[index].SetState(Dungeon.State.JustDiscovered);
+            }
+        }
+
+        currentDungeon.SetState(Dungeon.State.Beaten);
+    }
 }
