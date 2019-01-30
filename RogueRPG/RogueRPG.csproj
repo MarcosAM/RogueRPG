@@ -88,6 +88,8 @@
     <Compile Include="Assets\Characters\CStats\StandartStats.cs" />
     <Compile Include="Assets\Characters\Hp.cs" />
     <Compile Include="Assets\Characters\Inventory.cs" />
+    <Compile Include="Assets\Dungeons\BattleGroups\BattleGroup.cs" />
+    <Compile Include="Assets\Dungeons\Dungeon.cs" />
     <Compile Include="Assets\Edit\BackBtn.cs" />
     <Compile Include="Assets\Edit\CharacterListItem.cs" />
     <Compile Include="Assets\Edit\CharacterPreview.cs" />
@@ -113,12 +115,11 @@
     <Compile Include="Assets\Logic\EventManager.cs" />
     <Compile Include="Assets\Logic\GameManager.cs" />
     <Compile Include="Assets\Logic\TurnManager.cs" />
+    <Compile Include="Assets\Map\DungeonBtn.cs" />
     <Compile Include="Assets\Momentum.cs" />
     <Compile Include="Assets\Prize\PrizeManager.cs" />
     <Compile Include="Assets\Prize\PrizePopUp.cs" />
     <Compile Include="Assets\Prize\PrizeSpinner.cs" />
-    <Compile Include="Assets\Quests\BattleGroups\BattleGroup.cs" />
-    <Compile Include="Assets\Quests\Dungeons\Dungeon.cs" />
     <Compile Include="Assets\SkillName.cs" />
     <Compile Include="Assets\Skills\Scripts\Actions.cs" />
     <Compile Include="Assets\Skills\Scripts\Assists\AllyAssist.cs" />
