@@ -10,8 +10,6 @@ public class PrizePopUp : MonoBehaviour
     private void Awake()
     {
         text = GetComponentInChildren<Text>();
-        if (text)
-            print("Achei!");
     }
 
     public void ShowPrizePopUp(Transform frontEquipPrefab, Transform backEquipPrefab, string equipName)

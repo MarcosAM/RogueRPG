@@ -89,27 +89,8 @@ public class Equip : ScriptableObject, IWaitForSkill
     public RectTransform GetFrontEquipPrefab() { return frontEquipPrefab; }
     public Archetypes.Archetype GetArchetype() { return archetype; }
     public int GetLevel() { return level; }
-    public int GetHowManyLeft()
-    {
-        ////TODO Reduzir isso aqui. Provavelmente com a adição de uma classe especifica para cuidar da party vai ficar melhor. Pq agora ele tem que fazer coisa demais toda vez que for chamar essa função
-        //var party = FindObjectOfType<GameManager>().GetParty();
-
-        //var used = 0;
-
-        //foreach (var member in party)
-        //{
-        //    foreach (var equip in member.GetEquips())
-        //    {
-        //        if (equip == this)
-        //            used++;
-        //    }
-        //}
-
-        //return amount - used;
-        return howManyLeft;
-    }
-
+    public int GetHowManyLeft() { return howManyLeft; }
     public void SetHowManyLeft(int amount) { howManyLeft = amount; }
-
     public int GetAmount() { return amount; }
+    public void SetAmout(int amount) { this.amount = amount; }
 }

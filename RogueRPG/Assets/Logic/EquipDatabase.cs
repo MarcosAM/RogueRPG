@@ -40,7 +40,10 @@ public class EquipDatabase : MonoBehaviour
         if (possibleEquips.Length <= 0)
             possibleEquips = instace.equips;
 
-        return possibleEquips[Random.Range(0, possibleEquips.Length - 1)];
+        var randomIndex = Random.Range(0, possibleEquips.Length - 1);
+        possibleEquips[randomIndex].SetAmout(possibleEquips[randomIndex].GetAmount() + 1);
+
+        return possibleEquips[randomIndex];
     }
 
     public static Equip GetEquip(int equipIndex) { return instace.equips[equipIndex]; }
