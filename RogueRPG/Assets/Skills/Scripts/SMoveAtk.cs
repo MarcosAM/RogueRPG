@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skill/Move and Attack")]
-public class SMoveAtk : Skill
+public class SMoveAtk : Movement
 {
-    [SerializeField]
-    Move move;
     [SerializeField]
     Attack attack;
 

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skill/Assist and Move")]
-public class SAssistMove : Skill
+public class SAssistMove : Movement
 {
     [SerializeField]
     Assist assist;
-    [SerializeField]
-    Move move;
     [SerializeField]
     Effects effect;
 

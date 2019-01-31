@@ -6,7 +6,7 @@ using UnityEngine;
 public class Movement : Skill
 {
     [SerializeField]
-    Move move;
+    protected Move move;
 
     public override bool IsTargetable(Character user, Tile tile) { return move.IsTargetable(user, tile); }
 
