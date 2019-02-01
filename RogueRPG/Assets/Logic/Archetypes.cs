@@ -13,6 +13,7 @@ public class Archetypes : MonoBehaviour
     [SerializeField] protected Equip[] fighterEquips;
     [SerializeField] protected Equip[] knightEquips;
     [SerializeField] protected Equip[] berserkerEquips;
+    [SerializeField] protected RectTransform[] hats;
 
     [SerializeField] RuntimeAnimatorController[] animators;
     static Archetypes instance;
@@ -131,6 +132,8 @@ public class Archetypes : MonoBehaviour
 
         return instance.warlockEquips[0];
     }
+
+    public static RectTransform GetHat(Archetype archetype) { return Instantiate(instance.hats[(int)archetype]); }
 
     public static RuntimeAnimatorController GetAnimator(Archetype archetype)
     {

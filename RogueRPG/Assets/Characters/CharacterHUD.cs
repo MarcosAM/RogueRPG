@@ -11,7 +11,7 @@ public class CharacterHUD : MonoBehaviour
     AnimatedSlider hpSlider;
     [SerializeField] Text hpText;
     [SerializeField] private DamageFB damageFbPrefab;
-    [SerializeField] private Text nameText;
+    //[SerializeField] private Text nameText;
 
     void Awake()
     {
@@ -23,14 +23,14 @@ public class CharacterHUD : MonoBehaviour
         this.hp = character.GetAttributes().GetHp();
         this.cName = character.GetName();
 
-        nameText.text = this.cName;
+        //nameText.text = this.cName;
 
         this.hp.OnHPValuesChange += HPFeedback;
 
         if (!character.Playable)
         {
             hpText.gameObject.SetActive(false);
-            nameText.transform.rotation = Quaternion.Euler(0, 180, 90);
+            //nameText.transform.rotation = Quaternion.Euler(0, 180, 90);
         }
 
         this.hp.OnHUDValuesChange += Refresh;
@@ -59,7 +59,7 @@ public class CharacterHUD : MonoBehaviour
 
     void Refresh()
     {
-        nameText.text = this.cName;
+        //nameText.text = this.cName;
         SetHpBar(hp.GetValue() / hp.GetMaxValue());
         SetHpNumbers(hp.GetValue(), hp.GetMaxValue());
     }

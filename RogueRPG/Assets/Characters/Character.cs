@@ -55,6 +55,12 @@ public class Character : MonoBehaviour, IPlayAnimationByString
         avatarImg.sprite = stats.GetSprite();
         avatarImg.color = stats.GetColor();
         Playable = stats.GetPlayable();
+        if (Playable)
+        {
+            var hat = Archetypes.GetHat(inventory.Archetype);
+            hat.SetParent(avatarImg.rectTransform);
+            hat.localPosition = Vector2.zero;
+        }
         GetComponentInChildren<CharacterHUD>().Initialize(this);
     }
 
