@@ -5,14 +5,14 @@ using UnityEngine;
 public class Archetypes : MonoBehaviour
 {
     //TODO me lembrar de depois no botão start zerar tudo ao estado normal de jogo
-    [SerializeField] protected Equip[] supportersEquips;
-    [SerializeField] protected Equip[] disablersEquips;
-    [SerializeField] protected Equip[] mOffensiveEquips;
-    [SerializeField] protected Equip[] offensiveEquips;
-    [SerializeField] protected Equip[] mInfantryEquips;
-    [SerializeField] protected Equip[] infantryEquips;
-    [SerializeField] protected Equip[] bruteEquips;
-    [SerializeField] protected Equip[] agressiveEquips;
+    [SerializeField] protected Equip[] warlockEquips;
+    [SerializeField] protected Equip[] wizardEquips;
+    [SerializeField] protected Equip[] priestEquips;
+    [SerializeField] protected Equip[] rangerEquips;
+    [SerializeField] protected Equip[] thiefEquips;
+    [SerializeField] protected Equip[] fighterEquips;
+    [SerializeField] protected Equip[] knightEquips;
+    [SerializeField] protected Equip[] berserkerEquips;
 
     [SerializeField] RuntimeAnimatorController[] animators;
     static Archetypes instance;
@@ -22,7 +22,7 @@ public class Archetypes : MonoBehaviour
         instance = this;
     }
 
-    public enum Archetype { None, Supporter, Disabler, MOffensive, Offensive, MInfantry, Infantry, Brute, Agressive }
+    public enum Archetype { Warlock, Wizard, Priest, Ranger, Thief, Fighter, Knight, Berserker }
 
     public static Archetype GetArchetype(Equip[] equips)
     {
@@ -39,7 +39,7 @@ public class Archetypes : MonoBehaviour
             archetypesLevels[equip.GetArchetype()] += equip.GetLevel();
         }
 
-        var archetype = Archetype.None;
+        var archetype = Archetype.Warlock;
         var level = 0;
 
         foreach (var item in archetypesLevels)
@@ -68,7 +68,7 @@ public class Archetypes : MonoBehaviour
             archetypesLevels[equip.GetArchetype()] += equip.GetLevel();
         }
 
-        var archetype = Archetype.None;
+        var archetype = Archetype.Warlock;
         var level = 0;
 
         foreach (var item in archetypesLevels)
@@ -88,55 +88,53 @@ public class Archetypes : MonoBehaviour
         {
             switch (archetype)
             {
-                case Archetype.None:
-                case Archetype.Supporter:
-                    return instance.supportersEquips[level];
-                case Archetype.Disabler:
-                    return instance.disablersEquips[level];
-                case Archetype.MOffensive:
-                    return instance.mOffensiveEquips[level];
-                case Archetype.Offensive:
-                    return instance.offensiveEquips[level];
-                case Archetype.MInfantry:
-                    return instance.mInfantryEquips[level];
-                case Archetype.Infantry:
-                    return instance.infantryEquips[level];
-                case Archetype.Brute:
-                    return instance.bruteEquips[level];
-                case Archetype.Agressive:
-                    return instance.agressiveEquips[level];
+                case Archetype.Warlock:
+                    return instance.warlockEquips[level];
+                case Archetype.Wizard:
+                    return instance.wizardEquips[level];
+                case Archetype.Priest:
+                    return instance.priestEquips[level];
+                case Archetype.Ranger:
+                    return instance.rangerEquips[level];
+                case Archetype.Thief:
+                    return instance.thiefEquips[level];
+                case Archetype.Fighter:
+                    return instance.fighterEquips[level];
+                case Archetype.Knight:
+                    return instance.knightEquips[level];
+                case Archetype.Berserker:
+                    return instance.berserkerEquips[level];
             }
         }
         catch
         {
             switch (archetype)
             {
-                case Archetype.None:
-                case Archetype.Supporter:
-                    return instance.supportersEquips[0];
-                case Archetype.Disabler:
-                    return instance.disablersEquips[0];
-                case Archetype.MOffensive:
-                    return instance.mOffensiveEquips[0];
-                case Archetype.Offensive:
-                    return instance.offensiveEquips[0];
-                case Archetype.MInfantry:
-                    return instance.mInfantryEquips[0];
-                case Archetype.Infantry:
-                    return instance.infantryEquips[0];
-                case Archetype.Brute:
-                    return instance.bruteEquips[0];
-                case Archetype.Agressive:
-                    return instance.agressiveEquips[0];
+                case Archetype.Warlock:
+                    return instance.warlockEquips[0];
+                case Archetype.Wizard:
+                    return instance.wizardEquips[0];
+                case Archetype.Priest:
+                    return instance.priestEquips[0];
+                case Archetype.Ranger:
+                    return instance.rangerEquips[0];
+                case Archetype.Thief:
+                    return instance.thiefEquips[0];
+                case Archetype.Fighter:
+                    return instance.fighterEquips[0];
+                case Archetype.Knight:
+                    return instance.knightEquips[0];
+                case Archetype.Berserker:
+                    return instance.berserkerEquips[0];
             }
         }
 
-        return instance.supportersEquips[0];
+        return instance.warlockEquips[0];
     }
 
     public static RuntimeAnimatorController GetAnimator(Archetype archetype)
     {
-        if (archetype > Archetype.MOffensive)
+        if (archetype > Archetype.Priest)
             return instance.animators[1];
 
         return instance.animators[0];

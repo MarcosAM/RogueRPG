@@ -21,8 +21,8 @@ public class MagicalDamage : Damage
 
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
-        if (user.GetInventory().Archetype == Archetypes.Archetype.MInfantry)
-            return (int)(c2.GetAttributes().GetAtkmValue() - c1.GetAttributes().GetAtkmValue());
+        //if (user.GetInventory().Archetype == Archetypes.Archetype.MInfantry)
+        //    return (int)(c2.GetAttributes().GetAtkmValue() - c1.GetAttributes().GetAtkmValue());
 
         return (int)(c1.GetAttributes().GetDefmValue() - c2.GetAttributes().GetDefmValue());
     }

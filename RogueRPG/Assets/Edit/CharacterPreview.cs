@@ -6,7 +6,7 @@ public class CharacterPreview : MonoBehaviour
 {
     //TODO Se eu inventar de alterar os chapeus baseado na força da galera, eu vou ter que fazer isso aqui tbm
     Animator animator;
-    Archetypes.Archetype archetype = Archetypes.Archetype.None;
+    Archetypes.Archetype archetype = Archetypes.Archetype.Warlock;
 
     [SerializeField] protected RectTransform frontHandler;
     [SerializeField] protected RectTransform backHandler;

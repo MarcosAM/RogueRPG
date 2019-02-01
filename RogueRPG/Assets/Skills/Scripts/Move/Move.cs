@@ -14,7 +14,7 @@ public class Move : Actions
     public override bool WillBeAffected(Tile user, Tile target, Tile tile) { return target == tile; }
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
-        var alliesTiles = battleground.GetTilesFromAliveCharactersOf(user.Playable).FindAll(t => t.GetCharacter() != user && t.GetCharacter().GetInventory().Archetype != Archetypes.Archetype.Agressive);
+        var alliesTiles = battleground.GetTilesFromAliveCharactersOf(user.Playable).FindAll(t => t.GetCharacter() != user && t.GetCharacter().GetInventory().Archetype != Archetypes.Archetype.Berserker);
 
         if (alliesTiles.Count > 0)
         {

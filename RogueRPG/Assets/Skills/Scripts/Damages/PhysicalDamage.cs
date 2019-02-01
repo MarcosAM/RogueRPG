@@ -37,14 +37,14 @@ public class PhysicalDamage : Damage
         if (user.GetAttributes().GetCriticValue() > 0.4f)
             return (int)(c2.GetAttributes().GetDefValue() - c1.GetAttributes().GetDefValue());
 
-        if (user.GetInventory().Archetype >= Archetypes.Archetype.Brute)
+        if (user.GetInventory().Archetype >= Archetypes.Archetype.Berserker)
             return CombatRules.GetDistance(user.GetTile(), c1.GetTile()) - CombatRules.GetDistance(user.GetTile(), c2.GetTile());
 
-        if (user.GetInventory().Archetype == Archetypes.Archetype.Infantry)
+        if (user.GetInventory().Archetype == Archetypes.Archetype.Knight)
             return (int)(c2.GetAttributes().GetAtkValue() - c1.GetAttributes().GetAtkValue());
 
-        if (user.GetInventory().Archetype == Archetypes.Archetype.MInfantry)
-            return (int)(c2.GetAttributes().GetAtkmValue() - c1.GetAttributes().GetAtkmValue());
+        //if (user.GetInventory().Archetype == Archetypes.Archetype.MInfantry)
+        //    return (int)(c2.GetAttributes().GetAtkmValue() - c1.GetAttributes().GetAtkmValue());
 
         return (int)(c1.GetAttributes().GetDefValue() - c2.GetAttributes().GetDefValue());
     }
