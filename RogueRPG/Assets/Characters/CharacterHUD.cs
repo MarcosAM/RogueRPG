@@ -54,7 +54,7 @@ public class CharacterHUD : MonoBehaviour
 
     void SetHpNumbers(float hp, float maxHp)
     {
-        hpText.text = hp + "/" + maxHp;
+        hpText.text = hp.ToString();
     }
 
     void Refresh()
