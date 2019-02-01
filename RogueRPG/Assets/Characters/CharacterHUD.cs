@@ -38,7 +38,7 @@ public class CharacterHUD : MonoBehaviour
         Refresh();
     }
 
-    void HPFeedback(int pastHp, int amountChanged, bool wasCritic)
+    void HPFeedback(int amountChanged, bool wasCritic)
     {
         DamageFB damageFb = Instantiate(damageFbPrefab);
         damageFb.transform.SetParent(transform.parent.parent, false);

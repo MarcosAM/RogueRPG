@@ -10,7 +10,7 @@ public class Hp : Attribute
     Momentum momentum;
 
     public event Action OnHUDValuesChange;
-    public event Action<int, int, bool> OnHPValuesChange;
+    public event Action<int, bool> OnHPValuesChange;
 
     public override float GetValue() { return currentValue; }
 
@@ -41,7 +41,7 @@ public class Hp : Attribute
         {
             if (OnHPValuesChange != null)
             {
-                OnHPValuesChange(currentValue, damage, wasCritic);
+                OnHPValuesChange(-damage, wasCritic);
             }
 
             currentValue -= damage;
@@ -67,7 +67,7 @@ public class Hp : Attribute
         {
             if (OnHPValuesChange != null)
             {
-                OnHPValuesChange(currentValue, value, false);
+                OnHPValuesChange(value, false);
             }
             currentValue += value;
             if (currentValue > statBase)

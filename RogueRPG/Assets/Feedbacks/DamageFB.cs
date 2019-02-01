@@ -3,32 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DamageFB : MonoBehaviour {
+public class DamageFB : MonoBehaviour
+{
 
-	RectTransform rectTransform;
-	Text text;
-	Image image;
-	[SerializeField]Sprite criticSprite;
+    RectTransform rectTransform;
+    Text text;
+    Image image;
+    [SerializeField] Sprite criticSprite;
+    [SerializeField] Color damageColor;
+    [SerializeField] Color healColor;
 
-	void Awake(){
-		rectTransform = GetComponent<RectTransform> ();
-		text = GetComponentInChildren<Text> ();
-		image = GetComponentInChildren<Image> ();
-	}
+    void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        text = GetComponentInChildren<Text>();
+        image = GetComponentInChildren<Image>();
+    }
 
-	public void Initialize (int value, bool wasCritic){
-		if(wasCritic){
-			image.sprite = criticSprite;
-			rectTransform.sizeDelta = new Vector2 (70,70);
-		}
-		text.text = value.ToString ();
-	}
+    public void Initialize(int value, bool wasCritic)
+    {
+        image.color = value > 0 ? healColor : damageColor;
 
-	public void End (){
-		Destroy (gameObject);
-	}
+        if (wasCritic)
+        {
+            image.sprite = criticSprite;
+            image.rectTransform.sizeDelta = new Vector2(90, 90);
+        }
 
-	public RectTransform getRectTransform(){
-		return rectTransform;
-	}
+        text.text = Mathf.Abs(value).ToString();
+    }
+
+    public void End()
+    {
+        Destroy(gameObject);
+    }
+
+    public RectTransform getRectTransform()
+    {
+        return rectTransform;
+    }
 }
