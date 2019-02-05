@@ -5,8 +5,9 @@ using UnityEngine;
 public class BuffPManager : MonoBehaviour, IBuffHUD
 {
 
-    [SerializeField] List<Sprite> spritesBuff;
-    [SerializeField] List<Sprite> spritesDebuff;
+    //[SerializeField] List<Sprite> spritesBuff;
+    //[SerializeField] List<Sprite> spritesDebuff;
+    [SerializeField] List<Sprite> sprites;
     [SerializeField] BuffParticles buffParticlesPrefab;
     [SerializeField] Color[] minColors;
     [SerializeField] Color[] maxColors;
@@ -22,11 +23,11 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
 
     public void PlayAt(Character character, Attribute.Type stats, Attribute.Intensity intensity, Vector2 position)
     {
-        Sprite sprite;
-        if (((int)intensity) % 2 == 0)
-            sprite = spritesBuff[(int)stats];
-        else
-            sprite = spritesDebuff[(int)stats];
+        //Sprite sprite;
+        //if (((int)intensity) % 2 == 0)
+        //    sprite = spritesBuff[(int)stats];
+        //else
+        //    sprite = spritesDebuff[(int)stats];
         BuffParticles bp = buffsParticles.Find(b => b.Owner == character && b.Stats == stats);
         if (bp == null)
         {
@@ -42,7 +43,7 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
             }
             bp.transform.SetParent(canvasTransform);
         }
-        bp.PlayAt(character, (int)intensity, position, sprite, stats, minColors[(int)intensity], maxColors[(int)intensity]);
+        bp.PlayAt(character, (int)intensity, position, sprites[(int)stats], stats, minColors[(int)intensity], maxColors[(int)intensity]);
     }
 
     public void Stop(Character character, Attribute.Type stats)
