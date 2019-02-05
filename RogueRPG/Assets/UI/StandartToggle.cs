@@ -53,7 +53,7 @@ public class StandartToggle : MonoBehaviour
 
     public Toggle getToggle() { return toggle; }
     public Text getText() { return text; }
-    public void SetInterectable(bool interactable)
+    public virtual void SetInterectable(bool interactable)
     {
         toggle.interactable = interactable;
 

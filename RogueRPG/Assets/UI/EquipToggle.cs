@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EquipToggle : StandartToggle
 {
-    private EquipToggleManager equipToggleManager;
+    protected EquipToggleManager equipToggleManager;
 
     void Awake()
     {

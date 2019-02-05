@@ -162,6 +162,7 @@
     <Compile Include="Assets\UI\BattleGuide.cs" />
     <Compile Include="Assets\UI\EquipToggle.cs" />
     <Compile Include="Assets\UI\EquipToggleManager.cs" />
+    <Compile Include="Assets\UI\MomentumToggle.cs" />
     <Compile Include="Assets\UI\PlayerInputManager.cs" />
     <Compile Include="Assets\UI\Rotate.cs" />
     <Compile Include="Assets\UI\SkillDescription.cs" />
