@@ -8,6 +8,8 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
     [SerializeField] List<Sprite> spritesBuff;
     [SerializeField] List<Sprite> spritesDebuff;
     [SerializeField] BuffParticles buffParticlesPrefab;
+    [SerializeField] Color[] minColors;
+    [SerializeField] Color[] maxColors;
     List<BuffParticles> buffsParticles = new List<BuffParticles>();
     Transform canvasTransform;
 
@@ -40,7 +42,7 @@ public class BuffPManager : MonoBehaviour, IBuffHUD
             }
             bp.transform.SetParent(canvasTransform);
         }
-        bp.PlayAt(character, (int)intensity, position, sprite, stats);
+        bp.PlayAt(character, (int)intensity, position, sprite, stats, minColors[(int)intensity], maxColors[(int)intensity]);
     }
 
     public void Stop(Character character, Attribute.Type stats)
