@@ -43,11 +43,11 @@ public class EquipToggleManager : MonoBehaviour
         {
             equipToggles[i].gameObject.SetActive(true);
             equipToggles[i].getText().text = inventory.GetEquips()[i].GetEquipName();
-            equipToggles[i].getToggle().interactable = inventory.IsEquipAvailable(i);
+            equipToggles[i].SetInterectable(inventory.IsEquipAvailable(i));
         }
 
         equipToggles[equipToggles.Count - 1].getText().text = inventory.GetEquips()[i].GetEquipName();
-        equipToggles[equipToggles.Count - 1].getToggle().interactable = inventory.IsEquipAvailable(i);
+        equipToggles[equipToggles.Count - 1].SetInterectable(inventory.IsEquipAvailable(i));
 
         for (var j = i; i < equipToggles.Count - 1; i++)
         {
