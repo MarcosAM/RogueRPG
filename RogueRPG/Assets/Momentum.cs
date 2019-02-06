@@ -8,10 +8,13 @@ public class Momentum : MonoBehaviour
     AnimatedSlider animatedSlider;
     int currentMomentumDowntime = 0;
     int maxMomentumDowntime = 6;
+    ParticleSystem particleSystem;
 
     void Awake()
     {
         animatedSlider = GetComponent<AnimatedSlider>();
+        particleSystem = GetComponentInChildren<ParticleSystem>();
+        particleSystem.Stop();
     }
 
     public float Value
@@ -34,6 +37,10 @@ public class Momentum : MonoBehaviour
                 }
             }
             animatedSlider.Value = value;
+            if (animatedSlider.Value == animatedSlider.slider.maxValue)
+                particleSystem.Play();
+            else
+                particleSystem.Stop();
         }
     }
 
