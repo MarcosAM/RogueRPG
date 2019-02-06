@@ -15,6 +15,7 @@ public class PrizeSpinner : MonoBehaviour
     [SerializeField] Text warningText;
     [SerializeField] string warning;
     PrizePopUp prizePopUp;
+    string resultTip;
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class PrizeSpinner : MonoBehaviour
 
         var validEquips = PartyManager.GetParty()[charIndex].GetEquips().Where(e => e.GetLevel() <= dungeonLevel).ToArray();
 
-        UpdateSlotsTexts(validEquips);
+        UpdateSlotsImages(validEquips);
 
         if (validEquips.Length <= 1)
         {
@@ -42,6 +43,12 @@ public class PrizeSpinner : MonoBehaviour
         var random2 = Random.Range(0, validEquips.Length - 1);
 
         prize = EquipDatabase.UnlockNewEquip(validEquips[random1].GetArchetype(), validEquips[random2].GetArchetype(), validEquips[random1].GetLevel(), validEquips[random2].GetLevel(), dungeonLevel);
+
+        var lowestLevel = validEquips[random1].GetLevel() > validEquips[random2].GetLevel() ? validEquips[random2].GetLevel() : validEquips[random1].GetLevel();
+        var highestLevel = validEquips[random1].GetLevel() + validEquips[random2].GetLevel() > dungeonLevel ? dungeonLevel : validEquips[random1].GetLevel() + validEquips[random2].GetLevel();
+        var amount = EquipDatabase.GetAllEquips().Where(e => (e.GetLevel() >= lowestLevel && e.GetLevel() <= highestLevel) && (e.GetArchetype() == validEquips[random2].GetArchetype() || e.GetArchetype() == validEquips[random1].GetArchetype())).ToArray().Length;
+
+        resultTip = "Of All " + amount + " " + validEquips[random1].GetArchetype() + " Or " + validEquips[random2].GetArchetype() + " Equips From Levels " + lowestLevel + " to " + highestLevel + " You Won: " + prize.GetEquipName();
 
         PrepareSpinners(new int[] { random1, random2 });
     }
@@ -66,17 +73,33 @@ public class PrizeSpinner : MonoBehaviour
         }
     }
 
-    void UpdateSlotsTexts(Equip[] equips)
+    void UpdateSlotsImages(Equip[] equips)
     {
         for (var i = 0; i < stops.Length; i++)
         {
             if (i < equips.Length)
             {
-                stops[i].GetComponentInChildren<Text>().text = equips[i].GetEquipName();
+                //stops[i].GetComponentInChildren<Text>().text = equips[i].GetEquipName();
+                if (equips[i].GetBackEquipPrefab())
+                {
+                    Transform backEquip = Instantiate(equips[i].GetBackEquipPrefab());
+                    backEquip.SetParent(stops[i]);
+                    backEquip.localPosition = new Vector2(0, 0);
+                    backEquip.rotation = Quaternion.Euler(new Vector3(0, 0, -45));
+                }
+
+                if (equips[i].GetFrontEquipPrefab())
+                {
+                    Transform frontEquip = Instantiate(equips[i].GetFrontEquipPrefab());
+                    frontEquip.SetParent(stops[i]);
+                    frontEquip.localPosition = new Vector2(0, 0);
+                    frontEquip.rotation = Quaternion.Euler(new Vector3(0, 0, 45));
+                }
             }
             else
             {
-                stops[i].GetComponentInChildren<Text>().text = "Blocked";
+                //TODO trocar por uma cadeado
+                //stops[i].GetComponentInChildren<Text>().text = "Blocked";
             }
         }
     }
@@ -100,7 +123,10 @@ public class PrizeSpinner : MonoBehaviour
         }
 
         if (prizePopUp)
+        {
             prizePopUp.ShowPrizePopUp(prize.GetFrontEquipPrefab(), prize.GetBackEquipPrefab(), prize.GetEquipName());
+            warningText.text = resultTip;
+        }
         else
             print("Nops!");
     }
