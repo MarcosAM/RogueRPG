@@ -17,14 +17,37 @@ public class BuffParticles : MonoBehaviour
         Stop();
     }
 
-    public void PlayAt(Character character, int intensity, Vector2 position, Sprite sprite, Attribute.Type stats, Color minColor, Color maxColor)
+    public void PlayAt(Character character, int intensity, Vector2 position, Sprite sprite, Attribute.Type stats)
     {
-        transform.localScale = intensity % 2 == 0 ? Vector3.one : new Vector3(1, -1, 1);
+        if (intensity % 2 == 0)
+        {
+            transform.localScale = Vector3.one;
+            main.startColor = new ParticleSystem.MinMaxGradient(new Color(1, 0.573F, 0));
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, -1, 1);
+            main.startColor = new ParticleSystem.MinMaxGradient(new Color(0.808f, 0.141F, 0.769f));
+        }
+        if (intensity <= 2)
+        {
+            main.startSpeed = new ParticleSystem.MinMaxCurve(20);
+        }
+        else
+        {
+            main.startSpeed = new ParticleSystem.MinMaxCurve(40);
+        }
+        if (intensity < 5)
+        {
+            main.startSize = new ParticleSystem.MinMaxCurve(12, 25);
+        }
+        else
+        {
+            main.startSize = new ParticleSystem.MinMaxCurve(25, 30);
+        }
         Owner = character;
         Stats = stats;
         uIParticleSystem.particleSprite = sprite;
-        main.startColor = new ParticleSystem.MinMaxGradient(minColor, maxColor);
-        //main.startSize = new ParticleSystem.MinMaxCurve(10 * intensity);
         transform.SetParent(character.transform);
         transform.localPosition = Vector3.zero;
         gameObject.SetActive(true);
