@@ -126,6 +126,7 @@ public class PrizeSpinner : MonoBehaviour
         {
             prizePopUp.ShowPrizePopUp(prize.GetFrontEquipPrefab(), prize.GetBackEquipPrefab(), prize.GetEquipName());
             warningText.text = resultTip;
+            warningText.transform.parent.gameObject.SetActive(true);
         }
         else
             print("Nops!");
