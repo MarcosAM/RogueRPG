@@ -8,11 +8,13 @@ public class EquipListItem : MonoBehaviour
 {
 
     [SerializeField] Text amountTxt;
+    [SerializeField] Text levelTxt;
     [SerializeField] Image archetypeIcon;
     [SerializeField] Text nameTxt;
     [SerializeField] Text attributesTxt;
     [SerializeField] SkillListItem[] skillsTxt;
     [SerializeField] Button mainBtn;
+    [SerializeField] Image backgroundImg;
 
     Equip equip;
 
@@ -52,14 +54,16 @@ public class EquipListItem : MonoBehaviour
 
         if (equipped)
         {
-            archetypeIcon.color = Color.yellow;
+            backgroundImg.color = Color.yellow;
             mainBtn.interactable = false;
         }
         else
         {
             mainBtn.interactable = true;
-            archetypeIcon.color = Color.white;
+            backgroundImg.color = Color.grey;
         }
+        archetypeIcon.sprite = Archetypes.GetArchetypeIcon(equip.GetArchetype());
+        levelTxt.text = "Lv." + equip.GetLevel();
     }
 
     public void Fill(Archetypes.Archetype archetype)
@@ -72,7 +76,9 @@ public class EquipListItem : MonoBehaviour
         {
             skill.Initialize(unknown);
         }
-        archetypeIcon.color = Color.white;
+        backgroundImg.color = Color.grey;
+        archetypeIcon.sprite = Archetypes.GetArchetypeIcon(archetype);
+        levelTxt.text = "Lv.?";
     }
 
     public void BtnPress()

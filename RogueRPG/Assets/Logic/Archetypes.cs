@@ -14,6 +14,7 @@ public class Archetypes : MonoBehaviour
     [SerializeField] protected Equip[] knightEquips;
     [SerializeField] protected Equip[] berserkerEquips;
     [SerializeField] protected RectTransform[] hats;
+    [SerializeField] Sprite archetypesIcon;
 
     [SerializeField] RuntimeAnimatorController[] animators;
     static Archetypes instance;
@@ -141,5 +142,10 @@ public class Archetypes : MonoBehaviour
             return instance.animators[1];
 
         return instance.animators[0];
+    }
+
+    public static Sprite GetArchetypeIcon(Archetype archetype)
+    {
+        return instance.archetypesIcon;
     }
 }
