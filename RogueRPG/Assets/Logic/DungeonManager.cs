@@ -17,6 +17,7 @@ public class DungeonManager : MonoBehaviour
     Battleground battleground;
     TurnManager turnManager;
     Momentum momentum;
+    BattleGroup[] battleGroups;
 
     WaitForSeconds delayNextTurn = new WaitForSeconds(1.8f);
 
@@ -35,9 +36,11 @@ public class DungeonManager : MonoBehaviour
         }
 
         lastDungeonLevel = gameManager.GetCurrentDungeon().GetLevel();
-        var battleGroup = gameManager.GetCurrentDungeon().GetRandomBattleGroup(dungeonFloor);
+
+        battleGroups = gameManager.GetCurrentDungeon().GetRandomBattleGroups();
+
         var npcs = new List<Character>();
-        var npcsStats = battleGroup.GetEnemiesStats();
+        var npcsStats = battleGroups[0].GetEnemiesStats();
 
         foreach (var npcStat in npcsStats)
         {
@@ -58,7 +61,7 @@ public class DungeonManager : MonoBehaviour
             character.GetAttributes().Refresh();
         }
 
-        battleground.Size = battleGroup.GetBattlegroundSize();
+        battleground.Size = battleGroups[0].GetBattlegroundSize();
 
         round = 0;
         TryToStartTurn();
@@ -137,7 +140,7 @@ public class DungeonManager : MonoBehaviour
     {
         dungeonFloor++;
         GameManager gameManager = GameManager.getInstance();
-        if (dungeonFloor < gameManager.GetCurrentDungeon().GetLevels())
+        if (dungeonFloor < battleGroups.Length)
         {
             AdvanceInitiative(initiativeOrder);
 
@@ -147,12 +150,12 @@ public class DungeonManager : MonoBehaviour
                 enemy.RemoveSelf();
             }
 
-            var battleGroup = gameManager.GetCurrentDungeon().GetRandomBattleGroup(dungeonFloor);
+            //var battleGroup = gameManager.GetCurrentDungeon().GetBattleGroup(dungeonFloor);
 
-            battleground.Size = battleGroup.GetBattlegroundSize();
+            battleground.Size = battleGroups[dungeonFloor].GetBattlegroundSize();
 
             var npcs = new List<Character>();
-            var npcsStats = battleGroup.GetEnemiesStats();
+            var npcsStats = battleGroups[dungeonFloor].GetEnemiesStats();
             foreach (var npcStat in npcsStats)
             {
                 if (npcStat)
