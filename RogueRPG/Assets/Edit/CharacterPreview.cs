@@ -9,6 +9,7 @@ public class CharacterPreview : MonoBehaviour
     Archetypes.Archetype archetype = Archetypes.Archetype.Warlock;
 
     [SerializeField] protected RectTransform frontHandler;
+    [SerializeField] protected RectTransform avatarImg;
     [SerializeField] protected RectTransform backHandler;
 
     private void Awake()
@@ -65,5 +66,9 @@ public class CharacterPreview : MonoBehaviour
         this.archetype = archetype;
 
         animator.runtimeAnimatorController = Archetypes.GetAnimator(archetype);
+
+        var hat = Archetypes.GetHat(archetype);
+        hat.SetParent(avatarImg);
+        hat.localPosition = Vector2.zero;
     }
 }

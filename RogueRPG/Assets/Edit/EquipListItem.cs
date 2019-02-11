@@ -54,13 +54,13 @@ public class EquipListItem : MonoBehaviour
 
         if (equipped)
         {
-            backgroundImg.color = Color.yellow;
+            backgroundImg.color = Color.grey;
             mainBtn.interactable = false;
         }
         else
         {
             mainBtn.interactable = true;
-            backgroundImg.color = Color.grey;
+            backgroundImg.color = backgroundImg.color.lightGrey();
         }
         archetypeIcon.sprite = Archetypes.GetArchetypeIcon(equip.GetArchetype());
         levelTxt.text = "Lv." + equip.GetLevel();
@@ -76,7 +76,7 @@ public class EquipListItem : MonoBehaviour
         {
             skill.Initialize(unknown);
         }
-        backgroundImg.color = Color.grey;
+        backgroundImg.color = backgroundImg.color.lightGrey();
         archetypeIcon.sprite = Archetypes.GetArchetypeIcon(archetype);
         levelTxt.text = "Lv.?";
     }

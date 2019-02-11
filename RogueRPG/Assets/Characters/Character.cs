@@ -72,7 +72,6 @@ public class Character : MonoBehaviour, IPlayAnimationByString
 
     public string GetName() { return characterName; }
 
-    //public virtual bool IsPlayable() { return true; }
     public Image GetAvatarImg() { return avatarImg; }
 
     public void SetName(string name)
