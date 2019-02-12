@@ -23,7 +23,7 @@ public class Hp : Attribute
             if (((int)this.intensity) % 2 == 0)
                 Heal((int)(character.GetAttributes().GetHp().GetMaxValue() * GetBuffValue()));
             else
-                LoseHpBy((int)(character.GetAttributes().GetHp().GetMaxValue() * GetBuffValue()), false);
+                LoseHpBy((int)(character.GetAttributes().GetHp().GetMaxValue() * -GetBuffValue()), false);
         }
         base.SpendAndCheckIfEnded();
     }

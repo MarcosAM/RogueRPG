@@ -11,6 +11,7 @@ public class Debuff : Damage
 
     public override void TryToAffect(Character user, Character target, float attack)
     {
+        base.TryToAffect(user, target, attack);
         if (hitted)
         {
             target.GetAttributes().BuffIt(type, intensity, duration);
@@ -18,7 +19,7 @@ public class Debuff : Damage
         else
         {
             //TODO colocar esquiva aqui! A animação no caso, trigger the animation controller
-            Debug.Log("Missed!");
+            Debug.Log("Missed!" + attack);
         }
     }
 
