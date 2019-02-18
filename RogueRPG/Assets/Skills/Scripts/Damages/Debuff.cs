@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Damages/Debuff")]
 public class Debuff : Damage
 {
-    [SerializeField] int duration;
-    [SerializeField] Attribute.Type type;
-    [SerializeField] Attribute.Intensity intensity;
+    [SerializeField] protected int duration;
+    [SerializeField] protected Attribute.Type type;
+    [SerializeField] protected Attribute.Intensity intensity;
 
     public override void TryToAffect(Character user, Character target, float attack)
     {

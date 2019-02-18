@@ -135,6 +135,7 @@
     <Compile Include="Assets\Skills\Scripts\Attacks\MeleeAttack.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\Damage.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\Debuff.cs" />
+    <Compile Include="Assets\Skills\Scripts\Damages\DebuffNBuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MagicalDamage.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MDmgAndDebuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\PDmgAndDebuff.cs" />
