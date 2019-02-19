@@ -67,6 +67,7 @@ public class Momentum : MonoBehaviour
 
     public bool IsMomentumFull(bool side)
     {
+        print((Value == animatedSlider.slider.maxValue) + " pois " + Value + " e " + animatedSlider.slider.maxValue + "por sinal o side é: " + side);
         return side ? Value == animatedSlider.slider.maxValue : Value == animatedSlider.slider.minValue;
     }
 }

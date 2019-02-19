@@ -11,6 +11,7 @@ public class StandartStats : ScriptableObject
     [SerializeField] private Equip[] skills;
     [SerializeField] private Sprite sprite;
     [SerializeField] private Color color;
+    [SerializeField] private bool usesEquip;
 
     public string GetName() { return cName; }
     public void SetName(string name) { cName = name; }
@@ -18,4 +19,5 @@ public class StandartStats : ScriptableObject
     public Sprite GetSprite() { return sprite; }
     public Color GetColor() { return color; }
     public bool GetPlayable() { return playable; }
+    public bool UsesEquip() { return usesEquip; }
 }

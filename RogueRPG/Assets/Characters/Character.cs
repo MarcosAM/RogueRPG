@@ -27,6 +27,8 @@ public class Character : MonoBehaviour, IPlayAnimationByString
 
     public bool Playable { get; set; }
 
+    private bool usesEquip;
+
     void Awake()
     {
         inventory = GetComponent<Inventory>();
@@ -49,12 +51,13 @@ public class Character : MonoBehaviour, IPlayAnimationByString
 
     protected virtual void FillStats()
     {
+        usesEquip = stats.UsesEquip();
+        Playable = stats.GetPlayable();
         inventory.SetEquips(this, stats.GetEquips());
         animator.runtimeAnimatorController = Archetypes.GetAnimator(inventory.Archetype);
         SetName(stats.GetName());
         avatarImg.sprite = stats.GetSprite();
         avatarImg.color = stats.GetColor();
-        Playable = stats.GetPlayable();
         if (Playable)
         {
             var hat = Archetypes.GetHat(inventory.Archetype);
@@ -85,29 +88,31 @@ public class Character : MonoBehaviour, IPlayAnimationByString
 
     public void ChangeEquipObject(int equipIndex)
     {
+        if (usesEquip)
+        {
+            animator.SetTrigger("ChangeEquip");
 
-        animator.SetTrigger("ChangeEquip");
+            foreach (RectTransform child in frontHandler)
+            {
+                child.SetParent(null);
+            }
+            foreach (RectTransform child in backHandler)
+            {
+                child.SetParent(null);
+            }
 
-        foreach (RectTransform child in frontHandler)
-        {
-            child.SetParent(null);
-        }
-        foreach (RectTransform child in backHandler)
-        {
-            child.SetParent(null);
-        }
-
-        if (rectTransforms[equipIndex, 0] != null)
-        {
-            rectTransforms[equipIndex, 0].SetParent(backHandler);
-            rectTransforms[equipIndex, 0].anchoredPosition = new Vector2(0, 0);
-            rectTransforms[equipIndex, 0].localEulerAngles = Vector3.zero;
-        }
-        if (rectTransforms[equipIndex, 1] != null)
-        {
-            rectTransforms[equipIndex, 1].SetParent(frontHandler);
-            rectTransforms[equipIndex, 1].anchoredPosition = new Vector2(0, 0);
-            rectTransforms[equipIndex, 1].localEulerAngles = Vector3.zero;
+            if (rectTransforms[equipIndex, 0] != null)
+            {
+                rectTransforms[equipIndex, 0].SetParent(backHandler);
+                rectTransforms[equipIndex, 0].anchoredPosition = new Vector2(0, 0);
+                rectTransforms[equipIndex, 0].localEulerAngles = Vector3.zero;
+            }
+            if (rectTransforms[equipIndex, 1] != null)
+            {
+                rectTransforms[equipIndex, 1].SetParent(frontHandler);
+                rectTransforms[equipIndex, 1].anchoredPosition = new Vector2(0, 0);
+                rectTransforms[equipIndex, 1].localEulerAngles = Vector3.zero;
+            }
         }
     }
 
@@ -142,38 +147,44 @@ public class Character : MonoBehaviour, IPlayAnimationByString
 
     public void CreateEquipsSprites(Equip[] equips)
     {
-        if (rectTransforms != null)
+        if (usesEquip)
         {
+            if (rectTransforms != null)
+            {
+                for (var i = 0; i < equips.Length; i++)
+                {
+                    Destroy(rectTransforms[i, 0].gameObject);
+                    Destroy(rectTransforms[i, 1].gameObject);
+                }
+            }
+
+            rectTransforms = new RectTransform[equips.Length, 2];
+
             for (var i = 0; i < equips.Length; i++)
             {
-                Destroy(rectTransforms[i, 0].gameObject);
-                Destroy(rectTransforms[i, 1].gameObject);
+                if (equips[i].GetBackEquipPrefab())
+                    rectTransforms[i, 0] = Instantiate(equips[i].GetBackEquipPrefab());
+                else
+                    rectTransforms[i, 0] = null;
+                if (equips[i].GetFrontEquipPrefab())
+                    rectTransforms[i, 1] = Instantiate(equips[i].GetFrontEquipPrefab());
+                else
+                    rectTransforms[i, 1] = null;
             }
-        }
-
-        rectTransforms = new RectTransform[equips.Length, 2];
-
-        for (var i = 0; i < equips.Length; i++)
-        {
-            if (equips[i].GetBackEquipPrefab())
-                rectTransforms[i, 0] = Instantiate(equips[i].GetBackEquipPrefab());
-            else
-                rectTransforms[i, 0] = null;
-            if (equips[i].GetFrontEquipPrefab())
-                rectTransforms[i, 1] = Instantiate(equips[i].GetFrontEquipPrefab());
-            else
-                rectTransforms[i, 1] = null;
         }
     }
 
     public void RemoveSelf()
     {
-        for (var i = 0; i < rectTransforms.Length / 2; i++)
+        if (rectTransforms != null)
         {
-            if (rectTransforms[i, 0])
-                Destroy(rectTransforms[i, 0].gameObject);
-            if (rectTransforms[i, 1])
-                Destroy(rectTransforms[i, 1].gameObject);
+            for (var i = 0; i < rectTransforms.Length / 2; i++)
+            {
+                if (rectTransforms[i, 0])
+                    Destroy(rectTransforms[i, 0].gameObject);
+                if (rectTransforms[i, 1])
+                    Destroy(rectTransforms[i, 1].gameObject);
+            }
         }
 
         GetTile().SetC(null);
