@@ -87,11 +87,6 @@ public class Attributes : MonoBehaviour
         return listStat.Find(s => s.GetStats() == stats).GetBuffValue() > 0;
     }
 
-    public float GetBuffValueOf(Attribute.Type stats)
-    {
-        return listStat.Find(s => s.GetStats() == stats).GetBuffValue();
-    }
-
     public Attribute.Intensity GetBuffIntensity(Attribute.Type stats)
     {
         return listStat.Find(s => s.GetStats() == stats).GetIntensity();
@@ -105,6 +100,24 @@ public class Attributes : MonoBehaviour
     public bool IsDebuffed(Attribute.Type stats)
     {
         return listStat.Find(s => s.GetStats() == stats).GetBuffValue() < 0;
+    }
+
+    public void RemoveBuffOrDebuff(Attribute.Type type, bool buff)
+    {
+        if (buff)
+        {
+            if (IsBuffed(type))
+            {
+                GetAttribute(type).ResetBuff();
+            }
+        }
+        else
+        {
+            if (IsDebuffed(type))
+            {
+                GetAttribute(type).ResetBuff();
+            }
+        }
     }
 
     public Momentum GetMomentum() { return momentum; }

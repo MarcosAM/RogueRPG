@@ -143,6 +143,7 @@
     <Compile Include="Assets\Skills\Scripts\Effects\BuffEffect.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\Effects.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\HealEffect.cs" />
+    <Compile Include="Assets\Skills\Scripts\Effects\RemoveBuffsOrDebuffs.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\ReviveEffect.cs" />
     <Compile Include="Assets\Skills\Scripts\Move\Move.cs" />
     <Compile Include="Assets\Skills\Scripts\Movement.cs" />
