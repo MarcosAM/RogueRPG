@@ -9,9 +9,6 @@ public class Character : MonoBehaviour, IPlayAnimationByString
 
     protected string characterName;
 
-    //TODO provavelmente é melhor que isso só tenha para NonPlayable Characters
-    [SerializeField] protected StandartStats stats;
-
     [SerializeField] protected Image avatarImg;
     [SerializeField] protected RectTransform frontHandler;
     [SerializeField] protected RectTransform backHandler;
@@ -27,9 +24,9 @@ public class Character : MonoBehaviour, IPlayAnimationByString
 
     public bool Playable { get; set; }
 
-    private bool usesEquip;
+    //private bool usesEquip;
 
-    void Awake()
+    public void Initialize()
     {
         inventory = GetComponent<Inventory>();
         attributes = GetComponent<Attributes>();
@@ -42,35 +39,6 @@ public class Character : MonoBehaviour, IPlayAnimationByString
         frontHandler = transforms[2];
 
         animator = GetComponent<Animator>();
-
-        if (stats != null)
-        {
-            FillStats();
-        }
-    }
-
-    protected virtual void FillStats()
-    {
-        usesEquip = stats.UsesEquip();
-        Playable = stats.GetPlayable();
-        inventory.SetEquips(this, stats.GetEquips());
-        animator.runtimeAnimatorController = Archetypes.GetAnimator(inventory.Archetype);
-        SetName(stats.GetName());
-        avatarImg.sprite = stats.GetSprite();
-        avatarImg.color = stats.GetColor();
-        if (Playable)
-        {
-            var hat = Archetypes.GetHat(inventory.Archetype);
-            hat.SetParent(avatarImg.rectTransform);
-            hat.localPosition = Vector2.zero;
-        }
-        GetComponentInChildren<CharacterHUD>().Initialize(this);
-    }
-
-    public void SetStats(StandartStats standartStats)
-    {
-        this.stats = standartStats;
-        FillStats();
     }
 
     public string GetName() { return characterName; }
@@ -88,32 +56,32 @@ public class Character : MonoBehaviour, IPlayAnimationByString
 
     public void ChangeEquipObject(int equipIndex)
     {
-        if (usesEquip)
+        //if (usesEquip)
+        //{
+        animator.SetTrigger("ChangeEquip");
+
+        foreach (RectTransform child in frontHandler)
         {
-            animator.SetTrigger("ChangeEquip");
-
-            foreach (RectTransform child in frontHandler)
-            {
-                child.SetParent(null);
-            }
-            foreach (RectTransform child in backHandler)
-            {
-                child.SetParent(null);
-            }
-
-            if (rectTransforms[equipIndex, 0] != null)
-            {
-                rectTransforms[equipIndex, 0].SetParent(backHandler);
-                rectTransforms[equipIndex, 0].anchoredPosition = new Vector2(0, 0);
-                rectTransforms[equipIndex, 0].localEulerAngles = Vector3.zero;
-            }
-            if (rectTransforms[equipIndex, 1] != null)
-            {
-                rectTransforms[equipIndex, 1].SetParent(frontHandler);
-                rectTransforms[equipIndex, 1].anchoredPosition = new Vector2(0, 0);
-                rectTransforms[equipIndex, 1].localEulerAngles = Vector3.zero;
-            }
+            child.SetParent(null);
         }
+        foreach (RectTransform child in backHandler)
+        {
+            child.SetParent(null);
+        }
+
+        if (rectTransforms[equipIndex, 0] != null)
+        {
+            rectTransforms[equipIndex, 0].SetParent(backHandler);
+            rectTransforms[equipIndex, 0].anchoredPosition = new Vector2(0, 0);
+            rectTransforms[equipIndex, 0].localEulerAngles = Vector3.zero;
+        }
+        if (rectTransforms[equipIndex, 1] != null)
+        {
+            rectTransforms[equipIndex, 1].SetParent(frontHandler);
+            rectTransforms[equipIndex, 1].anchoredPosition = new Vector2(0, 0);
+            rectTransforms[equipIndex, 1].localEulerAngles = Vector3.zero;
+        }
+        //}
     }
 
     public Tile GetTile() { return tile; }
@@ -147,31 +115,31 @@ public class Character : MonoBehaviour, IPlayAnimationByString
 
     public void CreateEquipsSprites(Equip[] equips)
     {
-        if (usesEquip)
+        //if (usesEquip)
+        //{
+        if (rectTransforms != null)
         {
-            if (rectTransforms != null)
-            {
-                for (var i = 0; i < equips.Length; i++)
-                {
-                    Destroy(rectTransforms[i, 0].gameObject);
-                    Destroy(rectTransforms[i, 1].gameObject);
-                }
-            }
-
-            rectTransforms = new RectTransform[equips.Length, 2];
-
             for (var i = 0; i < equips.Length; i++)
             {
-                if (equips[i].GetBackEquipPrefab())
-                    rectTransforms[i, 0] = Instantiate(equips[i].GetBackEquipPrefab());
-                else
-                    rectTransforms[i, 0] = null;
-                if (equips[i].GetFrontEquipPrefab())
-                    rectTransforms[i, 1] = Instantiate(equips[i].GetFrontEquipPrefab());
-                else
-                    rectTransforms[i, 1] = null;
+                Destroy(rectTransforms[i, 0].gameObject);
+                Destroy(rectTransforms[i, 1].gameObject);
             }
         }
+
+        rectTransforms = new RectTransform[equips.Length, 2];
+
+        for (var i = 0; i < equips.Length; i++)
+        {
+            if (equips[i].GetBackEquipPrefab())
+                rectTransforms[i, 0] = Instantiate(equips[i].GetBackEquipPrefab());
+            else
+                rectTransforms[i, 0] = null;
+            if (equips[i].GetFrontEquipPrefab())
+                rectTransforms[i, 1] = Instantiate(equips[i].GetFrontEquipPrefab());
+            else
+                rectTransforms[i, 1] = null;
+        }
+        //}
     }
 
     public void RemoveSelf()

@@ -5,7 +5,7 @@ using System;
 
 public class PartyManager : MonoBehaviour
 {
-    [SerializeField] StandartStats[] standartStats;
+    [SerializeField] HeroFactory[] standartStats;
 
     static PartyManager instance;
 
@@ -20,7 +20,7 @@ public class PartyManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public static StandartStats[] GetParty() { return GetInstance().standartStats; }
+    public static HeroFactory[] GetParty() { return GetInstance().standartStats; }
 
     public static void EquipPartyMemberWith(int charIndex, int equipIndex, Equip equip)
     {

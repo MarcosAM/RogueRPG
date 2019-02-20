@@ -6,9 +6,9 @@ using UnityEngine;
 public class BattleGroup : ScriptableObject
 {
 
-    [SerializeField] List<StandartStats> enemiesStats;
+    [SerializeField] List<HeroFactory> enemiesStats;
     public Battleground.BattlegroundSize battlegroundSize;
 
-    public List<StandartStats> GetEnemiesStats() { return enemiesStats; }
+    public List<HeroFactory> GetEnemiesStats() { return enemiesStats; }
     public Battleground.BattlegroundSize GetBattlegroundSize() { return battlegroundSize; }
 }

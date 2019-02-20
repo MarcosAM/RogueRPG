@@ -32,7 +32,7 @@ public class DungeonManager : MonoBehaviour
         List<Character> pcs = new List<Character>();
         for (int i = 0; i < PartyManager.GetParty().Length; i++)
         {
-            pcs.Add(CreateCharacter(PartyManager.GetParty()[i]));
+            pcs.Add(PartyManager.GetParty()[i].GetCharacter());
         }
 
         lastDungeonLevel = gameManager.GetCurrentDungeon().GetLevel();
@@ -46,7 +46,7 @@ public class DungeonManager : MonoBehaviour
         {
             if (npcStat)
             {
-                npcs.Add(CreateCharacter(npcStat));
+                npcs.Add(npcStat.GetCharacter());
             }
         }
 
@@ -160,7 +160,7 @@ public class DungeonManager : MonoBehaviour
             {
                 if (npcStat)
                 {
-                    npcs.Add(CreateCharacter(npcStat));
+                    npcs.Add(npcStat.GetCharacter());
                 }
             }
             battleground.SetAvailableSide(npcs);
@@ -186,12 +186,12 @@ public class DungeonManager : MonoBehaviour
         return 0;
     }
 
-    Character CreateCharacter(StandartStats stats)
-    {
-        Character character = Instantiate(characterPrefab);
-        character.SetStats(stats);
-        return character;
-    }
+    //Character CreateCharacter(HeroFactory stats)
+    //{
+    //    Character character = Instantiate(characterPrefab);
+    //    character.SetStats(stats);
+    //    return character;
+    //}
 
     public static DungeonManager getInstance() { return instance; }
     public Battleground getBattleground() { return battleground; }

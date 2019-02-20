@@ -21,7 +21,7 @@ public class CharacterListItem : MonoBehaviour
         toggles = GetComponentsInChildren<StandartToggle>();
     }
 
-    public void Initialize(StandartStats characterAttributes, int index)
+    public void Initialize(HeroFactory characterAttributes, int index)
     {
         this.index = index;
 
@@ -49,7 +49,7 @@ public class CharacterListItem : MonoBehaviour
         }
     }
 
-    void UpdateValues(StandartStats characterAttributes)
+    void UpdateValues(HeroFactory characterAttributes)
     {
         if (characterAttributes)
         {
