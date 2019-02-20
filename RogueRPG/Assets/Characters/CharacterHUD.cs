@@ -21,7 +21,7 @@ public class CharacterHUD : MonoBehaviour
     public void Initialize(Character character)
     {
         this.hp = character.GetAttributes().GetHp();
-        this.cName = character.GetName();
+        this.cName = character.Name;
 
         //nameText.text = this.cName;
 

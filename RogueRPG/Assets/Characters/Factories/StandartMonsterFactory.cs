@@ -19,7 +19,7 @@ public class StandartMonsterFactory : CharacterFactory
 
         character.GetAnimator().runtimeAnimatorController = runtimeAnimatorController;
 
-        character.SetName(cName);
+        character.Name = cName;
         character.GetAvatarImg().sprite = sprite;
         character.GetAvatarImg().color = color;
 

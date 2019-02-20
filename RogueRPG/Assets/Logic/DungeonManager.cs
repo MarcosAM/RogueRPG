@@ -11,7 +11,7 @@ public class DungeonManager : MonoBehaviour
     static DungeonManager instance = null;
     static int lastDungeonLevel;
     List<Character> initiativeOrder = new List<Character>();
-    [SerializeField] Character characterPrefab;
+    //[SerializeField] Hero characterPrefab;
     int round;
     int dungeonFloor = 0;
     Battleground battleground;

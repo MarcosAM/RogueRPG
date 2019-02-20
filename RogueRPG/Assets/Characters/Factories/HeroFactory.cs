@@ -16,7 +16,7 @@ public class HeroFactory : CharacterFactory
 
         character.GetAnimator().runtimeAnimatorController = Archetypes.GetAnimator(character.GetInventory().Archetype);
 
-        character.SetName(cName);
+        character.Name = cName;
         character.GetAvatarImg().sprite = sprite;
 
         var hat = Archetypes.GetHat(character.GetInventory().Archetype);
