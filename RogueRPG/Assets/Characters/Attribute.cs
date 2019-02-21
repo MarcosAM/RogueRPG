@@ -8,7 +8,7 @@ public class Attribute
     public enum Intensity { None = 0, SmallDebuff = 1, SmallBuff = 2, MediumDebuff = 3, MediumBuff = 4, HighDebuff = 5, HighBuff = 6 };
 
     protected Character character;
-    protected Type stats;
+    protected Type type;
     protected float statBase = 0;
     protected Intensity intensity = Intensity.None;
     protected int buffDuration = 0;
@@ -20,16 +20,19 @@ public class Attribute
         if (stats < Type.Precision)
             this.statBase = 1;
         this.character = character;
-        this.stats = stats;
+        this.type = stats;
         this.buffHUD = buffHUD;
     }
 
     public virtual float GetValue()
     {
-        //return stats <= Type.Defm ? statBase * GetBuffValue() : statBase + GetBuffValue();
-        if (stats < Type.Precision)
+        if (type < Type.Precision)
+        {
+            Debug.Log(character.Name + " " + type + " é " + (statBase * GetBuffValue()));
             return statBase * GetBuffValue();
+        }
 
+        Debug.Log(character.Name + " " + type + " é " + (statBase + GetBuffValue()));
         return statBase + GetBuffValue();
     }
 
@@ -47,7 +50,7 @@ public class Attribute
                 this.buffDuration = buffDuration;
             ChangeMomentumByUpping();
         }
-        buffHUD.PlayAt(character, stats, this.intensity, character.GetTile().GetLocalPosition());
+        buffHUD.PlayAt(character, type, this.intensity, character.GetTile().GetLocalPosition());
         //		TODO atualizar a interface para mostrar esse bonus
     }
 
@@ -55,7 +58,7 @@ public class Attribute
 
     public float GetBuffValue()
     {
-        switch (stats)
+        switch (type)
         {
             case Type.Atk:
             case Type.Atkm:
@@ -70,7 +73,7 @@ public class Attribute
     {
         intensity = Intensity.None;
         buffDuration = 0;
-        buffHUD.Stop(character, stats);
+        buffHUD.Stop(character, type);
     }
     public virtual void SpendAndCheckIfEnded()
     {
@@ -86,7 +89,7 @@ public class Attribute
 
     public Intensity GetIntensity() { return intensity; }
 
-    public Type GetStats() { return stats; }
+    public Type GetType() { return type; }
 
     void ChangeMomentumByUpping()
     {

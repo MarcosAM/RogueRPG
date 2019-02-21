@@ -52,7 +52,6 @@ public class EquipToggleManager : MonoBehaviour
 
         for (var j = i; j < equipToggles.Count - 1; j++)
         {
-            print("Cheguei aqui e não deveria!");
             equipToggles[j].gameObject.SetActive(false);
         }
     }

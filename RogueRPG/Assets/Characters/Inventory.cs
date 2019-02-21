@@ -27,10 +27,8 @@ public class Inventory : MonoBehaviour
 
     public bool IsEquipAvailable(int index)
     {
-        print("Meu side é: " + side);
         if (index == availableEquips.Count - 1)
         {
-            print("Fui perguntar pro momentum!");
             return FindObjectOfType<Momentum>().IsMomentumFull(side);
         }
         return availableEquips[index];

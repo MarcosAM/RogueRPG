@@ -28,7 +28,7 @@ public class Attributes : MonoBehaviour
     }
 
 
-    Attribute GetAttribute(Attribute.Type stats) { return listStat.Find(s => s.GetStats() == stats); }
+    Attribute GetAttribute(Attribute.Type stats) { return listStat.Find(s => s.GetType() == stats); }
     public float GetAttributeValue(Attribute.Type stats) { return GetAttribute(stats).GetValue(); }
 
     public float GetAtkValue() { return GetAttributeValue(Attribute.Type.Atk); }
@@ -79,17 +79,17 @@ public class Attributes : MonoBehaviour
     public void BuffIt(Attribute.Type stats, Attribute.Intensity intensity, int buffDuration)
     {
         if (GetHp().IsAlive())
-            listStat.Find(s => s.GetStats() == stats).BuffIt(intensity, buffDuration);
+            listStat.Find(s => s.GetType() == stats).BuffIt(intensity, buffDuration);
     }
 
     public bool IsBuffed(Attribute.Type stats)
     {
-        return listStat.Find(s => s.GetStats() == stats).GetBuffValue() > 0;
+        return listStat.Find(s => s.GetType() == stats).GetBuffValue() > 0;
     }
 
     public Attribute.Intensity GetBuffIntensity(Attribute.Type stats)
     {
-        return listStat.Find(s => s.GetStats() == stats).GetIntensity();
+        return listStat.Find(s => s.GetType() == stats).GetIntensity();
     }
 
     public bool IsDebuffed()
@@ -99,7 +99,7 @@ public class Attributes : MonoBehaviour
 
     public bool IsDebuffed(Attribute.Type stats)
     {
-        return listStat.Find(s => s.GetStats() == stats).GetBuffValue() < 0;
+        return listStat.Find(s => s.GetType() == stats).GetBuffValue() < 0;
     }
 
     public void RemoveBuffOrDebuff(Attribute.Type type, bool buff)

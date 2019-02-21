@@ -17,8 +17,6 @@ public class MomentumToggle : EquipToggle
     public override void SetInterectable(bool interactable)
     {
         base.SetInterectable(interactable);
-        print("Ativa porcaria! Pois é: " + interactable);
-        print("Já que cê ta de putaria: " + interactable);
         if (interactable)
             particles.Play();
         else
