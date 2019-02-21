@@ -1,44 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CharacterHUD : MonoBehaviour
 {
-    Hp hp;
-    string cName;
+    protected Hp hp;
 
-    AnimatedSlider hpSlider;
-    [SerializeField] Text hpText;
-    [SerializeField] private DamageFB damageFbPrefab;
-    //[SerializeField] private Text nameText;
+    protected AnimatedSlider hpSlider;
+    [SerializeField] protected DamageFB damageFbPrefab;
 
     void Awake()
     {
         hpSlider = GetComponentInChildren<AnimatedSlider>();
     }
 
-    public void Initialize(Character character)
+    public virtual void Initialize(Character character)
     {
         this.hp = character.GetAttributes().GetHp();
-        this.cName = character.Name;
-
-        //nameText.text = this.cName;
 
         this.hp.OnHPValuesChange += HPFeedback;
-
-        if (!character.Playable)
-        {
-            hpText.gameObject.SetActive(false);
-            //nameText.transform.rotation = Quaternion.Euler(0, 180, 90);
-        }
-
         this.hp.OnHUDValuesChange += Refresh;
 
         Refresh();
     }
 
-    void HPFeedback(int amountChanged, bool wasCritic)
+    protected void HPFeedback(int amountChanged, bool wasCritic)
     {
         DamageFB damageFb = Instantiate(damageFbPrefab);
         damageFb.transform.SetParent(transform.parent.parent, false);
@@ -52,16 +38,9 @@ public class CharacterHUD : MonoBehaviour
             hpSlider.Value = v;
     }
 
-    void SetHpNumbers(float hp, float maxHp)
+    protected virtual void Refresh()
     {
-        hpText.text = hp.ToString();
-    }
-
-    void Refresh()
-    {
-        //nameText.text = this.cName;
         SetHpBar(hp.GetValue() / hp.GetMaxValue());
-        SetHpNumbers(hp.GetValue(), hp.GetMaxValue());
     }
 
     void OnEnable()
@@ -81,6 +60,4 @@ public class CharacterHUD : MonoBehaviour
             hp.OnHPValuesChange -= HPFeedback;
         }
     }
-
-    public void SetCName(string name) { cName = name; }
 }

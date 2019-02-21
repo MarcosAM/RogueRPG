@@ -13,14 +13,6 @@ public class Tile : MonoBehaviour
     [SerializeField] RectTransform portraitHandler;
     Image shadow;
 
-    //void Start()
-    //{
-    //    this.battleground = GetComponentInParent<Battleground>();
-    //    this.index = battleground.GetTiles().IndexOf(this);
-    //    this.side = this.index >= (battleground.GetTiles().Count / 2) ? true : false;
-    //    this.shadow = GetComponentInChildren<Image>();
-    //}
-
     public void Initialize(Battleground battleground)
     {
         this.battleground = battleground;
@@ -85,10 +77,6 @@ public class Tile : MonoBehaviour
             {
                 //TODO organize all of this. Look for quarteion and vector3 e vector 2
                 this.character.transform.rotation = Quaternion.Euler(0, -180, 0);
-                //this.character.GetComponentsInChildren<Transform>()[1].localScale = new Vector3(-1, 1, -1);
-
-                //this.character.GetComponentsInChildren<Transform>()[1].localRotation = Quaternion.Euler(0, -180, 0);
-
                 this.GetCharacter().GetAvatarImg().transform.localScale = new Vector3(-0.8f, 0.8f, -0.8f);
             }
         }
@@ -108,26 +96,13 @@ public class Tile : MonoBehaviour
 
     public void SetA(bool available)
     {
-        //Debug.LogWarning("Iniciou a função");
-        //if (shadow)
-            shadow.gameObject.SetActive(available);
-        //else
-        //    Debug.LogWarning("Achou shadow!");
+        shadow.gameObject.SetActive(available);
 
         if (!available && this.available != available)
         {
-            //Debug.LogWarning("Eu tenho available");
             if (this.character)
             {
-                ////Debug.LogWarning("Tenho character");
-                //if (!battleground)
-                //{
-                //    //Debug.Log("Eu não tenho Battleground!");
-                //    battleground = GetComponentInParent<Battleground>();
-                //    //Debug.Log("Agora é para eu ter!");
-                //}
                 List<Tile> availableTilesFromMySide = battleground.GetAvailableTilesFrom(side);
-                //Debug.LogWarning("Eu tenho battleground");
                 List<Character> characters = availableTilesFromMySide.ConvertAll<Character>(t => t.GetCharacter());
 
                 if (availableTilesFromMySide.Count - 1 >= characters.FindAll(c => c).Count)

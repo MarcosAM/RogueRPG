@@ -89,6 +89,7 @@
     <Compile Include="Assets\Characters\Factories\CharacterFactory.cs" />
     <Compile Include="Assets\Characters\Factories\HeroFactory.cs" />
     <Compile Include="Assets\Characters\Factories\StandartMonsterFactory.cs" />
+    <Compile Include="Assets\Characters\HeroHUD.cs" />
     <Compile Include="Assets\Characters\Hp.cs" />
     <Compile Include="Assets\Characters\Humanoid.cs" />
     <Compile Include="Assets\Characters\Inventory.cs" />
