@@ -105,7 +105,7 @@
     <Compile Include="Assets\Edit\PartyManager.cs" />
     <Compile Include="Assets\Edit\SkillListItem.cs" />
     <Compile Include="Assets\Edit\Tooltip.cs" />
-    <Compile Include="Assets\Equip\Scripts\Equip.cs" />
+    <Compile Include="Assets\Equip\Equip.cs" />
     <Compile Include="Assets\ExtensionMethods.cs" />
     <Compile Include="Assets\Feedbacks\DamageFB.cs" />
     <Compile Include="Assets\GameOverUI.cs" />

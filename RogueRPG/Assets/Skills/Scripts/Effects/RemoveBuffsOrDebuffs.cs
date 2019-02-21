@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Effects/Remove Buffs and Debuffs")]
+[CreateAssetMenu(menuName = "Effects/Remove Buffs or Debuffs")]
 public class RemoveBuffsOrDebuffs : Effects
 {
     [SerializeField] private Attribute.Type[] types;
-    [SerializeField] private readonly bool buff;
+    [SerializeField] private bool buff;
 
     public override void Affect(Character user, Character target)
     {
