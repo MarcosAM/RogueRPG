@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Assets\AnimatedSlider.cs" />
     <Compile Include="Assets\Battleground.cs" />
+    <Compile Include="Assets\Characters\Animal.cs" />
     <Compile Include="Assets\Characters\Attribute.cs" />
     <Compile Include="Assets\Characters\Attributes.cs" />
     <Compile Include="Assets\Characters\Character.cs" />
@@ -88,8 +89,8 @@
     <Compile Include="Assets\Characters\Factories\CharacterFactory.cs" />
     <Compile Include="Assets\Characters\Factories\HeroFactory.cs" />
     <Compile Include="Assets\Characters\Factories\StandartMonsterFactory.cs" />
-    <Compile Include="Assets\Characters\Hero.cs" />
     <Compile Include="Assets\Characters\Hp.cs" />
+    <Compile Include="Assets\Characters\Humanoid.cs" />
     <Compile Include="Assets\Characters\Inventory.cs" />
     <Compile Include="Assets\Dungeons\BGroup\BattleGroup.cs" />
     <Compile Include="Assets\Dungeons\BGroups\BattleGroups.cs" />

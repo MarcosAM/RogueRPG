@@ -24,11 +24,11 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         attributes = GetComponent<Attributes>();
         attributes.Initialize(this);
 
-        GetRectTransforms();
+        PrepareRectTransforms();
 
         animator = GetComponent<Animator>();
     }
-    protected virtual void GetRectTransforms()
+    protected virtual void PrepareRectTransforms()
     {
         RectTransform[] transforms = GetComponentsInChildren<RectTransform>();
 
@@ -39,7 +39,11 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
 
     public int GetRow() { return tile.GetRow(); }
 
-    public abstract void ChangeEquipObject(int equipIndex);
+    public abstract void CreateEquipsSprites(Equip[] equips);
+    public virtual void ChangeEquipObject(int equipIndex)
+    {
+        animator.SetTrigger("ChangeEquip");
+    }
 
     public Tile GetTile() { return tile; }
     public void SetTile(Tile tile) { this.tile = tile; }

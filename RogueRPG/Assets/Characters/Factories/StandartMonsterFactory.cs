@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Character Factory/Standart Monster")]
 public class StandartMonsterFactory : CharacterFactory
 {
-    protected Color color;
-    protected RuntimeAnimatorController runtimeAnimatorController;
+    [SerializeField] protected Color color;
+    [SerializeField] protected RuntimeAnimatorController runtimeAnimatorController;
 
     public override Character GetCharacter()
     {
@@ -14,7 +14,7 @@ public class StandartMonsterFactory : CharacterFactory
         var character = Instantiate(characterPrefab);
         character.Initialize();
 
-        character.Playable = playable;
+        character.Playable = false;
         character.GetInventory().SetEquips(character, equips);
 
         character.GetAnimator().runtimeAnimatorController = runtimeAnimatorController;

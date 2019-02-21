@@ -11,7 +11,7 @@ public class HeroFactory : CharacterFactory
         var character = Instantiate(characterPrefab);
         character.Initialize();
 
-        character.Playable = playable;
+        character.Playable = true;
         character.GetInventory().SetEquips(character, equips);
 
         character.GetAnimator().runtimeAnimatorController = Archetypes.GetAnimator(character.GetInventory().Archetype);
