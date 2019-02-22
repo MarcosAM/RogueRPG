@@ -35,6 +35,11 @@ public abstract class Character : MonoBehaviour, IPlayAnimationByString
         avatarImg = GetComponentInChildren<Image>();
     }
 
+    public virtual void Move(Tile tile)
+    {
+        tile.MoveCharacter(this);
+    }
+
     public Image GetAvatarImg() { return avatarImg; }
 
     public int GetRow() { return tile.GetRow(); }

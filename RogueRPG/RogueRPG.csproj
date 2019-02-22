@@ -93,6 +93,7 @@
     <Compile Include="Assets\Characters\Hp.cs" />
     <Compile Include="Assets\Characters\Humanoid.cs" />
     <Compile Include="Assets\Characters\Inventory.cs" />
+    <Compile Include="Assets\Characters\Plant.cs" />
     <Compile Include="Assets\Dungeons\BGroup\BattleGroup.cs" />
     <Compile Include="Assets\Dungeons\BGroups\BattleGroups.cs" />
     <Compile Include="Assets\Dungeons\Dungeon.cs" />

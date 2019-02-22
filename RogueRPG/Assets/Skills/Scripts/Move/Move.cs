@@ -7,7 +7,7 @@ public class Move : Actions
 {
     public override void Act(Character user, Tile target, SkillEffect skillEffect)
     {
-        target.MoveCharacter(user);
+        user.Move(target);
     }
 
     public override bool IsTargetable(Character user, Tile tile) { return Mathf.Abs(user.GetRow() - tile.GetRow()) <= range && user.Playable == tile.GetSide(); }

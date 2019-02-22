@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class Animal : Character
 {
-    public override void CreateEquipsSprites(Equip[] equips)
-    {
-        return;
-    }
+    public override void CreateEquipsSprites(Equip[] equips) { return; }
 }
