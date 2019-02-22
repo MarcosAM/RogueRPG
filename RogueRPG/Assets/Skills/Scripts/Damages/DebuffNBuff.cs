@@ -9,14 +9,10 @@ public class DebuffNBuff : Debuff
     [SerializeField] protected Attribute.Type buffType;
     [SerializeField] protected Attribute.Intensity buffIntensity;
 
-
-    public override void TryToAffect(Character user, Character target, float attack)
+    protected override void OnHit(Character user, Character target)
     {
-        base.TryToAffect(user, target, attack);
-        if (hitted)
-        {
-            target.GetAttributes().BuffIt(buffType, buffIntensity, buffDuration);
-        }
+        base.OnHit(user, target);
+        target.GetAttributes().BuffIt(buffType, buffIntensity, buffDuration);
     }
 
     public override void Affect(Character user, Character target)

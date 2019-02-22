@@ -9,18 +9,11 @@ public class Debuff : Damage
     [SerializeField] protected Attribute.Type type;
     [SerializeField] protected Attribute.Intensity intensity;
 
-    public override void TryToAffect(Character user, Character target, float attack)
+    protected override void PrepareDamage(Character user, Character target) { }
+
+    protected override void OnHit(Character user, Character target)
     {
-        base.TryToAffect(user, target, attack);
-        if (hitted)
-        {
-            target.GetAttributes().BuffIt(type, intensity, duration);
-        }
-        else
-        {
-            //TODO colocar esquiva aqui! A animação no caso, trigger the animation controller
-            Debug.Log("Missed!" + attack);
-        }
+        target.GetAttributes().BuffIt(type, intensity, duration);
     }
 
     public override int SortBestTargets(Character user, Character c1, Character c2)

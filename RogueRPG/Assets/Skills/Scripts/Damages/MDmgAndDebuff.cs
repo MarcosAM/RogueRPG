@@ -9,11 +9,10 @@ public class MDmgAndDebuff : MagicalDamage
     [SerializeField] Attribute.Type type;
     [SerializeField] Attribute.Intensity intensity;
 
-    public override void TryToAffect(Character user, Character target, float attack)
+    protected override void OnHit(Character user, Character target)
     {
-        base.TryToAffect(user, target, attack);
-        if (hitted)
-            target.GetAttributes().BuffIt(type, intensity, duration);
+        base.OnHit(user, target);
+        target.GetAttributes().BuffIt(type, intensity, duration);
     }
 
     public override int SortBestTargets(Character user, Character c1, Character c2)

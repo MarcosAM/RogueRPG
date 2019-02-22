@@ -143,7 +143,9 @@
     <Compile Include="Assets\Skills\Scripts\Damages\Debuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\DebuffNBuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MagicalDamage.cs" />
+    <Compile Include="Assets\Skills\Scripts\Damages\MDmgAndAbsorb.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MDmgAndDebuff.cs" />
+    <Compile Include="Assets\Skills\Scripts\Damages\PDmgAndAbsorb.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\PDmgAndDebuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\PhysicalDamage.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\BuffEffect.cs" />
