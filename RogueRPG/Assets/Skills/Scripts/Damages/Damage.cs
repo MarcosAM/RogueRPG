@@ -25,4 +25,9 @@ public abstract class Damage : SkillEffect
     {
         target.GetAnimator().SetTrigger("Dodge");
     }
+
+    public override void Affect(Character user, Character target)
+    {
+        TryToAffect(user, target, 100);
+    }
 }

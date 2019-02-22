@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "Equip")]
 public class Equip : ScriptableObject, IWaitForSkill
 {
+    //TODO make the own equip paint the sprite
     [SerializeField] protected string eName;
 
     [SerializeField] protected List<Skill> skills;
@@ -25,7 +26,7 @@ public class Equip : ScriptableObject, IWaitForSkill
     public void UseEquipmentOn(Character user, Tile tile, IWaitForEquipment requester, int skill)
     {
         this.requester = requester;
-
+        SkillName.ShowSkillName(GetSkills()[skill].GetSkillName());
         GetSkills()[skill].StartSkill(user, tile, this);
     }
 

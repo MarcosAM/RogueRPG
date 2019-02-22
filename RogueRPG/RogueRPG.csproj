@@ -164,6 +164,7 @@
     <Compile Include="Assets\Skills\Scripts\SkillEffect.cs" />
     <Compile Include="Assets\Skills\Scripts\SMoveAtk.cs" />
     <Compile Include="Assets\Skills\Scripts\TurnSugestion.cs" />
+    <Compile Include="Assets\Skills\Scripts\WearSkill.cs" />
     <Compile Include="Assets\SkillsAnimation\ParticleSA.cs" />
     <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
     <Compile Include="Assets\StartUI.cs" />

@@ -15,11 +15,6 @@ public class DebuffNBuff : Debuff
         target.GetAttributes().BuffIt(buffType, buffIntensity, buffDuration);
     }
 
-    public override void Affect(Character user, Character target)
-    {
-        TryToAffect(user, target, 100);
-    }
-
     public override string GetEffectDescription() { return (intensity + " in " + type + " and " + buffIntensity + " in " + buffType); }
 
 }
