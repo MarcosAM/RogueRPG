@@ -7,8 +7,6 @@ public class SAssistMove : Movement
 {
     [SerializeField]
     Assist assist;
-    [SerializeField]
-    Effects effect;
 
     public override bool IsTargetable(Character user, Tile tile) { return move.IsTargetable(user, tile); }
     //TODO rever isso aqui levando em consideração que com aura seria diferente. Pq o efeito acontece depois de se mexer.
@@ -40,7 +38,7 @@ public class SAssistMove : Movement
     {
         //TODO Só está pegando tiles de usuários vivos, vai ser inútil em uma skill de ressucitar
         List<Tile> alliesTiles = battleground.GetTilesFromAliveCharactersOf(user.Playable);
-        alliesTiles.RemoveAll(t => effect.GetComparableValue(t.GetCharacter()) < 0);
+        alliesTiles.RemoveAll(t => ((Effects)skillEffect).GetComparableValue(t.GetCharacter()) < 0);
 
         if (alliesTiles.Count > 0)
         {
@@ -55,7 +53,7 @@ public class SAssistMove : Movement
                 var allValues = 0;
                 foreach (Tile ally in willBeAffected)
                 {
-                    allValues += effect.GetComparableValue(ally.GetCharacter());
+                    allValues += ((Effects)skillEffect).GetComparableValue(ally.GetCharacter());
                 }
                 var probability = TurnSugestion.maxProbability - allValues / willBeAffected.Count;
 

@@ -15,8 +15,6 @@ public class BuffEffect : Effects
         if (target)
             target.GetAttributes().BuffIt(type, intensity, duration);
     }
-    public Attribute.Type GetStats() { return type; }
-    public Attribute.Intensity GetIntensity() { return intensity; }
 
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
@@ -26,7 +24,7 @@ public class BuffEffect : Effects
     public override bool IsLogicalTarget(Tile tile)
     {
         //TODO filosofar se eu deveria impedir de dar Regeneration para inimigos com full hp
-        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetBuffIntensity(type) < intensity && tile.CharacterIs(true) : false;
+        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetBuffIntensity(type) <= intensity && tile.CharacterIs(true) : false;
     }
 
     public override int GetComparableValue(Character character)

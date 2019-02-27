@@ -149,6 +149,7 @@
     <Compile Include="Assets\Skills\Scripts\Damages\PDmgAndDebuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\PhysicalDamage.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\BuffEffect.cs" />
+    <Compile Include="Assets\Skills\Scripts\Effects\Buffs.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\Effects.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\HealEffect.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\RemoveBuffsOrDebuffs.cs" />
