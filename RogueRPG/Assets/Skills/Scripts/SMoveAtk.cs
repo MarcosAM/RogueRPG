@@ -6,7 +6,7 @@ using UnityEngine;
 public class SMoveAtk : Movement
 {
     [SerializeField]
-    Attack attack;
+    protected Attack attack;
 
     public override bool IsTargetable(Character user, Tile tile) { return move.IsTargetable(user, tile); }
 

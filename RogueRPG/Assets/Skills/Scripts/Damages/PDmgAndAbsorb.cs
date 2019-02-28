@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,5 +13,13 @@ public class PDmgAndAbsorb : PhysicalDamage
     {
         base.OnHit(user, target);
         user.GetAttributes().GetHp().Heal(Mathf.RoundToInt(damage * absorbRate));
+
+        foreach (Attribute.Type type in Enum.GetValues(typeof(Attribute.Type)))
+        {
+            if (target.GetAttributes().GetBuffIntensity(type) > user.GetAttributes().GetBuffIntensity(type))
+            {
+                user.GetAttributes().BuffIt(type, target.GetAttributes().GetBuffIntensity(type), 2);
+            }
+        }
     }
 }

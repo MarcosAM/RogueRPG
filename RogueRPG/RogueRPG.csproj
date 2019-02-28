@@ -142,6 +142,7 @@
     <Compile Include="Assets\Skills\Scripts\Damages\Damage.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\Debuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\DebuffNBuff.cs" />
+    <Compile Include="Assets\Skills\Scripts\Damages\DoubleDamage.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MagicalDamage.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MDmgAndAbsorb.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MDmgAndDebuff.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Assets\Skills\Scripts\SkillAnimationManager.cs" />
     <Compile Include="Assets\Skills\Scripts\SkillEffect.cs" />
     <Compile Include="Assets\Skills\Scripts\SMoveAtk.cs" />
+    <Compile Include="Assets\Skills\Scripts\SMoveAtkAssist.cs" />
     <Compile Include="Assets\Skills\Scripts\TurnSugestion.cs" />
     <Compile Include="Assets\Skills\Scripts\WearSkill.cs" />
     <Compile Include="Assets\SkillsAnimation\ParticleSA.cs" />
