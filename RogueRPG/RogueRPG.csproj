@@ -160,6 +160,7 @@
     <Compile Include="Assets\Skills\Scripts\SAssist.cs" />
     <Compile Include="Assets\Skills\Scripts\SAssistMove.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtk.cs" />
+    <Compile Include="Assets\Skills\Scripts\SAtkMove.cs" />
     <Compile Include="Assets\Skills\Scripts\SAtkSpread.cs" />
     <Compile Include="Assets\Skills\Scripts\Skill.cs" />
     <Compile Include="Assets\Skills\Scripts\SkillAnimationManager.cs" />
