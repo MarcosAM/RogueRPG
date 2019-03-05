@@ -140,8 +140,8 @@
     <Compile Include="Assets\Skills\Scripts\Attacks\ExplosionAttack.cs" />
     <Compile Include="Assets\Skills\Scripts\Attacks\MeleeAttack.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\Damage.cs" />
-    <Compile Include="Assets\Skills\Scripts\Damages\Debuff.cs" />
-    <Compile Include="Assets\Skills\Scripts\Damages\DebuffNBuff.cs" />
+    <Compile Include="Assets\Skills\Scripts\Damages\Debuffs\Debuff.cs" />
+    <Compile Include="Assets\Skills\Scripts\Damages\Debuffs\DebuffNBuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\DoubleDamage.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\LongShot.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MagicalDamage.cs" />
