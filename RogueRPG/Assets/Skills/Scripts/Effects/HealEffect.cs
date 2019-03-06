@@ -6,7 +6,7 @@ using UnityEngine;
 public class HealEffect : Effects
 {
     [SerializeField]
-    [Range(1f, 2f)]
+    [Range(0.8f, 2f)]
     protected float healIntensifier;
 
     public override void Affect(Character user, Character target)
