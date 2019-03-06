@@ -143,6 +143,7 @@
     <Compile Include="Assets\Skills\Scripts\Damages\Debuffs\Debuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\Debuffs\DebuffNBuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\DoubleDamage.cs" />
+    <Compile Include="Assets\Skills\Scripts\Damages\DoubleMagicalDmg.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\LongShot.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MagicalDamage.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MDmgAndAbsorb.cs" />

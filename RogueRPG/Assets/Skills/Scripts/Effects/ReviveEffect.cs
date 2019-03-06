@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Effects/Revive")]
-public class ReviveEffect : HealEffect
+public class ReviveEffect : Effects
 {
+    [Range(0f, 1f)]
+    [SerializeField] float amountHp;
+
     public override void Affect(Character user, Character target)
     {
         base.Affect(user, target);
-        target.GetAttributes().GetHp().Revive((int)(user.GetAttributes().GetAtkmValue() * healIntensifier));
+        target.GetAttributes().GetHp().Revive((int)(target.GetAttributes().GetHp().GetMaxValue() * amountHp));
     }
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
@@ -26,5 +29,5 @@ public class ReviveEffect : HealEffect
             return TurnSugestion.maxProbability;
     }
 
-    public override string GetEffectDescription() { return "Revive. Heal: " + healIntensifier * 100 + "% Magical Damage"; }
+    public override string GetEffectDescription() { return "Revive with " + amountHp * 100 + "% of HP"; }
 }
