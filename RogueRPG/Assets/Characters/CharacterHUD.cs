@@ -10,6 +10,7 @@ public class CharacterHUD : MonoBehaviour
     protected AnimatedSlider hpSlider;
     [SerializeField] protected DamageFB damageFbPrefab;
     [SerializeField] protected Image fillArea;
+    [SerializeField] protected Image atkH, atkV, defH, defV, agiH, agiV;
 
     static Color normalFillArea;
     static readonly Color poisonFillArea = new Color(0.54f, 0.24f, 0.9f);
@@ -19,6 +20,10 @@ public class CharacterHUD : MonoBehaviour
     {
         hpSlider = GetComponentInChildren<AnimatedSlider>();
         normalFillArea = fillArea.color;
+
+        SetAtkVisibility(false);
+        SetDefVisibility(false);
+        SetAgiVisibility(false);
     }
 
     public virtual void Initialize(Character character)
@@ -71,6 +76,81 @@ public class CharacterHUD : MonoBehaviour
                 return;
             }
         }
+
+        if (attribute == Attributes.Attribute.ATK)
+        {
+            if (duration >= 0)
+            {
+                SetAtkVisibility(duration > 0);
+            }
+            else
+            {
+                AtkDebuff();
+            }
+            return;
+        }
+
+        if (attribute == Attributes.Attribute.DEF)
+        {
+            if (duration >= 0)
+            {
+                SetDefVisibility(duration > 0);
+            }
+            else
+            {
+                DefDebuff();
+            }
+            return;
+        }
+
+        if (attribute == Attributes.Attribute.AGI)
+        {
+            if (duration >= 0)
+            {
+                SetAgiVisibility(duration > 0);
+            }
+            else
+            {
+                AgiDebuff();
+            }
+            return;
+        }
+    }
+
+    void SetAtkVisibility(bool visibility)
+    {
+        atkH.gameObject.SetActive(visibility);
+        atkV.gameObject.SetActive(visibility);
+    }
+
+    void AtkDebuff()
+    {
+        atkH.gameObject.SetActive(true);
+        atkV.gameObject.SetActive(false);
+    }
+
+    void SetDefVisibility(bool visibility)
+    {
+        defH.gameObject.SetActive(visibility);
+        defV.gameObject.SetActive(visibility);
+    }
+
+    void DefDebuff()
+    {
+        defH.gameObject.SetActive(true);
+        defV.gameObject.SetActive(false);
+    }
+
+    void SetAgiVisibility(bool visibility)
+    {
+        agiH.gameObject.SetActive(visibility);
+        agiV.gameObject.SetActive(visibility);
+    }
+
+    void AgiDebuff()
+    {
+        agiH.gameObject.SetActive(true);
+        agiV.gameObject.SetActive(false);
     }
 
     void OnEnable()
