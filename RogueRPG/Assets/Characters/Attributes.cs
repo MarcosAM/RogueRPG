@@ -14,6 +14,7 @@ public class Attributes : MonoBehaviour
     int hp, maxHp;
     bool alive = true;
     int[] subAttributes = new int[Enum.GetValues(typeof(SubAttribute)).Length];
+    //WARNING: Sempre que for alterar esses valores, é necessário lembrar a characterHUD
     int[] effectsDurations = new int[Enum.GetValues(typeof(Attribute)).Length];
 
     float precisionDodge = 0f;
@@ -92,10 +93,14 @@ public class Attributes : MonoBehaviour
             if (effectsDurations[i] > 0)
             {
                 effectsDurations[i]--;
+                if (effectsDurations[i] == 0)
+                    EffectsChanged((Attribute)i, 0);
             }
             if (effectsDurations[i] < 0)
             {
                 effectsDurations[i]++;
+                if (effectsDurations[i] == 0)
+                    EffectsChanged((Attribute)i, 0);
             }
         }
     }
@@ -105,6 +110,7 @@ public class Attributes : MonoBehaviour
         for (int i = 0; i < effectsDurations.Length; i++)
         {
             effectsDurations[i] = 0;
+            EffectsChanged((Attribute)i, 0);
         }
     }
 
@@ -117,6 +123,31 @@ public class Attributes : MonoBehaviour
         else
         {
             effectsDurations[(int)attribute] = effectDuration;
+        }
+        EffectsChanged(attribute, effectDuration);
+    }
+
+    public void RemoveAllBuffs()
+    {
+        for (int i = 0; i < effectsDurations.Length; i++)
+        {
+            if (effectsDurations[i] > 0)
+            {
+                effectsDurations[i] = 0;
+                EffectsChanged((Attribute)i, 0);
+            }
+        }
+    }
+
+    public void RemoveAllDebuffs()
+    {
+        for (int i = 0; i < effectsDurations.Length; i++)
+        {
+            if (effectsDurations[i] < 0)
+            {
+                effectsDurations[i] = 0;
+                EffectsChanged((Attribute)i, 0);
+            }
         }
     }
 
@@ -138,28 +169,6 @@ public class Attributes : MonoBehaviour
     public bool IsDebuffed(Attribute attribute)
     {
         return effectsDurations[(int)attribute] < 0;
-    }
-
-    public void RemoveAllBuffs()
-    {
-        for (int i = 0; i < effectsDurations.Length; i++)
-        {
-            if (effectsDurations[i] > 0)
-            {
-                effectsDurations[i] = 0;
-            }
-        }
-    }
-
-    public void RemoveAllDebuffs()
-    {
-        for (int i = 0; i < effectsDurations.Length; i++)
-        {
-            if (effectsDurations[i] < 0)
-            {
-                effectsDurations[i] = 0;
-            }
-        }
     }
 
     //TODO ver uma maneira de me livrar disso. Provavelmente transformar momentum em static
@@ -238,4 +247,12 @@ public class Attributes : MonoBehaviour
     public bool IsAlive() { return alive; }
     public int GetHP() { return hp; }
     public int GetMaxHP() { return maxHp; }
+
+    void EffectsChanged(Attribute attribute, int duration)
+    {
+        if (OnEffectsChange != null)
+        {
+            OnEffectsChange(attribute, duration);
+        }
+    }
 }

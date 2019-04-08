@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterHUD : MonoBehaviour
 {
@@ -8,10 +9,16 @@ public class CharacterHUD : MonoBehaviour
 
     protected AnimatedSlider hpSlider;
     [SerializeField] protected DamageFB damageFbPrefab;
+    [SerializeField] protected Image fillArea;
+
+    static Color normalFillArea;
+    static readonly Color poisonFillArea = new Color(0.54f, 0.24f, 0.9f);
+    static readonly Color regenerationFillArea = new Color(0.9f, 0.48f, 0.24f);
 
     void Awake()
     {
         hpSlider = GetComponentInChildren<AnimatedSlider>();
+        normalFillArea = fillArea.color;
     }
 
     public virtual void Initialize(Character character)
@@ -20,6 +27,7 @@ public class CharacterHUD : MonoBehaviour
 
         this.attributes.OnHPValuesChange += HPFeedback;
         this.attributes.OnHUDValuesChange += Refresh;
+        this.attributes.OnEffectsChange += EffectsChange;
 
         Refresh();
     }
@@ -40,7 +48,29 @@ public class CharacterHUD : MonoBehaviour
 
     protected virtual void Refresh()
     {
-        SetHpBar(attributes.GetHP() / attributes.GetMaxHP());
+        SetHpBar((float)attributes.GetHP() / (float)attributes.GetMaxHP());
+    }
+
+    protected void EffectsChange(Attributes.Attribute attribute, int duration)
+    {
+        if (attribute == Attributes.Attribute.HP)
+        {
+            if (duration > 0)
+            {
+                fillArea.color = regenerationFillArea;
+                return;
+            }
+            if (duration == 0)
+            {
+                fillArea.color = normalFillArea;
+                return;
+            }
+            if (duration < 0)
+            {
+                fillArea.color = poisonFillArea;
+                return;
+            }
+        }
     }
 
     void OnEnable()
@@ -49,6 +79,7 @@ public class CharacterHUD : MonoBehaviour
         {
             attributes.OnHUDValuesChange += Refresh;
             attributes.OnHPValuesChange += HPFeedback;
+            attributes.OnEffectsChange += EffectsChange;
         }
     }
 
@@ -58,6 +89,7 @@ public class CharacterHUD : MonoBehaviour
         {
             attributes.OnHUDValuesChange -= Refresh;
             attributes.OnHPValuesChange -= HPFeedback;
+            attributes.OnEffectsChange -= EffectsChange;
         }
     }
 }
