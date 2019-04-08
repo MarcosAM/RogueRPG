@@ -9,16 +9,17 @@ public class MDmgAndAbsorb : MagicalDamage
     [Range(0.1f, 1f)]
     [SerializeField] float absorbRate;
 
+    //TODO ver se eu consigo trasnformar tudo isso em Attributes
     protected override void OnHit(Character user, Character target)
     {
         base.OnHit(user, target);
-        user.GetAttributes().GetHp().Heal(Mathf.RoundToInt(damage * absorbRate));
+        user.GetAttributes().Heal(Mathf.RoundToInt(damage * absorbRate));
 
-        foreach (Attribute.Type type in Enum.GetValues(typeof(Attribute.Type)))
+        foreach (Attributes.Attribute attribute in Enum.GetValues(typeof(Attributes.Attribute)))
         {
-            if (target.GetAttributes().GetBuffIntensity(type) > user.GetAttributes().GetBuffIntensity(type))
+            if (target.GetAttributes().GetEffectDuration(attribute) != 0)
             {
-                user.GetAttributes().BuffIt(type, target.GetAttributes().GetBuffIntensity(type), 2);
+                user.GetAttributes().StartEffect(attribute, (int)(Mathf.Sign(target.GetAttributes().GetEffectDuration(attribute)) * 2));
             }
         }
     }

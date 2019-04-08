@@ -23,24 +23,24 @@ public class HeroHUD : CharacterHUD
     protected override void Refresh()
     {
         base.Refresh();
-        SetHpNumbers(hp.GetValue(), hp.GetMaxValue());
+        SetHpNumbers(attributes.GetHP(), attributes.GetMaxHP());
     }
 
     void OnEnable()
     {
-        if (hp != null)
+        if (attributes != null)
         {
-            hp.OnHUDValuesChange += Refresh;
-            hp.OnHPValuesChange += HPFeedback;
+            attributes.OnHUDValuesChange += Refresh;
+            attributes.OnHPValuesChange += HPFeedback;
         }
     }
 
     void OnDisable()
     {
-        if (hp != null)
+        if (attributes != null)
         {
-            hp.OnHUDValuesChange -= Refresh;
-            hp.OnHPValuesChange -= HPFeedback;
+            attributes.OnHUDValuesChange -= Refresh;
+            attributes.OnHPValuesChange -= HPFeedback;
         }
     }
 }

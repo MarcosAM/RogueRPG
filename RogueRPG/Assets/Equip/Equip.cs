@@ -10,11 +10,13 @@ public class Equip : ScriptableObject, IWaitForSkill
     [SerializeField] protected string eName;
 
     [SerializeField] protected List<Skill> skills;
-    [SerializeField] protected int hp, atk, atkm, def, defm;
+    [SerializeField] protected int hp;
+    [SerializeField] protected int[] subAttributes;
 
     [Range(1, 10)]
     [SerializeField] protected int level;
     [SerializeField] protected Archetypes.Archetype archetype;
+    [SerializeField] protected Archetypes.Archetype subArchetype;
 
     [SerializeField] protected RectTransform backEquipPrefab;
     [SerializeField] protected RectTransform frontEquipPrefab;
@@ -82,10 +84,7 @@ public class Equip : ScriptableObject, IWaitForSkill
     public List<Skill> GetSkills() { return skills; }
     public string GetEquipName() { return eName; }
     public int GetHp() { return hp; }
-    public int GetAtk() { return atk; }
-    public int GetAtkm() { return atkm; }
-    public int GetDef() { return def; }
-    public int GetDefm() { return defm; }
+    public int GetSubAttribute(Attributes.SubAttribute subAttribute) { return subAttributes[(int)subAttribute]; }
     public RectTransform GetBackEquipPrefab() { return backEquipPrefab; }
     public RectTransform GetFrontEquipPrefab() { return frontEquipPrefab; }
     public Archetypes.Archetype GetArchetype() { return archetype; }

@@ -5,73 +5,103 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Effects/Buffs")]
 public class Buffs : Effects
 {
+    //TODO criar Bless and Curse
 
-    [SerializeField] int duration;
-    [SerializeField] Attribute.Type[] types;
-    [SerializeField] Attribute.Intensity intensity;
 
-    public override void Affect(Character user, Character target)
-    {
-        base.Affect(user, target);
+    //[SerializeField] int duration;
+    //[SerializeField] Attributes.Attribute[] attributes;
 
-        if (target)
-        {
-            foreach (var type in types)
-            {
-                target.GetAttributes().BuffIt(type, intensity, duration);
-            }
-        }
-    }
+    //public override void Affect(Character user, Character target)
+    //{
+    //    base.Affect(user, target);
 
-    public override int SortBestTargets(Character user, Character c1, Character c2)
-    {
-        return GetComparableValue(c1) - GetComparableValue(c2);
-    }
+    //    if (target)
+    //    {
+    //        foreach (var type in attributes)
+    //        {
+    //            target.GetAttributes().StartEffect(type, duration);
+    //        }
+    //    }
+    //}
 
-    public override bool IsLogicalTarget(Tile tile)
-    {
-        if (!tile.GetCharacter())
-            return false;
+    //public override int SortBestTargets(Character user, Character c1, Character c2)
+    //{
+    //    return GetComparableValue(c1) - GetComparableValue(c2);
+    //}
 
-        if (!tile.CharacterIs(true))
-            return false;
+    //public override bool IsLogicalTarget(Tile tile)
+    //{
+    //    if (!tile.GetCharacter())
+    //        return false;
 
-        foreach (var type in types)
-        {
-            if (tile.GetCharacter().GetAttributes().GetBuffIntensity(type) <= intensity)
-                return true;
-        }
+    //    if (!tile.CharacterIs(true))
+    //        return false;
 
-        return false;
-    }
+    //    Attributes targetAttributes = tile.GetCharacter().GetAttributes();
 
+    //    foreach (var attribute in attributes)
+    //    {
+    //        if (duration > 0)
+    //        {
+    //            if (!target.GetAttributes().IsBuffed(attribute))
+    //                return true;
+    //        }
+    //        else
+    //        {
+    //            if (!target.GetAttributes().IsDebuffed(attribute))
+    //                return true;
+    //        }
+    //    }
+
+    //    return false;
+    //}
+
+    //public override int GetComparableValue(Character character)
+    //{
+    //    if (!character)
+    //        return 6;
+
+    //    var value = 6;
+
+    //    foreach (var type in attributes)
+    //    {
+    //        if (character.GetAttributes().GetBuffIntensity(type) <= intensity)
+    //        {
+    //            value--;
+    //        }
+    //    }
+
+    //    return value;
+    //}
+
+    //public override string GetEffectDescription()
+    //{
+    //    var description = intensity + " in ";
+
+    //    foreach (var type in attributes)
+    //    {
+    //        description += type + " ";
+    //    }
+
+    //    return description;
+    //}
     public override int GetComparableValue(Character character)
     {
-        if (!character)
-            return 6;
-
-        var value = 6;
-
-        foreach (var type in types)
-        {
-            if (character.GetAttributes().GetBuffIntensity(type) <= intensity)
-            {
-                value--;
-            }
-        }
-
-        return value;
+        throw new System.NotImplementedException();
     }
 
     public override string GetEffectDescription()
     {
-        var description = intensity + " in ";
+        throw new System.NotImplementedException();
+    }
 
-        foreach (var type in types)
-        {
-            description += type + " ";
-        }
+    public override bool IsLogicalTarget(Tile tile)
+    {
+        throw new System.NotImplementedException();
+    }
 
-        return description;
+    public override int SortBestTargets(Character user, Character c1, Character c2)
+    {
+        throw new System.NotImplementedException();
     }
 }

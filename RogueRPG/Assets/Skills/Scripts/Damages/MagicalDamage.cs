@@ -7,12 +7,12 @@ public class MagicalDamage : Damage
 {
     protected override void PrepareDamage(Character user, Character target)
     {
-        damage = (int)(user.GetAttributes().GetAtkmValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefmValue());
+        damage = (int)(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKM) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFM));
     }
 
     protected override void OnHit(Character user, Character target)
     {
-        target.GetAttributes().GetHp().LoseHpBy(damage, false);
+        target.GetAttributes().LoseHpBy(damage, false);
     }
 
     protected override void OnMiss(Character user, Character target)
@@ -27,7 +27,7 @@ public class MagicalDamage : Damage
         //if (user.GetInventory().Archetype == Archetypes.Archetype.MInfantry)
         //    return (int)(c2.GetAttributes().GetAtkmValue() - c1.GetAttributes().GetAtkmValue());
 
-        return (int)(c1.GetAttributes().GetDefmValue() - c2.GetAttributes().GetDefmValue());
+        return (int)(c1.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFM) - c2.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFM));
     }
 
     public override string GetEffectDescription() { return dmgIntensifier * 100 + "% Magical damage."; }

@@ -14,22 +14,22 @@ public class PhysicalDamage : Damage
 
     protected override void PrepareDamage(Character user, Character target)
     {
-        if (Random.value < critic + user.GetAttributes().GetCriticValue())
+        if (Random.value < critic)
         {
-            damage = (int)(user.GetAttributes().GetAtkValue() * criticIntensifier * dmgIntensifier - target.GetAttributes().GetDefValue());
+            damage = (int)(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKP) * criticIntensifier * dmgIntensifier - target.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP));
             wasCritic = true;
             hitted = true;
         }
         else
         {
-            damage = (int)(user.GetAttributes().GetAtkValue() * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetDefValue());
+            damage = (int)(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKP) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP));
             wasCritic = false;
         }
     }
 
     protected override void OnHit(Character user, Character target)
     {
-        target.GetAttributes().GetHp().LoseHpBy(damage, wasCritic);
+        target.GetAttributes().LoseHpBy(damage, wasCritic);
     }
 
     protected override void OnMiss(Character user, Character target)
@@ -41,16 +41,7 @@ public class PhysicalDamage : Damage
 
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
-        if (user.GetAttributes().GetCriticValue() > 0.4f)
-            return (int)(c2.GetAttributes().GetDefValue() - c1.GetAttributes().GetDefValue());
-
-        if (user.GetInventory().Archetype >= Archetypes.Archetype.Berserker)
-            return CombatRules.GetDistance(user.GetTile(), c1.GetTile()) - CombatRules.GetDistance(user.GetTile(), c2.GetTile());
-
-        if (user.GetInventory().Archetype == Archetypes.Archetype.Knight)
-            return (int)(c2.GetAttributes().GetAtkValue() - c1.GetAttributes().GetAtkValue());
-
-        return (int)(c1.GetAttributes().GetDefValue() - c2.GetAttributes().GetDefValue());
+        return (int)(c1.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP) - c2.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP));
     }
 
     public override string GetEffectDescription() { return dmgIntensifier * 100 + "% Physical damage. Critic: " + critic * 100 + "%"; }

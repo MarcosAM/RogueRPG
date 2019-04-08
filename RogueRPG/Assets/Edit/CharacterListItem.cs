@@ -86,22 +86,22 @@ public class CharacterListItem : MonoBehaviour
 
     void UpdateAttributeText(Equip[] equips)
     {
-        var hp = 1;
-        var atk = 1;
-        var atkm = 1;
-        var def = 1;
-        var defm = 1;
+        var hp = 0;
+        var atkp = 0;
+        var atkm = 0;
+        var defp = 0;
+        var defm = 0;
 
-        foreach (var equip in equips)
+        for (int i = 0; i < equips.Length; i++)
         {
-            hp += equip.GetHp();
-            atk += equip.GetAtk();
-            atkm += equip.GetAtkm();
-            def += equip.GetDef();
-            defm += equip.GetDefm();
+            hp += equips[i].GetHp();
+            atkp += equips[i].GetSubAttribute(Attributes.SubAttribute.ATKP);
+            atkm += equips[i].GetSubAttribute(Attributes.SubAttribute.ATKM);
+            defp += equips[i].GetSubAttribute(Attributes.SubAttribute.DEFP);
+            defm += equips[i].GetSubAttribute(Attributes.SubAttribute.DEFM);
         }
 
-        text.text = "HP: " + hp + "\nATK: " + atk + "\nATKM: " + atkm + "\nDEF: " + def + "\nDEFM: " + defm;
+        text.text = "HP: " + hp + "\nATKP: " + atkp + "\nATKM: " + atkm + "\nDEFP: " + defp + "\nDEFM: " + defm;
     }
 
     public void SetName(string name)

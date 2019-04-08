@@ -9,7 +9,7 @@ public class DoubleDamage : PhysicalDamage
 
     protected override void OnHit(Character user, Character target)
     {
-        target.GetAttributes().GetHp().LoseHpBy(damage, wasCritic);
+        target.GetAttributes().LoseHpBy(damage, wasCritic);
         otherEffect.Affect(user, target);
     }
 

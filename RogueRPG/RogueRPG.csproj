@@ -82,7 +82,6 @@
     <Compile Include="Assets\AnimatedSlider.cs" />
     <Compile Include="Assets\Battleground.cs" />
     <Compile Include="Assets\Characters\Animal.cs" />
-    <Compile Include="Assets\Characters\Attribute.cs" />
     <Compile Include="Assets\Characters\Attributes.cs" />
     <Compile Include="Assets\Characters\Character.cs" />
     <Compile Include="Assets\Characters\CharacterHUD.cs" />
@@ -143,12 +142,9 @@
     <Compile Include="Assets\Skills\Scripts\Damages\Debuffs\Debuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\Debuffs\DebuffNBuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\DoubleDamage.cs" />
-    <Compile Include="Assets\Skills\Scripts\Damages\DoubleMagicalDmg.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\LongShot.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MagicalDamage.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\MDmgAndAbsorb.cs" />
-    <Compile Include="Assets\Skills\Scripts\Damages\MDmgAndDebuff.cs" />
-    <Compile Include="Assets\Skills\Scripts\Damages\PDmgAndAbsorb.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\PDmgAndDebuff.cs" />
     <Compile Include="Assets\Skills\Scripts\Damages\PhysicalDamage.cs" />
     <Compile Include="Assets\Skills\Scripts\Effects\BuffEffect.cs" />
@@ -170,7 +166,6 @@
     <Compile Include="Assets\Skills\Scripts\SMoveAtk.cs" />
     <Compile Include="Assets\Skills\Scripts\SMoveAtkAssist.cs" />
     <Compile Include="Assets\Skills\Scripts\TurnSugestion.cs" />
-    <Compile Include="Assets\Skills\Scripts\WearSkill.cs" />
     <Compile Include="Assets\SkillsAnimation\ParticleSA.cs" />
     <Compile Include="Assets\SkillsAnimation\SkillAnimation.cs" />
     <Compile Include="Assets\StartUI.cs" />

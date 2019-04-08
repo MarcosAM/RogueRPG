@@ -6,28 +6,18 @@ using UnityEngine;
 public class PDmgAndDebuff : PhysicalDamage
 {
     [SerializeField] int duration;
-    [SerializeField] Attribute.Type type;
-    [SerializeField] Attribute.Intensity intensity;
+    [SerializeField] Attributes.Attribute attribute;
 
     protected override void OnHit(Character user, Character target)
     {
         base.OnHit(user, target);
-        target.GetAttributes().BuffIt(type, intensity, duration);
+        target.GetAttributes().StartEffect(attribute, duration);
     }
 
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
-        switch (type)
-        {
-            case Attribute.Type.Atk:
-            case Attribute.Type.Atkm:
-            case Attribute.Type.Def:
-            case Attribute.Type.Defm:
-                return (int)(c2.GetAttributes().GetAttributeValue(type) - c1.GetAttributes().GetAttributeValue(type));
-            default:
-                return c1.GetAttributes().GetBuffIntensity(type) - c2.GetAttributes().GetBuffIntensity(type);
-        }
+        return c2.GetAttributes().GetEffectDuration(attribute) - c1.GetAttributes().GetEffectDuration(attribute);
     }
 
-    public override string GetEffectDescription() { return (dmgIntensifier * 100 + "% Physical damage. Critic: " + critic * 100 + "%. " + intensity + ": " + intensity); }
+    public override string GetEffectDescription() { return (dmgIntensifier * 100 + "% Physical damage. Critic: " + critic * 100 + "%. " + ": "); }
 }

@@ -5,13 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Effects/Revive")]
 public class ReviveEffect : Effects
 {
-    [Range(0f, 1f)]
+    [Range(0.5f, 1f)]
     [SerializeField] float amountHp;
 
     public override void Affect(Character user, Character target)
     {
         base.Affect(user, target);
-        target.GetAttributes().GetHp().Revive((int)(target.GetAttributes().GetHp().GetMaxValue() * amountHp));
+        target.GetAttributes().Revive((int)(target.GetAttributes().GetMaxHP() * amountHp));
     }
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
@@ -23,7 +23,7 @@ public class ReviveEffect : Effects
     }
     public override int GetComparableValue(Character character)
     {
-        if (character.GetAttributes().GetHp().IsAlive())
+        if (character.GetAttributes().IsAlive())
             return TurnSugestion.minProbability;
         else
             return TurnSugestion.maxProbability;

@@ -5,16 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Damages/Debuff and Buff")]
 public class DebuffNBuff : Debuff
 {
+    //TODO rever todas os Get Effect Description
     [SerializeField] protected int buffDuration;
-    [SerializeField] protected Attribute.Type buffType;
-    [SerializeField] protected Attribute.Intensity buffIntensity;
+    [SerializeField] protected Attributes.Attribute buffAttribute;
 
     protected override void OnHit(Character user, Character target)
     {
         base.OnHit(user, target);
-        target.GetAttributes().BuffIt(buffType, buffIntensity, buffDuration);
+        target.GetAttributes().StartEffect(buffAttribute, buffDuration);
     }
 
-    public override string GetEffectDescription() { return (intensity + " in " + type + " and " + buffIntensity + " in " + buffType); }
+    public override string GetEffectDescription() { return (base.attribute + " and " + buffAttribute + " Debuff"); }
 
 }

@@ -6,26 +6,25 @@ using UnityEngine;
 public class HealEffect : Effects
 {
     [SerializeField]
-    [Range(0.8f, 2f)]
+    [Range(0.5f, 1f)]
     protected float healIntensifier;
 
     public override void Affect(Character user, Character target)
     {
         base.Affect(user, target);
-        target.GetAttributes().GetHp().Heal((int)(user.GetAttributes().GetAtkmValue() * healIntensifier));
+        target.GetAttributes().Heal((int)(target.GetAttributes().GetMaxHP() * healIntensifier));
     }
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {
-        return (int)(c1.GetAttributes().GetHp().GetValue() - c2.GetAttributes().GetHp().GetValue());
+        return (int)(c1.GetAttributes().GetHP() - c2.GetAttributes().GetHP());
     }
     public override bool IsLogicalTarget(Tile tile)
     {
-        //TODO Pensar se é necessário impedir de curar aliados que estão regenerando
-        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetHp().GetValue() != tile.GetCharacter().GetAttributes().GetHp().GetMaxValue() && tile.CharacterIs(true) : false;
+        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetHP() != tile.GetCharacter().GetAttributes().GetHP() && tile.CharacterIs(true) : false;
     }
     public override int GetComparableValue(Character character)
     {
-        float hpPercentege = character.GetAttributes().GetHp().GetValue() / character.GetAttributes().GetHp().GetMaxValue();
+        float hpPercentege = character.GetAttributes().GetHP() / character.GetAttributes().GetHP();
 
         for (int i = TurnSugestion.maxProbability; i >= TurnSugestion.minProbability; i--)
         {

@@ -23,7 +23,7 @@ public class SAtkMove : Movement
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground)
     {
-        if (user.GetAttributes().GetHp().GetValue() < user.GetAttributes().GetHp().GetMaxValue() * .35F)
+        if (user.GetAttributes().GetHP() < user.GetAttributes().GetMaxHP() * .35F)
         {
             var enemiesTiles = battleground.GetTilesFromAliveCharactersOf(!user.Playable);
             var tiles = battleground.GetAvailableTilesFrom(user.Playable);

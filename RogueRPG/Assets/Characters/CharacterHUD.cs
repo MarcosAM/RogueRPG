@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterHUD : MonoBehaviour
 {
-    protected Hp hp;
+    protected Attributes attributes;
 
     protected AnimatedSlider hpSlider;
     [SerializeField] protected DamageFB damageFbPrefab;
@@ -16,10 +16,10 @@ public class CharacterHUD : MonoBehaviour
 
     public virtual void Initialize(Character character)
     {
-        this.hp = character.GetAttributes().GetHp();
+        this.attributes = character.GetAttributes();
 
-        this.hp.OnHPValuesChange += HPFeedback;
-        this.hp.OnHUDValuesChange += Refresh;
+        this.attributes.OnHPValuesChange += HPFeedback;
+        this.attributes.OnHUDValuesChange += Refresh;
 
         Refresh();
     }
@@ -40,24 +40,24 @@ public class CharacterHUD : MonoBehaviour
 
     protected virtual void Refresh()
     {
-        SetHpBar(hp.GetValue() / hp.GetMaxValue());
+        SetHpBar(attributes.GetHP() / attributes.GetMaxHP());
     }
 
     void OnEnable()
     {
-        if (hp != null)
+        if (attributes != null)
         {
-            hp.OnHUDValuesChange += Refresh;
-            hp.OnHPValuesChange += HPFeedback;
+            attributes.OnHUDValuesChange += Refresh;
+            attributes.OnHPValuesChange += HPFeedback;
         }
     }
 
     void OnDisable()
     {
-        if (hp != null)
+        if (attributes != null)
         {
-            hp.OnHUDValuesChange -= Refresh;
-            hp.OnHPValuesChange -= HPFeedback;
+            attributes.OnHUDValuesChange -= Refresh;
+            attributes.OnHPValuesChange -= HPFeedback;
         }
     }
 }

@@ -11,6 +11,6 @@ public abstract class Attack : Actions
 
     protected void GenerateNewAttack(Character user)
     {
-        attack = user.GetAttributes().GetPrecisionValue() + precision - Random.value;
+        attack = user.GetAttributes().GetAgility() + precision - Random.value;
     }
 }

@@ -19,10 +19,11 @@ public class TurnManager : MonoBehaviour, IWaitForEquipment
     {
         this.currentCharacter = character;
 
-        character.GetAttributes().SpendBuffs();
+        character.GetAttributes().CheckRegenerationAndPoison();
+        character.GetAttributes().SpendEffects();
         character.GetInventory().CheckIfEquipsShouldBeRefreshed();
 
-        if (!character.GetAttributes().GetHp().IsAlive())
+        if (!character.GetAttributes().IsAlive())
         {
             dungeonManager.StartCoroutine(dungeonManager.NextTurn());
             return;

@@ -21,7 +21,7 @@ public abstract class SkillEffect : ScriptableObject
 
     public virtual void TryToAffect(Character user, Character target, float attack)
     {
-        hitted = attack > target.GetAttributes().GetDodgeValue();
+        hitted = attack > target.GetAttributes().GetAgility();
     }
     public bool DidItHit() { return hitted; }
 

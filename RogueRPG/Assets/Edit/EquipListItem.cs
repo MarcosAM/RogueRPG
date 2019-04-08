@@ -34,14 +34,14 @@ public class EquipListItem : MonoBehaviour
         attributesTxt.text = "";
         if (equip.GetHp() != 0)
             attributesTxt.text += "HP: " + equip.GetHp() + " ";
-        if (equip.GetAtk() != 0)
-            attributesTxt.text += "ATK: " + equip.GetAtk() + " ";
-        if (equip.GetAtkm() != 0)
-            attributesTxt.text += "ATKM: " + equip.GetAtkm() + " ";
-        if (equip.GetDef() != 0)
-            attributesTxt.text += "DEF: " + equip.GetDef() + " ";
-        if (equip.GetDefm() != 0)
-            attributesTxt.text += "DEFM: " + equip.GetDefm() + " ";
+        if (equip.GetSubAttribute(Attributes.SubAttribute.ATKP) != 0)
+            attributesTxt.text += "ATKP: " + equip.GetSubAttribute(Attributes.SubAttribute.ATKP) + " ";
+        if (equip.GetSubAttribute(Attributes.SubAttribute.ATKM) != 0)
+            attributesTxt.text += "ATKM: " + equip.GetSubAttribute(Attributes.SubAttribute.ATKM) + " ";
+        if (equip.GetSubAttribute(Attributes.SubAttribute.DEFP) != 0)
+            attributesTxt.text += "DEFP: " + equip.GetSubAttribute(Attributes.SubAttribute.DEFP) + " ";
+        if (equip.GetSubAttribute(Attributes.SubAttribute.DEFM) != 0)
+            attributesTxt.text += "DEFM: " + equip.GetSubAttribute(Attributes.SubAttribute.DEFM) + " ";
 
         var skills = equip.GetSkills();
         for (var i = 0; i < skillsTxt.Length; i++)
