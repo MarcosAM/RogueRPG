@@ -32,7 +32,8 @@ public class EquipList : MonoBehaviour
         infiniteScroll.OnFill += OnFillItem;
         infiniteScroll.OnHeight += OnHeightItem;
 
-        infiniteScroll.InitData(EquipDatabase.GetAllEquips().Length);
+        //TODO fazer ele pegar os equips e salvar na própria classe para não precisar ficar chamando mais o tempo todo
+        infiniteScroll.InitData(LootManager.GetAllPlayersEquips().Length);
 
         var equipListItems = FindObjectsOfType<EquipListItem>();
         foreach (var equipListItem in equipListItems)
@@ -43,10 +44,10 @@ public class EquipList : MonoBehaviour
 
     void OnFillItem(int index, GameObject item)
     {
-        if (EquipDatabase.GetAllEquips()[index].GetAmount() > 0)
-            item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips()[index], EquipDatabase.GetAllEquips()[index] == selectedEquip);
-        else
-            item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips()[index].GetArchetype());
+        //if (EquipDatabase.GetAllEquips()[index].GetAmount() > 0)
+        item.GetComponent<EquipListItem>().Fill(LootManager.GetAllPlayersEquips()[index], LootManager.GetAllPlayersEquips()[index] == selectedEquip);
+        //else
+        //item.GetComponent<EquipListItem>().Fill(EquipDatabase.GetAllEquips()[index].GetArchetype());
     }
 
     int OnHeightItem(int index)

@@ -53,6 +53,8 @@ public class LootManager : MonoBehaviour
         return lootOptions;
     }
 
+    public static Equip[] GetAllPlayersEquips() { return lootManager.playerEquip.ToArray(); }
+
     public static void AddEquip(Equip equip)
     {
         print(equip.GetEquipName());
