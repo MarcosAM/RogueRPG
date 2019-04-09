@@ -23,6 +23,7 @@ public abstract class SkillEffect : ScriptableObject
     {
         hitted = attack > target.GetAttributes().GetAgility();
     }
+
     public bool DidItHit() { return hitted; }
 
 

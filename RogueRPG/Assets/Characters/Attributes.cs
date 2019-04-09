@@ -17,7 +17,9 @@ public class Attributes : MonoBehaviour
     //WARNING: Sempre que for alterar esses valores, é necessário lembrar a characterHUD
     int[] effectsDurations = new int[Enum.GetValues(typeof(Attribute)).Length];
 
-    float precisionDodge = 0f;
+    public static readonly float atkAndDefBuff = 1.5f;
+    public static readonly float atkAndDefDebuff = 0.5f;
+    static readonly float agility = 0.2f;
 
     Momentum momentum;
 
@@ -37,7 +39,6 @@ public class Attributes : MonoBehaviour
         {
             effectsDurations[i] = 0;
         }
-        //TODO linkar com o CharacterHUD para mostrar os icones de buffs e debuffs
     }
 
     public void UpdateAttributes(Equip[] equips)
@@ -54,10 +55,38 @@ public class Attributes : MonoBehaviour
 
     public int GetSubAttribute(SubAttribute subAttribute)
     {
-        //TODO Adicionar o efeitos dos buffs
-        return subAttributes[(int)subAttribute];
+        float modifier = 1;
+
+        switch (subAttribute)
+        {
+            case SubAttribute.ATKP:
+            case SubAttribute.ATKM:
+                if (effectsDurations[(int)Attributes.Attribute.ATK] > 0)
+                    modifier = atkAndDefBuff;
+                if (effectsDurations[(int)Attributes.Attribute.ATK] < 0)
+                    modifier = atkAndDefDebuff;
+                break;
+            default:
+                if (effectsDurations[(int)Attributes.Attribute.DEF] > 0)
+                    modifier = atkAndDefBuff;
+                if (effectsDurations[(int)Attributes.Attribute.DEF] < 0)
+                    modifier = atkAndDefDebuff;
+                break;
+        }
+
+        return Mathf.RoundToInt(subAttributes[(int)subAttribute] * modifier);
     }
-    public float GetAgility() { return precisionDodge; }
+
+    public float GetAgility()
+    {
+        if (effectsDurations[(int)Attributes.Attribute.AGI] > 0)
+            return agility;
+
+        if (effectsDurations[(int)Attributes.Attribute.AGI] < 0)
+            return -agility;
+
+        return 0;
+    }
 
     void SetMaxHP(int value)
     {

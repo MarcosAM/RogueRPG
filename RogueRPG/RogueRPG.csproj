@@ -120,6 +120,7 @@
     <Compile Include="Assets\Logic\EquipDatabase.cs" />
     <Compile Include="Assets\Logic\EventManager.cs" />
     <Compile Include="Assets\Logic\GameManager.cs" />
+    <Compile Include="Assets\Logic\LootManager.cs" />
     <Compile Include="Assets\Logic\TurnManager.cs" />
     <Compile Include="Assets\Map\DungeonBtn.cs" />
     <Compile Include="Assets\Momentum.cs" />
