@@ -20,4 +20,9 @@ public class LootOptions : MonoBehaviour
         lootOptions[0].Refresh(optionA);
         lootOptions[1].Refresh(optionB);
     }
+
+    public Equip GetSelectedEquip()
+    {
+        return toggleGroup.ActiveToggles().ToArray()[0].GetComponentInChildren<LootOption>().GetEquip();
+    }
 }

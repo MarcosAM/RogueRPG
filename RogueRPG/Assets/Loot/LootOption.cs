@@ -8,8 +8,12 @@ public class LootOption : MonoBehaviour
     [SerializeField] Text eName, eAttributes;
     [SerializeField] List<Text> eSkills;
 
+    Equip equip;
+
     public void Refresh(Equip equip)
     {
+        this.equip = equip;
+
         eName.text = equip.GetEquipName();
 
         eAttributes.text = "";
@@ -38,4 +42,6 @@ public class LootOption : MonoBehaviour
             }
         }
     }
+
+    public Equip GetEquip() { return equip; }
 }

@@ -26,4 +26,15 @@ public class LootSceneManager : MonoBehaviour
             }
         }
     }
+
+    public void AddSelectedEquips()
+    {
+        foreach (LootOptions lo in lootOptions)
+        {
+            if (lo.gameObject.activeSelf)
+            {
+                LootManager.AddEquip(lo.GetSelectedEquip());
+            }
+        }
+    }
 }

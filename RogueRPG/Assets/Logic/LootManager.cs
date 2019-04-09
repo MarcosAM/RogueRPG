@@ -55,6 +55,7 @@ public class LootManager : MonoBehaviour
 
     public static void AddEquip(Equip equip)
     {
+        print(equip.GetEquipName());
         lootManager.playerEquip.Add(equip);
     }
 }
