@@ -122,6 +122,9 @@
     <Compile Include="Assets\Logic\GameManager.cs" />
     <Compile Include="Assets\Logic\LootManager.cs" />
     <Compile Include="Assets\Logic\TurnManager.cs" />
+    <Compile Include="Assets\Loot\LootOption.cs" />
+    <Compile Include="Assets\Loot\LootOptions.cs" />
+    <Compile Include="Assets\Loot\LootSceneManager.cs" />
     <Compile Include="Assets\Map\DungeonBtn.cs" />
     <Compile Include="Assets\Momentum.cs" />
     <Compile Include="Assets\Prize\PrizeManager.cs" />
