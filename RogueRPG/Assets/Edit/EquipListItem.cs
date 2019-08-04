@@ -6,9 +6,8 @@ using UnityEngine.UI;
 
 public class EquipListItem : MonoBehaviour
 {
+    int index;
 
-    [SerializeField] Text amountTxt;
-    //[SerializeField] Text levelTxt;
     [SerializeField] Image archetypeIcon;
     [SerializeField] Text nameTxt;
     [SerializeField] Text attributesTxt;
@@ -20,12 +19,14 @@ public class EquipListItem : MonoBehaviour
 
     public event Action<Equip> OnBtnPress;
 
-    static string unknown = "???????";
-    static string none = "0";
+    static string UNKOWN = "???????";
 
-    public void Fill(Equip equip, bool equipped)
+    public void Fill(Equip equip, bool equipped, int index)
     {
-        amountTxt.text = equip.GetHowManyLeft() + "/" + equip.GetAmount();
+        if (this.index == index)
+            return;
+
+        this.index = index;
 
         nameTxt.text = equip.GetEquipName();
 
@@ -63,23 +64,22 @@ public class EquipListItem : MonoBehaviour
             backgroundImg.color = backgroundImg.color.lightGrey();
         }
         archetypeIcon.sprite = Archetypes.GetArchetypeIcon(equip.GetArchetype());
-        //levelTxt.text = "Lv." + equip.GetLevel();
     }
 
+    /*
     public void Fill(Archetypes.Archetype archetype)
     {
-        amountTxt.text = none;
         mainBtn.interactable = false;
-        nameTxt.text = unknown;
-        attributesTxt.text = unknown;
+        nameTxt.text = UNKOWN;
+        attributesTxt.text = UNKOWN;
         foreach (var skill in skillsTxt)
         {
-            skill.Initialize(unknown);
+            skill.Initialize(UNKOWN);
         }
         backgroundImg.color = backgroundImg.color.lightGrey();
         archetypeIcon.sprite = Archetypes.GetArchetypeIcon(archetype);
-        //levelTxt.text = "Lv.?";
     }
+    */
 
     public void BtnPress()
     {
