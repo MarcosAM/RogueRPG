@@ -77,7 +77,7 @@ public class Inventory : MonoBehaviour
 
         InitiateAvailableEquips();
         Archetype = Archetypes.GetArchetype(this.equips);
-        InitiateLevel();
+        //InitiateLevel();
         this.equips[this.equips.Length - 1] = Archetypes.GetMomentumEquip(Archetype, level);
         character.CreateEquipsSprites(this.equips);
         character.GetAttributes().UpdateAttributes(this.equips);
@@ -101,6 +101,7 @@ public class Inventory : MonoBehaviour
         }
         availableEquips[equips.Length - 1] = false;
     }
+    /*
     void InitiateLevel()
     {
         foreach (var equip in equips)
@@ -110,4 +111,5 @@ public class Inventory : MonoBehaviour
                     level = equip.GetLevel();
         }
     }
+    */
 }

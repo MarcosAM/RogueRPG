@@ -8,7 +8,7 @@ public class EquipListItem : MonoBehaviour
 {
 
     [SerializeField] Text amountTxt;
-    [SerializeField] Text levelTxt;
+    //[SerializeField] Text levelTxt;
     [SerializeField] Image archetypeIcon;
     [SerializeField] Text nameTxt;
     [SerializeField] Text attributesTxt;
@@ -63,7 +63,7 @@ public class EquipListItem : MonoBehaviour
             backgroundImg.color = backgroundImg.color.lightGrey();
         }
         archetypeIcon.sprite = Archetypes.GetArchetypeIcon(equip.GetArchetype());
-        levelTxt.text = "Lv." + equip.GetLevel();
+        //levelTxt.text = "Lv." + equip.GetLevel();
     }
 
     public void Fill(Archetypes.Archetype archetype)
@@ -78,7 +78,7 @@ public class EquipListItem : MonoBehaviour
         }
         backgroundImg.color = backgroundImg.color.lightGrey();
         archetypeIcon.sprite = Archetypes.GetArchetypeIcon(archetype);
-        levelTxt.text = "Lv.?";
+        //levelTxt.text = "Lv.?";
     }
 
     public void BtnPress()

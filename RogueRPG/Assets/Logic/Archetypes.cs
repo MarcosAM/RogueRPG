@@ -28,28 +28,28 @@ public class Archetypes : MonoBehaviour
 
     public static Archetype GetArchetype(Equip[] equips)
     {
-        Dictionary<Archetype, int> archetypesLevels = new Dictionary<Archetype, int>();
+        Dictionary<Archetype, int> archetypesAmount = new Dictionary<Archetype, int>();
 
         foreach (Equip equip in equips)
         {
-            if (!archetypesLevels.ContainsKey(equip.GetArchetype()))
+            if (!archetypesAmount.ContainsKey(equip.GetArchetype()))
             {
-                archetypesLevels.Add(equip.GetArchetype(), equip.GetLevel());
+                archetypesAmount.Add(equip.GetArchetype(), 1);
                 break;
             }
 
-            archetypesLevels[equip.GetArchetype()] += equip.GetLevel();
+            archetypesAmount[equip.GetArchetype()] ++;
         }
 
         var archetype = Archetype.Warlock;
-        var level = 0;
+        var amount = 0;
 
-        foreach (var item in archetypesLevels)
+        foreach (var item in archetypesAmount)
         {
-            if (item.Value > level)
+            if (item.Value > amount)
             {
                 archetype = item.Key;
-                level = item.Value;
+                amount = item.Value;
             }
         }
         return archetype;
@@ -57,31 +57,31 @@ public class Archetypes : MonoBehaviour
 
     public static string GetMomentumEquipName(Equip[] equips)
     {
-        Dictionary<Archetype, int> archetypesLevels = new Dictionary<Archetype, int>();
+        Dictionary<Archetype, int> archetypesAmount = new Dictionary<Archetype, int>();
 
         foreach (Equip equip in equips)
         {
-            if (!archetypesLevels.ContainsKey(equip.GetArchetype()))
+            if (!archetypesAmount.ContainsKey(equip.GetArchetype()))
             {
-                archetypesLevels.Add(equip.GetArchetype(), equip.GetLevel());
+                archetypesAmount.Add(equip.GetArchetype(), 1);
                 break;
             }
 
-            archetypesLevels[equip.GetArchetype()] += equip.GetLevel();
+            archetypesAmount[equip.GetArchetype()] ++;
         }
 
         var archetype = Archetype.Warlock;
-        var level = 0;
+        var amount = 0;
 
-        foreach (var item in archetypesLevels)
+        foreach (var item in archetypesAmount)
         {
-            if (item.Value > level)
+            if (item.Value > amount)
             {
                 archetype = item.Key;
-                level = item.Value;
+                amount = item.Value;
             }
         }
-        return GetMomentumEquip(archetype, level).GetEquipName();
+        return GetMomentumEquip(archetype, amount).GetEquipName();
     }
 
     public static Equip GetMomentumEquip(Archetype archetype, int level)

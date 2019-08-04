@@ -33,7 +33,7 @@ public class EquipDatabase : MonoBehaviour
             }
         }
     }
-
+    /*
     public static Equip UnlockNewEquip(Archetypes.Archetype archetype1, Archetypes.Archetype archetype2, int level1, int level2, int dungeonLevel)
     {
         int lowerLevel = level1 >= level2 ? level2 : level1;
@@ -51,6 +51,7 @@ public class EquipDatabase : MonoBehaviour
 
         return possibleEquips[randomIndex];
     }
+    */
 
     //public static Equip GetEquip(int equipIndex) { return instace.equipOptionsFor2Char[equipIndex]; }
     public static Equip[] GetAllEquips() { return instace.equipOptionsFor2Char; }
