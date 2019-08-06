@@ -32,4 +32,5 @@ public class HeroFactory : CharacterFactory
     public void SetName(string name) { cName = name; }
 
     public Equip[] GetEquips() { return equips; }
+    public void SetEquips(Equip[] equips) { this.equips = equips; }
 }

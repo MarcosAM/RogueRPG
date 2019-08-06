@@ -7,7 +7,11 @@ public class LootManager : MonoBehaviour
     static LootManager lootManager;
 
     [SerializeField] Equip[] allLootOptions;
-    [SerializeField] Equip[] initialEquips;
+
+    [SerializeField] Equip[] warriorInitialEquips;
+    [SerializeField] Equip[] mageInitialEquips;
+    [SerializeField] Equip[] rogueInitialEquips;
+
     List<Equip> playerEquip = new List<Equip>();
 
     int currentIndex = 0;
@@ -26,10 +30,20 @@ public class LootManager : MonoBehaviour
         currentIndex = 0;
 
         playerEquip.Clear();
-        foreach (Equip equip in initialEquips)
+        foreach (Equip equip in warriorInitialEquips)
         {
             playerEquip.Add(equip);
         }
+        foreach (Equip equip in mageInitialEquips)
+        {
+            playerEquip.Add(equip);
+        }
+        foreach (Equip equip in rogueInitialEquips)
+        {
+            playerEquip.Add(equip);
+        }
+
+        PartyManager.SetPartyEquips(warriorInitialEquips, mageInitialEquips, rogueInitialEquips);
     }
 
     public static Equip[] GetLootOptionsAndAdvanceTrack(int characterCount)
@@ -54,6 +68,10 @@ public class LootManager : MonoBehaviour
     }
 
     public static Equip[] GetAllPlayersEquips() { return lootManager.playerEquip.ToArray(); }
+
+    public static Equip[] GetWarriorInitialEquips() { return lootManager.warriorInitialEquips; }
+    public static Equip[] GetMageInitialEquips() { return lootManager.mageInitialEquips; }
+    public static Equip[] GetRogueInitialEquips() { return lootManager.rogueInitialEquips; }
 
     public static void AddEquip(Equip equip)
     {
