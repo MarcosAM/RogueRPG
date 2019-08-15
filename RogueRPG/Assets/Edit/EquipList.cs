@@ -7,7 +7,6 @@ using System.Linq;
 
 public class EquipList : MonoBehaviour
 {
-    //InfiniteScroll infiniteScroll;
     ScrollRect scrollRect;
     [SerializeField] int selectedCharIndex = 0;
     int selectedEquipIndex = 0;
@@ -36,41 +35,54 @@ public class EquipList : MonoBehaviour
 
         scrollRect = FindObjectOfType<ScrollRect>();
 
+        RefreshListItems();
+    }
+
+    void UpdateScrollHeight(RectTransform rect)
+    {
+        int contentHeight = allPlayersEquips.Length * 40;
+
+        if (rect.sizeDelta.y != contentHeight)
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x, contentHeight);
+    }
+
+    void InstatiateListItem(RectTransform rect, Equip equip, int index)
+    {
+        EquipListItem listItem = Instantiate(equipListItem);
+        listItem.transform.SetParent(rect, false);
+        listItem.Fill(equip, equip == selectedEquip, PartyManager.GetParty().Any(hero => hero.GetEquips().Contains(equip)));
+        listItem.OnBtnPress += OnEquipClicked;
+
+
+        var y = (rect.rect.height / 2) - (listItem.GetComponent<RectTransform>().rect.height / 2);
+
+        Vector3 position = listItem.GetComponent<RectTransform>().localPosition;
+
+        listItem.transform.localPosition = new Vector3(position.x, -(listItem.GetComponent<RectTransform>().rect.height * (index + 1) - listItem.GetComponent<RectTransform>().rect.height / 2), position.z);
+    }
+
+    void UpdateListItem(RectTransform rect, int index, Equip equip)
+    {
+        EquipListItem[] listItems = rect.GetComponentsInChildren<EquipListItem>();
+        listItems[index].Fill(equip, equip == selectedEquip, PartyManager.GetParty().Any(hero => hero.GetEquips().Contains(equip)));
+    }
+
+    void RefreshListItems()
+    {
         RectTransform srContent = scrollRect.content;
 
-
-        srContent.sizeDelta = new Vector2(srContent.sizeDelta.x, allPlayersEquips.Length * 40);
+        UpdateScrollHeight(srContent);
 
         for (var i = 0; i < allPlayersEquips.Length; i++)
         {
-            EquipListItem listItem = Instantiate(equipListItem);
-            listItem.transform.SetParent(srContent, false);
-            listItem.Fill(allPlayersEquips[i], allPlayersEquips[i] == selectedEquip, PartyManager.GetParty().Any(hero => hero.GetEquips().Contains(allPlayersEquips[i])));
-            listItem.OnBtnPress += OnEquipClicked;
-
-
-            var y = (srContent.rect.height / 2) - (listItem.GetComponent<RectTransform>().rect.height / 2);
-
-            Vector3 position = listItem.GetComponent<RectTransform>().localPosition;
-
-            listItem.transform.localPosition = new Vector3(position.x, -(listItem.GetComponent<RectTransform>().rect.height * (i + 1) - listItem.GetComponent<RectTransform>().rect.height / 2), position.z);
-        }
-    }
-
-    int OnHeightItem(int index)
-    {
-        return 40;
-    }
-
-    public void OnEquipToggleValueChange(int index)
-    {
-        if (selectedEquipIndex != index % 4 || selectedCharIndex != index / 4)
-        {
-            selectedEquipIndex = index % 4;
-            selectedCharIndex = index / 4;
-
-            RefreshSelectedEquip();
-            characterItens[selectedCharIndex].GetCharacterPreview().SwitchEquip(selectedEquip);
+            if (i < srContent.childCount)
+            {
+                UpdateListItem(srContent, i, allPlayersEquips[i]);
+            }
+            else
+            {
+                InstatiateListItem(srContent, allPlayersEquips[i], i);
+            }
         }
     }
 
@@ -78,6 +90,7 @@ public class EquipList : MonoBehaviour
     {
         PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
         RefreshSelectedEquip();
+        RefreshListItems();
     }
 
     void RefreshSelectedEquip()
