@@ -45,7 +45,7 @@ public class EquipList : MonoBehaviour
         {
             EquipListItem listItem = Instantiate(equipListItem);
             listItem.transform.SetParent(srContent, false);
-            listItem.Fill(allPlayersEquips[i], allPlayersEquips[i] == selectedEquip);
+            listItem.Fill(allPlayersEquips[i], allPlayersEquips[i] == selectedEquip, PartyManager.GetParty().Any(hero => hero.GetEquips().Contains(allPlayersEquips[i])));
             listItem.OnBtnPress += OnEquipClicked;
 
 
@@ -55,28 +55,6 @@ public class EquipList : MonoBehaviour
 
             listItem.transform.localPosition = new Vector3(position.x, -(listItem.GetComponent<RectTransform>().rect.height * (i + 1) - listItem.GetComponent<RectTransform>().rect.height / 2), position.z);
         }
-
-
-
-        //infiniteScroll = FindObjectOfType<InfiniteScroll>();
-        //infiniteScroll.OnFill += OnFillItem;
-        //infiniteScroll.OnHeight += OnHeightItem;
-
-        //infiniteScroll.InitData(allPlayersEquips.Length);
-
-        /*
-        var equipListItems = FindObjectsOfType<EquipListItem>();
-        foreach (var equipListItem in equipListItems)
-        {
-            equipListItem.OnBtnPress += OnEquipClicked;
-        }
-        */
-    }
-
-    void OnFillItem(int index, GameObject item)
-    {
-        //item.GetComponent<EquipListItem>().Fill(allPlayersEquips[index], allPlayersEquips[index] == selectedEquip, index);
-        item.GetComponent<EquipListItem>().Fill(allPlayersEquips[index], allPlayersEquips[index] == selectedEquip);
     }
 
     int OnHeightItem(int index)
@@ -93,21 +71,13 @@ public class EquipList : MonoBehaviour
 
             RefreshSelectedEquip();
             characterItens[selectedCharIndex].GetCharacterPreview().SwitchEquip(selectedEquip);
-            //infiniteScroll.UpdateVisible();
         }
     }
 
     public void OnEquipClicked(Equip equip)
     {
-        if (!allPlayersEquips.Contains(equip))
-        {
-            PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
-            RefreshSelectedEquip();
-        }
-        else
-            Debug.Log("Player already equiped this");
-        //infiniteScroll.UpdateVisible();
-        //}
+        PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
+        RefreshSelectedEquip();
     }
 
     void RefreshSelectedEquip()

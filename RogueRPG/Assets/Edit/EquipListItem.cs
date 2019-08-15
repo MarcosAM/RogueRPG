@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class EquipListItem : MonoBehaviour
 {
-    //int index;
-
+    [SerializeField] Text equippedTxt;
     [SerializeField] Image archetypeIcon;
     [SerializeField] Text nameTxt;
     [SerializeField] Text attributesTxt;
@@ -21,16 +20,11 @@ public class EquipListItem : MonoBehaviour
 
     static string UNKOWN = "???????";
 
+    bool equipped;
+
     //public void Fill(Equip equip, bool equipped, int index)
-    public void Fill(Equip equip, bool equipped)
+    public void Fill(Equip equip, bool selected, bool equipped)
     {
-        /*
-        if (this.index == index)
-            return;
-
-        this.index = index;
-        */
-
         nameTxt.text = equip.GetEquipName();
 
         this.equip = equip;
@@ -56,7 +50,7 @@ public class EquipListItem : MonoBehaviour
                 skillsTxt[i].Initialize("-");
         }
 
-        if (equipped)
+        if (selected)
         {
             backgroundImg.color = Color.grey;
             mainBtn.interactable = false;
@@ -67,11 +61,14 @@ public class EquipListItem : MonoBehaviour
             backgroundImg.color = backgroundImg.color.lightGrey();
         }
         archetypeIcon.sprite = Archetypes.GetArchetypeIcon(equip.GetArchetype());
+
+        this.equipped = equipped;
+        equippedTxt.gameObject.SetActive(equipped);
     }
 
     public void BtnPress()
     {
-        if (OnBtnPress != null)
+        if (OnBtnPress != null && !equipped)
         {
             OnBtnPress(equip);
         }
