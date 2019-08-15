@@ -99,13 +99,15 @@ public class EquipList : MonoBehaviour
 
     public void OnEquipClicked(Equip equip)
     {
-        if (equip.GetHowManyLeft() > 0)
+        if (!allPlayersEquips.Contains(equip))
         {
-            Debug.Log("Ei!");
             PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
             RefreshSelectedEquip();
-            //infiniteScroll.UpdateVisible();
         }
+        else
+            Debug.Log("Player already equiped this");
+        //infiniteScroll.UpdateVisible();
+        //}
     }
 
     void RefreshSelectedEquip()

@@ -5,7 +5,7 @@ using System.Linq;
 
 public class EquipDatabase : MonoBehaviour
 {
-    //TODO rever tudo isso aqui
+    //TODO deletar essa classe
     [SerializeField] Equip[] equipOptionsFor2Char;
     [SerializeField] Equip[] equipOptionsFor3Char;
     List<Equip[]> equipOptions;
@@ -14,7 +14,7 @@ public class EquipDatabase : MonoBehaviour
     public static readonly int whenThirdCharEnters = 6;
 
     static EquipDatabase instace;
-
+    /*
     private void Awake()
     {
         instace = this;
@@ -34,7 +34,7 @@ public class EquipDatabase : MonoBehaviour
         }
     }
 
-    public static Equip[] GetAllEquips() { return instace.equipOptionsFor2Char; }
+    //public static Equip[] GetAllEquips() { return instace.equipOptionsFor2Char; }
 
     void PrepareEquipOptions()
     {
@@ -47,4 +47,5 @@ public class EquipDatabase : MonoBehaviour
             equipOptions.Add(options);
         }
     }
+    */
 }

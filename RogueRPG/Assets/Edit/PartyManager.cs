@@ -24,9 +24,6 @@ public class PartyManager : MonoBehaviour
 
     public static void EquipPartyMemberWith(int charIndex, int equipIndex, Equip equip)
     {
-        equip.SetHowManyLeft(equip.GetHowManyLeft() - 1);
-        GetInstance().standartStats[charIndex].GetEquips()[equipIndex].SetHowManyLeft(equip.GetHowManyLeft() + 1);
-
         GetInstance().standartStats[charIndex].GetEquips()[equipIndex] = equip;
 
         EquipmentChange(charIndex);

@@ -17,8 +17,6 @@ public class Equip : ScriptableObject, IWaitForSkill
 
     [SerializeField] protected RectTransform backEquipPrefab;
     [SerializeField] protected RectTransform frontEquipPrefab;
-    [SerializeField] protected int amount = 1;
-    protected int howManyLeft = 1;
 
     protected IWaitForEquipment requester;
 
@@ -85,8 +83,4 @@ public class Equip : ScriptableObject, IWaitForSkill
     public RectTransform GetBackEquipPrefab() { return backEquipPrefab; }
     public RectTransform GetFrontEquipPrefab() { return frontEquipPrefab; }
     public Archetypes.Archetype GetArchetype() { return archetype; }
-    public int GetHowManyLeft() { return howManyLeft; }
-    public void SetHowManyLeft(int amount) { howManyLeft = amount; }
-    public int GetAmount() { return amount; }
-    public void SetAmout(int amount) { this.amount = amount; }
 }
