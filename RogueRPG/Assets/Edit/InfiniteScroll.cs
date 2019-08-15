@@ -319,7 +319,8 @@ namespace Mopsicus.InfiniteScroll
             int position = (_topPosition > itemPosition) ? _previousPosition + 1 : _previousPosition - 1;
 
             //if (position < 0 || _previousPosition == position || _scroll.velocity.y == 0f)
-            if (position < 0)
+            //if (position < 0)
+            if (position < 0 || _previousPosition == position)
             {
                 return;
             }

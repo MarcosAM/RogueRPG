@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EquipListItem : MonoBehaviour
 {
-    int index;
+    //int index;
 
     [SerializeField] Image archetypeIcon;
     [SerializeField] Text nameTxt;
@@ -21,12 +21,15 @@ public class EquipListItem : MonoBehaviour
 
     static string UNKOWN = "???????";
 
-    public void Fill(Equip equip, bool equipped, int index)
+    //public void Fill(Equip equip, bool equipped, int index)
+    public void Fill(Equip equip, bool equipped)
     {
+        /*
         if (this.index == index)
             return;
 
         this.index = index;
+        */
 
         nameTxt.text = equip.GetEquipName();
 
@@ -65,21 +68,6 @@ public class EquipListItem : MonoBehaviour
         }
         archetypeIcon.sprite = Archetypes.GetArchetypeIcon(equip.GetArchetype());
     }
-
-    /*
-    public void Fill(Archetypes.Archetype archetype)
-    {
-        mainBtn.interactable = false;
-        nameTxt.text = UNKOWN;
-        attributesTxt.text = UNKOWN;
-        foreach (var skill in skillsTxt)
-        {
-            skill.Initialize(UNKOWN);
-        }
-        backgroundImg.color = backgroundImg.color.lightGrey();
-        archetypeIcon.sprite = Archetypes.GetArchetypeIcon(archetype);
-    }
-    */
 
     public void BtnPress()
     {

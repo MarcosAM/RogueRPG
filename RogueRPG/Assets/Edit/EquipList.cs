@@ -7,12 +7,14 @@ using System.Linq;
 
 public class EquipList : MonoBehaviour
 {
-    InfiniteScroll infiniteScroll;
+    //InfiniteScroll infiniteScroll;
+    ScrollRect scrollRect;
     [SerializeField] int selectedCharIndex = 0;
     int selectedEquipIndex = 0;
     Equip selectedEquip;
 
     [SerializeField] CharacterListItem[] characterItens;
+    [SerializeField] EquipListItem equipListItem;
 
     Equip[] allPlayersEquips;
 
@@ -30,23 +32,51 @@ public class EquipList : MonoBehaviour
 
         RefreshSelectedEquip();
 
-        infiniteScroll = FindObjectOfType<InfiniteScroll>();
-        infiniteScroll.OnFill += OnFillItem;
-        infiniteScroll.OnHeight += OnHeightItem;
-
         allPlayersEquips = LootManager.GetAllPlayersEquips();
-        infiniteScroll.InitData(allPlayersEquips.Length);
 
+        scrollRect = FindObjectOfType<ScrollRect>();
+
+        RectTransform srContent = scrollRect.content;
+
+
+        srContent.sizeDelta = new Vector2(srContent.sizeDelta.x, allPlayersEquips.Length * 40);
+
+        for (var i = 0; i < allPlayersEquips.Length; i++)
+        {
+            EquipListItem listItem = Instantiate(equipListItem);
+            listItem.transform.SetParent(srContent, false);
+            listItem.Fill(allPlayersEquips[i], allPlayersEquips[i] == selectedEquip);
+            listItem.OnBtnPress += OnEquipClicked;
+
+
+            var y = (srContent.rect.height / 2) - (listItem.GetComponent<RectTransform>().rect.height / 2);
+
+            Vector3 position = listItem.GetComponent<RectTransform>().localPosition;
+
+            listItem.transform.localPosition = new Vector3(position.x, -(listItem.GetComponent<RectTransform>().rect.height * (i + 1) - listItem.GetComponent<RectTransform>().rect.height / 2), position.z);
+        }
+
+
+
+        //infiniteScroll = FindObjectOfType<InfiniteScroll>();
+        //infiniteScroll.OnFill += OnFillItem;
+        //infiniteScroll.OnHeight += OnHeightItem;
+
+        //infiniteScroll.InitData(allPlayersEquips.Length);
+
+        /*
         var equipListItems = FindObjectsOfType<EquipListItem>();
         foreach (var equipListItem in equipListItems)
         {
             equipListItem.OnBtnPress += OnEquipClicked;
         }
+        */
     }
 
     void OnFillItem(int index, GameObject item)
     {
-        item.GetComponent<EquipListItem>().Fill(allPlayersEquips[index], allPlayersEquips[index] == selectedEquip, index);
+        //item.GetComponent<EquipListItem>().Fill(allPlayersEquips[index], allPlayersEquips[index] == selectedEquip, index);
+        item.GetComponent<EquipListItem>().Fill(allPlayersEquips[index], allPlayersEquips[index] == selectedEquip);
     }
 
     int OnHeightItem(int index)
@@ -63,7 +93,7 @@ public class EquipList : MonoBehaviour
 
             RefreshSelectedEquip();
             characterItens[selectedCharIndex].GetCharacterPreview().SwitchEquip(selectedEquip);
-            infiniteScroll.UpdateVisible();
+            //infiniteScroll.UpdateVisible();
         }
     }
 
@@ -71,9 +101,10 @@ public class EquipList : MonoBehaviour
     {
         if (equip.GetHowManyLeft() > 0)
         {
+            Debug.Log("Ei!");
             PartyManager.EquipPartyMemberWith(selectedCharIndex, selectedEquipIndex, equip);
             RefreshSelectedEquip();
-            infiniteScroll.UpdateVisible();
+            //infiniteScroll.UpdateVisible();
         }
     }
 
