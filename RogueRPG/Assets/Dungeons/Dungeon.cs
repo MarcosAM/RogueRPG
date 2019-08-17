@@ -9,8 +9,8 @@ public class Dungeon : ScriptableObject
 
     [SerializeField] string dungeonName;
     [SerializeField] BattleGroup[] battleGroups;
-    [SerializeField] int[] unlocks;
     [SerializeField] State state;
+    [SerializeField] int prerequisit;
 
     public BattleGroup[] GetBattleGroups() { return battleGroups; }
 
@@ -18,5 +18,5 @@ public class Dungeon : ScriptableObject
 
     public State GetState() { return state; }
     public void SetState(State state) { this.state = state; }
-    public int[] GetUnlocks() { return unlocks; }
+    public int GetPrerequisit() { return prerequisit; }
 }

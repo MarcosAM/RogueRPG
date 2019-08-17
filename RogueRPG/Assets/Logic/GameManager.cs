@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     static GameManager instance = null;
     Dungeon currentDungeon;
     [SerializeField] Dungeon[] dungeons;
+    int dungeonsCleared = 0;
 
     void Awake()
     {
@@ -50,14 +51,13 @@ public class GameManager : MonoBehaviour
 
     public void UnlockDungeons()
     {
-        var unlocks = currentDungeon.GetUnlocks();
+        dungeonsCleared++;
 
-        foreach (var index in unlocks)
+        foreach (Dungeon dungeon in dungeons)
         {
-            if (index < dungeons.Length)
+            if (dungeon.GetState() == Dungeon.State.Hidden && dungeon.GetPrerequisit() <= dungeonsCleared)
             {
-                if (dungeons[index].GetState() == Dungeon.State.Hidden)
-                    dungeons[index].SetState(Dungeon.State.JustDiscovered);
+                dungeon.SetState(Dungeon.State.JustDiscovered);
             }
         }
 
