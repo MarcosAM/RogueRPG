@@ -8,14 +8,12 @@ public class Dungeon : ScriptableObject
     public enum State { Hidden, JustDiscovered, Open, Beaten }
 
     [SerializeField] string dungeonName;
-    //[SerializeField] BattleGroup[] battleGroups;
-    //[SerializeField] BattleGroup[][] test;
-    [SerializeField] BattleGroups[] battleGroups;
+    [SerializeField] BattleGroup[] battleGroups;
     [SerializeField] int level;
     [SerializeField] int[] unlocks;
     [SerializeField] State state;
 
-    public BattleGroup[] GetRandomBattleGroups() { return battleGroups[Random.Range(0, battleGroups.Length - 1)].groups; }
+    public BattleGroup[] GetBattleGroups() { return battleGroups; }
 
     public int GetLevel() { return level; }
     public string GetDungeonName() { return dungeonName; }

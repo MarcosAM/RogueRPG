@@ -37,7 +37,7 @@ public class DungeonManager : MonoBehaviour
 
         lastDungeonLevel = gameManager.GetCurrentDungeon().GetLevel();
 
-        battleGroups = gameManager.GetCurrentDungeon().GetRandomBattleGroups();
+        battleGroups = gameManager.GetCurrentDungeon().GetBattleGroups();
 
         var npcs = new List<Character>();
         var npcsStats = battleGroups[0].GetEnemiesStats();
