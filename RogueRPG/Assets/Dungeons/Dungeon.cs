@@ -9,13 +9,11 @@ public class Dungeon : ScriptableObject
 
     [SerializeField] string dungeonName;
     [SerializeField] BattleGroup[] battleGroups;
-    [SerializeField] int level;
     [SerializeField] int[] unlocks;
     [SerializeField] State state;
 
     public BattleGroup[] GetBattleGroups() { return battleGroups; }
 
-    public int GetLevel() { return level; }
     public string GetDungeonName() { return dungeonName; }
 
     public State GetState() { return state; }

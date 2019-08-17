@@ -7,7 +7,6 @@ public class DungeonBtn : MonoBehaviour
 {
     [SerializeField] int index;
     Text dungeonName;
-    Text dungeonLevel;
     Button button;
     Dungeon dungeon;
     ParticleSystem particleSystem;
@@ -18,7 +17,6 @@ public class DungeonBtn : MonoBehaviour
 
         var texts = GetComponentsInChildren<Text>();
         dungeonName = texts[0];
-        dungeonLevel = texts[1];
         button = GetComponentInChildren<Button>();
 
         Initialize(GameManager.getInstance().GetDungeon(index));
@@ -43,13 +41,11 @@ public class DungeonBtn : MonoBehaviour
             default:
                 dungeonName.gameObject.SetActive(false);
                 button.gameObject.SetActive(false);
-                dungeonLevel.gameObject.SetActive(false);
                 particleSystem.Play();
                 return;
         }
 
         dungeonName.text = dungeon.GetDungeonName();
-        dungeonLevel.text = "Level " + dungeon.GetLevel();
     }
 
     public void OnBtnClick()

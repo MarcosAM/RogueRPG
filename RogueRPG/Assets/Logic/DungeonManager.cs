@@ -9,9 +9,7 @@ public class DungeonManager : MonoBehaviour
 {
     //TODO implement a Give Up Btn
     static DungeonManager instance = null;
-    static int lastDungeonLevel;
     List<Character> initiativeOrder = new List<Character>();
-    //[SerializeField] Hero characterPrefab;
     int round;
     int dungeonFloor = 0;
     Battleground battleground;
@@ -34,8 +32,6 @@ public class DungeonManager : MonoBehaviour
         {
             pcs.Add(PartyManager.GetParty()[i].GetCharacter());
         }
-
-        lastDungeonLevel = gameManager.GetCurrentDungeon().GetLevel();
 
         battleGroups = gameManager.GetCurrentDungeon().GetBattleGroups();
 
@@ -150,8 +146,6 @@ public class DungeonManager : MonoBehaviour
                 enemy.RemoveSelf();
             }
 
-            //var battleGroup = gameManager.GetCurrentDungeon().GetBattleGroup(dungeonFloor);
-
             battleground.Size = battleGroups[dungeonFloor].GetBattlegroundSize();
 
             var npcs = new List<Character>();
@@ -186,18 +180,10 @@ public class DungeonManager : MonoBehaviour
         return 0;
     }
 
-    //Character CreateCharacter(HeroFactory stats)
-    //{
-    //    Character character = Instantiate(characterPrefab);
-    //    character.SetStats(stats);
-    //    return character;
-    //}
-
     public static DungeonManager getInstance() { return instance; }
     public Battleground getBattleground() { return battleground; }
     public List<Character> getInitiativeOrder() { return initiativeOrder; }
     public int GetRound() { return round; }
-    public static int GetLastDungeonLevel() { return lastDungeonLevel; }
 
     void OnEnable()
     {
