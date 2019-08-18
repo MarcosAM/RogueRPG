@@ -56,7 +56,7 @@ public class CharacterPreview : MonoBehaviour
     {
         Archetypes.Archetype archetype = Archetypes.GetArchetype(equips, false);
 
-        if (this.archetype != archetype)
+        if (this.archetype != archetype || avatarImg.childCount <= 0)
         {
             SetArchetype(archetype);
         }
@@ -67,6 +67,11 @@ public class CharacterPreview : MonoBehaviour
         this.archetype = archetype;
 
         animator.runtimeAnimatorController = Archetypes.GetAnimator(archetype);
+
+        foreach (RectTransform child in avatarImg)
+        {
+            Destroy(child.gameObject);
+        }
 
         var hat = Archetypes.GetHat(archetype);
         hat.SetParent(avatarImg);
