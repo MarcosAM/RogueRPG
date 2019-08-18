@@ -111,6 +111,8 @@ public class CharacterListItem : MonoBehaviour
         PartyManager.GetParty()[index].SetName(name);
     }
 
+    public CharacterPreview GetCharacterPreview() { return characterPreview; }
+
     private void OnDisable()
     {
         PartyManager.OnEquipmentChange -= EquipmentChange;

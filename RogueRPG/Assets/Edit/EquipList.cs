@@ -93,6 +93,20 @@ public class EquipList : MonoBehaviour
         RefreshListItems();
     }
 
+    public void OnEquipToggleValueChange(int index)
+    {
+        if (selectedEquipIndex != index)
+        {
+            selectedEquipIndex = index % 4;
+            selectedCharIndex = index / 4;
+
+            RefreshSelectedEquip();
+            characterItens[selectedCharIndex].GetCharacterPreview().SwitchEquip(selectedEquip);
+
+            RefreshListItems();
+        }
+    }
+
     void RefreshSelectedEquip()
     {
         selectedEquip = PartyManager.GetParty()[selectedCharIndex].GetEquips()[selectedEquipIndex];
