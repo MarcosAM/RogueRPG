@@ -44,6 +44,10 @@ public class DungeonManager : MonoBehaviour
             {
                 npcs.Add(npcStat.GetCharacter());
             }
+            else
+            {
+                npcs.Add(null);
+            }
         }
 
         battleground.SetAvailableSide(pcs);
