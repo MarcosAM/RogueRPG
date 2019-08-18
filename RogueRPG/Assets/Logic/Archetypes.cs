@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Archetypes : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class Archetypes : MonoBehaviour
     [SerializeField] protected Equip[] knightEquips;
     [SerializeField] protected Equip[] berserkerEquips;
     [SerializeField] protected RectTransform[] hats;
-    [SerializeField] Sprite archetypesIcon;
 
     [SerializeField] RuntimeAnimatorController[] animators;
     static Archetypes instance;
@@ -148,6 +148,6 @@ public class Archetypes : MonoBehaviour
 
     public static Sprite GetArchetypeIcon(Archetype archetype)
     {
-        return instance.archetypesIcon;
+        return instance.hats[(int)archetype].GetComponentInChildren<Image>().sprite;
     }
 }
