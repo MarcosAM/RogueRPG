@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class CharacterPreview : MonoBehaviour
 {
-    //TODO Se eu inventar de alterar os chapeus baseado na força da galera, eu vou ter que fazer isso aqui tbm
     Animator animator;
-    Archetypes.Archetype archetype = Archetypes.Archetype.Warlock;
+    Archetypes.Archetype archetype;
 
     [SerializeField] protected RectTransform frontHandler;
     [SerializeField] protected RectTransform avatarImg;
@@ -55,13 +54,15 @@ public class CharacterPreview : MonoBehaviour
 
     public void CheckIfShouldChangeArchetype(Equip[] equips)
     {
-        if (archetype != Archetypes.GetArchetype(equips))
+        Archetypes.Archetype archetype = Archetypes.GetArchetype(equips, false);
+
+        if (this.archetype != archetype)
         {
-            SetArchetype(Archetypes.GetArchetype(equips));
+            SetArchetype(archetype);
         }
     }
 
-    public void SetArchetype(Archetypes.Archetype archetype)
+    void SetArchetype(Archetypes.Archetype archetype)
     {
         this.archetype = archetype;
 

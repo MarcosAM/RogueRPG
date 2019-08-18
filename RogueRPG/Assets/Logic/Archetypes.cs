@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,32 +27,33 @@ public class Archetypes : MonoBehaviour
 
     public enum Archetype { Warlock, Wizard, Priest, Ranger, Thief, Fighter, Knight, Berserker }
 
-    public static Archetype GetArchetype(Equip[] equips)
+    public static Archetype GetArchetype(Equip[] equips, bool hasMomentumEquip = true)
     {
-        Dictionary<Archetype, int> archetypesAmount = new Dictionary<Archetype, int>();
+        Archetype[] archetypes = hasMomentumEquip ?
+            equips.Take(equips.Length - 1).Select(equip => equip.GetArchetype()).ToArray()
+            :
+            equips.Select(equip => equip.GetArchetype()).ToArray();
+        Dictionary<Archetype, int> counts = archetypes.GroupBy(equip => equip).ToDictionary(g => g.Key, g => g.Count());
 
-        foreach (Equip equip in equips)
+        Archetype archetype = Archetype.Warlock;
+        int amount = 0;
+
+        foreach (KeyValuePair<Archetype, int> count in counts)
         {
-            if (!archetypesAmount.ContainsKey(equip.GetArchetype()))
+            if (count.Key == archetype)
             {
-                archetypesAmount.Add(equip.GetArchetype(), 1);
-                break;
+                amount = count.Value;
             }
-
-            archetypesAmount[equip.GetArchetype()] ++;
+            else
+            {
+                if (count.Value > amount)
+                {
+                    archetype = count.Key;
+                    amount = count.Value;
+                }
+            }
         }
 
-        var archetype = Archetype.Warlock;
-        var amount = 0;
-
-        foreach (var item in archetypesAmount)
-        {
-            if (item.Value > amount)
-            {
-                archetype = item.Key;
-                amount = item.Value;
-            }
-        }
         return archetype;
     }
 
@@ -67,7 +69,7 @@ public class Archetypes : MonoBehaviour
                 break;
             }
 
-            archetypesAmount[equip.GetArchetype()] ++;
+            archetypesAmount[equip.GetArchetype()]++;
         }
 
         var archetype = Archetype.Warlock;

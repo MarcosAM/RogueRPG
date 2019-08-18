@@ -28,6 +28,8 @@ public class CharacterListItem : MonoBehaviour
         UpdateValues(characterAttributes);
 
         PartyManager.OnEquipmentChange += EquipmentChange;
+
+        characterPreview.CheckIfShouldChangeArchetype(characterAttributes.GetEquips());
     }
 
     void EquipmentChange(int index)
@@ -108,8 +110,6 @@ public class CharacterListItem : MonoBehaviour
     {
         PartyManager.GetParty()[index].SetName(name);
     }
-
-    public CharacterPreview GetCharacterPreview() { return characterPreview; }
 
     private void OnDisable()
     {
