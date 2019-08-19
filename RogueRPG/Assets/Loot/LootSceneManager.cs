@@ -36,5 +36,7 @@ public class LootSceneManager : MonoBehaviour
                 LootManager.AddEquip(lo.GetSelectedEquip());
             }
         }
+
+        FindObjectOfType<GameManager>().LoadScene(5);
     }
 }

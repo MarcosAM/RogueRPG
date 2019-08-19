@@ -8,6 +8,7 @@ public class MagicalDamage : Damage
     protected override void PrepareDamage(Character user, Character target)
     {
         damage = (int)(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKM) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFM));
+        Debug.Log(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKM));
     }
 
     protected override void OnHit(Character user, Character target)
