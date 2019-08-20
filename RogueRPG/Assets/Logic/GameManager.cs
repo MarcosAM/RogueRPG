@@ -49,18 +49,10 @@ public class GameManager : MonoBehaviour
     public Dungeon GetCurrentDungeon() { return currentDungeon; }
     public Dungeon GetDungeon(int index) { return dungeons[index]; }
 
+    public int GetDungeonsCleared() { return dungeonsCleared; }
+
     public void UnlockDungeons()
     {
         dungeonsCleared++;
-
-        foreach (Dungeon dungeon in dungeons)
-        {
-            if (dungeon.GetState() == Dungeon.State.Hidden && dungeon.GetPrerequisit() <= dungeonsCleared)
-            {
-                dungeon.SetState(Dungeon.State.JustDiscovered);
-            }
-        }
-
-        currentDungeon.SetState(Dungeon.State.Beaten);
     }
 }

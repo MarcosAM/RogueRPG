@@ -5,18 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Quests/Dungeon")]
 public class Dungeon : ScriptableObject
 {
-    public enum State { Hidden, JustDiscovered, Open, Beaten }
-
     [SerializeField] string dungeonName;
     [SerializeField] BattleGroup[] battleGroups;
-    [SerializeField] State state;
     [SerializeField] int prerequisit;
 
     public BattleGroup[] GetBattleGroups() { return battleGroups; }
 
     public string GetDungeonName() { return dungeonName; }
 
-    public State GetState() { return state; }
-    public void SetState(State state) { this.state = state; }
     public int GetPrerequisit() { return prerequisit; }
 }

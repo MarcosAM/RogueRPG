@@ -27,24 +27,24 @@ public class DungeonBtn : MonoBehaviour
 
         this.dungeon = dungeon;
 
-        switch (this.dungeon.GetState())
+        int dungeonsCleared = GameManager.getInstance().GetDungeonsCleared();
+
+        if (dungeonsCleared < this.dungeon.GetPrerequisit())
         {
-            case Dungeon.State.Open:
-            case Dungeon.State.Beaten:
-                particleSystem.gameObject.SetActive(false);
-                break;
-            case Dungeon.State.JustDiscovered:
-                //TODO iniciar a animaçãozinha feliz de ter sido acabado de ser descoberta
-                particleSystem.Stop();
-                this.dungeon.SetState(Dungeon.State.Open);
-                break;
-            default:
-                dungeonName.gameObject.SetActive(false);
-                button.gameObject.SetActive(false);
-                particleSystem.Play();
-                return;
+            dungeonName.gameObject.SetActive(false);
+            button.gameObject.SetActive(false);
+            particleSystem.Play();
         }
 
+        if (dungeonsCleared == this.dungeon.GetPrerequisit())
+        {
+            particleSystem.Stop();
+        }
+
+        if (dungeonsCleared > this.dungeon.GetPrerequisit())
+        {
+            particleSystem.gameObject.SetActive(false);
+        }
         dungeonName.text = dungeon.GetDungeonName();
     }
 
