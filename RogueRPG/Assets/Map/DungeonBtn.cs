@@ -27,7 +27,17 @@ public class DungeonBtn : MonoBehaviour
 
         this.dungeon = dungeon;
 
-        int dungeonsCleared = GameManager.getInstance().GetDungeonsCleared();
+        GameManager gameManager = GameManager.getInstance();
+
+        if (gameManager.WasCleared(this.dungeon))
+        {
+            dungeonName.gameObject.SetActive(false);
+            button.gameObject.SetActive(false);
+            particleSystem.gameObject.SetActive(false);
+            return;
+        }
+
+        int dungeonsCleared = gameManager.GetDungeonsCleared();
 
         if (dungeonsCleared < this.dungeon.GetPrerequisit())
         {

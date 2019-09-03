@@ -9,13 +9,15 @@ public class GameManager : MonoBehaviour
     static GameManager instance = null;
     Dungeon currentDungeon;
     [SerializeField] Dungeon[] dungeons;
-    int dungeonsCleared = 0;
+    List<Dungeon> clearedDungeons;
 
     void Awake()
     {
         MakeItASingleton();
 
         DontDestroyOnLoad(this);
+
+        clearedDungeons = new List<Dungeon>();
     }
 
     public void LoadScene(int sceneIndex)
@@ -49,11 +51,13 @@ public class GameManager : MonoBehaviour
     public Dungeon GetCurrentDungeon() { return currentDungeon; }
     public Dungeon GetDungeon(int index) { return dungeons[index]; }
 
-    public int GetDungeonsCleared() { return dungeonsCleared; }
+    public int GetDungeonsCleared() { return clearedDungeons.Count; }
+
+    public bool WasCleared(Dungeon dungeon) { return clearedDungeons.Contains(dungeon); }
 
     public void OnDungeonEnded()
     {
-        dungeonsCleared++;
+        clearedDungeons.Add(currentDungeon);
 
         if (currentDungeon.IsLast())
         {
