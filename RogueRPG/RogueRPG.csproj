@@ -115,7 +115,6 @@
     <Compile Include="Assets\Logic\Archetypes.cs" />
     <Compile Include="Assets\Logic\CombatRules.cs" />
     <Compile Include="Assets\Logic\DungeonManager.cs" />
-    <Compile Include="Assets\Logic\EquipDatabase.cs" />
     <Compile Include="Assets\Logic\EventManager.cs" />
     <Compile Include="Assets\Logic\GameManager.cs" />
     <Compile Include="Assets\Logic\LootManager.cs" />

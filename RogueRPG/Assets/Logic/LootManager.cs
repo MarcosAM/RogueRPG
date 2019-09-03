@@ -25,25 +25,28 @@ public class LootManager : MonoBehaviour
         RestartProgress();
     }
 
-    void RestartProgress()
+    public static void RestartProgress()
     {
-        currentIndex = 0;
+        if (lootManager)
+        {
+            lootManager.currentIndex = 0;
 
-        playerEquip.Clear();
-        foreach (Equip equip in warriorInitialEquips)
-        {
-            playerEquip.Add(equip);
-        }
-        foreach (Equip equip in mageInitialEquips)
-        {
-            playerEquip.Add(equip);
-        }
-        foreach (Equip equip in rogueInitialEquips)
-        {
-            playerEquip.Add(equip);
-        }
+            lootManager.playerEquip.Clear();
+            foreach (Equip equip in lootManager.warriorInitialEquips)
+            {
+                lootManager.playerEquip.Add(equip);
+            }
+            foreach (Equip equip in lootManager.mageInitialEquips)
+            {
+                lootManager.playerEquip.Add(equip);
+            }
+            foreach (Equip equip in lootManager.rogueInitialEquips)
+            {
+                lootManager.playerEquip.Add(equip);
+            }
 
-        PartyManager.SetPartyEquips(warriorInitialEquips, mageInitialEquips, rogueInitialEquips);
+            PartyManager.SetPartyEquips(lootManager.warriorInitialEquips, lootManager.mageInitialEquips, lootManager.rogueInitialEquips);
+        }
     }
 
     public static Equip[] GetLootOptionsAndAdvanceTrack(int characterCount)

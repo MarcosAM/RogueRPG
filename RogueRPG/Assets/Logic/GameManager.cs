@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        clearedDungeons.Clear();
+        LootManager.RestartProgress();
         LoadScene(6);
     }
 }
