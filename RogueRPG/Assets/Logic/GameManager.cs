@@ -51,8 +51,22 @@ public class GameManager : MonoBehaviour
 
     public int GetDungeonsCleared() { return dungeonsCleared; }
 
-    public void UnlockDungeons()
+    public void OnDungeonEnded()
     {
         dungeonsCleared++;
+
+        if (currentDungeon.IsLast())
+        {
+            EndGame();
+        }
+        else
+        {
+            LoadScene(4);
+        }
+    }
+
+    public void EndGame()
+    {
+        LoadScene(6);
     }
 }

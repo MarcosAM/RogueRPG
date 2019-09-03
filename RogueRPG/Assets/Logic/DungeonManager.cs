@@ -174,8 +174,7 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
-            gameManager.UnlockDungeons();
-            SceneManager.LoadScene(4);
+            gameManager.OnDungeonEnded();
         }
     }
 

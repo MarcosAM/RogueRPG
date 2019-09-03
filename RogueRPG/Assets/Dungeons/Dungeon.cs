@@ -8,10 +8,13 @@ public class Dungeon : ScriptableObject
     [SerializeField] string dungeonName;
     [SerializeField] BattleGroup[] battleGroups;
     [SerializeField] int prerequisit;
+    [SerializeField] bool last;
 
     public BattleGroup[] GetBattleGroups() { return battleGroups; }
 
     public string GetDungeonName() { return dungeonName; }
 
     public int GetPrerequisit() { return prerequisit; }
+
+    public bool IsLast() { return last; }
 }
