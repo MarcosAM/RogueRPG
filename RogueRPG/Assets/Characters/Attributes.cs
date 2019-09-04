@@ -21,8 +21,6 @@ public class Attributes : MonoBehaviour
     public static readonly int atkAndDefDebuff = -2;
     static readonly float agility = 0.2f;
 
-    Momentum momentum;
-
     public event Action OnHUDValuesChange;
     public event Action<int, bool> OnHPValuesChange;
     public event Action<Attribute, int> OnEffectsChange;
@@ -30,7 +28,6 @@ public class Attributes : MonoBehaviour
     public void Initialize(Character character)
     {
         this.character = character;
-        this.momentum = FindObjectOfType<Momentum>();
         for (int i = 0; i < subAttributes.Length; i++)
         {
             subAttributes[i] = 0;
@@ -202,10 +199,6 @@ public class Attributes : MonoBehaviour
         return effectsDurations[(int)attribute] < 0;
     }
 
-    //TODO ver uma maneira de me livrar disso. Provavelmente transformar momentum em static
-    public Momentum GetMomentum() { return momentum; }
-    //public Character GetCharacter() { return character; }
-
     public void Heal(int value)
     {
         if (value >= 0 && alive)
@@ -243,8 +236,6 @@ public class Attributes : MonoBehaviour
         }
         else
             character.GetAnimator().SetTrigger("Defend");
-
-        momentum.Value += character.Playable ? -(float)damage / 100 : (float)damage / 100;
 
         RefreshHUD();
     }

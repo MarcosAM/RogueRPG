@@ -10,7 +10,6 @@ public class CharacterListItem : MonoBehaviour
     [SerializeField]
     Text text;
     StandartToggle[] toggles;
-    [SerializeField] Text momentumEquipTxt;
 
     int index;
 
@@ -69,7 +68,6 @@ public class CharacterListItem : MonoBehaviour
                 toggles[i].getText().text = characterAttributes.GetEquips()[i].GetEquipName();
             }
 
-            momentumEquipTxt.text = Archetypes.GetMomentumEquipName(characterAttributes.GetEquips());
         }
         else
         {
@@ -81,8 +79,6 @@ public class CharacterListItem : MonoBehaviour
             {
                 toggles[i].SetInterectable(false);
             }
-
-            momentumEquipTxt.text = "Momentum Equip";
         }
     }
 

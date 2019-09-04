@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Momentum : MonoBehaviour
 {
+    /*
     AnimatedSlider animatedSlider;
     int currentMomentumDowntime = 0;
     int maxMomentumDowntime = 6;
@@ -69,4 +70,5 @@ public class Momentum : MonoBehaviour
     {
         return side ? Value == animatedSlider.slider.maxValue : Value == animatedSlider.slider.minValue;
     }
+    */
 }

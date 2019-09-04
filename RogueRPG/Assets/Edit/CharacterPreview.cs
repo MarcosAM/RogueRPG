@@ -54,7 +54,7 @@ public class CharacterPreview : MonoBehaviour
 
     public void CheckIfShouldChangeArchetype(Equip[] equips)
     {
-        Archetypes.Archetype archetype = Archetypes.GetArchetype(equips, false);
+        Archetypes.Archetype archetype = Archetypes.GetArchetype(equips);
 
         if (this.archetype != archetype || avatarImg.childCount <= 0)
         {

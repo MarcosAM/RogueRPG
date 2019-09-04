@@ -14,7 +14,6 @@ public class DungeonManager : MonoBehaviour
     int dungeonFloor = 0;
     Battleground battleground;
     TurnManager turnManager;
-    Momentum momentum;
     BattleGroup[] battleGroups;
 
     WaitForSeconds delayNextTurn = new WaitForSeconds(1.8f);
@@ -24,7 +23,6 @@ public class DungeonManager : MonoBehaviour
         battleground = FindObjectOfType<Battleground>();
         turnManager = GetComponent<TurnManager>();
         GameManager gameManager = GameManager.getInstance();
-        momentum = FindObjectOfType<Momentum>();
         MakeItASingleton();
 
         List<Character> pcs = new List<Character>();
@@ -81,7 +79,6 @@ public class DungeonManager : MonoBehaviour
 
     void TryToStartTurn()
     {
-        momentum.MomentumCountdown();
         turnManager.StartTurn(initiativeOrder[0]);
     }
 

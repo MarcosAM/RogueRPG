@@ -27,10 +27,10 @@ public class Inventory : MonoBehaviour
 
     public bool IsEquipAvailable(int index)
     {
-        if (index == availableEquips.Count - 1)
+        foreach (bool b in availableEquips.Values)
         {
-            return FindObjectOfType<Momentum>().IsMomentumFull(side);
-        }
+            Debug.Log(b);
+        };
         return availableEquips[index];
     }
 
@@ -44,18 +44,12 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public bool IsMomentumEquip(int equipIndex)
-    {
-        return equipIndex == equips.Length - 1;
-    }
-
     public void SetEquipsAvailability(bool availability)
     {
         for (int i = 0; i < availableEquips.Count; i++)
         {
             availableEquips[i] = availability;
         }
-        availableEquips[availableEquips.Count - 1] = false;
     }
 
     public Dictionary<int, bool> GetAvailableEquips() { return availableEquips; }
@@ -68,16 +62,10 @@ public class Inventory : MonoBehaviour
     {
         this.side = character.Playable;
 
-        this.equips = new Equip[equips.Length + 1];
-
-        for (var i = 0; i < equips.Length; i++)
-        {
-            this.equips[i] = equips[i];
-        }
+        this.equips = equips;
 
         InitiateAvailableEquips();
         Archetype = Archetypes.GetArchetype(this.equips);
-        this.equips[this.equips.Length - 1] = Archetypes.GetMomentumEquip(Archetype, level);
         character.CreateEquipsSprites(this.equips);
         character.GetAttributes().UpdateAttributes(this.equips);
     }
@@ -98,6 +86,5 @@ public class Inventory : MonoBehaviour
         {
             availableEquips[i] = true;
         }
-        availableEquips[equips.Length - 1] = false;
     }
 }
