@@ -7,7 +7,7 @@ public class MagicalDamage : Damage
 {
     protected override void PrepareDamage(Character user, Character target)
     {
-        damage = (int)(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKM) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFM));
+        damage = (int)(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKM) * Random.value + dmgIntensifier - target.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFM));
         Debug.Log(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKM));
     }
 
@@ -31,5 +31,5 @@ public class MagicalDamage : Damage
         return (int)(c1.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFM) - c2.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFM));
     }
 
-    public override string GetEffectDescription() { return dmgIntensifier * 100 + "% Magical damage."; }
+    public override string GetEffectDescription() { return dmgIntensifier * 100 + " Magical damage."; }
 }

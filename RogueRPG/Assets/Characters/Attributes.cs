@@ -17,8 +17,8 @@ public class Attributes : MonoBehaviour
     //WARNING: Sempre que for alterar esses valores, é necessário lembrar a characterHUD
     int[] effectsDurations = new int[Enum.GetValues(typeof(Attribute)).Length];
 
-    public static readonly float atkAndDefBuff = 1.5f;
-    public static readonly float atkAndDefDebuff = 0.5f;
+    public static readonly int atkAndDefBuff = 2;
+    public static readonly int atkAndDefDebuff = -2;
     static readonly float agility = 0.2f;
 
     Momentum momentum;
@@ -56,7 +56,7 @@ public class Attributes : MonoBehaviour
 
     public int GetSubAttribute(SubAttribute subAttribute)
     {
-        float modifier = 1;
+        int modifier = 1;
 
         switch (subAttribute)
         {
@@ -75,7 +75,8 @@ public class Attributes : MonoBehaviour
                 break;
         }
 
-        return Mathf.RoundToInt(subAttributes[(int)subAttribute] * modifier);
+        return Mathf.RoundToInt(subAttributes[(int)subAttribute] + modifier);
+
     }
 
     public float GetAgility()

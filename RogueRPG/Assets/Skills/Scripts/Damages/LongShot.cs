@@ -12,22 +12,22 @@ public class LongShot : PhysicalDamage
         switch (distance)
         {
             case 0:
-                dmgIntensifier = .8f;
+                dmgIntensifier = 0;
                 break;
             case 1:
-                dmgIntensifier = .9f;
+                dmgIntensifier = 0;
                 break;
             case 2:
-                dmgIntensifier = 1f;
+                dmgIntensifier = 3;
                 break;
             case 3:
-                dmgIntensifier = 1.2f;
+                dmgIntensifier = 5;
                 break;
             case 4:
-                dmgIntensifier = 1.5f;
+                dmgIntensifier = 7;
                 break;
             case 5:
-                dmgIntensifier = 2f;
+                dmgIntensifier = 7;
                 break;
         }
 

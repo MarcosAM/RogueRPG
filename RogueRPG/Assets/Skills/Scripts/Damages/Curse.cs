@@ -14,7 +14,7 @@ public class Curse : Damage
         {
             foreach (Attributes.Attribute attribute in Enum.GetValues(typeof(Attributes.Attribute)))
             {
-                target.GetAttributes().StartEffect(attribute, -2);
+                target.GetAttributes().StartEffect(attribute, -3);
             }
         }
     }

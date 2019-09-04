@@ -11,7 +11,7 @@ public class Debuff : Damage
 
     protected override void OnHit(Character user, Character target)
     {
-        target.GetAttributes().StartEffect(attribute, -2);
+        target.GetAttributes().StartEffect(attribute, -3);
     }
 
     public override int SortBestTargets(Character user, Character c1, Character c2)

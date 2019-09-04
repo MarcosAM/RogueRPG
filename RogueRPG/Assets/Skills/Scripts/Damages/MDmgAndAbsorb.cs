@@ -19,7 +19,7 @@ public class MDmgAndAbsorb : MagicalDamage
         {
             if (target.GetAttributes().GetEffectDuration(attribute) != 0)
             {
-                user.GetAttributes().StartEffect(attribute, (int)(Mathf.Sign(target.GetAttributes().GetEffectDuration(attribute)) * 2));
+                user.GetAttributes().StartEffect(attribute, (int)(Mathf.Sign(target.GetAttributes().GetEffectDuration(attribute)) * 3));
             }
         }
     }

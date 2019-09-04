@@ -8,7 +8,6 @@ public class PhysicalDamage : Damage
     [SerializeField]
     [Range(0f, 1f)]
     protected float critic;
-    public static float criticIntensifier = 1.5f;
     protected bool wasCritic = false;
 
 
@@ -16,13 +15,13 @@ public class PhysicalDamage : Damage
     {
         if (Random.value < critic)
         {
-            damage = (int)(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKP) * criticIntensifier * dmgIntensifier - target.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP));
+            damage = (int)(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKP) + dmgIntensifier);
             wasCritic = true;
             hitted = true;
         }
         else
         {
-            damage = (int)(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKP) * Random.Range(1f, 1.2f) * dmgIntensifier - target.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP));
+            damage = (int)(user.GetAttributes().GetSubAttribute(Attributes.SubAttribute.ATKP) * Random.value + dmgIntensifier - target.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP));
             wasCritic = false;
         }
     }
@@ -44,5 +43,5 @@ public class PhysicalDamage : Damage
         return (int)(c1.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP) - c2.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP));
     }
 
-    public override string GetEffectDescription() { return dmgIntensifier * 100 + "% Physical damage. Critic: " + critic * 100 + "%"; }
+    public override string GetEffectDescription() { return dmgIntensifier * 100 + " Physical damage. Critic: " + critic * 100 + "%"; }
 }

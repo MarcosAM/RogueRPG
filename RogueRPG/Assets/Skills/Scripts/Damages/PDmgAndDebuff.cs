@@ -19,5 +19,5 @@ public class PDmgAndDebuff : PhysicalDamage
         return c2.GetAttributes().GetEffectDuration(attribute) - c1.GetAttributes().GetEffectDuration(attribute);
     }
 
-    public override string GetEffectDescription() { return (dmgIntensifier * 100 + "% Physical damage. Critic: " + critic * 100 + "%. " + ": "); }
+    public override string GetEffectDescription() { return (dmgIntensifier * 100 + " Physical damage. Critic: " + critic * 100 + "%. " + ": "); }
 }
