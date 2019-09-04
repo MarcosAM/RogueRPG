@@ -25,14 +25,7 @@ public class Inventory : MonoBehaviour
 
 
 
-    public bool IsEquipAvailable(int index)
-    {
-        foreach (bool b in availableEquips.Values)
-        {
-            Debug.Log(b);
-        };
-        return availableEquips[index];
-    }
+    public bool IsEquipAvailable(int index) { return availableEquips[index]; }
 
     public bool AtLeastOneEquipAvailable()
     {
