@@ -14,12 +14,15 @@ public class EquipList : MonoBehaviour
 
     [SerializeField] CharacterListItem[] characterItens;
     [SerializeField] EquipListItem equipListItem;
+    EquipListItem selectedEquipItem;
 
     Equip[] allPlayersEquips;
 
     void Start()
     {
         var party = PartyManager.GetParty();
+
+        selectedEquipItem = FindObjectOfType<EquipListItem>();
 
         for (var i = 0; i < characterItens.Length; i++)
         {
@@ -64,7 +67,13 @@ public class EquipList : MonoBehaviour
     void UpdateListItem(RectTransform rect, int index, Equip equip)
     {
         EquipListItem[] listItems = rect.GetComponentsInChildren<EquipListItem>();
-        listItems[index].Fill(equip, equip == selectedEquip, PartyManager.GetParty().Any(hero => hero.GetEquips().Contains(equip)));
+        //listItems[index].Fill(equip, equip == selectedEquip, PartyManager.GetParty().Any(hero => hero.GetEquips().Contains(equip)));
+        UpdateListItem(listItems[index], equip);
+    }
+
+    void UpdateListItem(EquipListItem listItem, Equip equip)
+    {
+        listItem.Fill(equip, equip == selectedEquip, PartyManager.GetParty().Any(hero => hero.GetEquips().Contains(equip)));
     }
 
     void RefreshListItems()
@@ -110,6 +119,7 @@ public class EquipList : MonoBehaviour
     void RefreshSelectedEquip()
     {
         selectedEquip = PartyManager.GetParty()[selectedCharIndex].GetEquips()[selectedEquipIndex];
+        UpdateListItem(selectedEquipItem, selectedEquip);
     }
 
     private void OnDisable()
