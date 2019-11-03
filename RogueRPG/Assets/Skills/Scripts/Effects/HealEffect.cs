@@ -20,11 +20,11 @@ public class HealEffect : Effects
     }
     public override bool IsLogicalTarget(Tile tile)
     {
-        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetHP() != tile.GetCharacter().GetAttributes().GetHP() && tile.CharacterIs(true) : false;
+        return tile.GetCharacter() ? tile.GetCharacter().GetAttributes().GetHP() != tile.GetCharacter().GetAttributes().GetMaxHP() && tile.CharacterIs(true) : false;
     }
     public override int GetComparableValue(Character character)
     {
-        float hpPercentege = character.GetAttributes().GetHP() / character.GetAttributes().GetHP();
+        float hpPercentege = character.GetAttributes().GetHP() / character.GetAttributes().GetMaxHP();
 
         for (int i = TurnSugestion.maxProbability; i >= TurnSugestion.minProbability; i--)
         {
