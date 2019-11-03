@@ -41,7 +41,7 @@ public class Attributes : MonoBehaviour
     public void UpdateAttributes(Equip[] equips)
     {
         //TODO rever todo esse negócio de receber junto com os momentum equip
-        for (int i = 0; i < equips.Length - 1; i++)
+        for (int i = 0; i < equips.Length; i++)
         {
             SetMaxHP(maxHp + equips[i].GetHp());
             for (int l = 0; l < subAttributes.Length; l++)
