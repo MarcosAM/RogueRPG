@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Damage : SkillEffect
 {
     [SerializeField]
-    [Range(0.8f, 5f)]
+    [Range(0f, 7f)]
     protected float dmgIntensifier;
     protected int damage;
 
