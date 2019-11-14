@@ -14,6 +14,7 @@ public class DungeonBtn : MonoBehaviour
     void Start()
     {
         particleSystem = GetComponentInChildren<ParticleSystem>();
+        particleSystem.Stop();
 
         var texts = GetComponentsInChildren<Text>();
         dungeonName = texts[0];
@@ -48,6 +49,9 @@ public class DungeonBtn : MonoBehaviour
 
         if (dungeonsCleared == this.dungeon.GetPrerequisit())
         {
+            ParticleSystem.MainModule psMain = particleSystem.main;
+            psMain.startLifetime = new ParticleSystem.MinMaxCurve(3f, 6f);
+            particleSystem.Play();
             particleSystem.Stop();
         }
 
