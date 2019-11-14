@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class DungeonBtn : MonoBehaviour
 {
     [SerializeField] int index;
+    [SerializeField] Sprite done;
     Text dungeonName;
     Button button;
+    Image image;
     Dungeon dungeon;
     ParticleSystem particleSystem;
 
@@ -15,6 +17,8 @@ public class DungeonBtn : MonoBehaviour
     {
         particleSystem = GetComponentInChildren<ParticleSystem>();
         particleSystem.Stop();
+
+        image = GetComponentInChildren<Image>();
 
         var texts = GetComponentsInChildren<Text>();
         dungeonName = texts[0];
@@ -33,7 +37,15 @@ public class DungeonBtn : MonoBehaviour
         if (gameManager.WasCleared(this.dungeon))
         {
             dungeonName.gameObject.SetActive(false);
-            button.gameObject.SetActive(false);
+            button.interactable = false;
+            if (image && done)
+            {
+                image.sprite = done;
+            }
+            else
+            {
+                button.gameObject.SetActive(false);
+            }
             particleSystem.gameObject.SetActive(false);
             return;
         }
