@@ -15,15 +15,13 @@ public class ConeAttack : Attack
 
     public override void Act(Character user, Tile target, SkillEffect skillEffect)
     {
-        GenerateNewAttack(user);
-
         foreach (Tile tile in target.GetAlliesTiles())
         {
             if (WillBeAffected(user.GetTile(), target, tile))
             {
                 skillEffect.EffectAnimation(tile);
                 if (tile.CharacterIs(true))
-                    skillEffect.TryToAffect(user, tile.GetCharacter(), attack);
+                    skillEffect.TryToAffect(user, tile.GetCharacter(), GenerateNewAttack(user));
             }
         }
     }

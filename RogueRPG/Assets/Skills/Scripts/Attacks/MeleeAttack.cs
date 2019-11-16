@@ -11,9 +11,9 @@ public class MeleeAttack : Attack
     public override void Act(Character user, Tile target, SkillEffect skillEffect)
     {
         skillEffect.EffectAnimation(target);
-        GenerateNewAttack(user);
+
         if (target.CharacterIs(true))
-            skillEffect.TryToAffect(user, target.GetCharacter(), attack);
+            skillEffect.TryToAffect(user, target.GetCharacter(), GenerateNewAttack(user));
     }
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)

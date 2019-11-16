@@ -7,10 +7,10 @@ public abstract class Attack : Actions
     [SerializeField]
     [Range(0f, 1f)]
     protected float precision;
-    protected float attack;
 
-    protected void GenerateNewAttack(Character user)
+
+    protected float GenerateNewAttack(Character user)
     {
-        attack = user.GetAttributes().GetAgility() + precision - Random.value;
+        return user.GetAttributes().GetAgility() + precision - Random.value;
     }
 }
