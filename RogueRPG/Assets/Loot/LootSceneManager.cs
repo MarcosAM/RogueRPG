@@ -11,12 +11,12 @@ public class LootSceneManager : MonoBehaviour
     {
         lootOptions = GetComponentsInChildren<LootOptions>().ToList();
 
-        int characterCount = PartyManager.GetParty().Length;
-        var options = LootManager.GetLootOptionsAndAdvanceTrack(characterCount);
+        int lootCount = lootOptions.Count();
+        var options = LootManager.GetLootOptionsAndAdvanceTrack(lootCount);
 
-        for (int i = 0; i < lootOptions.Count; i++)
+        for (int i = 0; i < lootCount; i++)
         {
-            if (i < characterCount)
+            if (i < lootCount)
             {
                 lootOptions[i].RefreshOptions(options[i + i], options[i + i + 1]);
             }
