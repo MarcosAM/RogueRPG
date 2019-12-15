@@ -35,5 +35,5 @@ public class AllyAssist : Assist
         }
     }
 
-    public override string GetTargetDescription() { return "An ally. Range: " + (range + 1); }
+    public override string GetTargetDescription() { return "An ally. Range: " + range; }
 }

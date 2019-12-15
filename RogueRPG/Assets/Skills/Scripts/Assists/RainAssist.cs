@@ -49,5 +49,5 @@ public class RainAssist : Assist
         }
     }
 
-    public override string GetTargetDescription() { return "Line " + (area * 2 + 1) + ". Range: " + (range + 1); }
+    public override string GetTargetDescription() { return "Line " + (area * 2 + 1) + ". Range: " + range; }
 }

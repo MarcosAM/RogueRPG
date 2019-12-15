@@ -144,15 +144,18 @@ public class Attributes : MonoBehaviour
 
     public void StartEffect(Attribute attribute, int effectDuration)
     {
-        if (effectsDurations[(int)attribute] != 0 && Mathf.Sign(effectsDurations[(int)attribute]) != Mathf.Sign(effectDuration))
+        if(alive)
         {
-            effectsDurations[(int)attribute] = 0;
+            if (effectsDurations[(int)attribute] != 0 && Mathf.Sign(effectsDurations[(int)attribute]) != Mathf.Sign(effectDuration))
+            {
+                effectsDurations[(int)attribute] = 0;
+            }
+            else
+            {
+                effectsDurations[(int)attribute] = effectDuration;
+            }
+            EffectsChanged(attribute, effectDuration);
         }
-        else
-        {
-            effectsDurations[(int)attribute] = effectDuration;
-        }
-        EffectsChanged(attribute, effectDuration);
     }
 
     public void RemoveAllBuffs()

@@ -13,5 +13,5 @@ public class DoubleDamage : PhysicalDamage
         otherEffect.Affect(user, target);
     }
 
-    public override string GetEffectDescription() { return dmgIntensifier * 100 + " Physical damage. Critic: " + critic * 100 + "% and " + otherEffect.GetEffectDescription(); }
+    public override string GetEffectDescription() { return dmgIntensifier + " Physical damage. Critic: " + critic * 100 + "% and " + otherEffect.GetEffectDescription(); }
 }

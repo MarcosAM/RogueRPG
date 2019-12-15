@@ -41,8 +41,12 @@ public class Tooltip : MonoBehaviour
 
     private void HideSelf()
     {
+        transform.SetParent(null);
+        Debug.Log("Meu pai " + transform.parent);
+        DontDestroyOnLoad(gameObject);
         gameObject.SetActive(false);
     }
+
 
     public static void ShowTooltip(string tip)
     {

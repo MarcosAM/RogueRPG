@@ -36,5 +36,5 @@ public class PhysicalDamage : Damage
         return (int)(c1.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP) - c2.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFP));
     }
 
-    public override string GetEffectDescription() { return dmgIntensifier * 100 + " Physical damage. Critic: " + critic * 100 + "%"; }
+    public override string GetEffectDescription() { return dmgIntensifier + " Physical damage. Critic: " + critic * 100 + "%"; }
 }

@@ -38,4 +38,6 @@ public class LongShot : PhysicalDamage
     {
         return CombatRules.GetDistance(user.GetTile(), c2.GetTile()) - CombatRules.GetDistance(user.GetTile(), c1.GetTile());
     }
+
+    public override string GetEffectDescription() { return "0~7 Physical damage. Critic: " + critic * 100 + "%"; }
 }

@@ -24,5 +24,5 @@ public class MagicalDamage : Damage
         return (int)(c1.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFM) - c2.GetAttributes().GetSubAttribute(Attributes.SubAttribute.DEFM));
     }
 
-    public override string GetEffectDescription() { return dmgIntensifier * 100 + " Magical damage."; }
+    public override string GetEffectDescription() { return dmgIntensifier + " Magical damage."; }
 }

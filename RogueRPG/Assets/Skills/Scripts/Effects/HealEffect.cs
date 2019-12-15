@@ -36,5 +36,5 @@ public class HealEffect : Effects
         return 0;
     }
 
-    public override string GetEffectDescription() { return "Heal " + healIntensifier * 100 + "% Magical Damage"; }
+    public override string GetEffectDescription() { return "Heal " + healIntensifier * 100 + "%"; }
 }
