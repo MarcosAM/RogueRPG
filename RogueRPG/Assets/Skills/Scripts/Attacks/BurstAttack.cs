@@ -26,10 +26,8 @@ public class BurstAttack : Attack
         List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.Playable);
         enemies.RemoveAll(t => !IsTargetable(user, t));
         allies.RemoveAll(t => !IsTargetable(user, t));
-        if (enemies.Count > 0)
-            return new TurnSugestion(TurnSugestion.maxProbability - allies.Count, enemies[0].GetIndex());
-        else
-            return new TurnSugestion(0);
+
+        return new TurnSugestion(TurnSugestion.maxProbability - allies.Count, enemies[0].GetIndex());
     }
 
     public override string GetTargetDescription() { return "Burst " + range + ". Precision: " + precision * 100 + "%"; }
