@@ -13,12 +13,19 @@ public class Tooltip : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
 
-        text = GetComponentInChildren<Text>();
-        HideSelf();
+            text = GetComponentInChildren<Text>();
+            HideSelf();
 
-        DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void Update()
@@ -42,7 +49,6 @@ public class Tooltip : MonoBehaviour
     private void HideSelf()
     {
         transform.SetParent(null);
-        Debug.Log("Meu pai " + transform.parent);
         DontDestroyOnLoad(gameObject);
         gameObject.SetActive(false);
     }

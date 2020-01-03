@@ -22,12 +22,7 @@ public class BurstAttack : Attack
 
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
-        List<Tile> enemies = battleground.GetTilesFromAliveCharactersOf(!user.Playable);
-        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.Playable);
-        enemies.RemoveAll(t => !IsTargetable(user, t));
-        allies.RemoveAll(t => !IsTargetable(user, t));
-
-        return new TurnSugestion(TurnSugestion.maxProbability - allies.Count, enemies[0].GetIndex());
+        return new TurnSugestion(TurnSugestion.maxProbability / 2, user.GetTile().GetTileInFront().GetIndex());
     }
 
     public override string GetTargetDescription() { return "Burst " + range + ". Precision: " + precision * 100 + "%"; }

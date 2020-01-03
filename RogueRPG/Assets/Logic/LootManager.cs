@@ -18,11 +18,18 @@ public class LootManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        if (lootManager == null)
+        {
+            DontDestroyOnLoad(this);
 
-        lootManager = this;
+            lootManager = this;
 
-        RestartProgress();
+            RestartProgress();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public static void RestartProgress()
