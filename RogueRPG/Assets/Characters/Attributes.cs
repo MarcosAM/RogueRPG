@@ -144,17 +144,20 @@ public class Attributes : MonoBehaviour
 
     public void StartEffect(Attribute attribute, int effectDuration)
     {
-        if(alive)
+        if (alive)
         {
+            int newDuration;
+
             if (effectsDurations[(int)attribute] != 0 && Mathf.Sign(effectsDurations[(int)attribute]) != Mathf.Sign(effectDuration))
             {
-                effectsDurations[(int)attribute] = 0;
+                newDuration = 0;
             }
             else
             {
-                effectsDurations[(int)attribute] = effectDuration;
+                newDuration = effectDuration;
             }
-            EffectsChanged(attribute, effectDuration);
+            effectsDurations[(int)attribute] = newDuration;
+            EffectsChanged(attribute, newDuration);
         }
     }
 
