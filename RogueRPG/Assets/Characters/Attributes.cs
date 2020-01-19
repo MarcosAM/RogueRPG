@@ -104,7 +104,7 @@ public class Attributes : MonoBehaviour
     {
         if (effectsDurations[(int)Attribute.HP] > 0)
         {
-            Heal(maxHp / 4);
+            Heal(maxHp / 6);
             return;
         }
         if (effectsDurations[(int)Attribute.HP] < 0)
