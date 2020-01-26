@@ -37,6 +37,6 @@ public class LootSceneManager : MonoBehaviour
             }
         }
 
-        FindObjectOfType<GameManager>().LoadScene(5);
+        FindObjectOfType<GameManager>().LoadScene(3);
     }
 }
