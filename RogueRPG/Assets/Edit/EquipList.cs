@@ -8,6 +8,7 @@ using System.Linq;
 public class EquipList : MonoBehaviour
 {
     ScrollRect scrollRect;
+    int toggleIndex = 0;
     [SerializeField] int selectedCharIndex = 0;
     int selectedEquipIndex = 0;
     Equip selectedEquip;
@@ -104,10 +105,11 @@ public class EquipList : MonoBehaviour
 
     public void OnEquipToggleValueChange(int index)
     {
-        if (selectedEquipIndex != index)
+        if (toggleIndex != index)
         {
             selectedEquipIndex = index % 4;
             selectedCharIndex = index / 4;
+            toggleIndex = index;
 
             RefreshSelectedEquip();
             characterItens[selectedCharIndex].GetCharacterPreview().SwitchEquip(selectedEquip);
