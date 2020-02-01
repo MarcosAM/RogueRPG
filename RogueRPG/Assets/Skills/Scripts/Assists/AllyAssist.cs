@@ -18,7 +18,17 @@ public class AllyAssist : Assist
     public override TurnSugestion GetTurnSugestion(Character user, Battleground battleground, SkillEffect skillEffect)
     {
         Effects effect = skillEffect as Effects;
-        List<Tile> allies = battleground.GetTilesFromAliveCharactersOf(user.Playable);
+        List<Tile> allies;
+
+        if (skillEffect is ReviveEffect)
+        {
+            allies = battleground.GetTilesFromDeadCharactersOf(user.Playable);
+        }
+        else
+        {
+            allies = battleground.GetTilesFromAliveCharactersOf(user.Playable);
+        }
+
         List<Tile> possibleTargets = allies.FindAll(t => IsTargetable(user, t) && effect.IsLogicalTarget(t));
         //TODO ver debuff. Talvez dar uma ênfase nos que já estão debuff e com nível igual. Idk
         if (possibleTargets.Count > 0)

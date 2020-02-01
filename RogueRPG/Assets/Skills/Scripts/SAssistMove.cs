@@ -38,7 +38,7 @@ public class SAssistMove : Movement
     {
         //TODO Só está pegando tiles de usuários vivos, vai ser inútil em uma skill de ressucitar
         List<Tile> alliesTiles = battleground.GetTilesFromAliveCharactersOf(user.Playable);
-        alliesTiles.RemoveAll(t => ((Effects)skillEffect).GetComparableValue(t.GetCharacter()) < 0);
+        alliesTiles.RemoveAll(t => ((Effects)skillEffect).GetComparableValue(t.GetCharacter()) < 0 || t.GetCharacter() == user);
 
         if (alliesTiles.Count > 0)
         {
