@@ -33,5 +33,5 @@ public class MeleeAttack : Attack
         return new TurnSugestion(0);
     }
 
-    public override string GetTargetDescription() { return "A enemy. Range: " + range + ". Precision: " + precision * 100 + "%"; }
+    public override string GetTargetDescription() { return "An enemy. Range: " + range + ". Precision: " + precision * 100 + "%"; }
 }

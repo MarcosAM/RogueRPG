@@ -12,7 +12,8 @@ public class HealEffect : Effects
     public override void Affect(Character user, Character target)
     {
         base.Affect(user, target);
-        target.GetAttributes().Heal((int)(target.GetAttributes().GetMaxHP() * healIntensifier));
+        if (target)
+            target.GetAttributes().Heal((int)(target.GetAttributes().GetMaxHP() * healIntensifier));
     }
     public override int SortBestTargets(Character user, Character c1, Character c2)
     {

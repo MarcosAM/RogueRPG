@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LootOption : MonoBehaviour
 {
     [SerializeField] Text eName, eAttributes;
-    [SerializeField] List<Text> eSkills;
+    [SerializeField] List<SkillListItem> eSkills;
 
     Equip equip;
 
@@ -34,11 +34,11 @@ public class LootOption : MonoBehaviour
         {
             if (i < skills.Count)
             {
-                eSkills[i].text = skills[i].GetSkillName();
+                eSkills[i].Initialize(skills[i].GetSkillName(), skills[i].GetDescription());
             }
             else
             {
-                eSkills[i].text = " - ";
+                eSkills[i].Initialize(" - ");
             }
         }
     }
